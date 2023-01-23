@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --ff: 'Poppins', sans-serif;
+    --clr-nav-bg: hsl(200, 50%, 50%);
+    --clr-txt: hsl(0, 0%, 100%);
+    --clr-nav-hover: linear-gradient(90deg, hsl(284, 100%, 50%), hsl(0, 70%, 30%));
+    --clr-search-fnt: hsl(0, 0% , 0%);
+}
+
+
+body{
+    font-family: var(--ff);
+    min-height: 100vh;
+}
+
+input, select, textarea, button{font-family:inherit;}
+
+img{
+    width: 100%;
+}

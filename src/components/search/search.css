@@ -1,0 +1,25 @@
+.search{
+    max-width: 40rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background-color: var(--clr-txt);
+    color: var(--clr-nav-bg);
+    padding: .5rem .85rem;
+    border-radius: 5rem;
+}
+
+.search:focus-within{
+    outline: 2px solid var(--clr-search-fnt);
+}
+
+.search .search-box{
+    border: 0;
+    background-color: transparent;
+    color: var(--clr-nav-bg);
+    font-weight: 600;
+}
+
+.search .search-box:focus{
+    outline: 0;
+}
