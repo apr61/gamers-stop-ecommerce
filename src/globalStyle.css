@@ -14,12 +14,14 @@
     --clr-txt: hsl(0, 0%, 100%);
     --clr-nav-hover: linear-gradient(90deg, hsl(284, 100%, 50%), hsl(0, 70%, 30%));
     --clr-search-fnt: hsl(0, 0% , 0%);
+    --clr-slider-circle: hsl(0, 0%, 100%); 
 }
 
 
 body{
     font-family: var(--ff);
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 input, select, textarea, button{font-family:inherit;}

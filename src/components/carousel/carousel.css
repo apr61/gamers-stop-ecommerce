@@ -1,0 +1,77 @@
+.carousel {
+    position: relative;
+    height: calc(100vh - 5rem);
+    width: 100vw;
+    overflow: hidden;
+}
+
+.carousel .imageContainer {
+    display: flex;
+    height: 100%;
+    width: fit-content;
+}
+
+.carousel .imageContainer img {
+    width: 100vw;
+    height: 100%;
+}
+
+.carousel .btn {
+    position: absolute;
+    top: 40%;
+    color: var(--clr-txt);
+    width: 3rem;
+    height: 6rem;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: .5rem;
+}
+
+.carousel .btn:hover {
+    color: var(--clr-nav-bg)
+}
+
+.carousel .btn:focus,
+.carousel .btn:focus-visible,
+.circle:focus,
+.circle:focus-visible {
+    border: 2px solid var(--clr-txt);
+    outline: 2px solid var(--clr-nav-bg);
+}
+
+.prev {
+    left: 1rem;
+}
+
+.next {
+    right: 2rem;
+}
+
+.circle-nav {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 1rem;
+}
+
+.circle {
+    border: 1px solid var(--clr-slider-circle);
+    background-color: transparent;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.circle:hover {
+    background-color: var(--clr-txt);
+    outline: 2px solid var(--clr-nav-bg);
+}
+
+.circle.active {
+    background-color: var(--clr-slider-circle);
+}
