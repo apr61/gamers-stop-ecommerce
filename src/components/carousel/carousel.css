@@ -1,7 +1,7 @@
 .carousel {
     position: relative;
     height: calc(100vh - 5rem);
-    width: 100vw;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -19,7 +19,7 @@
 .carousel .btn {
     position: absolute;
     top: 40%;
-    color: var(--clr-txt);
+    color: var(--clr-txt-white);
     width: 3rem;
     height: 6rem;
     border: 0;
@@ -30,15 +30,15 @@
 }
 
 .carousel .btn:hover {
-    color: var(--clr-nav-bg)
+    color: var(--clr-carousel-hvr)
 }
 
 .carousel .btn:focus,
 .carousel .btn:focus-visible,
 .circle:focus,
 .circle:focus-visible {
-    border: 2px solid var(--clr-txt);
-    outline: 2px solid var(--clr-nav-bg);
+    border: 2px solid var(--clr-txt-white);
+    outline: 2px solid var(--clr-carousel-hvr);
 }
 
 .prev {
@@ -46,7 +46,7 @@
 }
 
 .next {
-    right: 2rem;
+    right: 1rem;
 }
 
 .circle-nav {
@@ -68,8 +68,8 @@
 }
 
 .circle:hover {
-    background-color: var(--clr-txt);
-    outline: 2px solid var(--clr-nav-bg);
+    background-color: var(--clr-txt-white);
+    outline: 2px solid var(--clr-carousel-hvr);
 }
 
 .circle.active {

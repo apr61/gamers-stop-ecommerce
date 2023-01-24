@@ -3,14 +3,14 @@
     display: flex;
     align-items: center;
     gap: .5rem;
-    background-color: var(--clr-txt);
+    background-color: var(--clr-txt-white);
     color: var(--clr-nav-bg);
     padding: .5rem .85rem;
     border-radius: 5rem;
 }
 
 .search:focus-within{
-    outline: 2px solid var(--clr-search-fnt);
+    outline: 2px solid var(--clr-txt-black);
 }
 
 .search .search-box{

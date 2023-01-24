@@ -11,7 +11,6 @@ function Carousel() {
     function prevSlide(){
         setCurrentSlide(currentSlide === 0 ? carouselImages.length-1 : currentSlide-1)
     }
-    console.log(currentSlide)
     return (
         <div className="carousel">
             <div className="imageContainer">

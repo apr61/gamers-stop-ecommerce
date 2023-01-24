@@ -1,0 +1,12 @@
+.home-main{
+    max-width: calc(100vw - 2rem);
+    margin-inline: auto;
+}
+
+.heading-two{
+    margin: 1rem 0;
+}
+
+.shop-by-categories{
+    overflow: hidden;
+}

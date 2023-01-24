@@ -3,7 +3,7 @@
     align-items: center;
     padding: 1rem;
     background-color: var(--clr-nav-bg);
-    color: var(--clr-txt);
+    color: var(--clr-txt-white);
 }
 
 .navbar .logo{
