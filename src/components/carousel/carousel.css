@@ -16,37 +16,10 @@
     height: 100%;
 }
 
-.carousel .btn {
-    position: absolute;
-    top: 40%;
-    color: var(--clr-txt-white);
-    width: 3rem;
-    height: 6rem;
-    border: 0;
-    background-color: transparent;
-    cursor: pointer;
-    font-size: 1.5rem;
-    border-radius: .5rem;
-}
-
-.carousel .btn:hover {
-    color: var(--clr-carousel-hvr)
-}
-
-.carousel .btn:focus,
-.carousel .btn:focus-visible,
 .circle:focus,
 .circle:focus-visible {
     border: 2px solid var(--clr-txt-white);
     outline: 2px solid var(--clr-carousel-hvr);
-}
-
-.prev {
-    left: 1rem;
-}
-
-.next {
-    right: 1rem;
 }
 
 .circle-nav {

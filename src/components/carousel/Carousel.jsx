@@ -2,6 +2,7 @@ import './carousel.css'
 import { carouselImages } from '../../data/imagesLoader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
+import SliderControlButton from '../../utils/button/SliderControlButton'
 
 function Carousel() {
     const [currentSlide, setCurrentSlide] = useState(0)
@@ -16,8 +17,8 @@ function Carousel() {
             <div className="imageContainer">
                 <img src={carouselImages[currentSlide]} />
             </div>
-            <button className="btn prev" onClick={prevSlide}><FontAwesomeIcon icon="fa-solid fa-left-long" /></button>
-            <button className="btn next" onClick={nextSlide}><FontAwesomeIcon icon="fa-solid fa-right-long" /></button>
+            <SliderControlButton control={'prev'} handleFunction={prevSlide}/>
+            <SliderControlButton control={'next'} handleFunction={nextSlide}/>
             <div className="circle-nav">
                 {carouselImages.map((_, i) => (
                     <button key={i} className={i === currentSlide ? "circle active" : "circle"} onClick={() => setCurrentSlide(i)}></button>

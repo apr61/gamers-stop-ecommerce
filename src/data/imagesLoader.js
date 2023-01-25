@@ -55,5 +55,5 @@ export const categoryData = [
         id: 11,
         name: 'Games',
         images: './images/category/games.jpg'
-    }
+    },
 ]

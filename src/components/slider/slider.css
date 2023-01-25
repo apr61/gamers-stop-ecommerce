@@ -3,13 +3,14 @@
     max-width: calc(100vw - 4rem);
     margin-inline: auto;
     margin-bottom: 3rem;
+    overflow: hidden;
 }
 
 .slider-container{
     width: 100%;
     display: flex;
     gap: .5rem;
-    transition: transform 1s ease-in-out;
+    transition: transform 600ms ease-in-out;
 }
 
 .slider .btn{

@@ -13,7 +13,7 @@ function Home() {
         <Carousel />
         <section className="shop-by-categories">
           <h2 className="heading-two">Shop By Categories</h2>
-          <Slider>
+          <Slider itemsPerRow={6}>
             {categoryData.map(category => (
               <CategoryCard key={category.id} category={category} />
             ))}

@@ -1,22 +1,31 @@
 import './slider.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
+import SliderControlButton from '../../utils/button/SliderControlButton'
 
-function Slider({ children }) {
+function Slider({ children, itemsPerRow }) {
     const [slideNumber, setSlideNumber] = useState(0)
+
+    const sliderSlidingStyle = {
+        transform: `translateX(-${slideNumber * 16}rem)`
+    }
     function prevCards() {
-        setSlideNumber(0)
+        if(slideNumber>0){
+            setSlideNumber(slideNumber-1)
+        }
     }
     function nextCards() {
-        setSlideNumber(1)
+        if(slideNumber<children.length-itemsPerRow){
+            setSlideNumber(slideNumber+1)
+        }
     }
     return (
         <div className="slider">
-            <div className="slider-container" style={{ transform: `translateX(-${slideNumber * 100}%)` }}>
+            <div className='slider-container' style={sliderSlidingStyle}>
                 {children}
             </div>
-            <button className="btn prev" onClick={prevCards}><FontAwesomeIcon icon="fa-solid fa-left-long" /></button>
-            <button className="btn next" onClick={nextCards}><FontAwesomeIcon icon="fa-solid fa-right-long" /></button>
+            <SliderControlButton control={'prev'} handleFunction={prevCards}/>
+            <SliderControlButton control={'next'} handleFunction={nextCards}/>
         </div>
     )
 }
