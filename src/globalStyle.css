@@ -10,18 +10,20 @@
 
 :root {
     --ff: 'Poppins', sans-serif;
-    --clr-nav-bg: hsl(200, 50%, 50%);
+    --clr-nav-bg: hsl(200, 50%, 20%);
     --clr-txt-white: hsl(0, 0%, 100%);
     --clr-nav-hover: linear-gradient(90deg, hsl(284, 100%, 50%), hsl(0, 70%, 30%));
     --clr-txt-black: hsl(0, 0% , 0%);
     --clr-slider-circle: hsl(0, 0%, 100%); 
     --clr-carousel-hvr: var(--clr-nav-bg);
+    --clr-txt-hover: hsl(200, 60%, 50%);
 }
 
 
 body{
     font-family: var(--ff);
     min-height: 100vh;
+    scroll-behavior: smooth;
 }
 
 input, select, textarea, button{font-family:inherit;}

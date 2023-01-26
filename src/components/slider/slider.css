@@ -1,16 +1,27 @@
+.slider-wrapper{
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: .25rem;
+}
+
 .slider{
-    position: relative;
-    max-width: calc(100vw - 4rem);
+    max-width: calc(100vw - 2rem);
     margin-inline: auto;
-    margin-bottom: 3rem;
+    position: relative;
     overflow: hidden;
+    padding: 1rem 0;
 }
 
 .slider-container{
-    width: 100%;
     display: flex;
     gap: .5rem;
-    transition: transform 600ms ease-in-out;
+    transition: transform 500ms ease-in-out;
+}
+
+.slider-container:first-child{
+    margin-left: 1rem;
+}
+.slider-container:last-child{
+    margin-right: 1rem;
 }
 
 .slider .btn{

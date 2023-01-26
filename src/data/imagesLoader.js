@@ -37,22 +37,22 @@ export const categoryData = [
         images: './images/category/mouse-pad.jpg'
     },
     {
-        id: 8,
+        id: 7,
         name: 'Routers',
         images: './images/category/router.jpg'
     },
     {
-        id: 9,
+        id: 8,
         name: 'Storage',
         images: './images/category/storage.jpg'
     },
     {
-        id: 10,
+        id: 9,
         name: 'Ram',
         images: './images/category/ram.jpg'
     },
     {
-        id: 11,
+        id: 10,
         name: 'Games',
         images: './images/category/games.jpg'
     },
