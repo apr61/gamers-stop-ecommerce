@@ -57,3 +57,31 @@ export const categoryData = [
         images: './images/category/games.jpg'
     },
 ]
+
+export const paymentsAvailable = [
+    {
+        id: 1,
+        'paymentmethod': 'visa',
+        'imageurl': './images/payments/visa.svg'
+    },
+    {
+        id: 2,
+        'paymentmethod': 'Master Card',
+        'imageurl': './images/payments/mastercard.svg'
+    },
+    {
+        id: 3,
+        'paymentmethod': 'rupay',
+        'imageurl': './images/payments/rupay.svg'
+    },
+    {
+        id: 4,
+        'paymentmethod': 'net banking',
+        'imageurl': './images/payments/netbanking.svg'
+    },
+    {
+        id: 5,
+        'paymentmethod': 'cash on delivery',
+        'imageurl': './images/payments/cod.svg'
+    }
+]

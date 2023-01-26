@@ -1,10 +1,10 @@
 import './search.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {AiOutlineSearch} from 'react-icons/ai'
 
 function Search() {
   return (
     <div className="search">
-        <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+        <AiOutlineSearch />
         <input type="search" className='search-box' placeholder='Search'/>
     </div>
   )

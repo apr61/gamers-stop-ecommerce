@@ -1,9 +1,15 @@
 .navbar{
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: .75rem;
     background-color: var(--clr-nav-bg);
     color: var(--clr-txt-white);
+    position: fixed;
+    max-height: 6rem;
+    top:0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
 }
 
 .navbar .logo{
@@ -19,26 +25,19 @@
     gap: 1rem;
 }
 
-.navbar .navlist .navlist-item{
-    background-image: var(--clr-nav-hover);
-    background-position: bottom;
-    background-repeat: no-repeat;
-    background-size: 0% 2px;
-    border-radius: .1rem;
-    transition: background-size 300ms ease-in;
-}
-
-.navbar .navlist .navlist-item:not(.cart, .user-profile):hover{
-    background-size: 100% 2.5px;
-}
-
-.navbar .cart{
+.cart{
     cursor: pointer;
-    position: relative;
-    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .25rem;
 }
 
-.navbar .cart::before{
+.navbar .cart span{
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.navbar .cart span::before{
     content: "0";
     position: absolute;
     background-color: red;

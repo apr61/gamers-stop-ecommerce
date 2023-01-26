@@ -9,16 +9,15 @@
     cursor: pointer;
     font-size: 1.5rem;
     border-radius: .5rem;
-}
-
-.btn:hover {
-    color: var(--clr-carousel-hvr)
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn:focus,
 .btn:focus-visible {
-    border: 2px solid var(--clr-txt-white);
-    outline: 2px solid var(--clr-carousel-hvr);
+    border: 3px solid var(--clr-txt-white);
+    outline: 3px solid var(--clr-txt-hover);
 }
 
 .prev {

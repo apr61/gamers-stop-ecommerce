@@ -6,6 +6,7 @@ import CategoryCard from '../../components/categoryCard/CategoryCard'
 import Slider from '../../components/slider/Slider'
 import { products } from '../../data/productsData'
 import ProductCard from '../../components/productCard/ProductCard'
+import Footer from '../../components/footer/Footer'
 
 function Home() {
   return (
@@ -30,6 +31,7 @@ function Home() {
           </Slider>
         </section>
       </main>
+      <Footer />
     </>
   )
 }

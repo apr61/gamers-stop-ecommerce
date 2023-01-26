@@ -19,7 +19,7 @@
 .circle:focus,
 .circle:focus-visible {
     border: 2px solid var(--clr-txt-white);
-    outline: 2px solid var(--clr-carousel-hvr);
+    outline: 2px solid var(--clr-txt-hover);
 }
 
 .circle-nav {
@@ -42,7 +42,7 @@
 
 .circle:hover {
     background-color: var(--clr-txt-white);
-    outline: 2px solid var(--clr-carousel-hvr);
+    outline: 2px solid var(--clr-txt-hover);
 }
 
 .circle.active {

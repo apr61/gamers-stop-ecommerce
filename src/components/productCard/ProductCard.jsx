@@ -1,5 +1,4 @@
 import './productCard.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function ProductCard({product}) {
     const {images, name, price, brand } = {...product}
@@ -14,7 +13,7 @@ function ProductCard({product}) {
             <div className="product-content">
                 <h4 className="product-name">{name}</h4>
                 <p className="brand-name">{brand}</p>
-                <h5 className="product-price"><FontAwesomeIcon icon="fa-solid fa-indian-rupee-sign" /> {currencyFormatter(price)}</h5>
+                <h5 className="product-price"> {currencyFormatter(price)}</h5>
             </div>
         </div>
     )

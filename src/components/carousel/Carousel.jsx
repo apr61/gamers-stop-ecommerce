@@ -1,6 +1,5 @@
 import './carousel.css'
 import { carouselImages } from '../../data/imagesLoader'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import SliderControlButton from '../../utils/button/SliderControlButton'
 
