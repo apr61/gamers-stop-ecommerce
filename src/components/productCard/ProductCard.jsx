@@ -1,7 +1,11 @@
 import './productCard.css'
+import {FaRupeeSign} from 'react-icons/fa'
+import { Link, useParams } from 'react-router-dom'
+import { createRouterPath } from '../../utils/PathNameFormatter'
 
 function ProductCard({product}) {
-    const {images, name, price, brand } = {...product}
+    const {category} = useParams()
+    const {id,images, name, price, brand } = {...product}
     function currencyFormatter(number){
         return new Intl.NumberFormat(undefined).format(number)
     }
@@ -11,9 +15,11 @@ function ProductCard({product}) {
                 <img src={images[0]} alt={name} />
             </div>
             <div className="product-content">
-                <h4 className="product-name">{name}</h4>
+                <h4 className="product-name">
+                    <Link to={`/${category}/pr/${createRouterPath(name.toLowerCase())}`} state={{productId: id}}>{name}</Link>
+                </h4>
                 <p className="brand-name">{brand}</p>
-                <h5 className="product-price"> {currencyFormatter(price)}</h5>
+                <h5 className="product-price"><FaRupeeSign className='rupee-sign' />{currencyFormatter(price)}</h5>
             </div>
         </div>
     )

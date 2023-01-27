@@ -2,11 +2,12 @@ import './navbar.css'
 import UserProfile from '../../assets/images/UserProfile.png'
 import Search from '../search/Search'
 import {AiOutlineShoppingCart} from "react-icons/ai"
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   return (
     <nav className='navbar'>
-        <div className="logo">Gamers Stop</div>
+        <div className="logo"><Link to='/'>Gamers Stop</Link></div>
         <Search />
         <ul className='navlist'>
             <li className="navlist-item">About</li>

@@ -1,8 +1,7 @@
-.home-main{
+.main{
     max-width: calc(100vw - 2rem);
     margin-inline: auto;
     padding-bottom: 5rem;
-    margin-top: 4.75rem;
 }
 
 .heading-two{

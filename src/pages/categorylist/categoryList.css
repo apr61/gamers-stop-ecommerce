@@ -1,0 +1,22 @@
+.category-products{
+    display: flex;
+    gap: 1rem;
+}
+
+.filter{
+    flex: 1;
+    background-color: rebeccapurple;
+}
+
+.products-list{
+    flex: 4;
+}
+
+.products-list-container{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--clr-border);
+    border-bottom: 1px solid var(--clr-border);
+    padding: .5rem;
+}

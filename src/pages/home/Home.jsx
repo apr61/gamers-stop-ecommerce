@@ -1,24 +1,34 @@
 import './home.css'
+import { Link } from 'react-router-dom'
+
+//components
 import Carousel from '../../components/carousel/Carousel'
 import Navbar from '../../components/navbar/Navbar'
-import { categoryData } from '../../data/imagesLoader'
 import CategoryCard from '../../components/categoryCard/CategoryCard'
 import Slider from '../../components/slider/Slider'
-import { products } from '../../data/productsData'
 import ProductCard from '../../components/productCard/ProductCard'
 import Footer from '../../components/footer/Footer'
+
+//data
+import { categoryData } from '../../data/imagesLoader'
+import { products } from '../../data/productsData'
+
+// custom function to create path
+import { createRouterPath } from '../../utils/PathNameFormatter'
 
 function Home() {
   return (
     <>
       <Navbar />
-      <main className='home-main'>
+      <main className='main'>
         <Carousel />
         <section className="categories">
           <h2 className="heading-two">Shop By Categories</h2>
           <Slider>
             {categoryData.map(category => (
-              <CategoryCard key={category.id} category={category} />
+              <Link key={category.id} to={`/${createRouterPath(category.name.toLowerCase())}`}>
+                <CategoryCard category={category} />
+              </Link>
             ))}
           </Slider>
         </section>

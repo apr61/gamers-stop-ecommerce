@@ -19,6 +19,7 @@
     --clr-footer-bg: hsl(205, 55%, 35%);
     --clr-footer-section-heading: hsl(0, 0%, 15%);
     --clr-footer-bg-btm: hsl(205, 55%, 15%);
+    --clr-border: hsl(0, 0% , 60%);
 }
 
 
@@ -26,10 +27,15 @@ body{
     font-family: var(--ff);
     min-height: 100vh;
     scroll-behavior: smooth;
+    padding-top: 4.5rem;
 }
 
 input, select, textarea, button{font-family:inherit;}
 
 img{
     width: 100%;
+}
+
+a{
+    text-decoration: none;
 }

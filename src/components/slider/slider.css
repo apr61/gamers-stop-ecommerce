@@ -30,7 +30,7 @@
     color: var(--clr-txt-black);
     width: 3rem;
     height: 3rem;
-    border: 0;
+    border: 1px solid var(--clr-txt-hover);;
     background-color: var(--clr-txt-white);
     cursor: pointer;
     font-size: 1.5rem;

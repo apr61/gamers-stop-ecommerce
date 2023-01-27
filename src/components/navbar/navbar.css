@@ -12,6 +12,10 @@
     z-index: 9999;
 }
 
+.navbar a{
+    color: var(--clr-txt-white);
+}
+
 .navbar .logo{
     font-size: 1.5rem;
     margin-right: auto;

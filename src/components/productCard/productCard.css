@@ -31,7 +31,7 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: .125rem;
     transition: transform 500ms ease-in-out;
 }
 
@@ -52,6 +52,18 @@
 }
 
 .product-price{
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 400;
+}
+
+.rupee-sign{
+    font-size: .9rem;
+}
+
+.product-card a{
+    color: var(--clr-txt-black);
+}
+
+.product-card a:hover{
+    color: var(--clr-txt-hover);
 }
