@@ -1,7 +1,7 @@
 import './carousel.css'
 import { carouselImages } from '../../data/imagesLoader'
 import { useState } from 'react'
-import SliderControlButton from '../../utils/button/SliderControlButton'
+import SliderControlButton from '../button/SliderControlButton'
 
 function Carousel() {
     const [currentSlide, setCurrentSlide] = useState(0)

@@ -14,7 +14,7 @@ import { categoryData } from '../../data/imagesLoader'
 import { products } from '../../data/productsData'
 
 // custom function to create path
-import { createRouterPath } from '../../utils/PathNameFormatter'
+import { createRouterPath } from '../../utils/utils'
 
 function Home() {
   return (

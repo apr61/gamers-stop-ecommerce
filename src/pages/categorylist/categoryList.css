@@ -5,7 +5,14 @@
 
 .filter{
     flex: 1;
-    background-color: rebeccapurple;
+    height: fit-content;
+    border: 1px solid var(--clr-border);
+}
+
+.filter h3{
+    font-weight: 400;
+    padding: 1rem;
+    border-bottom: 1px solid var(--clr-border);
 }
 
 .products-list{
@@ -19,4 +26,8 @@
     border-top: 1px solid var(--clr-border);
     border-bottom: 1px solid var(--clr-border);
     padding: .5rem;
+}
+
+.products-list-container .product-card{
+    flex: 1 0 auto;
 }

@@ -8,24 +8,27 @@ import { products } from '../../data/productsData'
 import ProductCard from '../../components/productCard/ProductCard'
 
 // custom function to uncreate path
-import { unCreateRouterPath } from '../../utils/PathNameFormatter'
+import { unCreateRouterPath } from '../../utils/utils'
+import Filter from '../../components/filter/Filter'
 
 
 function CategoryList() {
   const { category } = useParams()
   const categoryUpdated = unCreateRouterPath(category)
+  const categoryFilteredProducts = products.filter(product => product.category === categoryUpdated)
   return (
     <>
       <Navbar />
       <div className="main category-products">
         <section className="filter">
-          <h2>Filter</h2>
+          <h3>Filters</h3>
+          <Filter products={categoryFilteredProducts}/>
         </section>
         <section className="products-list">
           <h2>{categoryUpdated.toUpperCase()}</h2>
           <div className="products-list-container">
             {
-              products.filter(product => product.category === categoryUpdated).map((product => (
+              categoryFilteredProducts.map((product => (
                 <ProductCard key={product.id} product={product} />
               )))
             }

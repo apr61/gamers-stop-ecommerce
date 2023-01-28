@@ -7,8 +7,10 @@ import { useLocation } from 'react-router-dom'
 import { products } from '../../data/productsData'
 
 function ProductPage() {
+  // getting state
   const location = useLocation()
   const productId = location.state?.productId
+  // filtering products based on product id
   const filteredProduct = products.filter(product => product.id === productId)[0]
   return (
     <>

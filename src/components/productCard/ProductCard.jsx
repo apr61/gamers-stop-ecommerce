@@ -1,14 +1,13 @@
 import './productCard.css'
 import {FaRupeeSign} from 'react-icons/fa'
 import { Link, useParams } from 'react-router-dom'
-import { createRouterPath } from '../../utils/PathNameFormatter'
+import { createRouterPath } from '../../utils/utils'
+import { currencyFormatter } from '../../utils/utils'
 
 function ProductCard({product}) {
     const {category} = useParams()
     const {id,images, name, price, brand } = {...product}
-    function currencyFormatter(number){
-        return new Intl.NumberFormat(undefined).format(number)
-    }
+    
     return (
         <div className="product-card">
             <div className="product-image-container">

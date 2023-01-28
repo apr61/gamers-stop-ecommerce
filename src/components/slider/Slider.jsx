@@ -1,6 +1,6 @@
 import './slider.css'
 import { useState } from 'react'
-import SliderControlButton from '../../utils/button/SliderControlButton'
+import SliderControlButton from '../button/SliderControlButton'
 import useWindowSize from '../../hooks/useWindowSize'
 
 function Slider({ children }) {
