@@ -26,7 +26,7 @@ function Home() {
           <h2 className="heading-two">Shop By Categories</h2>
           <Slider>
             {categoryData.map(category => (
-              <Link key={category.id} to={`/${createRouterPath(category.name.toLowerCase())}`}>
+              <Link key={category.id} to={`/${createRouterPath(category.name)}`}>
                 <CategoryCard category={category} />
               </Link>
             ))}
@@ -36,7 +36,7 @@ function Home() {
           <h2 className="heading-two">Latest In Graphic Cards</h2>
           <Slider>
             {products.map(product => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} categoryHome={'Graphic Cards'}/>
             ))}
           </Slider>
         </section>

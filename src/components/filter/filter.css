@@ -1,7 +1,12 @@
-.filter-section{
+.filter-section .price-section{
     padding: 1rem;
+    border-bottom: 1px solid var(--clr-border);
 }
 
 .price-section .price{
     font-size: 1.1rem;
+}
+
+.filter-section .accordion:last-child{
+    border-bottom: 0;
 }

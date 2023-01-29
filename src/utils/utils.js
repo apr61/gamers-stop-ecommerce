@@ -7,6 +7,7 @@ export function unCreateRouterPath(path) {
 }
 
 export function createRouterPath(path) {
+  path=path.toLowerCase()
   let pathArray = path.split(' ')
   if (pathArray.length > 0) {
     return pathArray.join('-')

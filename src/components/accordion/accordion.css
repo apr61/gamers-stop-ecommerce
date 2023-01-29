@@ -1,0 +1,27 @@
+.accordion{
+    padding: 1rem;
+    border-bottom: 1px solid var(--clr-border);
+}
+
+.accordion .accordion-top{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.accordion .accordion-top h4{
+    font-weight: 600;
+}
+
+.accordion .accordion-arrow{
+    font-size: 1.5rem;
+    rotate: 180deg;
+}
+
+.accordion .accordion-arrow.expanded{
+    rotate: 0deg;
+}
+
+.accordion .accordion-bottom{
+    padding-left: .5rem;
+}
