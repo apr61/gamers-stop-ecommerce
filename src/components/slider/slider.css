@@ -1,9 +1,9 @@
-.slider-wrapper{
+.slider{
     border: 1px solid hsl(0, 0%, 80%);
     border-radius: .25rem;
 }
 
-.slider{
+.slider__wrapper{
     max-width: calc(100vw - 2rem);
     margin-inline: auto;
     position: relative;
@@ -11,16 +11,16 @@
     padding: 1rem 0;
 }
 
-.slider-container{
+.slider__container{
     display: flex;
     gap: .5rem;
     transition: transform 500ms ease-in-out;
 }
 
-.slider-container:first-child{
+.slider__container:first-child{
     margin-left: 1rem;
 }
-.slider-container:last-child{
+.slider__container:last-child{
     margin-right: 1rem;
 }
 

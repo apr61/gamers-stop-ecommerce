@@ -7,19 +7,19 @@
     flex-shrink: 0;
 }
 
-.category-card .image-container{
+.category-card__image-container{
     width: 100%;
     height: 10rem;
     margin-bottom: 1rem;
     overflow: hidden;
 }
 
-.category-card .image-container img{
+.category-card__img{
     height: 100%;
     object-fit: cover;
     transition: transform 300ms ease-in;
 }
 
-.category-card:hover .image-container img{
+.category-card:hover .category-card__img{
     transform: scale(1.05);
 }

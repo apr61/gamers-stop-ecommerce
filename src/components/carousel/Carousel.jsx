@@ -13,14 +13,14 @@ function Carousel() {
     }
     return (
         <div className="carousel">
-            <div className="imageContainer">
-                <img src={carouselImages[currentSlide]} />
+            <div className="carousel__image-container">
+                <img className='carousel__img' src={carouselImages[currentSlide]} />
             </div>
             <SliderControlButton control={'prev'} handleFunction={prevSlide}/>
             <SliderControlButton control={'next'} handleFunction={nextSlide}/>
-            <div className="circle-nav">
+            <div className="carousel__circle-nav">
                 {carouselImages.map((_, i) => (
-                    <button key={i} className={i === currentSlide ? "circle active" : "circle"} onClick={() => setCurrentSlide(i)}></button>
+                    <button key={i} className={i === currentSlide ? "carousel__btn carousel__btn--active" : "carousel__btn"} onClick={() => setCurrentSlide(i)}></button>
                 ))}
             </div>
         </div>

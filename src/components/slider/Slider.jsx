@@ -23,9 +23,9 @@ function Slider({ children }) {
         }
     }
     return (
-        <div className="slider-wrapper">
-            <div className="slider">
-                <div className='slider-container' style={sliderSlidingStyle}>
+        <div className="slider">
+            <div className="slider__wrapper">
+                <div className='slider__container' style={sliderSlidingStyle}>
                     {children}
                 </div>
                 <SliderControlButton control={'prev'} handleFunction={prevCards} />

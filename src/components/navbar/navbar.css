@@ -12,16 +12,16 @@
     z-index: 9999;
 }
 
-.navbar a{
+.navbar__link{
     color: var(--clr-txt-white);
 }
 
-.navbar .logo{
+.navbar__logo{
     font-size: 1.5rem;
     margin-right: auto;
 }
 
-.navbar .navlist{
+.navbar__list{
     display: flex;
     align-items: center;
     list-style: none;
@@ -29,19 +29,19 @@
     gap: 1rem;
 }
 
-.cart{
+.navbar__list-item--cart{
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: .25rem;
 }
 
-.navbar .cart span{
+.navbar__cart-icon{
     position: relative;
     font-size: 1.5rem;
 }
 
-.navbar .cart span::before{
+.navbar__cart-icon::before{
     content: "0";
     position: absolute;
     background-color: red;
@@ -56,7 +56,7 @@
     font-size: .75rem;
 }
 
-.navbar .user-profile{
+.navbar__list-item--user-profile{
     width: 2rem;
     height: 2rem;
     cursor: pointer;

@@ -1,13 +1,13 @@
-.main{
+.main, .home{
     max-width: calc(100vw - 2rem);
     margin-inline: auto;
     padding-bottom: 5rem;
 }
 
-.heading-two{
+.home__title{
     margin: 1rem 0;
 }
 
-.categories{
+.home__section{
     overflow: hidden;
 }

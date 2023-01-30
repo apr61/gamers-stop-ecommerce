@@ -1,22 +1,22 @@
-.input-group{
+.check-box{
     display: flex;
     gap: .25rem;
     align-items: center;
     font-size: 1.1rem;
 }
 
-.input-group label{
+.check-box__label{
     display: flex;
     align-items: center;
     gap: .125rem;
     cursor: pointer;
 }
 
-.input-group label:hover{
+.check-box__label:hover{
     color: var(--clr-txt-hover);
 }
 
-.input-group input[type='checkbox']{
+.check-box__input{
     cursor: pointer;
 }
 

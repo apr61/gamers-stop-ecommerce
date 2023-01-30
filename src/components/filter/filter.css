@@ -1,9 +1,9 @@
-.filter-section .price-section{
+.filter-section__price-section{
     padding: 1rem;
     border-bottom: 1px solid var(--clr-border);
 }
 
-.price-section .price{
+.filter-section__price{
     font-size: 1.1rem;
 }
 

@@ -9,15 +9,15 @@ function ProductCard({product, categoryHome}) {
     
     return (
         <div className="product-card">
-            <div className="product-image">
-                <img src={images[0]} alt={name} />
+            <div className="product-card__image-container">
+                <img className='product-card__img' src={images[0]} alt={name} />
             </div>
-            <div className="product-content">
-                <h4 className="product-name">
-                    <Link to={`/${category? category : createRouterPath(categoryHome)}/pr/${createRouterPath(name)}`} state={{productId: id}}>{name}</Link>
+            <div className="product-card__content">
+                <h4 className="product-card__name">
+                    <Link className='product-card__link' to={`/${category? category : createRouterPath(categoryHome)}/pr/${createRouterPath(name)}`} state={{productId: id}}>{name}</Link>
                 </h4>
-                <p className="brand-name">{brand}</p>
-                <h5 className="product-price"><FaRupeeSign className='rupee-sign' />{currencyFormatter(price)}</h5>
+                <p className="product-card__brand-name">{brand}</p>
+                <h5 className="product-card__price"><FaRupeeSign className='rupee-sign' />{currencyFormatter(price)}</h5>
             </div>
         </div>
     )

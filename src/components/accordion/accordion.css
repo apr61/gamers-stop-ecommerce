@@ -3,25 +3,24 @@
     border-bottom: 1px solid var(--clr-border);
 }
 
-.accordion .accordion-top{
+.accordion__top{
     display: flex;
     justify-content: space-between;
     cursor: pointer;
 }
 
-.accordion .accordion-top h4{
+.accordion__title{
     font-weight: 600;
 }
-
-.accordion .accordion-arrow{
+.accordion__arrow{
     font-size: 1.5rem;
     rotate: 180deg;
 }
 
-.accordion .accordion-arrow.expanded{
+.accordion__arrow--expanded{
     rotate: 0deg;
 }
 
-.accordion .accordion-bottom{
+.accordion__bottom{
     padding-left: .5rem;
 }

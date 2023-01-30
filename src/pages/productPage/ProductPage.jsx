@@ -1,17 +1,17 @@
-import Footer from '../../components/footer/Footer'
-import Navbar from '../../components/navbar/Navbar'
-import './productPage.css'
+import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { FaBalanceScale, FaRupeeSign } from 'react-icons/fa'
-import ProductImages from '../../components/productImages/ProductImages'
 import { currencyFormatter } from '../../utils/utils'
 import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai'
 import { FiShoppingBag } from 'react-icons/fi'
+import './productPage.css'
 
+import Navbar from '../../components/navbar/Navbar'
+import Footer from '../../components/footer/Footer'
 
 //data
 import { products } from '../../data/productsData'
-import { useState } from 'react'
+import ProductImages from '../../components/productImages/ProductImages'
 
 function ProductPage() {
 	const [quantity, setQuantity] = useState(1)
@@ -25,70 +25,72 @@ function ProductPage() {
 		<>
 			<Navbar />
 			<div className="main product-page">
-				<div className="product-page-image-container">
+				<div className="product-page__image-container">
 					<ProductImages images={images} name={name} />
 				</div>
-				<div className="product-page-content">
-					<h3 className='product-name'>{name}</h3>
-					<p className='product-price'>{<><FaRupeeSign className='rupee-sign' />{currencyFormatter(price)}</>}</p>
-					<p className="product-desc">
-						{description}
-					</p>
-					<div className="counter">
-						<button onClick={() => {setQuantity(quantity > 0 ? quantity - 1 : 0)}}>-</button>
+				<div className="product-page__content">
+					<header className="product-page__header">
+						<h3 className='product-page__name'>{name}</h3>
+						<p className='product-page__price'>{<><FaRupeeSign className='product-page__rupee-sign' />{currencyFormatter(price)}</>}</p>
+						<p className="product-page__desc">
+							{description}
+						</p>
+					</header>
+					<div className="product-page__section product-page__section--counter">
+						<button className='product-page__button product-page__button--counter' onClick={() => { setQuantity(quantity > 0 ? quantity - 1 : 0) }}>-</button>
 						<span>{quantity}</span>
-						<button onClick={() => {setQuantity(quantity + 1)}}>+</button>
+						<button className='product-page__button product-page__button--counter' onClick={() => { setQuantity(quantity + 1) }}>+</button>
 					</div>
-					<div className="buttons-section">
-						<div className="btn-wrapper">
-						<button className="add-to-cart"><><AiOutlineShoppingCart /></> Add To Cart</button>
-						<button className="buy-now"><><FiShoppingBag /></> Buy Now</button>
+					<div className="product-page__section">
+						<div className="product-page__btn-wrapper">
+							<button className="product-page__button product-page__button--add-to-cart"><><AiOutlineShoppingCart /></> Add To Cart</button>
+							<button className="product-page__button product-page__button--buy-now"><><FiShoppingBag /></> Buy Now</button>
 						</div>
-						<div className="btn-wrapper">
-							<button><AiOutlineHeart />Add To Wish List</button>
-							<button><FaBalanceScale />Add To Compare</button>
+						<div className="product-page__btn-wrapper">
+							<button className='product-page__button'><AiOutlineHeart />Add To Wish List</button>
+							<button className='product-page__button'><FaBalanceScale />Add To Compare</button>
 						</div>
 					</div>
-					<div className="offers">
-						<h4>Offers</h4>
-						<ul>
+					<div className="product-page__section">
+						<h4 className='product-page__title'>Offers</h4>
+						<ul className='product-page__list'>
 							<li>Offer 1</li>
 							<li>Offer 2</li>
 							<li>Offer 3</li>
 							<li>Offer 4</li>
 						</ul>
 					</div>
-					<div className="available-services">
-						<h4>Services Available</h4>
-						<ul>
+					<div className="product-page__section">
+						<h4 className='product-page__title'>Services Available</h4>
+						<ul className='product-page__list'>
 							<li>Free Delivery</li>
 							<li>14 Days replacement</li>
 							<li>Gamers Stop Delivered</li>
 							<li>1 Year Warrenty</li>
 						</ul>
 					</div>
-					<div className="info">
-						<h4>About Item</h4>
-						<table>
+					<div className="product-page__section">
+						<h4 className='product-page__title'>About Item</h4>
+						<table className='product-page__table'>
 							<tbody>
 								<tr>
-									<th>Manufacuturer</th>
-									<td>{manufacturer}</td>
+									<th className='product-page__table__th'>Manufacuturer</th>
+									<td className='product-page__table__td'>{manufacturer}</td>
 								</tr>
 								<tr>
-									<th>Brand</th>
-									<td>{brand}</td>
+									<th className='product-page__table__th'>Brand</th>
+									<td className='product-page__table__td'>{brand}</td>
 								</tr>
 								<tr>
-									<th>Memory</th>
-									<td>{memory}</td>
+									<th className='product-page__table__th'>Memory</th>
+									<td className='product-page__table__td'>{memory}</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-					<div className="seller-info">
-						<h4>Seller Info</h4>
-						<p className="seller-name">kharidiye dot com </p>
+					<div className="product-page__section">
+						<h4 className='product-page__title'>Seller Info</h4>
+						<p className="product-page__seller-name">kharidiye dot com </p>
 					</div>
 				</div>
 			</div>

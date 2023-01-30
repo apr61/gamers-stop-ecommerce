@@ -1,7 +1,7 @@
-footer{
+.footer{
     background-color: var(--clr-footer-bg);
 }
-.footer-top{
+.footer__top{
     padding: 3rem 1rem;
     max-width: calc(100vw - 20rem);
     margin-inline: auto;
@@ -9,35 +9,35 @@ footer{
     grid-template-columns: repeat(4, 1fr);
 }
 
-.footer-section h5{
-    color: var(--clr-footer-section-heading);
+.footer__title{
+    color: var(--clr-footer__section-heading);
     text-transform: uppercase;
     font-size: 1.125rem;
     margin-bottom: .5rem;
 }
 
-.footer-section .footer-section-list{
+.footer__list{
     color: var(--clr-txt-white);
     list-style: none;
 }
 
-.footer-section-list .footer-list-item{
+.footer__list .footer__list-item{
     display: flex;
     align-items: center;
     gap: .5rem;
 }
 
-.footer-section p{
+.footer__address{
     color: var(--clr-txt-white);
 }
 
-.footer-bottom{
+.footer__bottom{
     background-color: var( --clr-footer-bg-btm);
     color: var(--clr-txt-white);
     padding: 1rem;
 }
 
-.footer-bottom .footer-section{
+.footer__section--bottom{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,13 +45,13 @@ footer{
     margin-inline: auto;
 }
 
-.payments{
+.footer__payments{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: .5rem;
 }
 
-.payments .payment{
+.footer__payment{
     width: 2rem;
 }

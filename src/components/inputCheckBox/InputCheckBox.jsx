@@ -5,9 +5,9 @@ import { AiFillStar } from 'react-icons/ai'
 function InputCheckBox({name, labelName, icon}) {
     const cId = useId()
   return (
-    <div className="input-group">
-        <input type="checkbox" name={name} id={cId} />
-        <label htmlFor={cId}>{icon ? <>{labelName} <AiFillStar /> {'& up'}</> : labelName}</label>
+    <div className="check-box">
+        <input type="checkbox" name={name} id={cId}  className='check-box__input'/>
+        <label className='check-box__label' htmlFor={cId}>{icon ? <>{labelName} <AiFillStar /> {'& up'}</> : labelName}</label>
     </div>
   )
 }

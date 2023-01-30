@@ -7,12 +7,12 @@ function Accoridon({ children, title }) {
     const [isExpanded, setIsExpanded] = useState(false);
     return (
         <div className="accordion">
-            <div className="accordion-top" onClick={(e) => setIsExpanded(!isExpanded)}>
-                <h4>{title}</h4>
-                <RiArrowUpSLine className={isExpanded ? 'accordion-arrow expanded' : 'accordion-arrow'} />
+            <div className="accordion__top" onClick={(e) => setIsExpanded(!isExpanded)}>
+                <h4 className='accordion__title'>{title}</h4>
+                <RiArrowUpSLine className={isExpanded ? 'accordion__arrow accordion__arrow--expanded' : 'accordion__arrow'} />
             </div>
             {isExpanded && (
-                <div className="accordion-bottom">
+                <div className="accordion__bottom">
                     {children}
                 </div>
             )}

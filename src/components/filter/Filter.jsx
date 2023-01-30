@@ -15,18 +15,18 @@ function Filter({ products }) {
     }
     return (
         <section className="filter-section">
-            <div className="price-section">
-                <h4>Price</h4>
-                <div className="input-group">
+            <div className="filter-section__price-section">
+                <h4 className='filter-section__title'>Price</h4>
+                <div className="filter-section__input-group">
                     <input type="range" name="price" value={filteredPrice}
                         max={sortedProductsPrice[sortedProductsPrice.length - 1]}
                         min={sortedProductsPrice[0]}
                         onChange={(e) => { setFilteredPrice(e.target.value) }} />
                 </div>
-                <div className="price-sec">
-                    <p className="price">Min - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(sortedProductsPrice[0])}</p>
-                    <p className="price">Max - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(sortedProductsPrice[sortedProductsPrice.length - 1])}</p>
-                    <p className="price">Filtered Price - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(filteredPrice)}</p>
+                <div className="filter-section__price-sec">
+                    <p className="filter-section__price">Min - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(sortedProductsPrice[0])}</p>
+                    <p className="filter-section__price">Max - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(sortedProductsPrice[sortedProductsPrice.length - 1])}</p>
+                    <p className="filter-section__price">Filtered Price - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(filteredPrice)}</p>
                 </div>
             </div>
             <Accoridon title={'Brands'}>

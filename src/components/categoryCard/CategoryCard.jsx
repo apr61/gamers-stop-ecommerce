@@ -6,10 +6,10 @@ function CategoryCard({ category }) {
     const { name, images } = { ...category }
     return (
         <div className="category-card">
-            <div className="image-container">
-                <img src={images} alt={name} />
+            <div className="category-card__image-container">
+                <img className='category-card__img' src={images} alt={name} />
             </div>
-            <h3 className="category-name">{name}</h3>
+            <h3 className="category-card__name">{name}</h3>
         </div>
     )
 }

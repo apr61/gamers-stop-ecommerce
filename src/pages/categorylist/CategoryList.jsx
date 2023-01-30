@@ -20,13 +20,13 @@ function CategoryList() {
     <>
       <Navbar />
       <div className="main category-products">
-        <section className="filter">
-          <h3>Filters</h3>
+        <section className="category-products__filter">
+          <h3 className='category-products__title'>Filters</h3>
           <Filter products={categoryFilteredProducts}/>
         </section>
-        <section className="products-list">
+        <section className="category-products__container">
           <h2>{categoryUpdated.toUpperCase()}</h2>
-          <div className="products-list-container">
+          <div className="category-products__list">
             {
               categoryFilteredProducts.map((product => (
                 <ProductCard key={product.id} product={product} />
