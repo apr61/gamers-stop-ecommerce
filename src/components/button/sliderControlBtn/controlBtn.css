@@ -1,3 +1,9 @@
+.btn{
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
 .btn__control {
     position: absolute;
     top: 40%;

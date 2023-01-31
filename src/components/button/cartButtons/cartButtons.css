@@ -1,0 +1,22 @@
+.cart-btn{
+    border: 0;
+    background-color: var(--clr-btn-bg);
+    cursor: pointer;
+    border-radius: .25rem;
+    color: var(--clr-txt-white);
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    gap: .25rem;
+    padding: .5rem .75rem;
+    width: fit-content;
+    align-self: center;
+}
+
+.cart-btn:focus{
+    outline: 3px solid var(--clr-txt-hover);
+}
+
+.cart-btn--remove{
+    background-color: var(--clr-btn-error);
+}

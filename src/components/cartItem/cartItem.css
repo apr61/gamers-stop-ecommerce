@@ -1,0 +1,32 @@
+.cart-item{
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    border-bottom: 2px solid var(--clr-border);
+    padding: .5rem 1rem;
+}
+
+.cart-item__image-container{
+    width: 10rem;
+    height: 8rem;
+    overflow: hidden;
+}
+
+.cart-item__img{
+    object-fit: cover;
+}
+
+.cart-item__body{
+    margin-right: auto;
+    display: flex;
+    gap: .25rem;
+    flex-direction: column;
+}
+
+.cart-item__btn-grp{
+    align-self: flex-start;
+}
+
+.cart-item__total-amount{
+    font-size: 1.25rem;
+}

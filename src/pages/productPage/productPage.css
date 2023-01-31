@@ -67,12 +67,6 @@
     outline: 2px solid var(--clr-txt-hover);
 }
 
-.product-page__button--add-to-cart{
-    background-color: var(--clr-btn-bg);
-    color: var(--clr-txt-white);
-    border-radius: .25rem;
-}
-
 .product-page__button--buy-now{
     color: var(--clr-txt-white);
     border-radius: .25rem;
@@ -95,12 +89,12 @@
     padding-left: 1rem;
 }
 
-.product-page__table__th{
+.product-page__th{
     font-weight: 500;
     text-align: start;
 }
 
-.product-page__table__td{
+.product-page__td{
     padding-left: 2rem;
 }
 

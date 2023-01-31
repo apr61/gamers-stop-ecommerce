@@ -2,25 +2,26 @@ import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { FaBalanceScale, FaRupeeSign } from 'react-icons/fa'
 import { currencyFormatter } from '../../utils/utils'
-import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai'
+import { AiOutlineHeart } from 'react-icons/ai'
 import { FiShoppingBag } from 'react-icons/fi'
 import './productPage.css'
 
 import Navbar from '../../components/navbar/Navbar'
 import Footer from '../../components/footer/Footer'
+import CartButtons from '../../components/button/cartButtons/CartButtons'
+import QuantityCounter from '../../components/quantityCounter/QuantityCounter'
 
 //data
 import { products } from '../../data/productsData'
 import ProductImages from '../../components/productImages/ProductImages'
 
 function ProductPage() {
-	const [quantity, setQuantity] = useState(1)
 	// getting state
 	const location = useLocation()
 	const productId = location.state?.productId
 	// filtering products based on product id
 	const filteredProduct = products.filter(product => product.id === productId)[0]
-	const { name, images, brand, memory, price, description, manufacturer } = { ...filteredProduct }
+	const { id, name, images, brand, memory, price, description, manufacturer} = { ...filteredProduct }
 	return (
 		<>
 			<Navbar />
@@ -36,14 +37,12 @@ function ProductPage() {
 							{description}
 						</p>
 					</header>
-					<div className="product-page__section product-page__section--counter">
-						<button className='product-page__button product-page__button--counter' onClick={() => { setQuantity(quantity > 0 ? quantity - 1 : 0) }}>-</button>
-						<span>{quantity}</span>
-						<button className='product-page__button product-page__button--counter' onClick={() => { setQuantity(quantity + 1) }}>+</button>
+					<div className="product-page__section">
+						<QuantityCounter product={filteredProduct}/>
 					</div>
 					<div className="product-page__section">
 						<div className="product-page__btn-wrapper">
-							<button className="product-page__button product-page__button--add-to-cart"><><AiOutlineShoppingCart /></> Add To Cart</button>
+							<CartButtons id={id} product={filteredProduct} />
 							<button className="product-page__button product-page__button--buy-now"><><FiShoppingBag /></> Buy Now</button>
 						</div>
 						<div className="product-page__btn-wrapper">
@@ -74,16 +73,16 @@ function ProductPage() {
 						<table className='product-page__table'>
 							<tbody>
 								<tr>
-									<th className='product-page__table__th'>Manufacuturer</th>
-									<td className='product-page__table__td'>{manufacturer}</td>
+									<th className='product-page__th'>Manufacuturer</th>
+									<td className='product-page__td'>{manufacturer}</td>
 								</tr>
 								<tr>
-									<th className='product-page__table__th'>Brand</th>
-									<td className='product-page__table__td'>{brand}</td>
+									<th className='product-pages__th'>Brand</th>
+									<td className='product-pages__td'>{brand}</td>
 								</tr>
 								<tr>
-									<th className='product-page__table__th'>Memory</th>
-									<td className='product-page__table__td'>{memory}</td>
+									<th className='product-pages__th'>Memory</th>
+									<td className='product-pages__td'>{memory}</td>
 								</tr>
 							</tbody>
 						</table>
