@@ -63,3 +63,9 @@
 .product-card__link:hover {
     color: var(--clr-txt-hover);
 }
+
+.product-card__rating{
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+}

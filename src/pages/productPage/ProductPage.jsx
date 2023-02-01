@@ -21,7 +21,7 @@ function ProductPage() {
 	const productId = location.state?.productId
 	// filtering products based on product id
 	const filteredProduct = products.filter(product => product.id === productId)[0]
-	const { id, name, images, brand, memory, price, description, manufacturer} = { ...filteredProduct }
+	const { id, name, images, brand, memory, price, description, manufacturer } = { ...filteredProduct }
 	return (
 		<>
 			<Navbar />
@@ -37,9 +37,8 @@ function ProductPage() {
 							{description}
 						</p>
 					</header>
-					<div className="product-page__section">
-						<QuantityCounter product={filteredProduct}/>
-					</div>
+					<QuantityCounter product={filteredProduct} />
+
 					<div className="product-page__section">
 						<div className="product-page__btn-wrapper">
 							<CartButtons id={id} product={filteredProduct} />
@@ -77,12 +76,12 @@ function ProductPage() {
 									<td className='product-page__td'>{manufacturer}</td>
 								</tr>
 								<tr>
-									<th className='product-pages__th'>Brand</th>
-									<td className='product-pages__td'>{brand}</td>
+									<th className='product-page__th'>Brand</th>
+									<td className='product-page__td'>{brand}</td>
 								</tr>
 								<tr>
-									<th className='product-pages__th'>Memory</th>
-									<td className='product-pages__td'>{memory}</td>
+									<th className='product-page__th'>Memory</th>
+									<td className='product-page__td'>{memory}</td>
 								</tr>
 							</tbody>
 						</table>

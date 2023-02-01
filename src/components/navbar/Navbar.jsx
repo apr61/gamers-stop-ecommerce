@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useCartState } from '../../context/CartContext'
 
 function Navbar() {
-  const { cartState: { cart } } = useCartState()
+  const { getTotalItems } = useCartState()
   return (
     <nav className='navbar'>
       <div className="navbar__logo"><Link to='/' className='navbar__link'>Gamers Stop</Link></div>
@@ -18,7 +18,7 @@ function Navbar() {
         <li className="navbar__list-item">Register</li>
         <li className="navbar__list-item">
           <button className='navbar__btn'>
-            <Link className='navbar__link navbar__link--cart' to={'/cart'}><span className='navbar__cart-icon' data-cart-items={cart.length}><AiOutlineShoppingCart /></span> Cart</Link>
+            <Link className='navbar__link navbar__link--cart' to={'/cart'}><span className='navbar__cart-icon' data-cart-items={getTotalItems()}><AiOutlineShoppingCart /></span> Cart</Link>
           </button>
         </li>
         <li className="navbar__list-item navbar__list-item--user-profile">

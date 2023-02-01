@@ -9,7 +9,7 @@ import { currencyFormatter } from '../../utils/utils'
 import './cart.css'
 
 function Cart() {
-    const { cartState: { cart } } = useCartState()
+    const { cartState: { cart }, getTotalItems } = useCartState()
     const [totalAmount, setTotalAmount] = useState(0)
     useEffect(() => {
         setTotalAmount(cart.reduce((acc, curr) => (acc + curr.price) * curr.qty, 0))
@@ -29,7 +29,7 @@ function Cart() {
                             </ul>
                         </div>
                         <div className="cart__summary">
-                            <h3 className="cart__title">Sub Total of ({cart.length}) items</h3>
+                            <h3 className="cart__title">Sub Total of ({getTotalItems()}) items</h3>
                             <div className="cart__content">
                                 <p className="cart__total-amount"><><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(totalAmount)}</p>
                                 <button className="cart__checkout-btn">Check Out</button>

@@ -20,3 +20,7 @@
 .cart-btn--remove{
     background-color: var(--clr-btn-error);
 }
+
+.cart-btn--out-of-stock{
+    background-color: var(--clr-btn-out-of-stock);
+}

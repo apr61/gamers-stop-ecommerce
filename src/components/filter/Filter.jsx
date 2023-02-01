@@ -1,18 +1,22 @@
-import InputCheckBox from '../inputCheckBox/InputCheckBox'
+import InputBox from '../InputCheckBox/InputBox'
 import './filter.css'
 import { FaRupeeSign } from 'react-icons/fa';
-
-import { currencyFormatter } from '../../utils/utils';
 import { useState } from 'react';
 import Accoridon from '../accordion/Accordion';
+import { currencyFormatter } from '../../utils/utils';
+import { useFilterContext } from '../../context/FilterContext';
 
-function Filter({ products }) {
-    const sortedProductsPrice = getMinMaxPrice(products);
+
+function Filter({ products, filterProducts }) {
+    const sortedProductsPrice = getMinMaxPrice(filterProducts);
     const [filteredPrice, setFilteredPrice] = useState(sortedProductsPrice[0])
 
     function getMinMaxPrice(products) {
         return products.map(product => product.price).sort((a, b) => a - b)
     }
+
+    const { filterState:{outOfStock, brands} } = useFilterContext()
+
     return (
         <section className="filter-section">
             <div className="filter-section__price-section">
@@ -31,33 +35,40 @@ function Filter({ products }) {
             </div>
             <Accoridon title={'Brands'}>
                 {[...new Set(products.map(product => product.brand))].map((brand, i) => (
-                    <InputCheckBox key={i} name={brand} labelName={brand} />
+                    <InputBox key={i} name={brand} labelName={brand} type={'BRANDS'}
+                        payload={brand} checked={brands.indexOf(brand) !== -1} />
                 ))}
             </Accoridon>
             <Accoridon title={'Customer Review'}>
-                <InputCheckBox name={'4above'} labelName={'4'} icon={true} />
-                <InputCheckBox name={'3above'} labelName={'3'} icon={true} />
-                <InputCheckBox name={'2above'} labelName={'2'} icon={true} />
-                <InputCheckBox name={'1above'} labelName={'1'} icon={true} />
+                {
+                    new Array(4).fill(0).map((_, i) => (
+                        <InputBox key={i} name={'rating'} inputType={'radio'} labelName={4 - i}
+                            icon={true} type={'RATING'} payload={4 - i} />
+                    ))
+                }
             </Accoridon>
             <Accoridon title={'Discount'}>
-                <InputCheckBox name={'10per'} labelName={'10% Off or +'} />
-                <InputCheckBox name={'20per'} labelName={'20% Off or +'} />
-                <InputCheckBox name={'30per'} labelName={'30% Off or +'} />
-                <InputCheckBox name={'40per'} labelName={'40% Off or +'} />
-                <InputCheckBox name={'50per'} labelName={'50% Off or +'} />
+                <InputBox name={'10per'} labelName={'10% Off or +'} />
+                <InputBox name={'20per'} labelName={'20% Off or +'} />
+                <InputBox name={'30per'} labelName={'30% Off or +'} />
+                <InputBox name={'40per'} labelName={'40% Off or +'} />
+                <InputBox name={'50per'} labelName={'50% Off or +'} />
             </Accoridon>
             <Accoridon title={'Item Condition'}>
-                <InputCheckBox name={'new'} labelName={'New'} />
-                <InputCheckBox name={'renewed'} labelName={'Renewed'} />
-                <InputCheckBox name={'used'} labelName={'Used'} />
+                {
+                    ['New', 'Renewed', 'Used'].map((con, i) => (
+                        <InputBox key={i} inputType='radio' name={'item-condition'}
+                            labelName={con} type={'ITEM_CONDITION'} payload={con.toLowerCase()} />
+                    ))
+                }
             </Accoridon>
             <Accoridon title={'New Arraivals'}>
-                <InputCheckBox name={'last30days'} labelName={'Last 30 Days'} />
-                <InputCheckBox name={'last90days'} labelName={'Last 90 Days'} />
+                <InputBox name={'last30days'} labelName={'Last 30 Days'} />
+                <InputBox name={'last90days'} labelName={'Last 90 Days'} />
             </Accoridon>
             <Accoridon title={'Availability'}>
-                <InputCheckBox name={'Include-Out-Of-Stock'} labelName={'Include Out Of Stock'} />
+                <InputBox name={'outOfStock'} type={'OUT_OF_STOCK'} payload={outOfStock}
+                    isChecked={outOfStock} labelName={'Include Out Of Stock'} />
             </Accoridon>
         </section>
     )

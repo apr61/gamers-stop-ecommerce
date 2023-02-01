@@ -3,11 +3,12 @@ import { FaRupeeSign } from 'react-icons/fa'
 import { Link, useParams } from 'react-router-dom'
 import { createRouterPath, currencyFormatter } from '../../utils/utils'
 import CartButtons from '../button/cartButtons/CartButtons'
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
 
 function ProductCard({ product, categoryHome }) {
     const { category } = useParams()
-    const { id, images, name, price, brand } = { ...product }
+    const { id, images, name, price, brand, avgrating } = { ...product }
     return (
         <div className="product-card">
             <div className="product-card__image-container">
@@ -17,6 +18,13 @@ function ProductCard({ product, categoryHome }) {
                 <h4 className="product-card__name">
                     <Link className='product-card__link' to={`/${category ? category : createRouterPath(categoryHome)}/pr/${createRouterPath(name)}`} state={{ productId: id }}>{name}</Link>
                 </h4>
+                <div className="product-card__rating">
+                    {
+                        new Array(5).fill(0).map((a,i) => (
+                            i < avgrating ? <AiFillStar key={i} className='star-icon'/> : <AiOutlineStar key={i} className='star-icon'/>
+                        ))
+                    }
+                </div>
                 <p className="product-card__brand-name">{brand}</p>
                 <h5 className="product-card__price"><FaRupeeSign className='rupee-sign' />{currencyFormatter(price)}</h5>
                 <CartButtons id={id} product={product} />

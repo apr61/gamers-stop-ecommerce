@@ -15,12 +15,13 @@ function CartButtons({product, id}) {
                         })
                     }}>Remove From Cart</button>
                 ) : (
-                    <button className="cart-btn" onClick={() => {
+                    <button className={product.quantity>0 ? 'cart-btn' : 'cart-btn cart-btn--out-of-stock'} onClick={() => {
                         cartDispatch({
                             type: 'ADD_TO_CART',
                             payload: product
                         })
-                    }}><><AiOutlineShoppingCart /></> Add To Cart</button>
+                    }} disabled={product.quantity>0 ? false : true}>
+                    {product.quantity > 0 ? <><AiOutlineShoppingCart /> Add To Cart</> : 'Out Of Stock'}</button>
                 )
             }
         </>
