@@ -31,3 +31,9 @@
 .category-products__list .product-card{
     flex: 1 0 1;
 }
+
+.category-products__sort-sec{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

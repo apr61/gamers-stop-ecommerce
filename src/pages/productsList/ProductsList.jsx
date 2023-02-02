@@ -1,25 +1,19 @@
-import './categoryList.css'
+import './productsList.css'
 import Navbar from '../../components/navbar/Navbar'
 import Footer from '../../components/footer/Footer'
-import { useParams } from 'react-router-dom'
 import ProductCard from '../../components/productCard/ProductCard'
 import Filter from '../../components/filter/Filter'
-import { useFilterContext } from '../../context/FilterContext'
+import Sort from '../../components/sort/Sort'
 
-//data
-import { products } from '../../data/productsData'
-
-// custom function to uncreate path
-import { unCreateRouterPath } from '../../utils/utils'
+import { useFilterSortContext } from '../../context/FilterSortContext'
+import { useProductContext } from '../../context/ProductContext'
 
 
-function CategoryList() {
-	const { category } = useParams()
-	const categoryUpdated = unCreateRouterPath(category)
+function ProductsList() {
 
-	const { filterState: { outOfStock, brands, rating, itemCondition } } = useFilterContext()
+	const { filterState: { outOfStock, brands, rating, itemCondition }} = useFilterSortContext()
 
-	let categoryFilteredProducts = products.filter(product => product.category === categoryUpdated && product.quantity > 0)
+	const {products} = useProductContext()
 
 	function filteredProducts() {
 		let filtered;
@@ -38,17 +32,20 @@ function CategoryList() {
 		return filtered
 	}
 
-	let filteredData = filteredProducts() ? filteredProducts() : categoryFilteredProducts
+	let filteredData = filteredProducts() ? filteredProducts() : products
 	return (
 		<>
 			<Navbar />
 			<div className="main category-products">
 				<section className="category-products__filter">
 					<h3 className='category-products__title'>Filters</h3>
-					<Filter products={categoryFilteredProducts} filterProducts={filteredData}/>
+					<Filter products={products} filterProducts={filteredData} />
 				</section>
 				<section className="category-products__container">
-					<h2>{categoryUpdated.toUpperCase()}</h2>
+					<div className="category-products__sort-sec">
+						<h2>All Products</h2>
+						<Sort />
+					</div>
 					<div className="category-products__list">
 						{
 							filteredData.map((product => (
@@ -63,4 +60,4 @@ function CategoryList() {
 	)
 }
 
-export default CategoryList
+export default ProductsList

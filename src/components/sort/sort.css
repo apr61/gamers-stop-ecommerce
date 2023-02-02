@@ -1,0 +1,15 @@
+.select-sec{
+    display: flex;
+    gap:.5rem;
+    align-items: center;
+}
+
+.select-sec__select{
+    padding: .25rem;
+}
+
+.select-sec__select:focus{
+    outline: 2px solid var(--clr-txt-hover);
+    border-radius: .25rem;
+    border: 0;
+}

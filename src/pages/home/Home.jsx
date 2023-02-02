@@ -11,12 +11,15 @@ import Footer from '../../components/footer/Footer'
 
 //data
 import { categoryData } from '../../data/imagesLoader'
-import { products } from '../../data/productsData'
 
 // custom function to create path
 import { createRouterPath } from '../../utils/utils'
+import { useProductContext } from '../../context/ProductContext'
 
 function Home() {
+
+  const {products} = useProductContext()
+  
   return (
     <>
       <Navbar />
@@ -36,7 +39,7 @@ function Home() {
           <h2 className="home__title">Latest In Graphic Cards</h2>
           <Slider>
             {products.map(product => (
-              <ProductCard key={product.id} product={product} categoryHome={'Graphic Cards'}/>
+              <ProductCard key={product.id} product={product} categoryHome={'Graphic Cards'} />
             ))}
           </Slider>
         </section>

@@ -1,11 +1,11 @@
 import { useId } from 'react'
 import './inputCheckBox.css'
 import { AiFillStar } from 'react-icons/ai'
-import { useFilterContext } from '../../context/FilterContext'
+import { useFilterSortContext } from '../../context/FilterSortContext'
 
 function InputBox({ name, inputType = 'checkbox', type, labelName, icon, isChecked, payload }) {
 	const cId = useId()
-	const { filterDispatch } = useFilterContext()
+	const { filterDispatch } = useFilterSortContext()
 	function handleChange() {
 		filterDispatch({
 			type: type,

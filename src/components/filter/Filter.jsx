@@ -4,33 +4,34 @@ import { FaRupeeSign } from 'react-icons/fa';
 import { useState } from 'react';
 import Accoridon from '../accordion/Accordion';
 import { currencyFormatter } from '../../utils/utils';
-import { useFilterContext } from '../../context/FilterContext';
+import { useFilterSortContext } from '../../context/FilterSortContext';
 
 
 function Filter({ products, filterProducts }) {
     const sortedProductsPrice = getMinMaxPrice(filterProducts);
-    const [filteredPrice, setFilteredPrice] = useState(sortedProductsPrice[0])
-
     function getMinMaxPrice(products) {
         return products.map(product => product.price).sort((a, b) => a - b)
     }
 
-    const { filterState:{outOfStock, brands} } = useFilterContext()
+    const { filterState: { outOfStock, brands, price }, filterDispatch } = useFilterSortContext()
 
     return (
         <section className="filter-section">
             <div className="filter-section__price-section">
                 <h4 className='filter-section__title'>Price</h4>
                 <div className="filter-section__input-group">
-                    <input type="range" name="price" value={filteredPrice}
+                    <input type="range" name="price" value={price}
                         max={sortedProductsPrice[sortedProductsPrice.length - 1]}
                         min={sortedProductsPrice[0]}
-                        onChange={(e) => { setFilteredPrice(e.target.value) }} />
+                        onChange={(e) => { filterDispatch({ type: 'PRICE', payload: e.target.value }) }}
+                        step={10000} />
                 </div>
                 <div className="filter-section__price-sec">
                     <p className="filter-section__price">Min - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(sortedProductsPrice[0])}</p>
                     <p className="filter-section__price">Max - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(sortedProductsPrice[sortedProductsPrice.length - 1])}</p>
-                    <p className="filter-section__price">Filtered Price - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(filteredPrice)}</p>
+                    {price > 0 && (
+                        <p className="filter-section__price">Filtered Price - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(price)}</p>
+                    )}
                 </div>
             </div>
             <Accoridon title={'Brands'}>

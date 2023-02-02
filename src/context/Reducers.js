@@ -1,4 +1,4 @@
-import { filterInitialState } from "./FilterContext"
+import { filterInitialState } from "./FilterSortContext"
 
 export function CartReducer(state, action) {
     switch (action.type) {
@@ -45,9 +45,32 @@ export function FilterReducer(state, action) {
             return {
                 ...state, itemCondition: action.payload
             }
+        case 'PRICE':
+            return {
+                ...state, price: action.payload
+            }
         case 'CLEAR_FILTERS':
             return {
                 filterInitialState
+            }
+        default:
+            return state
+    }
+}
+
+export function SortReducer(state, action) {
+    switch (action.type) {
+        case 'HIGH_TO_LOW':
+            return {
+                ...state, priceHighToLow: !state.priceHighToLow
+            }
+        case 'LOW_TO_HIGH':
+            return {
+                ...state, priceLowToHigh: !state.priceLowToHigh
+            }
+        case 'FEATURED':
+            return {
+                ...state, featured: !state.featured
             }
         default:
             return state

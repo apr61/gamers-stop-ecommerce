@@ -1,8 +1,8 @@
 import {Route, Routes} from 'react-router-dom'
 import './globalStyle.css'
 import Home from "./pages/home/Home"
-import CategoryList from "./pages/categorylist/CategoryList"
-import ProductPage from "./pages/productPage/ProductPage"
+import ProductsList from "./pages/productsList/ProductsList"
+import SingleProductPage from "./pages/singleProductPage/SingleProductPage"
 import Cart from './pages/cart/Cart'
 
 function App() {
@@ -10,8 +10,8 @@ function App() {
     <>
       <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/:category' element={<CategoryList />} />
-          <Route path='/:category/pr/:productName' element={<ProductPage />} />
+          <Route path='/products' element={<ProductsList />} />
+          <Route path='/:productName' element={<SingleProductPage />} />
           <Route path='/cart' element={<Cart />} />
       </Routes>
     </>

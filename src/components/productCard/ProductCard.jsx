@@ -6,8 +6,7 @@ import CartButtons from '../button/cartButtons/CartButtons'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
 
-function ProductCard({ product, categoryHome }) {
-    const { category } = useParams()
+function ProductCard({ product }) {
     const { id, images, name, price, brand, avgrating } = { ...product }
     return (
         <div className="product-card">
@@ -16,7 +15,7 @@ function ProductCard({ product, categoryHome }) {
             </div>
             <div className="product-card__content">
                 <h4 className="product-card__name">
-                    <Link className='product-card__link' to={`/${category ? category : createRouterPath(categoryHome)}/pr/${createRouterPath(name)}`} state={{ productId: id }}>{name}</Link>
+                    <Link className='product-card__link' to={`/${createRouterPath(name)}`} state={{ productId: id }}>{name}</Link>
                 </h4>
                 <div className="product-card__rating">
                     {

@@ -4,24 +4,26 @@ import { FaBalanceScale, FaRupeeSign } from 'react-icons/fa'
 import { currencyFormatter } from '../../utils/utils'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { FiShoppingBag } from 'react-icons/fi'
-import './productPage.css'
+import './singleProductPage.css'
 
 import Navbar from '../../components/navbar/Navbar'
 import Footer from '../../components/footer/Footer'
 import CartButtons from '../../components/button/cartButtons/CartButtons'
 import QuantityCounter from '../../components/quantityCounter/QuantityCounter'
 
-//data
-import { products } from '../../data/productsData'
 import ProductImages from '../../components/productImages/ProductImages'
+import { getProductById } from '../../services/products'
+import { useAsync } from '../../hooks/useAsync'
 
-function ProductPage() {
+function SingleProductPage() {
 	// getting state
 	const location = useLocation()
 	const productId = location.state?.productId
 	// filtering products based on product id
-	const filteredProduct = products.filter(product => product.id === productId)[0]
-	const { id, name, images, brand, memory, price, description, manufacturer } = { ...filteredProduct }
+	const {loading, error, value: product} = useAsync(() => getProductById(productId), [productId])
+	if(loading) return <h1>Loading...</h1>
+	if(error) return <h1>{error}</h1>
+	const { id, name, images, brand, memory, price, description, manufacturer } = { ...product }
 	return (
 		<>
 			<Navbar />
@@ -37,11 +39,11 @@ function ProductPage() {
 							{description}
 						</p>
 					</header>
-					<QuantityCounter product={filteredProduct} />
+					<QuantityCounter product={product} />
 
 					<div className="product-page__section">
 						<div className="product-page__btn-wrapper">
-							<CartButtons id={id} product={filteredProduct} />
+							<CartButtons id={id} product={product} />
 							<button className="product-page__button product-page__button--buy-now"><><FiShoppingBag /></> Buy Now</button>
 						</div>
 						<div className="product-page__btn-wrapper">
@@ -97,4 +99,4 @@ function ProductPage() {
 	)
 }
 
-export default ProductPage
+export default SingleProductPage
