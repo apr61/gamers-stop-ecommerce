@@ -1,74 +1,71 @@
-import InputBox from '../InputCheckBox/InputBox'
+import FilterInputs from '../inputFields/filterInputs/FilterInputs'
 import './filter.css'
 import { FaRupeeSign } from 'react-icons/fa';
-import { useState } from 'react';
 import Accoridon from '../accordion/Accordion';
 import { currencyFormatter } from '../../utils/utils';
 import { useFilterSortContext } from '../../context/FilterSortContext';
 
 
-function Filter({ products, filterProducts }) {
-    const sortedProductsPrice = getMinMaxPrice(filterProducts);
-    function getMinMaxPrice(products) {
-        return products.map(product => product.price).sort((a, b) => a - b)
-    }
+function getMinMaxPrice(products) {
+    let filteredPrice = products.map(product => product.price)
+    return Math.max(...filteredPrice)
+}
 
-    const { filterState: { outOfStock, brands, price }, filterDispatch } = useFilterSortContext()
+function Filter() {
+    const { filterState: { outOfStock, brands, price, all_products }, filterDispatch } = useFilterSortContext()
+
+    const maxPrice = getMinMaxPrice(all_products);
+
+    const allUniqueBrands = [...new Set(all_products.map(product => product.brand))]
 
     return (
         <section className="filter-section">
             <div className="filter-section__price-section">
                 <h4 className='filter-section__title'>Price</h4>
                 <div className="filter-section__input-group">
-                    <input type="range" name="price" value={price}
-                        max={sortedProductsPrice[sortedProductsPrice.length - 1]}
-                        min={sortedProductsPrice[0]}
-                        onChange={(e) => { filterDispatch({ type: 'PRICE', payload: e.target.value }) }}
-                        step={10000} />
-                </div>
-                <div className="filter-section__price-sec">
-                    <p className="filter-section__price">Min - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(sortedProductsPrice[0])}</p>
-                    <p className="filter-section__price">Max - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(sortedProductsPrice[sortedProductsPrice.length - 1])}</p>
-                    {price > 0 && (
-                        <p className="filter-section__price">Filtered Price - <><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(price)}</p>
-                    )}
+                    <p className="filter-section__price"><><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(price === 0 ? maxPrice : price)}</p>
+                    <input type="range" name="price" value={price === 0 ? maxPrice : price}
+                        max={maxPrice}
+                        min={0}
+                        step={10000}
+                        onChange={(e) => { filterDispatch({ type: 'PRICE', payload: e.target.value }) }} />
                 </div>
             </div>
             <Accoridon title={'Brands'}>
-                {[...new Set(products.map(product => product.brand))].map((brand, i) => (
-                    <InputBox key={i} name={brand} labelName={brand} type={'BRANDS'}
+                {allUniqueBrands.map((brand, i) => (
+                    <FilterInputs key={i} name={brand} labelName={brand} type={'BRANDS'}
                         payload={brand} checked={brands.indexOf(brand) !== -1} />
                 ))}
             </Accoridon>
             <Accoridon title={'Customer Review'}>
                 {
                     new Array(4).fill(0).map((_, i) => (
-                        <InputBox key={i} name={'rating'} inputType={'radio'} labelName={4 - i}
+                        <FilterInputs key={i} name={'rating'} inputType={'radio'} labelName={4 - i}
                             icon={true} type={'RATING'} payload={4 - i} />
                     ))
                 }
             </Accoridon>
             <Accoridon title={'Discount'}>
-                <InputBox name={'10per'} labelName={'10% Off or +'} />
-                <InputBox name={'20per'} labelName={'20% Off or +'} />
-                <InputBox name={'30per'} labelName={'30% Off or +'} />
-                <InputBox name={'40per'} labelName={'40% Off or +'} />
-                <InputBox name={'50per'} labelName={'50% Off or +'} />
+                <FilterInputs name={'10per'} labelName={'10% Off or +'} />
+                <FilterInputs name={'20per'} labelName={'20% Off or +'} />
+                <FilterInputs name={'30per'} labelName={'30% Off or +'} />
+                <FilterInputs name={'40per'} labelName={'40% Off or +'} />
+                <FilterInputs name={'50per'} labelName={'50% Off or +'} />
             </Accoridon>
             <Accoridon title={'Item Condition'}>
                 {
                     ['New', 'Renewed', 'Used'].map((con, i) => (
-                        <InputBox key={i} inputType='radio' name={'item-condition'}
+                        <FilterInputs key={i} inputType='radio' name={'itemCondition'}
                             labelName={con} type={'ITEM_CONDITION'} payload={con.toLowerCase()} />
                     ))
                 }
             </Accoridon>
             <Accoridon title={'New Arraivals'}>
-                <InputBox name={'last30days'} labelName={'Last 30 Days'} />
-                <InputBox name={'last90days'} labelName={'Last 90 Days'} />
+                <FilterInputs name={'last30days'} labelName={'Last 30 Days'} />
+                <FilterInputs name={'last90days'} labelName={'Last 90 Days'} />
             </Accoridon>
             <Accoridon title={'Availability'}>
-                <InputBox name={'outOfStock'} type={'OUT_OF_STOCK'} payload={outOfStock}
+                <FilterInputs name={'outOfStock'} type={'OUT_OF_STOCK'} payload={outOfStock}
                     isChecked={outOfStock} labelName={'Include Out Of Stock'} />
             </Accoridon>
         </section>

@@ -19,7 +19,7 @@ import { useProductContext } from '../../context/ProductContext'
 function Home() {
 
   const {products} = useProductContext()
-  
+
   return (
     <>
       <Navbar />
@@ -29,7 +29,7 @@ function Home() {
           <h2 className="home__title">Shop By Categories</h2>
           <Slider>
             {categoryData.map(category => (
-              <Link key={category.id} to={`/${createRouterPath(category.name)}`}>
+              <Link key={category.id} to={`/c/${createRouterPath(category.name)}`}>
                 <CategoryCard category={category} />
               </Link>
             ))}

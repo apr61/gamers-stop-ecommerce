@@ -10,3 +10,15 @@
 .filter-section .accordion:last-child{
     border-bottom: 0;
 }
+
+.filter-section__input-wrapper{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.filter-section__input-group{
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}

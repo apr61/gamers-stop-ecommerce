@@ -17,8 +17,12 @@ function Navbar() {
         <li className="navbar__list-item">
           <NavLink to='/products' className='navbar__link'>Products</NavLink>
         </li>
-        <li className="navbar__list-item">Login</li>
-        <li className="navbar__list-item">Register</li>
+        <li className="navbar__list-item">
+          <NavLink to='/signin' className='navbar__link'>Sign In</NavLink>
+        </li>
+        <li className="navbar__list-item">
+        <NavLink to='/signup' className='navbar__link'>Sign Up</NavLink>
+        </li>
         <li className="navbar__list-item">
           <Link className='navbar__link navbar__link--cart' to={'/cart'}><span className='navbar__cart-icon' data-cart-items={getTotalItems()}><AiOutlineShoppingCart /></span> Cart</Link>
         </li>
