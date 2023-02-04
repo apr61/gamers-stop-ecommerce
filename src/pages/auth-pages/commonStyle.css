@@ -34,3 +34,11 @@
     margin-top: 1rem;
     text-align: start;
 }
+
+.auth-page__error-msg{
+    color: var(--clr-btn-error);
+}
+
+.auth-page__btn--loading{
+    color: var(--clr-btn-laoding-bg);
+}

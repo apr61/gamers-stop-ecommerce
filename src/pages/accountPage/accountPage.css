@@ -1,0 +1,41 @@
+.account-sec{
+    max-width: 50rem;
+    width: 100%;
+    margin-inline: auto;
+}
+
+.account-sec__title{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.account-sec__sub-title{
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.account-sec__container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.account-sec__card{
+    border: 1px solid var(--clr-border);
+    padding: 1rem;
+    border-radius: .35rem;
+}
+
+.account-sec__desc{
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--clr-txt-fade);
+}
+
+.account-sec__link{
+    color: var(--clr-txt-black)
+}
+
+.account-sec__link:hover{
+    color: var(--clr-txt-hover)
+}

@@ -12,7 +12,7 @@ const initialState = {
     cart: JSON.parse(localStorage.getItem('gamers-stop-cart'))?.cart || [],
 }
 
-function CartContext({ children }) {
+function CartProvider({ children }) {
     const [cartState, cartDispatch] = useReducer(CartReducer, initialState)
     useEffect(() => {
         localStorage.setItem('gamers-stop-cart', JSON.stringify(cartState))
@@ -28,4 +28,4 @@ function CartContext({ children }) {
     )
 }
 
-export default CartContext
+export default CartProvider

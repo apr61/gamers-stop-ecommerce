@@ -25,6 +25,7 @@
     --clr-btn-error: hsl(0, 50%, 50%);
     --clr-btn-out-of-stock: hsl(0, 0% , 30%);
     --clr-txt-fade: hsl(0, 0%, 60%);
+    --clr-btn-laoding-bg: hsl(200, 50%, 70%);
 }
 
 body{
