@@ -3,7 +3,7 @@ import './input.css'
 
 const Input = React.forwardRef((props, ref) => {
     const id = useId()
-    const {labelName, placeholder, inputType} = props
+    const {labelName, placeholder, inputType='text'} = props
   return (
     <div className="input-group">
         <label htmlFor={id} className='input-group__label'>{labelName}</label>

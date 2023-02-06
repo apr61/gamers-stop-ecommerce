@@ -6,8 +6,6 @@ import { AiOutlineHeart } from 'react-icons/ai'
 import { FiShoppingBag } from 'react-icons/fi'
 import './singleProductPage.css'
 
-import Navbar from '../../components/navbar/Navbar'
-import Footer from '../../components/footer/Footer'
 import CartButtons from '../../components/button/cartButtons/CartButtons'
 import QuantityCounter from '../../components/quantityCounter/QuantityCounter'
 
@@ -20,13 +18,12 @@ function SingleProductPage() {
 	const location = useLocation()
 	const productId = location.state?.productId
 	// filtering products based on product id
-	const {loading, error, value: product} = useAsync(() => getProductById(productId), [productId])
-	if(loading) return <h1>Loading...</h1>
-	if(error) return <h1>{error}</h1>
+	const { loading, error, value: product } = useAsync(() => getProductById(productId), [productId])
+	if (loading) return <h1>Loading...</h1>
+	if (error) return <h1>{error}</h1>
 	const { id, name, images, brand, memory, price, description, manufacturer } = { ...product }
 	return (
 		<>
-			<Navbar />
 			<div className="main product-page">
 				<div className="product-page__image-container">
 					<ProductImages images={images} name={name} />
@@ -94,7 +91,6 @@ function SingleProductPage() {
 					</div>
 				</div>
 			</div>
-			<Footer />
 		</>
 	)
 }

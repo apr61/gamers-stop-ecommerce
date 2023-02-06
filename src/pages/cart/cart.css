@@ -51,6 +51,7 @@
     min-height: 50vh;
     border-radius: .25rem;
     margin-inline: auto;
+    flex-shrink: 0;
 }
 
 .cart__title-empty{

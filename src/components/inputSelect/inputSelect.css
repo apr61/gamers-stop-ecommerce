@@ -4,12 +4,23 @@
     align-items: center;
 }
 
+.select-sec__label{
+    flex-shrink: 0;
+}
+
 .select-sec__select{
     padding: .25rem;
+    width: 100%;
 }
 
 .select-sec__select:focus{
     outline: 2px solid var(--clr-txt-hover);
     border-radius: .25rem;
     border: 0;
+}
+
+.select-sec--state{
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 1.25rem;
 }

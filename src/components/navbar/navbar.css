@@ -34,7 +34,7 @@
     background-color: transparent;
     color: var(--clr-txt-white);
     cursor: pointer;
-    position: relative;
+    font-size: 1.01rem;
 }
 
 .navbar__cart-icon{

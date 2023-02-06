@@ -17,6 +17,7 @@
 
 .category-products__container{
     flex: 3;
+    width: 100%;
 }
 
 .category-products__list{
@@ -33,6 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
 
 .category-products__empty{
@@ -45,4 +47,9 @@
 .category-products__para{
     font-size: 1.5rem;
     color: var(--clr-txt-fade);
+}
+
+.category-products__title--h2{
+    font-size: 1.5rem;
+    font-weight: 600;
 }
