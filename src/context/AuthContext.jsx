@@ -9,7 +9,7 @@ export function useAuthContext() {
 }
 
 function AuthProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState()
+    const [currentUser, setCurrentUser] = useState({})
 
 
     function signUp (email, password) {
@@ -28,7 +28,7 @@ function AuthProvider({ children }) {
         const unsubscribe = onAuthStateChanged(auth, user => {
             setCurrentUser(user)
         })
-        return unsubscribe
+        return () => unsubscribe
     }, [])
 
     return (

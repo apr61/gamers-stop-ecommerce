@@ -1,16 +1,12 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import FilterSortProvider from '../context/FilterSortContext'
-import ProductProvider from '../context/ProductContext'
 
-function ContextLayout() {
+function ContextLayout({ provider: Component }) {
   return (
     <>
-        <ProductProvider>
-            <FilterSortProvider>
-                <Outlet />
-            </FilterSortProvider>
-        </ProductProvider>
+      <Component>
+        <Outlet />
+      </Component>
     </>
   )
 }

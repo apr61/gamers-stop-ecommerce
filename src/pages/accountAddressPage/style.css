@@ -86,3 +86,7 @@
 .address-form-sec__btn:focus{
     outline: 2px solid var(--clr-txt-hover);
 }
+
+.address-form-sec__btn--loading{
+    background-color: var(--clr-btn-laoding-bg);
+}
