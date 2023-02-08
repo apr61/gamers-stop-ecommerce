@@ -29,6 +29,10 @@
     gap: 1rem;
 }
 
+.navbar__list-item{
+    cursor: pointer;
+}
+
 .navbar__btn{
     border: 0;
     background-color: transparent;
@@ -57,11 +61,6 @@
     font-size: .75rem;
 }
 
-.navbar__list-item--user-profile{
-    width: 2rem;
-    height: 2rem;
-    cursor: pointer;
-}
 
 .navbar__cart-preview{
     position: absolute;
@@ -80,4 +79,38 @@
 
 .navbar__link.active{
     color: var(--clr-txt-hover);
+}
+
+.navbar__dropdown{
+    position: relative;
+    display: flex;
+    gap: .125rem;
+}
+
+.navbar__down-arrow{
+    font-size: 1.25rem;
+}
+
+.navbar__account{
+    font-size: 1.01rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.navbar__username{
+    font-weight: 700;
+}
+
+.navbar__dropdown-menu{
+    display: none;
+    position: absolute;
+    bottom: -3rem;
+    right: 0;
+    background-color: black;
+    width: 10rem;
+}
+.navbar__dropdown:hover .navbar__dropdown-menu{
+    display: block;
 }

@@ -1,0 +1,27 @@
+.profile{
+    max-width: 30rem;
+    width: 100%;
+}
+
+.profile__title{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.profile__body{
+    display: flex;
+    flex-direction: column;
+    gap: .75rem; 
+}
+
+.profile__btn{
+    border: 0;
+    background-color: var(--clr-btn-bg);
+    color:  var(--clr-txt-white);
+    border-radius: .25rem;
+    padding: .5rem 1.5rem;
+    width: 10rem;       
+    font-size: 1.25rem;
+    align-self: center;
+    cursor: pointer; 
+}

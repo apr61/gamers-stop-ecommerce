@@ -2,11 +2,11 @@ import React, { useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Input from '../../components/inputFields/Input'
 import Navbar from '../../components/navbar/Navbar'
-import { useAuthContext } from '../../context/AuthContext'
+import { signIn } from '../../services/auth'
 import './commonStyle.css'
 
 function SignIn() {
-	const { signIn } = useAuthContext()
+
 	const navigate = useNavigate()
 	const location = useLocation()
 	const from = location.state?.from?.pathname || '/'
@@ -18,12 +18,13 @@ function SignIn() {
 	const [error, setError] = useState('')
 
 
-	async function handleSubmit(e) {
+	function handleSubmit(e) {
 		e.preventDefault()
 		try {
 			setLoading(true)
-			await signIn(emailRef.current.value, passwordRef.current.value)
-			navigate(from, { replace: true })
+			signIn(emailRef.current.value, passwordRef.current.value).then(() => {
+				navigate(from, { replace: true })
+			})
 		} catch {
 			setError('Username or password not found')
 		} finally {

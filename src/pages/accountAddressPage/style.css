@@ -90,3 +90,30 @@
 .address-form-sec__btn--loading{
     background-color: var(--clr-btn-laoding-bg);
 }
+
+.address__del-btn{
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.01rem;
+    color: var(--clr-txt-black);
+}
+
+.address__del-btn:focus{
+    outline: 2px solid var(--clr-txt-hover);
+    border-radius: .25rem;
+}
+
+.address__link{
+    color: var(--clr-txt-black);
+}
+
+.address__link:hover,.address__del-btn:hover{
+    color: var(--clr-txt-hover);
+}
+
+.address__link:focus{
+    outline: 2px solid var(--clr-txt-hover);
+    border-radius: .25rem;
+}

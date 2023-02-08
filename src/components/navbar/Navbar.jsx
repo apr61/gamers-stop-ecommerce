@@ -1,19 +1,21 @@
 import './navbar.css'
-import UserProfile from '../../assets/images/UserProfile.png'
 import Search from '../search/Search'
 import { AiOutlineShoppingCart } from "react-icons/ai"
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useCartState } from '../../context/CartContext'
 import { useAuthContext } from '../../context/AuthContext'
+import { logOut } from '../../services/auth'
+import { BiChevronDown } from 'react-icons/bi'
 
 function Navbar() {
 	const { getTotalItems } = useCartState()
-	const { logOut, currentUser } = useAuthContext()
+	const { currentUser } = useAuthContext()
 	const navigate = useNavigate()
-	async function handleSignOut() {
+	function handleSignOut() {
 		try {
-			await logOut()
-			navigate(to = '/signin')
+			logOut().then(() => {
+				navigate(to = '/signin')
+			})
 		} catch {
 			error => (
 				console.error(error)
@@ -31,28 +33,16 @@ function Navbar() {
 				<li className="navbar__list-item">
 					<NavLink to='/products' className='navbar__link'>Products</NavLink>
 				</li>
-				{
-					!currentUser && (
-						<>
-							<li className="navbar__list-item">
-								<NavLink to='/signin' className='navbar__link'>Sign In</NavLink>
-							</li>
-							<li className="navbar__list-item">
-								<NavLink to='/signup' className='navbar__link'>Sign Up</NavLink>
-							</li>
-						</>
-					)
-				}
+				<li className="navbar__list-item">
+					<Link to={currentUser ? '/account' : '/signin'} className='navbar__link navbar__dropdown'>
+						<h5 className="navbar__account">Hello, <span className='navbar__username'>{currentUser?.displayName ?? 'sign in'}</span></h5>
+						<BiChevronDown className='navbar__down-arrow' />
+					</Link>
+				</li>
+
 				<li className="navbar__list-item">
 					<Link className='navbar__link navbar__link--cart' to={'/cart'}><span className='navbar__cart-icon' data-cart-items={getTotalItems()}><AiOutlineShoppingCart /></span> Cart</Link>
 				</li>
-				{
-					currentUser && (
-						<li className="navbar__list-item">
-							<button className='navbar__btn' onClick={handleSignOut}>Sign Out</button>
-						</li>
-					)
-				}
 			</ul>
 		</nav>
 	)

@@ -29,6 +29,7 @@ function useAsyncInternal(func, dependencies, initialLoading = false) {
             return Promise.reject(err)
         }).finally(() => {
             setLoading(false)
+            return value
         })
     }, dependencies)
     return {loading, error, value, execute}

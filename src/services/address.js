@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore"
 import { db } from "../FirebaseConfig"
 
 export const addAddress = async (newAddress) => {
@@ -17,4 +17,8 @@ export const getAddresses = async () => {
 export const updateAddress = async (updatedAddress, id) => {
     const existingAddress = doc(db, "addresses", id)
     await updateDoc(existingAddress, updatedAddress)
+}
+
+export const deleteAddressById = async (id) => {
+    await deleteDoc(doc(db, "addresses", id))
 }
