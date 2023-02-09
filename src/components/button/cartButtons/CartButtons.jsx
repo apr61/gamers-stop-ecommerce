@@ -1,6 +1,8 @@
 import './cartButtons.css'
 import { useCartState } from '../../../context/CartContext'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { BsTrash } from 'react-icons/bs'
+
 
 function CartButtons({product, id}) {
     const { cartState: { cart }, cartDispatch } = useCartState()
@@ -13,7 +15,7 @@ function CartButtons({product, id}) {
                             type: 'REMOVE_FROM_CART',
                             payload: product
                         })
-                    }}>Remove From Cart</button>
+                    }}><BsTrash /> Remove From Cart</button>
                 ) : (
                     <button className={product.quantity>0 ? 'cart-btn' : 'cart-btn cart-btn--out-of-stock'} onClick={() => {
                         cartDispatch({

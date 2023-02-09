@@ -10,7 +10,7 @@ function AccountProfilePage() {
 	const emailRef = useRef()
 	const passwordRef = useRef()
 	const confirmPasswordRef = useRef()
-    console.log(isEditing)
+
 	return (
 		<section className="profile main">
 			<h2 className="profile__title">Profile</h2>

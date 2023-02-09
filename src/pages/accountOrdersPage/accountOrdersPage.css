@@ -1,0 +1,31 @@
+.orders{
+    max-width: 50rem;
+    width: 100%;
+    margin-inline: auto;
+}
+
+.orders__title{
+    font-weight: 500;
+}
+
+.orders__tabs{
+    display: flex;
+    gap: 2rem;
+    border-bottom: 2px solid var(--clr-border);
+}
+
+.orders__tab{
+    border: 0;
+    background-color: transparent;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 1rem;
+}
+
+.orders__tab:focus{
+    outline: 2px solid var(--clr-txt-hover);
+}
+
+.orders__tab:hover{
+    color: var(--clr-txt-hover);
+}

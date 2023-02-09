@@ -1,5 +1,4 @@
 import './productCard.css'
-import { FaRupeeSign } from 'react-icons/fa'
 import { Link, useParams } from 'react-router-dom'
 import { createRouterPath, currencyFormatter } from '../../utils/utils'
 import CartButtons from '../button/cartButtons/CartButtons'
@@ -25,7 +24,7 @@ function ProductCard({ product }) {
                     }
                 </div>
                 <p className="product-card__brand-name">{brand}</p>
-                <h5 className="product-card__price"><FaRupeeSign className='rupee-sign' />{currencyFormatter(price)}</h5>
+                <h5 className="product-card__price">{currencyFormatter(price)}</h5>
                 <CartButtons id={id} product={product} />
             </div>
         </div>

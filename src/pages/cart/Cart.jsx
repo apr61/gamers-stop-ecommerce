@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { FaRupeeSign } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import CartItem from '../../components/cartItem/CartItem'
 import Footer from '../../components/footer/Footer'
 import Navbar from '../../components/navbar/Navbar'
@@ -9,11 +9,8 @@ import { currencyFormatter } from '../../utils/utils'
 import './cart.css'
 
 function Cart() {
-    const { cartState: { cart }, getTotalItems } = useCartState()
-    const [totalAmount, setTotalAmount] = useState(0)
-    useEffect(() => {
-        setTotalAmount(cart.reduce((acc, curr) => (acc + curr.price) * curr.qty, 0))
-    }, [cart])
+    const { cartState: { cart }, getTotalItems, getTotalPrice } = useCartState()
+    const navigate = useNavigate()
     return (
         <>
             <Navbar />
@@ -31,8 +28,8 @@ function Cart() {
                         <div className="cart__summary">
                             <h3 className="cart__title">Sub Total of ({getTotalItems()}) items</h3>
                             <div className="cart__content">
-                                <p className="cart__total-amount"><><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(totalAmount)}</p>
-                                <button className="cart__checkout-btn">Check Out</button>
+                                <p className="cart__total-amount">{currencyFormatter(getTotalPrice())}</p>
+                                <button className="cart__checkout-btn" onClick={() => navigate('/checkout')}>Check Out</button>
                             </div>
                         </div>
                     </>

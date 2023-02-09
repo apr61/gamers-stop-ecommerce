@@ -1,0 +1,132 @@
+.checkout__header{
+    padding: .5rem 0;
+    background-color: var(--clr-txt-fade);
+}
+
+.checkout__title{
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--clr-txt-white);
+    text-align: center;
+}
+
+.checkout__body{
+    max-width: 60rem;
+    width: 100%;
+    margin-inline: auto;
+}
+
+.checkout__acc-title{
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--clr-txt-black);
+}
+
+.checkout__subtitle{
+    font-weight: 400;
+    font-size: 1.1rem;
+}
+
+.checkout__section{
+    margin-top: .5rem;
+    position: relative;
+}
+
+.checkout__section-input{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-top: .5rem;
+}
+
+.input-radio{
+    border:2px solid var(--clr-border);
+    padding: .5rem;
+    border-radius: .25rem;
+    display: flex;
+    gap: .5rem;
+}
+
+.input-radio__radio{
+    width: 1rem;
+    cursor: pointer;
+}
+
+.input-radio__label{
+    cursor: pointer;
+}
+
+.checkout__name{
+    font-weight: 700;
+}
+
+.checkout__link{
+    color: var(--clr-txt-black);
+}
+
+.checkout__link:hover{
+    color: var(--clr-txt-hover);
+}
+
+.checkout__btn{
+    border: 0;
+    cursor: pointer;
+    background-color: var(--clr-btn-bg);
+    color: var(--clr-txt-white);
+    border-radius: .25rem;
+    padding: .5rem .75rem;
+    font-size: 1.12rem;
+}
+
+.checkout__btn--action{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    color: var(--clr-txt-black);
+    padding: 0;
+    font-size: .8rem;
+}
+
+.checkout__btn--action:hover{
+    color: var(--clr-txt-hover);
+    text-decoration: underline;
+}
+
+.checkout__order-summary{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+}
+
+.checkout__order-total{
+    font-size: 1.25rem;
+    color: var(--clr-txt-hover);
+}
+
+.checkout__order-details{
+    flex-shrink: 0;
+    max-width: 20rem;
+    width: 100%;
+}
+
+.checkout__table{
+    width: 100%;
+    border-bottom: 2px solid var(--clr-border);
+}
+
+.checkout__td--end{
+    text-align: end;
+}
+
+.checkout__btn--disabled{
+    background-color: var(--clr-btn-laoding-bg);
+    cursor: not-allowed;
+}
+
+.checkout__selected{
+    color: var(--clr-txt-cnf);
+    font-size: 1.25rem;
+    font-weight: 600;
+}

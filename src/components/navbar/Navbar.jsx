@@ -6,16 +6,16 @@ import { useCartState } from '../../context/CartContext'
 import { useAuthContext } from '../../context/AuthContext'
 import { logOut } from '../../services/auth'
 import { BiChevronDown } from 'react-icons/bi'
+import { useState } from 'react'
 
 function Navbar() {
 	const { getTotalItems } = useCartState()
 	const { currentUser } = useAuthContext()
+	const [dropDownStatus, setDropDownStatus] = useState(false)
 	const navigate = useNavigate()
 	function handleSignOut() {
 		try {
-			logOut().then(() => {
-				navigate(to = '/signin')
-			})
+			logOut().then(navigate(to = '/signin'))
 		} catch {
 			error => (
 				console.error(error)
@@ -34,10 +34,27 @@ function Navbar() {
 					<NavLink to='/products' className='navbar__link'>Products</NavLink>
 				</li>
 				<li className="navbar__list-item">
-					<Link to={currentUser ? '/account' : '/signin'} className='navbar__link navbar__dropdown'>
-						<h5 className="navbar__account">Hello, <span className='navbar__username'>{currentUser?.displayName ?? 'sign in'}</span></h5>
-						<BiChevronDown className='navbar__down-arrow' />
-					</Link>
+					<div className="dropdown" onMouseOver={() => setDropDownStatus(true)} onMouseLeave={() => setDropDownStatus(false)}>
+						<Link to={currentUser ? '/account' : '/signin'} className='navbar__link navbar__account'>
+							<h5 className="navbar__account">Hello, <span className='navbar__username'>{currentUser?.displayName ?? 'sign in'}</span></h5>
+							<BiChevronDown className='navbar__down-arrow' />
+						</Link>
+						<div className={dropDownStatus ? "dropdown-content show-dropdown" : "dropdown-content"}>
+							{
+								currentUser ? (
+									<>
+										<Link to='/account' className='navbar__link navbar__link--drop'>Account</Link>
+										<button className="navbar__btn" onClick={handleSignOut}>Log out</button>
+									</>
+								) : (
+									<>
+										<Link to='/signin' className='navbar__link navbar__link--drop'>Sign In</Link>
+										<Link to='/signup' className='navbar__link navbar__link--drop'>Sign Up</Link>
+									</>
+								)
+							}
+						</div>
+					</div>
 				</li>
 
 				<li className="navbar__list-item">

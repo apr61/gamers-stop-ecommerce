@@ -26,12 +26,6 @@ function AccountPage() {
                             <p className="account-sec__desc">Edit or add addresses for orders.</p>
                         </div>
                     </Link>
-                    <Link to='/account/payment-methods' className='account-sec__link'>
-                        <div className="account-sec__card">
-                            <h3 className="account-sec__sub-title">Payment Methods</h3>
-                            <p className="account-sec__desc">Edit or add new payment methods.</p>
-                        </div>
-                    </Link>
                 </div>
             </section>
         </>

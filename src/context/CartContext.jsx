@@ -21,8 +21,11 @@ function CartProvider({ children }) {
     function getTotalItems(){
         return cartState.cart.reduce((acc,curr) => acc+curr.qty, 0)
     }
+    function getTotalPrice(){
+        return cartState.cart.reduce((acc, curr) => (acc+curr.price) * curr.qty ,0)
+    }
     return (
-        <Cart.Provider value={{ cartState, cartDispatch, getTotalItems}}>
+        <Cart.Provider value={{ cartState, cartDispatch, getTotalItems, getTotalPrice}}>
             {children}
         </Cart.Provider>
     )

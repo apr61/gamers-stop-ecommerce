@@ -12,7 +12,7 @@ function CartItem({product}) {
             </div>
             <div className="cart-item__body">
                 <h3 className="cart-item__product-name">{product.name}</h3>
-                <p className="cart-item__total-amount"><><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(product.price)}</p>
+                <p className="cart-item__total-amount">{currencyFormatter(product.price)}</p>
                 <QuantityCounter product={product} />
             </div>
             <div className="cart-item__btn-grp">

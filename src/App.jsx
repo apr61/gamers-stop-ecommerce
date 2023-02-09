@@ -16,6 +16,10 @@ import AddressFormPage from './pages/accountAddressPage/AddressFormPage'
 import ProductProvider from './context/ProductContext'
 import FilterSortProvider from './context/FilterSortContext'
 import UserAddressProvider from './context/AddressContext'
+import OrdersProvider from './context/OrderContext'
+import CheckOutPage from './pages/checkout/CheckOutPage'
+import OrderSuccessful from './pages/orderSuccessful/OrderSuccessful'
+import AccountOrdersPage from './pages/accountOrdersPage/AccountOrdersPage'
 
 
 function App() {
@@ -32,17 +36,24 @@ function App() {
 				</Route>
 				<Route element={<RequireAuth />}>
 					<Route element={<ContextLayout provider={UserAddressProvider} />}>
-						<Route path='/account'>
-							<Route index element={<AccountPage />} />
-							<Route path='profile' element={<AccountProfilePage />} />
-							<Route path='addresses' element={<AccountAddressPage />} />
-							<Route path='addresses/new' element={<AddressFormPage />} />
-							<Route path='addresses/edit' element={<AddressFormPage />} />
-							<Route path='orders' element={<AccountPage />} />
-							<Route path='payment-methods' element={<AccountPage />} />
+						<Route element={<ContextLayout provider={OrdersProvider} />}>
+							<Route path='/account'>
+								<Route index element={<AccountPage />} />
+								<Route path='profile' element={<AccountProfilePage />} />
+								<Route path='addresses' element={<AccountAddressPage />} />
+								<Route path='addresses/new' element={<AddressFormPage />} />
+								<Route path='addresses/edit' element={<AddressFormPage />} />
+								<Route path='orders' element={<AccountOrdersPage />} />
+							</Route>
 						</Route>
 					</Route>
 				</Route>
+			</Route>
+			<Route element={<RequireAuth />}>
+				<Route element={<ContextLayout provider={UserAddressProvider} />}>
+					<Route path='/checkout' element={<CheckOutPage />} />
+				</Route>
+				<Route path='/order-successful/:id' element={<OrderSuccessful />} />
 			</Route>
 			<Route path='/cart' element={<Cart />} />
 			<Route path='/signin' element={<SignIn />} />
