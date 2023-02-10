@@ -30,3 +30,19 @@
 .cart-item__total-amount{
     font-size: 1.25rem;
 }
+
+@media (max-width: 45rem){
+    .cart-item{
+        flex-direction: column;
+        display: grid;
+        grid-template-areas: "cartItemImages cartItemBody";
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    .cart-item__image-container{
+        grid-area: cartItemImages;
+    }
+    .cart-item__body{
+        grid-area: cartItemBody;
+    }
+}

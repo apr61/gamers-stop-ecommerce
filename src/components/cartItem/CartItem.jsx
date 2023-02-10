@@ -1,4 +1,3 @@
-import { FaRupeeSign } from 'react-icons/fa'
 import { currencyFormatter } from '../../utils/utils'
 import CartButtons from '../button/cartButtons/CartButtons'
 import QuantityCounter from '../quantityCounter/QuantityCounter'

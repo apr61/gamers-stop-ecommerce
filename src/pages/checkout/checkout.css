@@ -130,3 +130,11 @@
     font-size: 1.25rem;
     font-weight: 600;
 }
+
+@media (max-width: 40rem){
+    .checkout__order-summary{
+        flex-direction: column-reverse;
+        gap: 1rem;
+        align-items: center;
+    }
+}

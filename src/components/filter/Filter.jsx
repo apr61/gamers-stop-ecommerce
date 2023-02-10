@@ -23,7 +23,7 @@ function Filter() {
             <div className="filter-section__price-section">
                 <h4 className='filter-section__title'>Price</h4>
                 <div className="filter-section__input-group">
-                    <p className="filter-section__price"><><FaRupeeSign className='rupee-sign' /></>{currencyFormatter(price === 0 ? maxPrice : price)}</p>
+                    <p className="filter-section__price">{currencyFormatter(price === 0 ? maxPrice : price)}</p>
                     <input type="range" name="price" value={price === 0 ? maxPrice : price}
                         max={maxPrice}
                         min={0}

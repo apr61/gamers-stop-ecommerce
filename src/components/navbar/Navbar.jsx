@@ -1,17 +1,18 @@
 import './navbar.css'
 import Search from '../search/Search'
-import { AiOutlineShoppingCart } from "react-icons/ai"
+import { AiOutlineClose, AiOutlineShoppingCart } from "react-icons/ai"
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useCartState } from '../../context/CartContext'
 import { useAuthContext } from '../../context/AuthContext'
 import { logOut } from '../../services/auth'
-import { BiChevronDown } from 'react-icons/bi'
+import { BiChevronDown, BiMenu } from 'react-icons/bi'
 import { useState } from 'react'
 
 function Navbar() {
 	const { getTotalItems } = useCartState()
 	const { currentUser } = useAuthContext()
 	const [dropDownStatus, setDropDownStatus] = useState(false)
+	const [openMenu, setOpenMenu] = useState(false)
 	const navigate = useNavigate()
 	function handleSignOut() {
 		try {
@@ -22,12 +23,13 @@ function Navbar() {
 			)
 		}
 	}
+	console.log(openMenu)
 
 	return (
 		<nav className='navbar'>
-			<div className="navbar__logo"><Link to='/' className='navbar__link'>Gamers Stop</Link></div>
+			<Link to='/' className='navbar__link navbar__link--logo'>Gamers Stop</Link>
 			<Search />
-			<ul className='navbar__list'>
+			<ul className={openMenu ? 'navbar__list open' : 'navbar__list'}>
 				<li className="navbar__list-item">About</li>
 				<li className="navbar__list-item">Contact</li>
 				<li className="navbar__list-item">
@@ -56,11 +58,12 @@ function Navbar() {
 						</div>
 					</div>
 				</li>
-
+				<button className="navbar__btn navbar__btn--menu-close" onClick={() => setOpenMenu(!openMenu)}><AiOutlineClose /></button>
 				<li className="navbar__list-item">
 					<Link className='navbar__link navbar__link--cart' to={'/cart'}><span className='navbar__cart-icon' data-cart-items={getTotalItems()}><AiOutlineShoppingCart /></span> Cart</Link>
 				</li>
 			</ul>
+			<button className="navbar__btn navbar__btn--menu" onClick={() => setOpenMenu(!openMenu)}><BiMenu /></button>
 		</nav>
 	)
 }

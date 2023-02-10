@@ -27,3 +27,7 @@ export function deliveryDateSetter(number){
   const date = new Date()
   return new Date(date.getFullYear(), date.getMonth(), date.getDate() + number,date.getDay())
 }
+
+export function firebaseTimestapFormatter(seconds){
+  return new Date(seconds*1000)
+}

@@ -1,8 +1,6 @@
 import './footer.css'
 import { AiOutlineFacebook, AiFillInstagram, AiFillYoutube, AiOutlineTwitter } from 'react-icons/ai'
 
-//data
-import { paymentsAvailable } from '../../data/imagesLoader'
 
 function Footer() {
     return (
@@ -49,13 +47,6 @@ function Footer() {
             <div className="footer__bottom">
                 <div className="footer__section footer__section--bottom">
                     <div className="footer__copy-right">&copy; Gamers Stop</div>
-                    <div className="footer__payments">
-                        {paymentsAvailable.map((paymethod) => (
-                            <div className="footer__payment" key={paymethod.id} title={paymethod.paymentmethod.toUpperCase()}>
-                                <img src={paymethod.imageurl} alt={paymethod.paymentmethod} />
-                            </div>
-                        ))}
-                    </div>
                 </div>
             </div>
         </footer>

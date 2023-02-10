@@ -29,7 +29,7 @@ function CheckOutPage() {
 			shippingAddress: checkoutAddress,
 			paymentMethod: checkoutPaymethod,
 			paymentStatus: 'Not Paid',
-			orderStatus: 'confirmed',
+			orderStatus: 'yet tobe shipped',
 			orderedDate: serverTimestamp(),
 			deliveryDate: deliveryDate,
 			productsOrdered: cart,

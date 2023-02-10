@@ -6,7 +6,7 @@ export const getAllOrders = async () => {
     let ordersArray = []
     const docRef = await getDocs(collection(db, "orders"))
     docRef.forEach(doc => {
-        ordersArray.push({id: doc.id, ...doc.data()})
+        return ordersArray.push({id: doc.id, ...doc.data()})
     })
     return ordersArray
 }

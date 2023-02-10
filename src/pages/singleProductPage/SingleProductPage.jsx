@@ -17,6 +17,7 @@ function SingleProductPage() {
 	// getting state
 	const location = useLocation()
 	const productId = location.state?.productId
+	console.log(productId)
 	// filtering products based on product id
 	const { loading, error, value: product } = useAsync(() => getProductById(productId), [productId])
 	if (loading) return <h1>Loading...</h1>
@@ -31,7 +32,7 @@ function SingleProductPage() {
 				<div className="product-page__content">
 					<header className="product-page__header">
 						<h3 className='product-page__name'>{name}</h3>
-						<p className='product-page__price'>{<><FaRupeeSign className='product-page__rupee-sign' />{currencyFormatter(price)}</>}</p>
+						<p className='product-page__price'>{currencyFormatter(price)}</p>
 						<p className="product-page__desc">
 							{description}
 						</p>

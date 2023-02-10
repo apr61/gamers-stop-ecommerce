@@ -62,3 +62,17 @@
 .cart__link{
     color: currentColor;
 }
+
+@media (max-width: 60rem){
+    .cart{
+        display: block;
+    }
+    .cart__summary{
+        margin: 1rem 0;
+        max-width: 30rem;
+        margin-inline: auto;
+    }
+    .cart__checkout-btn{
+        font-size: 1rem;
+    }
+}

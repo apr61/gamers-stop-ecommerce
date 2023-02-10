@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useAuthContext } from '../../context/AuthContext'
-import './style.css'
+import './accountProfilePage.css'
 import Input from '../../components/inputFields/Input'
 
 function AccountProfilePage() {
