@@ -1,9 +1,9 @@
 import FilterInputs from '../inputFields/filterInputs/FilterInputs'
 import './filter.css'
-import { FaRupeeSign } from 'react-icons/fa';
 import Accoridon from '../accordion/Accordion';
 import { currencyFormatter } from '../../utils/utils';
 import { useFilterSortContext } from '../../context/FilterSortContext';
+import { AiOutlineClose } from 'react-icons/ai';
 
 
 function getMinMaxPrice(products) {
@@ -11,7 +11,7 @@ function getMinMaxPrice(products) {
     return Math.max(...filteredPrice)
 }
 
-function Filter() {
+function Filter({handleOpenFilterSection}) {
     const { filterState: { outOfStock, brands, price, all_products }, filterDispatch } = useFilterSortContext()
 
     const maxPrice = getMinMaxPrice(all_products);
@@ -20,6 +20,7 @@ function Filter() {
 
     return (
         <section className="filter-section">
+            <button className="filter-section__close-btn" onClick={handleOpenFilterSection}><AiOutlineClose /></button>
             <div className="filter-section__price-section">
                 <h4 className='filter-section__title'>Price</h4>
                 <div className="filter-section__input-group">

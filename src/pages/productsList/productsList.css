@@ -1,27 +1,26 @@
-.category-products{
+.category-products {
     display: flex;
     gap: 1rem;
 }
 
-.category-products__filter{
+.category-products__filter {
     flex: 1;
-    height: fit-content;
     border: 1px solid var(--clr-border);
-}
-
-.category-products__title{
-    font-weight: 400;
     padding: 1rem;
-    border-bottom: 1px solid var(--clr-border);
+    height: fit-content;
+    padding-bottom: 0;
 }
 
-.category-products__container{
+.category-products__title {
+    font-weight: 400;
+}
+
+.category-products__container {
     flex: 3;
     width: 100%;
 }
 
-.category-products__list{
-    border-top: 1px solid var(--clr-border);
+.category-products__list {
     border-bottom: 1px solid var(--clr-border);
     padding: .5rem;
     display: grid;
@@ -30,26 +29,67 @@
     place-content: center;
 }
 
-.category-products__sort-sec{
+.category-products__sort-sec {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: column;
 }
 
-.category-products__empty{
+.category-products__sort-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--clr-border);
+    padding: .5rem;
+    position: relative;
+}
+
+.category-products__empty {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
 }
 
-.category-products__para{
+.category-products__para {
     font-size: 1.5rem;
     color: var(--clr-txt-fade);
 }
 
-.category-products__title--h2{
+.category-products__title--h2 {
     font-size: 1.5rem;
     font-weight: 600;
+}
+
+.category-products__filter-btn{
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    border: 0;
+    background-color: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+@media (max-width: 50rem) {
+    .category-products__filter {
+        opacity: 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-height: calc(100vh - 10rem);
+        background-color: var(--clr-txt-white);
+        z-index: -1;
+        transition: all 300ms ease-in-out;
+        overflow-y: scroll;
+    }
+    .isFilterOpen{
+        opacity: 1;
+        z-index: 99;
+        box-shadow: 0px 0px 0rem 40vh rgba(0,0,0,0.5);
+    }
+    .category-products__filter-btn{
+        display: block;
+    }
 }

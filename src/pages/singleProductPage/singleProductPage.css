@@ -1,15 +1,16 @@
-.product-page{
+.product-page {
     display: flex;
     gap: 1.5rem;
-    max-width: calc(100vw - 12rem);
+    max-width: calc(100vw - 10rem);
+    margin-inline: auto;
 }
 
-.product-page__image-container{
+.product-page__image-container {
     flex: 1;
     position: relative;
 }
 
-.product-page__content{
+.product-page__content {
     flex: 1.5;
     margin-top: 1rem;
     display: flex;
@@ -17,32 +18,32 @@
     gap: 1rem;
 }
 
-.product-page__name{
+.product-page__name {
     font-size: 1.5rem;
     font-weight: 500;
 }
 
-.product-page__price{
+.product-page__price {
     font-size: 2rem;
     font-weight: 600;
 }
 
-.product-page__rupee-sign{
+.product-page__rupee-sign {
     font-size: 1.5rem;
 }
 
-.product-page__product-desc{
+.product-page__product-desc {
     font-family: 1.5rem;
     font-weight: 500;
 }
 
-.product-page__section--counter{
+.product-page__section--counter {
     display: flex;
     gap: .5rem;
     align-items: center;
 }
 
-.product-page__button{
+.product-page__button {
     font-size: 1rem;
     display: flex;
     align-items: center;
@@ -53,51 +54,71 @@
     cursor: pointer;
 }
 
-.product-page__button--counter{
+.product-page__button--counter {
     background-color: var(--clr-border);
     padding: .25rem 1rem;
     border-radius: .25rem;
 }
 
-.product-page__button:hover{
+.product-page__button:hover {
     color: var(--clr-txt-hover);
 }
 
-.product-page__button:focus{
+.product-page__button:focus {
     outline: 2px solid var(--clr-txt-hover);
 }
 
-.product-page__button--buy-now{
+.product-page__button--buy-now {
     color: var(--clr-txt-white);
     border-radius: .25rem;
     background-color: var(--clr-btn-buy-now);
 }
 
-.product-page__btn-wrapper{
+.product-page__btn-wrapper {
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
 }
 
-.product-page__list{
+.product-page__list {
     list-style: none;
     padding-left: 1rem;
 }
 
 /* Product info table  */
-.product-page__table{
+.product-page__table {
     padding-left: 1rem;
 }
 
-.product-page__th{
+.product-page__th {
     font-weight: 500;
     text-align: start;
 }
 
-.product-page__td{
+.product-page__td {
     padding-left: 2rem;
 }
 
-.product-page__seller-name{
+.product-page__seller-name {
     padding-left: 1rem;
+}
+
+@media (max-width: 55rem) {
+    .product-page {
+        flex-direction: column;
+        max-width: calc(100vw - 2rem);
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0;
+    }
+}
+
+@media (max-width: 60rem) {
+    .product-page{
+        max-width: calc(100vw - 6rem);
+    }
+    .product-page__price {
+        font-size: 1.25rem;
+    }
 }

@@ -23,7 +23,6 @@ function Navbar() {
 			)
 		}
 	}
-	console.log(openMenu)
 
 	return (
 		<nav className='navbar'>
@@ -58,12 +57,15 @@ function Navbar() {
 						</div>
 					</div>
 				</li>
-				<button className="navbar__btn navbar__btn--menu-close" onClick={() => setOpenMenu(!openMenu)}><AiOutlineClose /></button>
-				<li className="navbar__list-item">
-					<Link className='navbar__link navbar__link--cart' to={'/cart'}><span className='navbar__cart-icon' data-cart-items={getTotalItems()}><AiOutlineShoppingCart /></span> Cart</Link>
-				</li>
+				<button className="navbar__btn navbar__btn--menu-close"
+					onClick={() => setOpenMenu(!openMenu)}><AiOutlineClose /></button>
 			</ul>
-			<button className="navbar__btn navbar__btn--menu" onClick={() => setOpenMenu(!openMenu)}><BiMenu /></button>
+			<Link className='navbar__link navbar__link--cart' to={'/cart'}>
+				<span className='navbar__cart-icon' data-cart-items={getTotalItems()}><AiOutlineShoppingCart /></span>
+				Cart</Link>
+			<button
+				className="navbar__btn navbar__btn--menu"
+				onClick={() => setOpenMenu(!openMenu)}><BiMenu /></button>
 		</nav>
 	)
 }

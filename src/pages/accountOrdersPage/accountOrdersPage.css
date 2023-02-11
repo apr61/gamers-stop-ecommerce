@@ -1,6 +1,7 @@
 .orders{
     max-width: 50rem;
     width: 100%;
+    padding: 1rem;
     margin-inline: auto;
 }
 
@@ -10,7 +11,7 @@
 
 .orders__tabs{
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     border-bottom: 2px solid var(--clr-border);
 }
 
@@ -19,7 +20,7 @@
     background-color: transparent;
     font-size: 1.1rem;
     cursor: pointer;
-    padding: 1rem;
+    padding: .5rem;
 }
 
 .orders__tab:focus{
@@ -92,4 +93,22 @@
 
 .orders__empty{
     text-align: center;
+}
+
+@media (max-width:60rem){
+    .orders__header{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 1rem;
+    }
+    .orders__header-item:last-child{
+        margin: 0;
+    }
+}
+
+@media (max-width: 45rem) {
+    .orders__header{
+        grid-template-columns: 1fr;
+        row-gap: .5rem;
+    }
 }

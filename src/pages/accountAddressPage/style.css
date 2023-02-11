@@ -7,12 +7,14 @@
 .address__title{
     font-size: 1.5rem;
     font-weight: 500;
+    margin: 1rem;
 }
 
 .address__container{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+    margin: 1rem;
 }
 
 .address__add-address{
@@ -69,6 +71,7 @@
     display: flex;
     gap: 1rem;
     flex-direction: column;
+    margin: 1rem;
 }
 
 .address-form-sec__btn{
@@ -116,4 +119,18 @@
 .address__link:focus{
     outline: 2px solid var(--clr-txt-hover);
     border-radius: .25rem;
+}
+
+
+@media (max-width: 65rem){
+    .address__container{
+        grid-template-columns: 1fr 1fr;
+        place-items: center;
+    }
+}
+
+@media (max-width: 50rem){
+    .address__container{
+        grid-template-columns: 1fr;
+    }
 }

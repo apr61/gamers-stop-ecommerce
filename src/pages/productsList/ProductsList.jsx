@@ -6,6 +6,8 @@ import { useFilterSortContext } from '../../context/FilterSortContext'
 import { useParams } from 'react-router-dom'
 import { unCreateRouterPath } from '../../utils/utils'
 import InputSelect from '../../components/inputSelect/InputSelect'
+import { AiFillFilter } from 'react-icons/ai'
+import { useState } from 'react'
 
 const sortOptions = [
 	{
@@ -27,27 +29,39 @@ const sortOptions = [
 ]
 
 function ProductsList() {
+	const [isFiltersOpen, setIsFiltersOpen] = useState(false)
 	const { category } = useParams()
 	const updatedCategory = category ? unCreateRouterPath(category) : ''
 
 	const { filterState: { filtered_products: products }, updateFilterHelper } = useFilterSortContext()
-	
-	function handleSelect(e){
-        let value = e.target.value;
-        updateFilterHelper('SORTING', value)
-    }
+
+	function handleSelect(e) {
+		let value = e.target.value;
+		updateFilterHelper('SORTING', value)
+	}
+
+	function handleOpenFilterSection(){
+		setIsFiltersOpen(!isFiltersOpen);
+	}
 
 	return (
 		<>
 			<div className="main category-products">
-				<section className="category-products__filter">
+				<section className={isFiltersOpen ? "category-products__filter isFilterOpen" : "category-products__filter"}>
 					<h3 className='category-products__title'>Filters</h3>
-					<Filter products={products} />
+					<Filter handleOpenFilterSection={handleOpenFilterSection}/>
 				</section>
 				<section className="category-products__container">
 					<div className="category-products__sort-sec">
-						<h2 className='category-products__title category-products__title--h2'>All Products</h2>
-						<InputSelect labelName='Sort By : ' handleSelect={handleSelect} options={sortOptions}/>
+						<div className="category-products__sort-wrapper">
+							<h2 className='category-products__title category-products__title--h2'>All Products</h2>
+							<InputSelect labelName='Sort By : ' handleSelect={handleSelect} options={sortOptions} />
+						</div>
+						<div className="category-products__sort-wrapper">
+							<button 
+							className="category-products__filter-btn"
+							onClick={handleOpenFilterSection}><AiFillFilter /></button>
+						</div>
 					</div>
 					{
 						products.length > 0 ? (

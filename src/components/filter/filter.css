@@ -1,5 +1,6 @@
+
 .filter-section__price-section{
-    padding: 1rem;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--clr-border);
 }
 
@@ -21,4 +22,21 @@
     display: flex;
     flex-direction: column;
     gap: .25rem;
+}
+
+.filter-section__close-btn{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: 0;
+    background-color: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+@media (max-width: 50rem){
+    .filter-section__close-btn{
+        display: block;
+    }
 }

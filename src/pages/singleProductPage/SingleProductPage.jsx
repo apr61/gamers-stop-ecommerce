@@ -17,7 +17,6 @@ function SingleProductPage() {
 	// getting state
 	const location = useLocation()
 	const productId = location.state?.productId
-	console.log(productId)
 	// filtering products based on product id
 	const { loading, error, value: product } = useAsync(() => getProductById(productId), [productId])
 	if (loading) return <h1>Loading...</h1>
