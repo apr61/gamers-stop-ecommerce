@@ -40,9 +40,11 @@ function CheckOutPage() {
 		}
 
 		createAnOrder(newOrder).then((docRef) => {
-			console.log(docRef.id)
 			navigate(`/order-successful/${docRef.id}`, {state: {orderId : docRef.id, order: newOrder}})
 		})
+	}
+	if(cart.length <= 0){
+		navigate('/cart')
 	}
 	return (
 		<>
@@ -156,7 +158,7 @@ function CheckOutPage() {
 				</Accordion>
 				<div className="checkout__order-summary">
 					<button className={conditionForDisabledPlaceOrder ? "checkout__btn checkout__btn--disabled" : "checkout__btn"}
-						disabled={conditionForDisabledPlaceOrder} onClick={handlePlaceOrder}>Place Order And Pay</button>
+						disabled={conditionForDisabledPlaceOrder} title={conditionForDisabledPlaceOrder && 'Please fill all details'} onClick={handlePlaceOrder}>Place Order And Pay</button>
 					<div className="checkout__order-details">
 						<h4 className="checkout__subtitle">Order Summary</h4>
 						<table className='checkout__table'>

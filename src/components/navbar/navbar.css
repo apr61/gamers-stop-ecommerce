@@ -26,6 +26,7 @@
 .navbar__list-item {
     cursor: pointer;
     color: var(--clr-txt-white);
+    font-size: 1.25rem;
 }
 
 .navbar__btn {
@@ -33,7 +34,11 @@
     background-color: transparent;
     color: var(--clr-txt-white);
     cursor: pointer;
-    font-size: 1.01rem;
+    color: var(--clr-txt-black);
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1.25rem;
 }
 
 .navbar__cart-icon {
@@ -71,7 +76,7 @@
 }
 
 .navbar__account {
-    font-size: 1.01rem;
+    font-size: 1.125rem;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -79,7 +84,7 @@
 }
 
 .navbar__username {
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .dropdown {
@@ -92,7 +97,7 @@
     top: 100%;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 999;
     background-color: var(--clr-txt-white);
     padding: 1rem;
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.75);
@@ -100,17 +105,6 @@
     gap: .5rem;
     align-items: center;
     color: var(--clr-txt-black);
-}
-
-.navbar__account {
-    display: flex;
-    gap: .5rem;
-    align-items: center;
-}
-
-.navbar__btn {
-    color: var(--clr-txt-black);
-    width: 100%;
 }
 
 .show-dropdown {
@@ -164,16 +158,17 @@
         top: 0;
         left: 0;
         bottom: 0;
-        flex-direction: column;
+        flex-direction: column-reverse;
         align-items: flex-start;
-        max-width: 70vw;
+        justify-content: flex-end;
+        max-width: 80vw;
         width: 100%;
         background-color: white;
         color: black;
         padding: 2rem;
         padding-top: 4rem;
         transition: all 150ms ease;
-        box-shadow: 0px 0px 0rem 30vw rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 0px 0rem 20vw rgba(0, 0, 0, 0.5);
     }
 
     .open {
@@ -181,7 +176,8 @@
         z-index: 999;
     }
 
-    .navbar__list-item, .navbar__link {
+    .navbar__list-item,
+    .navbar__link {
         color: var(--clr-txt-black);
     }
 
@@ -212,5 +208,22 @@
         width: fit-content;
         font-size: 2rem;
         display: flex;
+    }
+
+    .dropdown-content {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        position: relative;
+        box-shadow: none;
+        padding: 0;
+        margin-top: 1rem;
+    }
+
+    .navbar__down-arrow{
+        display: none;
+    }
+    .navbar__btn--logout{
+        margin-top: auto;
     }
 }

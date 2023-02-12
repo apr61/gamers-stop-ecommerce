@@ -6,7 +6,9 @@
 
 .btn__control {
     position: absolute;
-    top: 30%;
+    top: 50%;
+    bottom: 50%;
+    transform: translate(0%, -50%);
     color: var(--clr-txt-white);
     width: 3rem;
     height: 6rem;
@@ -29,4 +31,17 @@
 
 .btn__control--next {
     right: 1rem;
+}
+
+@media (max-width: 50rem) {
+    .btn__control{
+        font-size: 1.25rem;
+    }
+    .btn__control--prev {
+        left: .25rem;
+    }
+    
+    .btn__control--next {
+        right: .25rem;
+    }
 }

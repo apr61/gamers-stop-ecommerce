@@ -40,7 +40,7 @@ function ProductsList() {
 		updateFilterHelper('SORTING', value)
 	}
 
-	function handleOpenFilterSection(){
+	function handleOpenFilterSection() {
 		setIsFiltersOpen(!isFiltersOpen);
 	}
 
@@ -49,7 +49,7 @@ function ProductsList() {
 			<div className="main category-products">
 				<section className={isFiltersOpen ? "category-products__filter isFilterOpen" : "category-products__filter"}>
 					<h3 className='category-products__title'>Filters</h3>
-					<Filter handleOpenFilterSection={handleOpenFilterSection}/>
+					<Filter handleOpenFilterSection={handleOpenFilterSection} />
 				</section>
 				<section className="category-products__container">
 					<div className="category-products__sort-sec">
@@ -57,10 +57,10 @@ function ProductsList() {
 							<h2 className='category-products__title category-products__title--h2'>All Products</h2>
 							<InputSelect labelName='Sort By : ' handleSelect={handleSelect} options={sortOptions} />
 						</div>
-						<div className="category-products__sort-wrapper">
-							<button 
-							className="category-products__filter-btn"
-							onClick={handleOpenFilterSection}><AiFillFilter /></button>
+						<div className="category-products__sort-wrapper category-products__sort-wrapper--min-hgt">
+							<button
+								className="category-products__filter-btn"
+								onClick={handleOpenFilterSection}><AiFillFilter /></button>
 						</div>
 					</div>
 					{

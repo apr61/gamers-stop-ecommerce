@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { FaBalanceScale, FaRupeeSign } from 'react-icons/fa'
 import { currencyFormatter } from '../../utils/utils'
 import { AiOutlineHeart } from 'react-icons/ai'
@@ -12,16 +12,28 @@ import QuantityCounter from '../../components/quantityCounter/QuantityCounter'
 import ProductImages from '../../components/productImages/ProductImages'
 import { getProductById } from '../../services/products'
 import { useAsync } from '../../hooks/useAsync'
+import { useCartState } from '../../context/CartContext'
 
 function SingleProductPage() {
 	// getting state
 	const location = useLocation()
 	const productId = location.state?.productId
+	const navigate = useNavigate()
+
+	const {cartDispatch} = useCartState()
+
 	// filtering products based on product id
 	const { loading, error, value: product } = useAsync(() => getProductById(productId), [productId])
 	if (loading) return <h1>Loading...</h1>
 	if (error) return <h1>{error}</h1>
 	const { id, name, images, brand, memory, price, description, manufacturer } = { ...product }
+	function handleBuyNow(){
+		cartDispatch({
+			type: 'ADD_TO_CART',
+			payload: product
+		})
+		navigate('/checkout')
+	}
 	return (
 		<>
 			<div className="main product-page">
@@ -41,7 +53,7 @@ function SingleProductPage() {
 					<div className="product-page__section">
 						<div className="product-page__btn-wrapper">
 							<CartButtons id={id} product={product} />
-							<button className="product-page__button product-page__button--buy-now"><><FiShoppingBag /></> Buy Now</button>
+							<button className="product-page__button product-page__button--buy-now" onClick={handleBuyNow}><><FiShoppingBag /></> Buy Now</button>
 						</div>
 						<div className="product-page__btn-wrapper">
 							<button className='product-page__button'><AiOutlineHeart />Add To Wish List</button>

@@ -122,7 +122,6 @@
 
 .checkout__btn--disabled{
     background-color: var(--clr-btn-laoding-bg);
-    cursor: not-allowed;
 }
 
 .checkout__selected{

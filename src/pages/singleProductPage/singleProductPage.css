@@ -103,6 +103,15 @@
     padding-left: 1rem;
 }
 
+@media (max-width: 60rem) {
+    .product-page{
+        max-width: calc(100vw - 6rem);
+    }
+    .product-page__price {
+        font-size: 1.25rem;
+    }
+}
+
 @media (max-width: 55rem) {
     .product-page {
         flex-direction: column;
@@ -111,14 +120,5 @@
         justify-content: center;
         align-items: center;
         padding: 1rem 0;
-    }
-}
-
-@media (max-width: 60rem) {
-    .product-page{
-        max-width: calc(100vw - 6rem);
-    }
-    .product-page__price {
-        font-size: 1.25rem;
     }
 }

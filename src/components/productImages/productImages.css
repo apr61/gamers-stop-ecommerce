@@ -36,3 +36,13 @@
 .product-images__image-box--active{
     border: 2px solid var(--clr-txt-hover);
 }
+
+@media (max-width: 50rem) {
+    .product-images__main-image{
+        height: 25rem;
+    }
+    .product-images__image-box{
+        height: 5rem;
+        width: 5rem;
+    }
+}

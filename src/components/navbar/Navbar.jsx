@@ -6,6 +6,7 @@ import { useCartState } from '../../context/CartContext'
 import { useAuthContext } from '../../context/AuthContext'
 import { logOut } from '../../services/auth'
 import { BiChevronDown, BiMenu } from 'react-icons/bi'
+import { FiLogOut } from 'react-icons/fi'
 import { useState } from 'react'
 
 function Navbar() {
@@ -14,6 +15,7 @@ function Navbar() {
 	const [dropDownStatus, setDropDownStatus] = useState(false)
 	const [openMenu, setOpenMenu] = useState(false)
 	const navigate = useNavigate()
+
 	function handleSignOut() {
 		try {
 			logOut().then(navigate(to = '/signin'))
@@ -45,7 +47,7 @@ function Navbar() {
 								currentUser ? (
 									<>
 										<Link to='/account' className='navbar__link navbar__link--drop'>Account</Link>
-										<button className="navbar__btn" onClick={handleSignOut}>Log out</button>
+										<button className="navbar__btn navbar__btn--logout" onClick={handleSignOut}><FiLogOut />Log out</button>
 									</>
 								) : (
 									<>

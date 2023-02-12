@@ -66,3 +66,9 @@ a {
 .error-msg {
     color: var(--clr-error);
 }
+
+@media (max-width: 50rem) {
+    .main{
+        max-width: calc(100vw - 1rem);
+    }
+}

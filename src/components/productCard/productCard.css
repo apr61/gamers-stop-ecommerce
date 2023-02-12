@@ -1,5 +1,5 @@
 .product-card {
-    max-width: 18rem;
+    max-width: 15rem;
     width: 100%;
     flex-shrink: 0;
     transition: transform 300ms ease;
