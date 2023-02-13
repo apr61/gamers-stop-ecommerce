@@ -4,9 +4,9 @@ import Filter from '../../components/filter/Filter'
 
 import { useFilterSortContext } from '../../context/FilterSortContext'
 import { useParams } from 'react-router-dom'
-import { unCreateRouterPath } from '../../utils/utils'
+import { currencyFormatter, unCreateRouterPath } from '../../utils/utils'
 import InputSelect from '../../components/inputSelect/InputSelect'
-import { AiFillFilter } from 'react-icons/ai'
+import { AiFillFilter, AiFillStar, AiOutlineClose } from 'react-icons/ai'
 import { useState } from 'react'
 
 const sortOptions = [
@@ -33,7 +33,7 @@ function ProductsList() {
 	const { category } = useParams()
 	const updatedCategory = category ? unCreateRouterPath(category) : ''
 
-	const { filterState: { filtered_products: products }, updateFilterHelper } = useFilterSortContext()
+	const { filterState: { filtered_products: products, activeFilters }, updateFilterHelper } = useFilterSortContext()
 
 	function handleSelect(e) {
 		let value = e.target.value;
@@ -44,6 +44,14 @@ function ProductsList() {
 		setIsFiltersOpen(!isFiltersOpen);
 	}
 
+	function handleClearAllFilters() {
+		updateFilterHelper('CLEAR_ALL_FILTERS')
+	}
+
+	function handleRemoveFilter(type, labelName) {
+		updateFilterHelper(type, labelName)
+		updateFilterHelper('REMOVE_ACTIVE_FILTER', labelName)
+	}
 	return (
 		<>
 			<div className="main category-products">
@@ -58,6 +66,23 @@ function ProductsList() {
 							<InputSelect labelName='Sort By : ' handleSelect={handleSelect} options={sortOptions} />
 						</div>
 						<div className="category-products__sort-wrapper category-products__sort-wrapper--min-hgt">
+							{
+								activeFilters.length !== 0 && (
+									<div className="category-products__active--filters">
+										{
+											activeFilters.map((data, i) => (
+												<button key={i + 999} className="category-products__filter-btn category-products__filter-btn--clear-filter"
+												>{data.type === 'RATING' ? <>{data.labelName} <AiFillStar /> {'& up'}</> :
+													data.type === 'PRICE' ? currencyFormatter(0, 0) + '-' + currencyFormatter(data.labelName) : data.labelName}
+													<AiOutlineClose onClick={() => handleRemoveFilter(data.type, data.labelName)} /></button>
+											))
+										}
+										<button className="category-products__filter-btn category-products__filter-btn--clear-all-filter"
+											onClick={handleClearAllFilters}>Clear all filters</button>
+									</div>
+								)
+							}
+
 							<button
 								className="category-products__filter-btn"
 								onClick={handleOpenFilterSection}><AiFillFilter /></button>
@@ -82,7 +107,7 @@ function ProductsList() {
 					}
 
 				</section>
-			</div>
+			</div >
 		</>
 	)
 }

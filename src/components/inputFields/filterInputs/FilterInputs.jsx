@@ -5,11 +5,19 @@ import { useFilterSortContext } from '../../../context/FilterSortContext'
 
 function FilterInputs({ name, inputType = 'checkbox', type, labelName, icon, isChecked, payload }) {
 	const cId = useId()
-	const {updateFilterHelper} = useFilterSortContext()
+	const {updateFilterHelper, filterState:{activeFilters}} = useFilterSortContext()
+	function handleFilterInputChange(){
+		updateFilterHelper(type, payload)
+		if(activeFilters.filter(filter => filter.labelName === labelName).length === 0){
+			updateFilterHelper('ADD_ACTIVE_FILTER', {type, labelName})
+		}else{
+			updateFilterHelper('REMOVE_ACTIVE_FILTER', labelName)
+		}
+	}
 	return (
 		<div className="check-box">
 			<input type={inputType} name={name} id={cId} checked={isChecked}
-				onChange={() => {updateFilterHelper(type, payload)}} className='check-box__input' />
+				onChange={handleFilterInputChange} className='check-box__input' />
 			<label className='check-box__label' htmlFor={cId}>{icon ? <>{labelName} <AiFillStar /> {'& up'}</> : labelName}</label>
 		</div>
 	)

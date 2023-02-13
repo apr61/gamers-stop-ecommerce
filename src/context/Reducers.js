@@ -1,4 +1,3 @@
-import { filterInitialState } from "./FilterSortContext"
 
 export function CartReducer(state, action) {
     switch (action.type) {
@@ -34,13 +33,14 @@ export function FilterReducer(state, action) {
         case 'LOAD_FILTERED_DATA':
             return {
                 ...state,
-                filtered_products: [...action.payload],
+                filtered_products: action.payload.filter(product => product.quantity > 0)
+                    .sort((a, b) => a.price - b.price),
                 all_products: [...action.payload]
             }
         case 'OUT_OF_STOCK':
             return {
                 ...state, outOfStock: !action.payload,
-                filtered_products: all_products.filter(product => action.payload ? product.quantity > 0 : product)
+                filtered_products: all_products.filter(product => action.payload ? product.quantity > 0 : product),
             }
         case 'BRANDS':
             const filteredBrands = brands.indexOf(action.payload) === -1 ? [...brands, action.payload] : brands.filter(brand => brand !== action.payload)
@@ -61,11 +61,20 @@ export function FilterReducer(state, action) {
         case 'PRICE':
             return {
                 ...state, price: action.payload,
-                filtered_products: all_products.filter(prod => prod.price<=action.payload)
+                filtered_products: filtered_products.filter(prod => prod.price <= action.payload)
             }
-        case 'CLEAR_FILTERS':
+        case 'CLEAR_ALL_FILTERS':
             return {
-                filterInitialState
+                ...state,
+                filtered_products: all_products.filter(product => product.quantity > 0)
+                    .sort((a, b) => a.price - b.price),
+                outOfStock: false,
+                brands: [],
+                rating: 0,
+                itemCondition: undefined,
+                price: 0,
+                sorting_value: '',
+                activeFilters: []
             }
         case 'CATEGORY':
             return {
@@ -75,22 +84,32 @@ export function FilterReducer(state, action) {
         case 'SORTING':
             let newSortedData;
             let tempData = [...filtered_products]
-            newSortedData = tempData.sort((a,b) => {
-                if(action.payload === 'p_l-h'){
+            newSortedData = tempData.sort((a, b) => {
+                if (action.payload === 'p_l-h') {
                     return a.price - b.price
                 }
-                if(action.payload === 'p_h-l'){
+                if (action.payload === 'p_h-l') {
                     return b.price - a.price
                 }
-                if(action.payload === 'a-z'){
+                if (action.payload === 'a-z') {
                     return a.name.localeCompare(b.name)
                 }
-                if(action.payload === 'z-a'){
-                    return b.name.localeCompare (a.name)
+                if (action.payload === 'z-a') {
+                    return b.name.localeCompare(a.name)
                 }
             })
             return {
-                ...state,sorting_value: action.payload, filtered_products: newSortedData
+                ...state, sorting_value: action.payload, filtered_products: newSortedData
+            }
+        case 'ADD_ACTIVE_FILTER':
+            return {
+                ...state,
+                activeFilters: [...state.activeFilters, { type: action.payload.type, labelName: action.payload.labelName }]
+            }
+        case 'REMOVE_ACTIVE_FILTER':
+            return{
+                ...state,
+                activeFilters: state.activeFilters.filter(filterData => filterData.labelName !== action.payload)
             }
         default:
             return state

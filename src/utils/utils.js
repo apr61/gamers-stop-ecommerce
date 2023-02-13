@@ -15,8 +15,8 @@ export function createRouterPath(path) {
   return path
 }
 
-export function currencyFormatter(number) {
-  return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(number)
+export function currencyFormatter(number, maxfd=2) {
+  return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: maxfd }).format(number)
 }
 
 export function dateFormatter(date) {

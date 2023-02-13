@@ -12,11 +12,18 @@ function getMinMaxPrice(products) {
 }
 
 function Filter({handleOpenFilterSection}) {
-    const { filterState: { outOfStock, brands, price, all_products }, filterDispatch } = useFilterSortContext()
+    const { filterState: { outOfStock, brands, price, all_products }, updateFilterHelper } = useFilterSortContext()
 
     const maxPrice = getMinMaxPrice(all_products);
 
     const allUniqueBrands = [...new Set(all_products.map(product => product.brand))]
+
+    function handlePriceChange(e){
+        updateFilterHelper('PRICE', e.target.value)
+        // if(activeFilters.filter(filter => filter.labelName === 'PRICE').length === 0){
+            updateFilterHelper('ADD_ACTIVE_FILTER', {type: 'PRICE', labelName: e.target.value})
+        // }
+    }
 
     return (
         <section className="filter-section">
@@ -29,13 +36,13 @@ function Filter({handleOpenFilterSection}) {
                         max={maxPrice}
                         min={0}
                         step={10000}
-                        onChange={(e) => { filterDispatch({ type: 'PRICE', payload: e.target.value }) }} />
+                        onChange={(e) => handlePriceChange(e)} />
                 </div>
             </div>
             <Accoridon title={'Brands'}>
                 {allUniqueBrands.map((brand, i) => (
                     <FilterInputs key={i} name={brand} labelName={brand} type={'BRANDS'}
-                        payload={brand} checked={brands.indexOf(brand) !== -1} />
+                        payload={brand} isChecked={brands.indexOf(brand) !== -1} />
                 ))}
             </Accoridon>
             <Accoridon title={'Customer Review'}>

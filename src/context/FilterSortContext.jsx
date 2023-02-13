@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useReducer } from 'react'
+import React, { createContext, useContext, useEffect, useReducer, useState } from 'react'
 import { FilterReducer } from './Reducers'
 import {useProductContext} from './ProductContext'
 
@@ -11,15 +11,14 @@ export function useFilterSortContext(){
 export const filterInitialState = {
     filtered_products: [],
     all_products: [],
-    outOfStock: true,
+    outOfStock: false,
     brands: [],
     rating: 0,
     itemCondition: undefined,
     price: 0,
-    sorting_value: ''
+    sorting_value: 'p_l-h',
+    activeFilters: []
 }
-
-
 
 
 function FilterSortProvider({ children }) {
