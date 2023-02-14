@@ -61,7 +61,7 @@ export function FilterReducer(state, action) {
         case 'PRICE':
             return {
                 ...state, price: action.payload,
-                filtered_products: filtered_products.filter(prod => prod.price <= action.payload)
+                filtered_products: all_products.filter(prod => prod.price <= action.payload)
             }
         case 'CLEAR_ALL_FILTERS':
             return {

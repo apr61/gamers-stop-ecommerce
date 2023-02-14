@@ -5,10 +5,10 @@ import CartButtons from '../button/cartButtons/CartButtons'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
 
-function ProductCard({ product }) {
+function ProductCard({ product, customStyles }) {
 	const { id, images, name, price, brand, avgrating } = { ...product }
 	return (
-		<div className="product-card">
+		<div className={customStyles ? `product-card ${customStyles}` : "product-card"}>
 			<div className="product-card__image-container">
 				<img className='product-card__img' src={images[0]} alt={name} />
 			</div>

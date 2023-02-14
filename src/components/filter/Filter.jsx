@@ -11,18 +11,17 @@ function getMinMaxPrice(products) {
     return Math.max(...filteredPrice)
 }
 
-function Filter({handleOpenFilterSection}) {
+function Filter({ handleOpenFilterSection }) {
     const { filterState: { outOfStock, brands, price, all_products }, updateFilterHelper } = useFilterSortContext()
 
     const maxPrice = getMinMaxPrice(all_products);
 
     const allUniqueBrands = [...new Set(all_products.map(product => product.brand))]
 
-    function handlePriceChange(e){
+    function handlePriceChange(e) {
         updateFilterHelper('PRICE', e.target.value)
-        // if(activeFilters.filter(filter => filter.labelName === 'PRICE').length === 0){
-            updateFilterHelper('ADD_ACTIVE_FILTER', {type: 'PRICE', labelName: e.target.value})
-        // }
+        // TODO: update price filtering 
+        // updateFilterHelper('ADD_ACTIVE_FILTER', { type: 'PRICE', labelName: e.target.value })
     }
 
     return (

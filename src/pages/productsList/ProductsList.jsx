@@ -61,8 +61,11 @@ function ProductsList() {
 				</section>
 				<section className="category-products__container">
 					<div className="category-products__sort-sec">
+						<h2 className='category-products__title category-products__title--h2'>All Products</h2>
 						<div className="category-products__sort-wrapper">
-							<h2 className='category-products__title category-products__title--h2'>All Products</h2>
+							<p className="categorty-products__items-found">
+								{products.length} items found
+							</p>
 							<InputSelect labelName='Sort By : ' handleSelect={handleSelect} options={sortOptions} />
 						</div>
 						<div className="category-products__sort-wrapper category-products__sort-wrapper--min-hgt">
@@ -93,7 +96,7 @@ function ProductsList() {
 							<div className="category-products__list">
 								{
 									products.map(product => (
-										<ProductCard key={product.id} product={product} />
+										<ProductCard key={product.id} product={product} customStyles={'category-products__products-card--width'}/>
 									))
 								}
 							</div>

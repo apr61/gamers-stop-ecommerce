@@ -16,6 +16,13 @@
     margin: 0 1rem;
 }
 
+.profile__btn-container{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
 .profile__btn{
     border: 0;
     background-color: var(--clr-btn-bg);
@@ -24,6 +31,9 @@
     padding: .5rem 1.5rem;
     width: 10rem;       
     font-size: 1.25rem;
-    align-self: center;
     cursor: pointer; 
+}
+
+.profile__btn--cancel{
+    background-color: var(--clr-error);
 }

@@ -11,6 +11,10 @@ function AccountProfilePage() {
 	const passwordRef = useRef()
 	const confirmPasswordRef = useRef()
 
+	function updateUserProfile(){
+
+	}
+
 	return (
 		<section className="profile main">
 			<h2 className="profile__title">Profile</h2>
@@ -25,7 +29,18 @@ function AccountProfilePage() {
 						</>
 					)
 				}
-				<button className="profile__btn" onClick={() => setIsEditing(!isEditing)}>Edit</button>
+				<div className="profile__btn-container">
+					{
+						isEditing ? (
+							<>
+								<button className="profile__btn profile__btn--cancel" onClick={() => setIsEditing(!isEditing)}>Cancel</button>
+								<button className="profile__btn" onClick={updateUserProfile}>Update</button>
+							</>
+						) : (
+							<button className="profile__btn" onClick={() => setIsEditing(!isEditing)}>Edit</button>
+						)
+					}
+				</div>
 			</div>
 		</section>
 	)
