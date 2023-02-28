@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --ff: 'Poppins', sans-serif;
+    --clr-nav-bg: hsl(200, 50%, 20%);
+    --clr-txt-white: hsl(0, 0%, 100%);
+    --clr-txt-hover: hsl(29, 87%, 67%);
+    --clr-txt-black: hsl(0, 0%, 0%);
+    --clr-slider-circle: hsl(0, 0%, 100%);
+    --clr-carousel-hvr: var(--clr-nav-bg);
+    --clr-footer-bg: hsl(205, 55%, 35%);
+    --clr-footer-section-heading: hsl(0, 0%, 15%);
+    --clr-footer-bg-btm: hsl(205, 55%, 15%);
+    --clr-border: hsl(0, 0%, 60%, .25);
+    --clr-btn-bg: hsl(200, 50%, 50%);
+    --clr-btn-buy-now: hsl(150, 50%, 50%);
+    --clr-btn-error: hsl(0, 50%, 50%);
+    --clr-btn-out-of-stock: hsl(0, 0%, 30%);
+    --clr-txt-fade: hsl(0, 0%, 60%);
+    --clr-fade-bg: hsl(0, 0%, 90%, .9);
+    --clr-btn-laoding-bg: hsl(200, 50%, 70%);
+    --clr-error: hsl(0, 95%, 50%);
+    --clr-txt-cnf: hsl(100, 100%, 18%);
+}
+
+body {
+    font-family: var(--ff);
+    min-height: 100vh;
+    scroll-behavior: smooth;
+}
+
+input,
+select,
+textarea,
+button {
+    font-family: inherit;
+}
+
+img {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.main {
+    max-width: calc(100vw - 2rem);
+    margin: .5rem 0;
+    margin-inline: auto;
+    min-height: 50vh;
+}
+
+.star-icon {
+    color: var(--clr-txt-hover);
+}
+
+.error-msg {
+    color: var(--clr-error);
+}
+
+@media (max-width: 50rem) {
+    .main{
+        max-width: calc(100vw - 1rem);
+    }
+}

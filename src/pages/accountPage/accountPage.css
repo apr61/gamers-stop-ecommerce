@@ -1,0 +1,58 @@
+.account-sec{
+    max-width: 50rem;
+    width: 100%;
+    margin-inline: auto;
+    margin-top: 1rem;
+}
+
+.account-sec__title{
+    font-size: 1.75rem;
+    font-weight: 500;
+    padding: 0 1rem;
+}
+
+.account-sec__sub-title{
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.account-sec__container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.account-sec__card{
+    border: 1px solid var(--clr-border);
+    padding: 1rem;
+    border-radius: .35rem;
+    max-height: 10rem;
+    height: 100%;
+}
+
+.account-sec__desc{
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--clr-txt-fade);
+}
+
+.account-sec__link{
+    color: var(--clr-txt-black);
+}
+
+.account-sec__link:hover{
+    background-color: var(--clr-border);
+    border-radius: .25rem;
+}
+
+.account-sec__link:focus{
+    outline: 2px solid var(--clr-txt-hover);
+    border-radius: .25rem;
+}
+
+@media (max-width: 60rem){
+    .account-sec__container{
+        grid-template-columns: 1fr;
+    }
+}

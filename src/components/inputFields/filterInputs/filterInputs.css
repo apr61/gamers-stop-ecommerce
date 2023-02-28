@@ -1,0 +1,22 @@
+.check-box{
+    display: flex;
+    gap: .25rem;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.check-box__label{
+    display: flex;
+    align-items: center;
+    gap: .125rem;
+    cursor: pointer;
+}
+
+.check-box__label:hover{
+    color: var(--clr-txt-hover);
+}
+
+.check-box__input{
+    cursor: pointer;
+}
+
