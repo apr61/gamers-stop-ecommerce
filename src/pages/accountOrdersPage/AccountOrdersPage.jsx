@@ -11,7 +11,7 @@ function AccountOrdersPage() {
 		setCurrentTab(tabName)
 		handleFilter(tabName)
 	}
-	console.log(filteredOrders.length)
+	
 	return (
 		<section className="orders main">
 			<h2 className="orders__title">Your Orders</h2>
