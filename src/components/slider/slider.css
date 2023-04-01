@@ -1,7 +1,4 @@
-.slider{
-    border: 1px solid hsl(0, 0%, 80%);
-    border-radius: .25rem;
-}
+
 
 .slider__wrapper{
     max-width: calc(100vw - 2rem);
