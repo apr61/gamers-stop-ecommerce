@@ -11,13 +11,15 @@ export function useFilterSortContext(){
 export const filterInitialState = {
     filtered_products: [],
     all_products: [],
+    category_products: [],
     outOfStock: false,
     brands: [],
     rating: 0,
     itemCondition: undefined,
     price: 0,
     sorting_value: 'p_l-h',
-    activeFilters: []
+    activeFilters: [],
+    category: 'all products'
 }
 
 

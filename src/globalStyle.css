@@ -29,6 +29,7 @@
     --clr-btn-laoding-bg: hsl(200, 50%, 70%);
     --clr-error: hsl(0, 95%, 50%);
     --clr-txt-cnf: hsl(100, 100%, 18%);
+    --clr-header-bg: hsl(200, 50%, 50%);
 }
 
 body {
@@ -53,7 +54,8 @@ a {
 }
 
 .main {
-    max-width: calc(100vw - 2rem);
+    max-width: 93rem;
+    width: 100%;
     margin: .5rem 0;
     margin-inline: auto;
     min-height: 50vh;
@@ -69,6 +71,6 @@ a {
 
 @media (max-width: 50rem) {
     .main{
-        max-width: calc(100vw - 1rem);
+        max-width: calc(100vw - 2rem);
     }
 }

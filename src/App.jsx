@@ -30,7 +30,7 @@ function App() {
 					<Route element={<ContextLayout provider={FilterSortProvider} />}>
 						<Route path='/' element={<Home />} />
 						<Route path='/products' element={<ProductsList />} />
-						<Route path='/c/:category' element={<ProductsList />} />
+						<Route path='/c/:categoryFromUrl' element={<ProductsList />} />
 						<Route path='/:productName' element={<SingleProductPage />} />
 					</Route>
 				</Route>

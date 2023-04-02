@@ -12,11 +12,11 @@ function getMinMaxPrice(products) {
 }
 
 function Filter({ handleOpenFilterSection }) {
-    const { filterState: { outOfStock, brands, price, all_products }, updateFilterHelper } = useFilterSortContext()
+    const { filterState: { outOfStock, brands, price, category_products }, updateFilterHelper } = useFilterSortContext()
 
-    const maxPrice = getMinMaxPrice(all_products);
+    const maxPrice = getMinMaxPrice(category_products);
 
-    const allUniqueBrands = [...new Set(all_products.map(product => product.brand))]
+    const allUniqueBrands = [...new Set(category_products.map(product => product.brand))]
 
     function handlePriceChange(e) {
         updateFilterHelper('PRICE', e.target.value)
@@ -45,12 +45,10 @@ function Filter({ handleOpenFilterSection }) {
                 ))}
             </Accoridon>
             <Accoridon title={'Customer Review'}>
-                {
-                    new Array(4).fill(0).map((_, i) => (
-                        <FilterInputs key={i} name={'rating'} inputType={'radio'} labelName={4 - i}
-                            icon={true} type={'RATING'} payload={4 - i} />
-                    ))
-                }
+                <FilterInputs name={'rating'} inputType={'radio'} labelName={4}
+                    icon={true} type={'RATING'} payload={4} />
+                <FilterInputs name={'rating'} inputType={'radio'} labelName={3}
+                    icon={true} type={'RATING'} payload={3} />
             </Accoridon>
             <Accoridon title={'Discount'}>
                 <FilterInputs name={'10per'} labelName={'10% Off or +'} />
