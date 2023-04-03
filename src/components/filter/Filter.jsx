@@ -12,11 +12,10 @@ function getMinMaxPrice(products) {
 }
 
 function Filter({ handleOpenFilterSection }) {
-    const { filterState: { outOfStock, brands, price, category_products }, updateFilterHelper } = useFilterSortContext()
+    const { filterState: { filters: { outOfStock, brands, price }, all_products }, updateFilterHelper } = useFilterSortContext()
+    const maxPrice = getMinMaxPrice(all_products);
 
-    const maxPrice = getMinMaxPrice(category_products);
-
-    const allUniqueBrands = [...new Set(category_products.map(product => product.brand))]
+    const allUniqueBrands = [...new Set(all_products.map(product => product.brand))]
 
     function handlePriceChange(e) {
         updateFilterHelper('PRICE', e.target.value)
@@ -70,7 +69,7 @@ function Filter({ handleOpenFilterSection }) {
                 <FilterInputs name={'last90days'} labelName={'Last 90 Days'} />
             </Accoridon>
             <Accoridon title={'Availability'}>
-                <FilterInputs name={'outOfStock'} type={'OUT_OF_STOCK'} payload={outOfStock}
+                <FilterInputs name={'outOfStock'} type={'OUT_OF_STOCK'} payload={!outOfStock}
                     isChecked={outOfStock} labelName={'Include Out Of Stock'} />
             </Accoridon>
         </section>

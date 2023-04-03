@@ -11,13 +11,11 @@ export function useProductContext() {
 
 function ProductProvider({ children }) {
 
-    const { loading, error, value: products } = useAsync(getProducts)
-
+    const { loading: productsLoading, error, value: products } = useAsync(getProducts)
+    
     return (
-        <ProductContext.Provider value={{ products }}>
-            {
-                loading ? (<h1>Loading...</h1>) : error ? (<h1>{error}</h1>) : (children)
-            }
+        <ProductContext.Provider value={{ products, productsLoading }}>
+            {children}
         </ProductContext.Provider>
     )
 }

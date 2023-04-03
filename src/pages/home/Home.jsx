@@ -16,8 +16,8 @@ import { useProductContext } from '../../context/ProductContext'
 
 function Home() {
 
-	const { products } = useProductContext()
-
+	const { products, productsLoading } = useProductContext()
+	if(productsLoading) return <h1>Loading...</h1>
 	return (
 		<>
 			<main className='main home'>

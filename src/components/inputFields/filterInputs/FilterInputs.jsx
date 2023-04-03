@@ -7,7 +7,7 @@ function FilterInputs({ name, inputType = 'checkbox', type, labelName, icon, isC
 	const cId = useId()
 	const {updateFilterHelper, filterState:{activeFilters}} = useFilterSortContext()
 	function handleFilterInputChange(){
-		updateFilterHelper(type, payload)
+		updateFilterHelper('UPDATE_FILTER_VALUE', {filterName: name, filterValue: payload})
 		if(activeFilters.filter(filter => filter.labelName === labelName).length === 0){
 			updateFilterHelper('ADD_ACTIVE_FILTER', {type, labelName})
 		}else{

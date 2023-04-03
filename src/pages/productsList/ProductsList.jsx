@@ -33,11 +33,7 @@ function ProductsList() {
 	const { categoryFromUrl } = useParams()
 	const updatedCategory = categoryFromUrl ? unCreateRouterPath(categoryFromUrl) : 'all products'
 
-	const { filterState: { filtered_products: products, activeFilters }, updateFilterHelper } = useFilterSortContext()
-
-	useEffect(() => {
-		updateFilterHelper('UPDATE_FILTER_VALUE', {category: 'category', updatedCategory})
-	}, [updatedCategory])
+	const { filterState: { filtered_products: products, activeFilters }, updateFilterHelper, productsLoading } = useFilterSortContext()
 
 	function handleSelect(e) {
 		let value = e.target.value;
@@ -69,36 +65,41 @@ function ProductsList() {
 						<Filter handleOpenFilterSection={handleOpenFilterSection} />
 					</section>
 					<section className="category-products__container">
-						<div className="category-products__sort-sec">
-							<div className="category-products__sort-wrapper">
-								<p className="categorty-products__items-found">
-									{products.length} items found
-								</p>
-								<InputSelect labelName='Sort By : ' handleSelect={handleSelect} options={sortOptions} />
-							</div>
-							<div className="category-products__sort-wrapper category-products__sort-wrapper--min-hgt">
-								{
-									activeFilters.length !== 0 && (
-										<div className="category-products__active--filters">
-											{
-												activeFilters.map((data, i) => (
-													<button key={i + 999} className="category-products__filter-btn category-products__filter-btn--clear-filter"
-													>{data.type === 'RATING' ? <>{data.labelName} <AiFillStar /> {'& up'}</> :
-														data.type === 'PRICE' ? currencyFormatter(0, 0) + '-' + currencyFormatter(data.labelName) : data.labelName}
-														<AiOutlineClose onClick={() => handleRemoveFilter(data.type, data.labelName)} /></button>
-												))
-											}
-											<button className="category-products__filter-btn category-products__filter-btn--clear-all-filter"
-												onClick={handleClearAllFilters}>Clear all filters</button>
+						{
+							productsLoading ? <h1>Loading...</h1> :
+								(
+									<div className="category-products__sort-sec">
+										<div className="category-products__sort-wrapper">
+											<p className="categorty-products__items-found">
+												{products.length} items found
+											</p>
+											<InputSelect labelName='Sort By : ' handleSelect={handleSelect} options={sortOptions} />
 										</div>
-									)
-								}
+										<div className="category-products__sort-wrapper category-products__sort-wrapper--min-hgt">
+											{
+												activeFilters.length !== 0 && (
+													<div className="category-products__active--filters">
+														{
+															activeFilters.map((data, i) => (
+																<button key={i + 999} className="category-products__filter-btn category-products__filter-btn--clear-filter"
+																>{data.type === 'RATING' ? <>{data.labelName} <AiFillStar /> {'& up'}</> :
+																	data.type === 'PRICE' ? currencyFormatter(0, 0) + '-' + currencyFormatter(data.labelName) : data.labelName}
+																	<AiOutlineClose onClick={() => handleRemoveFilter(data.type, data.labelName)} /></button>
+															))
+														}
+														<button className="category-products__filter-btn category-products__filter-btn--clear-all-filter"
+															onClick={handleClearAllFilters}>Clear all filters</button>
+													</div>
+												)
+											}
 
-								<button
-									className="category-products__filter-btn"
-									onClick={handleOpenFilterSection}><AiFillFilter /></button>
-							</div>
-						</div>
+											<button
+												className="category-products__filter-btn"
+												onClick={handleOpenFilterSection}><AiFillFilter /></button>
+										</div>
+									</div>
+								)
+						}
 						{
 							products.length > 0 ? (
 								<div className="category-products__list">

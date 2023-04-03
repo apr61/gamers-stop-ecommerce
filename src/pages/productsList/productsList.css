@@ -122,9 +122,9 @@
     max-width: 32.25%;
 }
 
-.category-products__sort-wrapper--min-hgt{
+/* .category-products__sort-wrapper--min-hgt{
     display: none;
-}
+} */
 
 @media (max-width: 90rem) {
     .category-products__list{
@@ -162,7 +162,6 @@
 
     .category-products__sort-wrapper--min-hgt {
         min-height: 3rem;
-        display: flex;
     }
     .category-products__title{
         font-size: 1.1rem;

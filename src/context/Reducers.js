@@ -28,80 +28,108 @@ export function CartReducer(state, action) {
 
 
 export function FilterReducer(state, action) {
-    const { brands, filtered_products, all_products, category_products } = { ...state }
+    let { all_products, filtered_products } = { ...state }
     switch (action.type) {
         case 'LOAD_FILTERED_DATA':
             return {
                 ...state,
                 filtered_products: action.payload.filter(product => product.quantity > 0)
                     .sort((a, b) => a.price - b.price),
-                category_products: action.payload.sort((a, b) => a.price - b.price),
                 all_products: [...action.payload]
+            }
+        case 'FILTER':
+            let tempFilteredProducts = [...all_products]
+            const { category, outOfStock, brands, rating } = state.filters
+            if (category !== 'all products') {
+                tempFilteredProducts = tempFilteredProducts.filter(product => product.category === category)
+            }
+            if (!outOfStock) {
+                tempFilteredProducts = tempFilteredProducts.filter(product => product.quantity > 0)
+            }
+
+            if (rating >= 0) {
+                tempFilteredProducts = tempFilteredProducts.filter(product => product.avgrating >= rating)
+            }
+            return {
+                ...state,
+                filtered_products: tempFilteredProducts
+            }
+        case 'UPDATE_FILTER_VALUE':
+            const { filterName, filterValue } = action.payload
+            return {
+                ...state,
+                filters: {
+                    ...state.filters,
+                    [filterName]: filterValue
+                }
             }
         case 'CATEGORY':
             return {
                 ...state, category: action.payload,
-                category_products: action.payload === 'all products' ? all_products : all_products.filter(product => product.category === action.payload),
+                filtered_products: action.payload === 'all products' ? all_products : all_products.filter(product => product.category === action.payload),
             }
         case 'OUT_OF_STOCK':
             return {
                 ...state, outOfStock: !action.payload,
-                filtered_products: category_products.filter(product => action.payload ? product.quantity > 0 : product),
+                filtered_products: filtered_products.filter(product => action.payload ? product.quantity > 0 : product),
             }
-        case 'BRANDS':
+        case 'brands':
             const filteredBrands = brands.indexOf(action.payload) === -1 ? [...brands, action.payload] : brands.filter(brand => brand !== action.payload)
             return {
                 ...state, brands: filteredBrands,
-                filtered_products: category_products.filter(product => filteredBrands.length > 0 ? filteredBrands.indexOf(product.brand) !== -1 : product)
+                filtered_products: filtered_products.filter(product => filteredBrands.length > 0 ? filteredBrands.indexOf(product.brand) !== -1 : product)
             }
         case 'RATING':
             return {
                 ...state, rating: action.payload,
-                filtered_products: category_products.filter(product => product.avgrating >= action.payload)
+                filtered_products: filtered_products.filter(product => product.avgrating >= action.payload)
             }
         case 'ITEM_CONDITION':
             return {
                 ...state, itemCondition: action.payload,
-                filtered_products: category_products.filter(product => product.itemcondition === action.payload)
+                filtered_products: filtered_products.filter(product => product.itemcondition === action.payload)
             }
         case 'PRICE':
             return {
                 ...state, price: action.payload,
-                filtered_products: category_products.filter(prod => prod.price <= action.payload)
+                filtered_products: all_products.filter(prod => prod.price <= action.payload)
             }
         case 'CLEAR_ALL_FILTERS':
             return {
                 ...state,
-                filtered_products: category_products.filter(product => product.quantity > 0)
+                filtered_products: all_products.filter(product => product.quantity > 0)
                     .sort((a, b) => a.price - b.price),
-                outOfStock: false,
-                brands: [],
-                rating: 0,
-                itemCondition: undefined,
+                filters: {
+                    brands: [],
+                    outOfStock: false,
+                    rating: 0,
+                    itemCondition: '',
+                    category: 'all products'
+                },
                 price: 0,
-                sorting_value: '',
+                sorting_value: 'p_l-h',
                 activeFilters: [],
             }
         case 'SORTING':
             let newSortedData;
             let tempData = [...filtered_products]
-            let prevCon = action.payload || state.sorting_value
+            let sorting_value = action.payload
             newSortedData = tempData.sort((a, b) => {
-                if (prevCon === 'p_l-h') {
+                if (sorting_value === 'p_l-h') {
                     return a.price - b.price
                 }
-                if (prevCon === 'p_h-l') {
+                if (sorting_value === 'p_h-l') {
                     return b.price - a.price
                 }
-                if (prevCon === 'a-z') {
+                if (sorting_value === 'a-z') {
                     return a.name.localeCompare(b.name)
                 }
-                if (prevCon === 'z-a') {
+                if (sorting_value === 'z-a') {
                     return b.name.localeCompare(a.name)
                 }
             })
             return {
-                ...state, sorting_value: action.payload, filtered_products: newSortedData
+                ...state, filtered_products: newSortedData
             }
 
         case 'ADD_ACTIVE_FILTER':
