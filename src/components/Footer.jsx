@@ -7,10 +7,10 @@ import {
 
 function Footer() {
   return (
-    <footer className="bg-gray-700 text-white mt-auto">
+    <footer className="border-t border-slate-300">
       <div className="p-2 pl-8 max-w-4xl mx-auto sm:grid sm:grid-cols-2 lg:grid-cols-4 md:p-4">
         <section className="mb-2">
-          <h5 className="text-xl text-slate-400 mb-1">Social</h5>
+          <h5 className="text-xl font-bold mb-1">Social</h5>
           <ul className="footer__list">
             <li className="flex items-center gap-2 text-lg">
               <AiFillInstagram /> Instagram
@@ -27,7 +27,7 @@ function Footer() {
           </ul>
         </section>
         <section className="mb-2">
-          <h5 className="text-xl text-slate-400 mb-1">Help</h5>
+          <h5 className="text-xl font-bold mb-1">Help</h5>
           <ul className="">
             <li className="flex items-center gap-2 text-lg">Payments</li>
             <li className="flex items-center gap-2 text-lg">Shipping</li>
@@ -38,7 +38,7 @@ function Footer() {
           </ul>
         </section>
         <section className="mb-2">
-          <h5 className="text-xl text-slate-400 mb-1">Quick Links</h5>
+          <h5 className="text-xl font-bold mb-1">Quick Links</h5>
           <ul className="footer__list">
             <li className="flex items-center gap-2 text-lg">Graphic Card</li>
             <li className="flex items-center gap-2 text-lg">Monitors</li>
@@ -50,7 +50,7 @@ function Footer() {
           </ul>
         </section>
         <section className="mb-2">
-          <h5 className="text-xl text-slate-400 mb-1">Contact Us</h5>
+          <h5 className="text-xl font-bold mb-1">Contact Us</h5>
           <p className="footer__address">Demo Street,</p>
           <p className="footer__address">
             D/No. 1234, Demo City, Demo Country, 11111
@@ -59,7 +59,7 @@ function Footer() {
           <p className="footer__address">Mail : support@gamersstop.com</p>
         </section>
       </div>
-      <div className="bg-emerald-600 p-4 text-xl">
+      <div className="border-t border-slate-300 p-4 text-xl">
         <p className="text-center">&copy; Gamers Stop</p>
       </div>
     </footer>
