@@ -1,25 +1,26 @@
-.category-card{
-    width: 15rem;
-    background-color: hsl(200, 50%,50%);
-    padding: 1rem;
-    color: var(--clr-txt-white);
-    text-align: center;
-    flex-shrink: 0;
+.category-card {
+  position: relative;
+  border-radius: 5%;
+  overflow: hidden;
 }
 
-.category-card__image-container{
-    width: 100%;
-    height: 10rem;
-    margin-bottom: 1rem;
-    overflow: hidden;
+.category-card__img {
+  object-fit: cover;
+  transition: transform 300ms ease-in;
+  filter: brightness(0.75);
 }
 
-.category-card__img{
-    height: 100%;
-    object-fit: cover;
-    transition: transform 300ms ease-in;
+.category-card:hover .category-card__img {
+  transform: scale(1.05);
 }
 
-.category-card:hover .category-card__img{
-    transform: scale(1.05);
+.category-card__name {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0;
+  right: 0;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+  line-height: 1;
 }

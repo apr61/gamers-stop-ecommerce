@@ -1,8 +1,30 @@
-
-.home__title{
-    margin: 1rem 0;
+.home__title {
+  margin: 1rem 0;
+  font-weight: 600;
 }
 
-.home__section{
-    overflow: hidden;
+.home__section {
+  margin: 3rem 0;
+}
+
+.home__category {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+@media (max-width: 60rem) {
+  .home__category {
+    gap: 0.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 50rem) {
+  .home__category {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .home__section {
+    margin: 2rem 0;
+  }
 }

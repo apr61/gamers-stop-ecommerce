@@ -1,5 +1,5 @@
 import './cartButtons.css'
-import { useCartState } from '../../../context/CartContext'
+import { useCartState } from '../../context/CartContext'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BsTrash } from 'react-icons/bs'
 
