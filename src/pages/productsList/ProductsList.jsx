@@ -11,7 +11,7 @@ function ProductsList() {
   document.title = "Store | Gamers Stop";
   const {
     filterState: { filtered_products: products },
-    productsLoading,
+    isLoading,
   } = useFilterSortContext();
 
   return (
@@ -28,7 +28,7 @@ function ProductsList() {
           <Filter />
         </section>
         <section className="category-products__container">
-          {productsLoading ? (
+          {isLoading ? (
             <h1>Loading...</h1>
           ) : (
             <header className="category-products__header">

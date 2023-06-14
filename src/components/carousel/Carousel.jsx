@@ -2,6 +2,7 @@ import "./carousel.css";
 import { carouselImages } from "../../data/imagesLoader";
 import { useState } from "react";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -17,9 +18,11 @@ function Carousel() {
   }
   return (
     <div className="carousel">
-      <div className="carousel__image-container">
-        <img className="carousel__img" src={carouselImages[currentSlide]} />
-      </div>
+      <Link to='/store'>
+        <div className="carousel__image-container">
+          <img className="carousel__img" src={carouselImages[currentSlide]} />
+        </div>
+      </Link>
       <div className="carousel__btn__container">
         <button className="carousel__btn" onClick={() => prevSlide()}>
           <span>

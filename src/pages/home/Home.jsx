@@ -7,13 +7,8 @@ import CategoryCard from "../../components/categoryCard/CategoryCard";
 //data
 import { categoryData } from "../../data/imagesLoader";
 
-// custom function to create path
-import { createRouterPath } from "../../utils/utils";
-import { useProductContext } from "../../context/ProductContext";
-
 function Home() {
-  const { products, productsLoading } = useProductContext();
-  if (productsLoading) return <h1>Loading...</h1>;
+  document.title = "Gamers Stop"
   return (
     <>
       <Carousel />
@@ -21,7 +16,7 @@ function Home() {
         <h2 className="home__title">Shop By Categories</h2>
         <div className="home__category">
           {categoryData.map((category) => (
-            <CategoryCard category={category} />
+            <CategoryCard key={category} category={category} />
           ))}
         </div>
       </section>

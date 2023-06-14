@@ -18,14 +18,11 @@ function CartProvider({ children }) {
         localStorage.setItem('gamers-stop-cart', JSON.stringify(cartState))
     }, [cartState.cart])
     
-    function getTotalItems(){
-        return cartState.cart.reduce((acc,curr) => acc+curr.qty, 0)
-    }
-    function getTotalPrice(){
-        return cartState.cart.reduce((acc, curr) => (acc+curr.price) * curr.qty ,0)
-    }
+    const totalItems = cartState.cart.reduce((acc,curr) => acc+curr.qty, 0)
+    const totalPrice = cartState.cart.reduce((acc, curr) => (acc+curr.price) * curr.qty ,0)
+    
     return (
-        <Cart.Provider value={{ cartState, cartDispatch, getTotalItems, getTotalPrice}}>
+        <Cart.Provider value={{ cartState, cartDispatch, totalItems, totalPrice}}>
             {children}
         </Cart.Provider>
     )

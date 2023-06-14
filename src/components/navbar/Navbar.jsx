@@ -9,17 +9,10 @@ import { FaUserAlt, FaStore } from "react-icons/fa";
 import { MdLogin } from "react-icons/md";
 
 function Navbar() {
-  const { getTotalItems } = useCartState();
+  const { totalItems } = useCartState();
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
 
-  function handleSignOut() {
-    try {
-      logOut().then(navigate((to = "/signin")));
-    } catch {
-      (error) => console.error(error);
-    }
-  }
 
   return (
     <nav className="navbar">
@@ -37,7 +30,7 @@ function Navbar() {
           <Link className="navbar__link navbar__link--cart" to={"/cart"}>
             <span
               className="navbar__cart-icon"
-              data-cart-items={getTotalItems()}
+              data-cart-items={totalItems}
             >
               <AiOutlineShoppingCart />
             </span>

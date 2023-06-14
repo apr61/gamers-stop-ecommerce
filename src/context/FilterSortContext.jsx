@@ -26,7 +26,7 @@ export const filterInitialState = {
 
 function FilterSortProvider({ children }) {
 
-    const { productsLoading, products } = useProductContext()
+    const { isLoading, products } = useProductContext()
 
     const [filterState, filterDispatch] = useReducer(FilterReducer, filterInitialState)
 
@@ -35,18 +35,18 @@ function FilterSortProvider({ children }) {
     }
 
     useEffect(() => {
-        if(productsLoading) return 
+        if(isLoading) return 
         filterDispatch({type: 'FILTER'})
         filterDispatch({type: 'SORTING'})
     }, [products, filterState.sorting_value, filterState.filters])
 
     useEffect(() => {
-        if(productsLoading) return 
+        if(isLoading) return 
         filterDispatch({ type: 'LOAD_FILTERED_DATA', payload: products })
     }, [products])
 
     return (
-        <FilterSort.Provider value={{ filterState, filterDispatch, updateFilterHelper, productsLoading }}>
+        <FilterSort.Provider value={{ filterState, filterDispatch, updateFilterHelper, isLoading }}>
             {children}
         </FilterSort.Provider>
     )

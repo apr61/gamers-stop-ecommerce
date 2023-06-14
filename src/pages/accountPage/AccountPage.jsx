@@ -6,6 +6,7 @@ import { logOut } from "../../services/auth";
 
 function AccountPage() {
   const navigate = useNavigate();
+  document.title = "Account | Gamers Stop"
   function handleLogOut() {
     logOut().then(() => navigate("/"));
   }
