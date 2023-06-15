@@ -11,7 +11,6 @@ import AccountPage from "./pages/accountPage/AccountPage";
 import RequireAuth from "./routeLayouts/RequireAuth";
 import MainLayout from "./routeLayouts/MainLayout";
 import ProductProvider from "./context/ProductContext";
-import FilterSortProvider from "./context/FilterSortContext";
 import UserAddressProvider from "./context/AddressContext";
 import OrdersProvider from "./context/OrderContext";
 import CheckOutPage from "./pages/checkout/CheckOutPage";
@@ -26,12 +25,10 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route element={<ContextLayout provider={ProductProvider} />}>
-          <Route element={<ContextLayout provider={FilterSortProvider} />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/store" element={<ProductsList />} />
-            <Route path="/c/:categoryFromUrl" element={<ProductsList />} />
-            <Route path="/:productName" element={<SingleProductPage />} />
-          </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/store" element={<ProductsList />} />
+          <Route path="/c/:categoryFromUrl" element={<ProductsList />} />
+          <Route path="/:productName" element={<SingleProductPage />} />
         </Route>
         <Route element={<RequireAuth />}>
           <Route element={<ContextLayout provider={UserAddressProvider} />}>

@@ -1,6 +1,6 @@
 import "./carousel.css";
 import { carouselImages } from "../../data/imagesLoader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
@@ -16,9 +16,17 @@ function Carousel() {
       currentSlide === 0 ? carouselImages.length - 1 : currentSlide - 1
     );
   }
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((currentSlide) =>
+        currentSlide < carouselImages.length - 1 ? currentSlide + 1 : 0
+      );
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
   return (
     <div className="carousel">
-      <Link to='/store'>
+      <Link to="/store">
         <div className="carousel__image-container">
           <img className="carousel__img" src={carouselImages[currentSlide]} />
         </div>

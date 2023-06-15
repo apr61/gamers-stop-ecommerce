@@ -1,30 +1,43 @@
 import "./productsList.css";
 import ProductCard from "../../components/productCard/ProductCard";
 import Filter from "../../components/filter/Filter";
-
-import { useFilterSortContext } from "../../context/FilterSortContext";
 import { FaSort } from "react-icons/fa";
-import { useState } from "react";
+import { useProducts } from "../../context/ProductContext";
 
 function ProductsList() {
-  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   document.title = "Store | Gamers Stop";
   const {
-    filterState: { filtered_products: products },
+    productsState: { products, allCategories },
     isLoading,
-  } = useFilterSortContext();
-
+    isFilterOpen,
+    filteredProducts,
+    productDispatch,
+    toggleFilter,
+  } = useProducts();
   return (
     <>
       <div className="category-products__body">
         <section
           className={
-            isFiltersOpen
+            isFilterOpen
               ? "category-products__filter isFilterOpen"
               : "category-products__filter"
           }
         >
-          <h3 className="category-products__title">Filters</h3>
+          <div className="category-products__row">
+            <h3 className="category-products__title">Filters</h3>
+            <button
+              className="category-products__clear-btn"
+              onClick={() =>
+                productDispatch({
+                  type: "CLEAR_ALL_FILTERS",
+                  payload: { products, allCategories },
+                })
+              }
+            >
+              Clear
+            </button>
+          </div>
           <Filter />
         </section>
         <section className="category-products__container">
@@ -33,16 +46,19 @@ function ProductsList() {
           ) : (
             <header className="category-products__header">
               <p className="categorty-products__items-found">
-                {products.length} items found
+                Showing {filteredProducts.length} of {products.length}
               </p>
-              <button className="category-products__filter-btn">
+              <button
+                className="category-products__filter-btn"
+                onClick={() => toggleFilter()}
+              >
                 <FaSort />
               </button>
             </header>
           )}
-          {products.length > 0 ? (
+          {filteredProducts?.length > 0 ? (
             <div className="category-products__list">
-              {products.map((product) => (
+              {filteredProducts?.map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}

@@ -30,11 +30,11 @@ function Cart() {
             </div>
             <div className="cart__summary">
               <h3 className="cart__title">
-                Sub Total of ({getTotalItems()}) items
+                Sub Total of ({getTotalItems}) items
               </h3>
               <div className="cart__content">
                 <p className="cart__total-amount">
-                  {currencyFormatter(getTotalPrice())}
+                  {currencyFormatter(getTotalPrice)}
                 </p>
                 <button
                   className="cart__checkout-btn"

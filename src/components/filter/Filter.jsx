@@ -1,34 +1,51 @@
 import "./filter.css";
 import Accoridon from "../accordion/Accordion";
-import { useFilterSortContext } from "../../context/FilterSortContext";
 import { AiOutlineClose, AiFillStar } from "react-icons/ai";
+import { useProducts } from "../../context/ProductContext";
 
-function Filter({ handleOpenFilterSection }) {
+function Filter() {
   const {
-    filterState: { all_products },
-  } = useFilterSortContext();
-
+    productsState: {
+      allCategories,
+      sort,
+      rating,
+      brands,
+      categoryIn,
+      availability,
+      products,
+    },
+    productDispatch,
+    toggleFilter,
+  } = useProducts();
   const allUniqueBrands = [
-    ...new Set(all_products.map((product) => product.brand)),
-  ];
-
-  const allUniqueCategories = [
-    ...new Set(all_products.map((product) => product.category)),
+    ...new Set(products.map((product) => product.brand)),
   ];
 
   return (
     <section className="filter-section">
       <button
         className="filter-section__close-btn"
-        onClick={handleOpenFilterSection}
+        onClick={() => toggleFilter()}
       >
         <AiOutlineClose />
       </button>
       <Accoridon title="Categories">
-        {allUniqueCategories.map((category, i) => (
-          <div className="filter__input" key={category + i}>
-            <input type="radio" id={category} name="categories" />
-            <label htmlFor={category} className="filter__input-label">
+        {allCategories.map(({ id, category }) => (
+          <div className="filter__input" key={id}>
+            <input
+              type="radio"
+              id={id}
+              name="categories"
+              value={category}
+              checked={categoryIn === category}
+              onChange={(e) =>
+                productDispatch({
+                  type: "CATEGORY",
+                  payload: e.target.value.toLowerCase(),
+                })
+              }
+            />
+            <label htmlFor={id} className="filter__input-label">
               {category}
             </label>
           </div>
@@ -37,7 +54,16 @@ function Filter({ handleOpenFilterSection }) {
       <Accoridon title={"Brands"}>
         {allUniqueBrands.map((brand, i) => (
           <div className="filter__input" key={brand + i}>
-            <input type="checkbox" id={brand} name={brand} />
+            <input
+              type="checkbox"
+              id={brand}
+              name={brand}
+              value={brand}
+              checked={brands.includes(brand)}
+              onChange={(e) =>
+                productDispatch({ type: "BRANDS", payload: e.target.value })
+              }
+            />
             <label htmlFor={brand} className="filter__input-label">
               {brand}
             </label>
@@ -63,6 +89,10 @@ function Filter({ handleOpenFilterSection }) {
             max="5"
             step="1"
             list="values"
+            value={rating}
+            onChange={(e) =>
+              productDispatch({ type: "RATING", payload: e.target.value })
+            }
           />
           <datalist className="filter__datalist" id="values">
             <option value="1" label="1"></option>
@@ -75,7 +105,15 @@ function Filter({ handleOpenFilterSection }) {
       </Accoridon>
       <Accoridon title={"Availability"}>
         <div className="filter__input">
-          <input type="checkbox" id="out_of_stock" />
+          <input
+            type="checkbox"
+            id="out_of_stock"
+            value={availability === "inStock" ? "outOfStock" : "inStock"}
+            checked={availability === "outOfStock"}
+            onChange={(e) =>
+              productDispatch({ type: "AVAILABILITY", payload: e.target.value })
+            }
+          />
           <label htmlFor="out_of_stock" className="filter__input-label">
             Include out of stock
           </label>
@@ -88,6 +126,10 @@ function Filter({ handleOpenFilterSection }) {
             name="sort"
             id="price_low_to_high"
             value="price_low_to_high"
+            checked={sort === "price_low_to_high"}
+            onChange={(e) =>
+              productDispatch({ type: "SORT", payload: e.target.value })
+            }
           />
           <label htmlFor="price_low_to_high" className="filter__input-label">
             Price Low To High
@@ -99,6 +141,10 @@ function Filter({ handleOpenFilterSection }) {
             name="sort"
             id="price_high_to_low"
             value="price_high_to_low"
+            checked={sort === "price_high_to_low"}
+            onChange={(e) =>
+              productDispatch({ type: "SORT", payload: e.target.value })
+            }
           />
           <label htmlFor="price_high_to_low" className="filter__input-label">
             Price High To Low
