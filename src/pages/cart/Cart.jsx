@@ -11,12 +11,12 @@ function Cart() {
     cartState: { cart },
     totalItems,
     totalPrice,
+    deliveryFee,
+    discount,
+    grandTotal
   } = useCartState();
   const navigate = useNavigate();
   document.title = "Cart | Gamers Stop";
-  const deliveryFee = 100;
-  const discount = totalPrice * 0.1;
-  const grandTotal = totalPrice - discount + deliveryFee;
   return (
     <>
       <Navbar />

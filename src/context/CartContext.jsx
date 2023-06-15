@@ -22,9 +22,12 @@ function CartProvider({ children }) {
     (acc, curr) => (acc + curr.price) * curr.qty,
     0
   );
+  const deliveryFee = 100;
+  const discount = totalPrice * 0.05;
+  const grandTotal = totalPrice - discount + deliveryFee;
 
   return (
-    <Cart.Provider value={{ cartState, cartDispatch, totalItems, totalPrice }}>
+    <Cart.Provider value={{ cartState, cartDispatch, totalItems, totalPrice, deliveryFee, discount, grandTotal }}>
       {children}
     </Cart.Provider>
   );
