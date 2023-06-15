@@ -1,188 +1,152 @@
-import React, { useState } from 'react'
-import './checkout.css'
-import Accordion from '../../components/accordion/Accordion'
-import { useAddressContext } from '../../context/AddressContext'
-import { Link, useNavigate } from 'react-router-dom'
-import { useCartState } from '../../context/CartContext'
-import CartItem from '../../components/cartItem/CartItem'
-import { currencyFormatter, dateFormatter, deliveryDateSetter } from '../../utils/utils'
-import { serverTimestamp } from 'firebase/firestore'
-import { useAuthContext } from '../../context/AuthContext'
-import { createAnOrder } from '../../services/orders'
-const deliveryFee = 50
-const deliveryDays = 7
+import React, { useEffect, useState } from "react";
+import "./checkout.css";
+import { useAddressContext } from "../../context/AddressContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useCartState } from "../../context/CartContext";
+import {
+  currencyFormatter,
+} from "../../utils/utils";
+import { serverTimestamp } from "firebase/firestore";
+import { useAuthContext } from "../../context/AuthContext";
+import { createAnOrder } from "../../services/orders";
 
 function CheckOutPage() {
-	const { loading, localAddresses: addresses } = useAddressContext()
-	const [checkoutAddress, setCheckoutAddress] = useState()
-	const [checkoutPaymethod, setCheckoutPaymethod] = useState()
-	const [deliveryDate, setDeliveryDate] = useState('')
-	const { cartState: { cart }, getTotalPrice, getTotalItems } = useCartState()
-	const {currentUser} = useAuthContext() 
-	const navigate = useNavigate()
+  document.title = "Checkout | Gamers Stop"
+  const { loading,localAddresses: addresses } = useAddressContext();
+  const [checkoutAddress, setCheckoutAddress] = useState({});
+  const {
+    cartState: { cart },
+    totalPrice,
+    totalItems,
+    discount,
+    grandTotal,
+    deliveryFee
+  } = useCartState();
+  const { currentUser } = useAuthContext();
+  const navigate = useNavigate();
 
-	const conditionForDisabledPlaceOrder = checkoutAddress == undefined || checkoutPaymethod == undefined || cart.length === 0
-	const deliveryDateFormatted = dateFormatter(deliveryDateSetter(deliveryDays)).split(',').join(' ')
+  function handlePlaceOrder() {
+    const newOrder = {
+      shippingAddress: checkoutAddress,
+      paymentStatus: "Not Paid",
+      orderStatus: "yet tobe shipped",
+      orderedDate: serverTimestamp(),
+      productsOrdered: cart,
+      totalAmount: totalPrice,
+      totalItemsOrdered: totalItems,
+      deliveryFee: deliveryFee,
+      uid: currentUser.uid,
+    };
 
-	function handlePlaceOrder() {
-		const newOrder = {
-			shippingAddress: checkoutAddress,
-			paymentMethod: checkoutPaymethod,
-			paymentStatus: 'Not Paid',
-			orderStatus: 'yet tobe shipped',
-			orderedDate: serverTimestamp(),
-			deliveryDate: deliveryDate,
-			productsOrdered: cart,
-			totalAmount: getTotalPrice(),
-			totalItemsOrdered: getTotalItems(),
-			deliveryFee: deliveryFee,
-			uid: currentUser.uid
-		}
-
-		createAnOrder(newOrder).then((docRef) => {
-			navigate(`/order-successful/${docRef.id}`, {state: {orderId : docRef.id, order: newOrder}})
-		})
-	}
-	if(cart.length <= 0){
-		navigate('/cart')
-	}
-	return (
-		<>
-			<header className='checkout__header'>
-				<h3 className="checkout__title">Check Out</h3>
-			</header>
-			<section className="checkout__body main">
-				<Accordion title={checkoutAddress ? '1 - Delivery address' : '1 - Select a delivery address'} modifiedStyles={'checkout__acc-title'} defaultOpen={true}>
-					<div className="checkout__section">
-						{
-							loading ? <h2>Loading...</h2> : addresses.length < 0 ? (
-								<>
-									<p>No Addressed Found</p>
-									<Link to='/account/addresses/new/' target='_blank' className='checkout__link'>Create a new shiping address here</Link>
-								</>
-							) : (
-								<div className="checkout__section-output">
-									{
-										checkoutAddress ? (
-											<>
-												<div className="checkout__address-card">
-													<h4 className="checkout__address-card checkout__address-card--heading">{checkoutAddress.fullName}</h4>
-													<p className="checkout__address-card">{checkoutAddress.flat}</p>
-													<p className="checkout__address-card">{checkoutAddress.area}</p>
-													<p className="checkout__address-card">{checkoutAddress.landmark}</p>
-													<p className="checkout__address-card">{checkoutAddress.town}, {checkoutAddress.state.toUpperCase()} {checkoutAddress.pincode}</p>
-													<p className="checkout__address-card">India</p>
-													<p className="checkout__address-card">Phone Number : {checkoutAddress.phoneNumber}</p>
-												</div>
-												<button className="checkout__btn checkout__btn--action" onClick={() => setCheckoutAddress()}>Change</button>
-											</>
-										) : (
-											<>
-												<div className='checkout__section-input'>
-													<h4 className="checkout__subtitle">Your Addresses</h4>
-													{
-														addresses.map(address => (
-															<div className="input-radio" key={address.id}>
-																<input type="radio" className='input-radio__radio' required name="address" value={address}
-																	onChange={() => setCheckoutAddress({ ...address })} id={address.id} />
-																<label className='input-radio__label' htmlFor={address.id}>
-																	<span className="checkout__name">{address.fullName}</span> {address.flat}, {address.area}, {address.town.toUpperCase()}, {address.state.toUpperCase()}, {address.pincode}, India, Phone Number: {address.phoneNumber}
-																</label>
-															</div>
-														))
-													}
-												</div>
-											</>
-										)
-									}
-								</div>
-							)
-						}
-
-					</div>
-				</Accordion>
-				<Accordion title={'2 - Schedule Your Delivery'} modifiedStyles={'checkout__acc-title'} defaultOpen={true}>
-					<div className="checkout__section">
-						<div className="checkout__section-input">
-							{
-								deliveryDate ? (
-									<p className="checkout__selected">{deliveryDate}</p>
-								) : (
-									<>
-										<h4 className="checkout__subtitle">Choose Delivery Date</h4>
-										<div className="input-radio">
-											<input type="radio" className='input-radio__radio' required name="delivery-date" id='delivery-date'
-												value={deliveryDateFormatted} onChange={(e) => setDeliveryDate(e.target.value)} />
-											<label className='input-radio__label' htmlFor='delivery-date'>
-												{deliveryDateFormatted}
-											</label>
-										</div>
-									</>
-								)
-							}
-						</div>
-					</div>
-				</Accordion>
-				<Accordion title={checkoutPaymethod ? '3 - Payment Method' : '2 - Select a payment method'} modifiedStyles={'checkout__acc-title'} defaultOpen={true}>
-					<div className="checkout__section">
-						{
-							checkoutPaymethod ? (
-								<div className='checkout__section-output'>
-									<p className='checkout__selected'>{checkoutPaymethod}</p>
-									<button className="checkout__btn checkout__btn--action" onClick={() => setCheckoutPaymethod()}>Change</button>
-								</div>
-							) : (
-								<div className="checkout__section-input">
-									<div className="input-radio">
-										<input type="radio" className='input-radio__radio' required name="paymthod" id='cod' value='Cash On Delivery' onChange={(e) => setCheckoutPaymethod(e.target.value)} />
-										<label className='input-radio__label' htmlFor='cod'>
-											Cash On Delivery/ Pay on Delivery
-										</label>
-									</div>
-								</div>
-							)
-						}
-					</div>
-				</Accordion>
-				<Accordion title={'4 - Review Items And Delivery'} modifiedStyles={'checkout__acc-title'} defaultOpen={true}>
-					<div className="checkout__section">
-						<h4 className="checkout__subtitle">Items to be delivered</h4>
-						<div className="checkout__section-input">
-							{
-								cart.map(product => (
-									<CartItem product={product} key={product.id} />
-								))
-							}
-						</div>
-					</div>
-				</Accordion>
-				<div className="checkout__order-summary">
-					<button className={conditionForDisabledPlaceOrder ? "checkout__btn checkout__btn--disabled" : "checkout__btn"}
-						disabled={conditionForDisabledPlaceOrder} title={conditionForDisabledPlaceOrder && 'Please fill all details'} onClick={handlePlaceOrder}>Place Order And Pay</button>
-					<div className="checkout__order-details">
-						<h4 className="checkout__subtitle">Order Summary</h4>
-						<table className='checkout__table'>
-							<tbody className='checkout__tbody'>
-								<tr className="checkout__tr">
-									<td className="checkout__td">Items:</td>
-									<td className="checkout__td checkout__td--end">{getTotalItems()}</td>
-								</tr>
-								<tr className="checkout__tr">
-									<td className="checkout__td">Total: </td>
-									<td className="checkout__td checkout__td--end">{currencyFormatter(getTotalPrice())}</td>
-								</tr>
-								<tr className="checkout__tr">
-									<td className="checkout__td">Delivery fee:</td>
-									<td className="checkout__td checkout__td--end">{currencyFormatter(deliveryFee)}</td>
-								</tr>
-							</tbody>
-						</table>
-						<p className="checkout__order-total">Order Total: {currencyFormatter(getTotalPrice() + deliveryFee)}</p>
-					</div>
-				</div>
-			</section >
-		</>
-	)
+    createAnOrder(newOrder).then((docRef) => {
+      navigate(`/order-successful/${docRef.id}`, {
+        state: { orderId: docRef.id, order: newOrder },
+      });
+    });
+  }
+  useEffect(() => {
+    if(loading) return
+    setCheckoutAddress(addresses[0])
+  }, [addresses])
+  if (cart.length <= 0) {
+    navigate("/cart");
+  }
+  return (
+    <>
+      <section className="checkout">
+        <h2 className="checkout__title">Check Out</h2>
+        <div className="checkout__body">
+          <section className="checkout__address">
+            <h3 className="checkout__title checkout__title--md">Select Address</h3>
+            <div className="checkout__address-container">
+              {
+                addresses.map(address => (
+                  <div className="checkout__address-card" key={address.id}>
+                    <input type="radio" name="address" checked={address.id === checkoutAddress?.id} id={address.id} onChange={() => setCheckoutAddress(address)} />
+                    <label htmlFor={address.id} className="checkout__address-label">
+                      <h4 className="address__details address__details--heading">
+                        {address.fullName}
+                      </h4>
+                      <p className="address__details">{address.flat}, {address.area}</p>
+                      <p className="address__details">{address.landmark}</p>
+                      <p className="address__details">
+                        {address.town}, {address.state.toUpperCase()}{" "}
+                        {address.pincode}
+                      </p>
+                      <p className="address__details">India</p>
+                      <p className="address__details">
+                        Phone Number : {address.phoneNumber}
+                      </p>
+                    </label>
+                  </div>
+                ))
+              }
+              <Link to="/account/addresses/new" target="_blank">Add new address</Link>
+            </div>
+          </section>
+          <div className="checkout__summary">
+            <section className="checkout__sec">
+              <h2 className="checkout__title checkout__title--md">Order Summary</h2>
+              <table className="checkout__table">
+                <tbody>
+                  {
+                    cart.map(product => (
+                      <tr key={product.id} className="checkout__trow">
+                        <td>{product.name} ({currencyFormatter(product.price)} x {product.qty})</td>
+                        <td>{currencyFormatter(product.price * product.qty)}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </section>
+            <section className="checkout__sec">
+              <h2 className="checkout__title checkout__title--md">Price Details</h2>
+              <table className="checkout__table">
+                <tbody>
+                  <tr className="checkout__trow">
+                    <td>Total Price</td>
+                    <td>{currencyFormatter(totalPrice)}</td>
+                  </tr>
+                  <tr className="checkout__trow">
+                    <td>Total Discount (5%)</td>
+                    <td>- {currencyFormatter(discount)}</td>
+                  </tr>
+                  <tr className="checkout__trow">
+                    <td>Delivery Fee</td>
+                    <td>+ {currencyFormatter(deliveryFee)}</td>
+                  </tr>
+                  <tr className="checkout__trow checkout__trow--grand-total">
+                    <td>Grand total</td>
+                    <td>{currencyFormatter(grandTotal)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section className="checkout__sec">
+              <h2 className="checkout__title checkout__title--md">Deliver To</h2>
+              <div className="checkout__selected-address">
+                <h4 className="address__details address__details--heading">
+                  {checkoutAddress?.fullName}
+                </h4>
+                <p className="address__details">{checkoutAddress?.flat}, {checkoutAddress?.area}</p>
+                <p className="address__details">{checkoutAddress?.landmark}</p>
+                <p className="address__details">
+                  {checkoutAddress?.town}, {checkoutAddress?.state}{" "}
+                  {checkoutAddress?.pincode}
+                </p>
+                <p className="address__details">India</p>
+                <p className="address__details">
+                  Phone Number : {checkoutAddress?.phoneNumber}
+                </p>
+              </div>
+            </section>
+            <button className="checkout__btn" onClick={() => handlePlaceOrder()}>Place Order & Pay</button>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }
 
-export default CheckOutPage
+export default CheckOutPage;

@@ -1,42 +1,75 @@
-
-.filter-section__price-section{
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--clr-border);
+.filter-section__price-section {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--clr-border);
 }
 
-.filter-section__price{
-    font-size: 1.1rem;
+.filter-section__price {
+  font-size: 1.1rem;
 }
 
-.filter-section .accordion:last-child{
-    border-bottom: 0;
+.filter-section .accordion:last-child {
+  border-bottom: 0;
 }
 
-.filter-section__input-wrapper{
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
+.filter-section__input-wrapper {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 }
 
-.filter-section__input-group{
-    display: flex;
-    flex-direction: column;
-    gap: .25rem;
+.filter-section__input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-.filter-section__close-btn{
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    border: 0;
-    background-color: transparent;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: none;
+.filter-section__close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: 0;
+  background-color: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
 }
 
-@media (max-width: 60rem){
-    .filter-section__close-btn{
-        display: block;
-    }
+.filter__cus-review-in {
+  width: 100%;
+  cursor: pointer;
+}
+
+.filter__star-con {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter__star {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  font-size: 1.12rem;
+}
+
+.filter__datalist {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+}
+
+.filter__input {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.filter__input-label {
+  text-transform: capitalize;
+}
+
+@media (max-width: 60rem) {
+  .filter-section__close-btn {
+    display: block;
+  }
 }
