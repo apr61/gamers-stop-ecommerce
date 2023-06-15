@@ -9,39 +9,57 @@ import "./cart.css";
 function Cart() {
   const {
     cartState: { cart },
-    getTotalItems,
-    getTotalPrice,
+    totalItems,
+    totalPrice,
   } = useCartState();
   const navigate = useNavigate();
   document.title = "Cart | Gamers Stop";
+  const deliveryFee = 100;
+  const discount = totalPrice * 0.1;
+  const grandTotal = totalPrice - discount + deliveryFee;
   return (
     <>
       <Navbar />
       <div className="cart main">
         {cart.length > 0 ? (
           <>
+            <h2 className="cart__title">My Cart ({totalItems})</h2>
             <div className="cart__container">
-              <h3 className="cart__title">Cart</h3>
               <ul className="cart__content">
                 {cart.map((product) => (
                   <CartItem product={product} key={product.id} />
                 ))}
               </ul>
-            </div>
-            <div className="cart__summary">
-              <h3 className="cart__title">
-                Sub Total of ({getTotalItems}) items
-              </h3>
-              <div className="cart__content">
-                <p className="cart__total-amount">
-                  {currencyFormatter(getTotalPrice)}
-                </p>
-                <button
-                  className="cart__checkout-btn"
-                  onClick={() => navigate("/checkout")}
-                >
-                  Check Out
-                </button>
+              <div className="cart__summary">
+                <h3 className="cart__title cart__title--summary">Summary</h3>
+                <div className="cart__content">
+                  <table>
+                    <tbody>
+                      <tr className="summary__row">
+                        <td>SUB TOTAL</td>
+                        <td>{currencyFormatter(totalPrice)}</td>
+                      </tr>
+                      <tr className="summary__row">
+                        <td>Discount</td>
+                        <td>-{currencyFormatter(discount)}</td>
+                      </tr>
+                      <tr className="summary__row">
+                        <td>Delivery Fee</td>
+                        <td>+{currencyFormatter(deliveryFee)}</td>
+                      </tr>
+                      <tr className="summary__row cart__total-amount">
+                        <td>ORDER TOTAL</td>
+                        <td>{currencyFormatter(grandTotal)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <button
+                    className="cart__checkout-btn"
+                    onClick={() => navigate("/checkout")}
+                  >
+                    Check Out
+                  </button>
+                </div>
               </div>
             </div>
           </>
@@ -50,10 +68,11 @@ function Cart() {
             <h3 className="cart__title cart__title-empty">
               Your cart is empty
             </h3>
-            <button className="cart__checkout-btn">
-              <Link className="cart__link" to="/">
-                Shop Now
-              </Link>
+            <button
+              className="cart__checkout-btn"
+              onClick={() => navigate("/store")}
+            >
+              Shop Now
             </button>
           </div>
         )}

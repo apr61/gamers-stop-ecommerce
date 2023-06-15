@@ -27,7 +27,6 @@ function App() {
         <Route element={<ContextLayout provider={ProductProvider} />}>
           <Route path="/" element={<Home />} />
           <Route path="/store" element={<ProductsList />} />
-          <Route path="/c/:categoryFromUrl" element={<ProductsList />} />
           <Route path="/:productName" element={<SingleProductPage />} />
         </Route>
         <Route element={<RequireAuth />}>

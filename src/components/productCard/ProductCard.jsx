@@ -21,6 +21,7 @@ function ProductCard({ product }) {
     });
   }
   const isCartItem = cart.some((product) => product.id === id);
+  const isOutOfStock = product.quantity === 0;
   return (
     <article className="product-card">
       <div className="product-card__image-container">
@@ -60,10 +61,15 @@ function ProductCard({ product }) {
           </button>
         ) : (
           <button
-            className="product-card__btn"
+            className={
+              isOutOfStock
+                ? "product-card__btn product-card__btn--out-of-stock"
+                : "product-card__btn"
+            }
             onClick={() => handleAddToCart()}
+            disabled={isOutOfStock}
           >
-            Add to cart
+            {isOutOfStock ? "Out Of Stock" : "Add to cart"}
           </button>
         )}
       </div>

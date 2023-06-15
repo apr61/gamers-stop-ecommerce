@@ -8,6 +8,7 @@
   object-fit: cover;
   transition: transform 300ms ease-in;
   filter: brightness(0.75);
+  cursor: pointer;
 }
 
 .category-card:hover .category-card__img {

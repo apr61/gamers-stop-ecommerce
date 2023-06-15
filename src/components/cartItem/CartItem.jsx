@@ -1,9 +1,17 @@
+import { BsTrash } from "react-icons/bs";
+import { useCartState } from "../../context/CartContext";
 import { currencyFormatter } from "../../utils/utils";
-import CartButtons from "../cartButtons/CartButtons";
 import QuantityCounter from "../quantityCounter/QuantityCounter";
 import "./cartItem.css";
 
 function CartItem({ product }) {
+  const { cartDispatch } = useCartState();
+  function handleRemoveFromCart() {
+    cartDispatch({
+      type: "REMOVE_FROM_CART",
+      payload: product,
+    });
+  }
   return (
     <li className="cart-item">
       <div className="cart-item__image-container">
@@ -19,9 +27,9 @@ function CartItem({ product }) {
           {currencyFormatter(product.price)}
         </p>
         <QuantityCounter product={product} />
-      </div>
-      <div className="cart-item__btn-grp">
-        <CartButtons product={product} id={product.id} />
+        <button className="cart-item__btn" onClick={handleRemoveFromCart}>
+          <BsTrash />
+        </button>
       </div>
     </li>
   );

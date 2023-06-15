@@ -6,7 +6,6 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { FiShoppingBag } from "react-icons/fi";
 import "./singleProductPage.css";
 
-import CartButtons from "../../components/cartButtons/CartButtons";
 import QuantityCounter from "../../components/quantityCounter/QuantityCounter";
 
 import ProductImages from "../../components/productImages/ProductImages";
@@ -54,18 +53,6 @@ function SingleProductPage() {
           <QuantityCounter product={product} />
 
           <div className="product-page__section">
-            <div className="product-page__btn-wrapper">
-              <CartButtons id={id} product={product} />
-              <button
-                className="product-page__button product-page__button--buy-now"
-                onClick={handleBuyNow}
-              >
-                <>
-                  <FiShoppingBag />
-                </>{" "}
-                Buy Now
-              </button>
-            </div>
             <div className="product-page__btn-wrapper">
               <button className="product-page__button">
                 <AiOutlineHeart />

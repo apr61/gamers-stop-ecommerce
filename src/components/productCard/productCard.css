@@ -4,7 +4,7 @@
   transition: transform 300ms ease;
   border-radius: 0.5rem;
   overflow: hidden;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: var(--box-shadow);
   /* custom properties */
   --clr-product-brand-name: hsl(0, 0%, 50%);
 }
@@ -80,4 +80,13 @@
 
 .product-card__btn:hover {
   opacity: 0.75;
+}
+
+.product-card__btn--out-of-stock {
+  background-color: var(--clr-btn-out-of-stock);
+  cursor: not-allowed;
+}
+
+.product-card__btn--out-of-stock:hover {
+  opacity: 1;
 }
