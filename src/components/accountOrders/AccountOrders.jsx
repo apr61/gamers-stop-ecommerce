@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useOrderContext } from "../../context/OrderContext";
 import {
@@ -10,51 +10,41 @@ import {
 import "./accountOrders.css";
 
 function AccountOrders() {
-  const [currentTab, setCurrentTab] = useState("all");
-  const { filteredOrders, loading, handleFilter } = useOrderContext();
-  function handleTab(tabName) {
-    setCurrentTab(tabName);
-    handleFilter(tabName);
-  }
+  const {
+    ordersState: { orders, isLoading, currentOption },
+    handleOrderOptions,
+    filteredOrders,
+  } = useOrderContext();
 
   return (
-    <section className="orders main">
-      <h2 className="orders__title">My Orders</h2>
-      <div className="orders__container">
-        <div className="orders__tabs">
-          <button
-            className={
-              currentTab === "orders"
-                ? "orders__tab orders__tab--active"
-                : "orders__tab"
-            }
-            onClick={() => handleTab("orders")}
-          >
-            Orders
-          </button>
-          <button
-            className={
-              currentTab === "not-shipped"
-                ? "orders__tab orders__tab--active"
-                : "orders__tab"
-            }
-            onClick={() => handleTab("not-shipped")}
-          >
-            Yet To Be Shipped
-          </button>
-          <button
-            className={
-              currentTab === "cancelled"
-                ? "orders__tab orders__tab--active"
-                : "orders__tab"
-            }
-            onClick={() => handleTab("cancelled")}
-          >
+    <div className="orders main">
+      <header className="orders__main-header">
+        <h2 className="orders__title">My Orders</h2>
+        <select
+          onChange={(e) => handleOrderOptions(e)}
+          className="orders__select"
+          value={currentOption}
+        >
+          <option className="orders__options" value="all orders">
+            All orders
+          </option>
+          <option className="orders__options" value="delivered">
+            Delivered
+          </option>
+          <option className="orders__options" value="yet tobe shipped">
+            Yet tobe shipped
+          </option>
+          <option className="orders__options" value="cancelled">
             Cancelled
-          </button>
-        </div>
+          </option>
+        </select>
+      </header>
+      <p>
+        Showing {filteredOrders.length} of {orders.length}
+      </p>
+      <div className="orders__container">
         <ul className="orders__list">
-          {loading ? (
+          {isLoading ? (
             <h2>Loading...</h2>
           ) : filteredOrders.length === 0 ? (
             <p className="orders__empty">No Orders are available...</p>
@@ -63,7 +53,18 @@ function AccountOrders() {
               <li className="orders__item" key={order.id}>
                 <header className="orders__header">
                   <div className="orders__header-item">
-                    <p className="orders__desc">Order Placed</p>
+                    <p className="orders__desc">
+                      Order #{" "}
+                      <Link
+                        to={order.id}
+                        className="orders__link orders__link--high"
+                      >
+                        {order.id}
+                      </Link>
+                    </p>
+                  </div>
+                  <div className="orders__header-item">
+                    <p className="orders__desc">Placed date</p>
                     <p className="orders__desc">
                       {dateFormatter(
                         firebaseTimestapFormatter(order.orderedDate.seconds)
@@ -82,18 +83,12 @@ function AccountOrders() {
                       {order.shippingAddress.fullName}
                     </p>
                   </div>
-                  <div className="orders__header-item">
-                    <p className="orders__desc">Order # {order.id}</p>
-                  </div>
                 </header>
-                <div className="orders__body">
+                <section className="orders__body">
                   <h3 className="orders__sub-title">{order.orderStatus}</h3>
-                  <p className="orders__desc">
-                    Delevered on {order.deliveryDate}
-                  </p>
                   <div className="orders__products">
                     {order.productsOrdered.map((product) => (
-                      <div className="orders__product" key={product.id}>
+                      <article className="orders__product" key={product.id}>
                         <img
                           className="orders__product-img"
                           src={product.images[0]}
@@ -115,16 +110,16 @@ function AccountOrders() {
                             {currencyFormatter(product.qty * product.price)}
                           </p>
                         </div>
-                      </div>
+                      </article>
                     ))}
                   </div>
-                </div>
+                </section>
               </li>
             ))
           )}
         </ul>
       </div>
-    </section>
+    </div>
   );
 }
 

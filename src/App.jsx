@@ -19,6 +19,7 @@ import AccountOrders from "./components/accountOrders/AccountOrders";
 import AccountProfile from "./components/accountProfile/AccountProfile";
 import AccountAddress from "./components/accountAddress/AccountAddress";
 import AddressForm from "./components/accountAddress/AddressForm";
+import SingleOrderPage from "./pages/singleOrderPage/SingleOrderPage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                 <Route path="addresses/new" element={<AddressForm />} />
                 <Route path="addresses/edit" element={<AddressForm />} />
                 <Route path="orders" element={<AccountOrders />} />
+                <Route path="orders/:orderId" element={<SingleOrderPage />} />
               </Route>
             </Route>
           </Route>

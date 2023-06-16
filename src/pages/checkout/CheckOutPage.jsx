@@ -6,11 +6,11 @@ import { useCartState } from "../../context/CartContext";
 import { currencyFormatter } from "../../utils/utils";
 import { serverTimestamp } from "firebase/firestore";
 import { useAuthContext } from "../../context/AuthContext";
-import { createAnOrder } from "../../services/orders";
+import { createAnOrderService } from "../../services/orders";
 
 function CheckOutPage() {
   document.title = "Checkout | Gamers Stop";
-  const { loading, localAddresses: addresses } = useAddressContext();
+  const { isLoading, addresses } = useAddressContext();
   const [checkoutAddress, setCheckoutAddress] = useState({});
   const {
     cartState: { cart },
@@ -36,14 +36,14 @@ function CheckOutPage() {
       uid: currentUser.uid,
     };
 
-    createAnOrder(newOrder).then((docRef) => {
+    createAnOrderService(newOrder).then((docRef) => {
       navigate(`/order-successful/${docRef.id}`, {
         state: { orderId: docRef.id, order: newOrder },
       });
     });
   }
   useEffect(() => {
-    if (loading) return;
+    if (isLoading) return;
     setCheckoutAddress(addresses[0]);
   }, [addresses]);
   if (cart.length <= 0) {
@@ -90,9 +90,7 @@ function CheckOutPage() {
                   </label>
                 </div>
               ))}
-              <Link to="/account/addresses/new" target="_blank">
-                Add new address
-              </Link>
+              <Link to="/account/addresses/new">Add new address</Link>
             </div>
           </section>
           <div className="checkout__summary">
@@ -104,7 +102,7 @@ function CheckOutPage() {
                 <tbody>
                   {cart.map((product) => (
                     <tr key={product.id} className="checkout__trow">
-                      <th>
+                      <th className="checkout__th">
                         {product.name} ({currencyFormatter(product.price)} x{" "}
                         {product.qty})
                       </th>
@@ -121,19 +119,21 @@ function CheckOutPage() {
               <table className="checkout__table">
                 <tbody>
                   <tr className="checkout__trow">
-                    <th>Total Price</th>
+                    <th className="checkout__th">Total Price</th>
                     <td>{currencyFormatter(totalPrice)}</td>
                   </tr>
                   <tr className="checkout__trow">
-                    <th>Total Discount (5%)</th>
+                    <th className="checkout__th">Total Discount (5%)</th>
                     <td>- {currencyFormatter(discount)}</td>
                   </tr>
                   <tr className="checkout__trow">
-                    <th>Delivery Fee</th>
+                    <th className="checkout__th">Delivery Fee</th>
                     <td>+ {currencyFormatter(deliveryFee)}</td>
                   </tr>
                   <tr className="checkout__trow checkout__trow--grand-total">
-                    <th>Grand total</th>
+                    <th className="checkout__th checkout__th--grand-total">
+                      Grand total
+                    </th>
                     <td>{currencyFormatter(grandTotal)}</td>
                   </tr>
                 </tbody>
