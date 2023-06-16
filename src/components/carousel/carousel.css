@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 
 .carousel__image-container {
@@ -33,4 +33,13 @@
   cursor: pointer;
   color: white;
   font-size: 1.5rem;
+}
+
+@media (max-width: 40rem) {
+  .carousel__btn__container {
+    bottom: 0.125rem;
+  }
+  .carousel__btn {
+    font-size: 1.25rem;
+  }
 }

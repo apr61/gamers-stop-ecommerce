@@ -10,7 +10,7 @@ export const getProducts = async () => {
   return productsArray;
 };
 
-export const getProductById = async (id) => {
+export const getProductByIdService = async (id) => {
   const docRef = doc(db, "products", id);
   const docSnapshot = await getDoc(docRef);
   if (docSnapshot.exists()) {

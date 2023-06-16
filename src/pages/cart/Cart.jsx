@@ -13,7 +13,7 @@ function Cart() {
     totalPrice,
     deliveryFee,
     discount,
-    grandTotal
+    grandTotal,
   } = useCartState();
   const navigate = useNavigate();
   document.title = "Cart | Gamers Stop";
@@ -36,19 +36,19 @@ function Cart() {
                   <table>
                     <tbody>
                       <tr className="summary__row">
-                        <td>SUB TOTAL</td>
+                        <th>SUB TOTAL</th>
                         <td>{currencyFormatter(totalPrice)}</td>
                       </tr>
                       <tr className="summary__row">
-                        <td>Discount</td>
+                        <th>Discount(5%)</th>
                         <td>-{currencyFormatter(discount)}</td>
                       </tr>
                       <tr className="summary__row">
-                        <td>Delivery Fee</td>
+                        <th>Delivery Fee</th>
                         <td>+{currencyFormatter(deliveryFee)}</td>
                       </tr>
                       <tr className="summary__row cart__total-amount">
-                        <td>ORDER TOTAL</td>
+                        <th>ORDER TOTAL</th>
                         <td>{currencyFormatter(grandTotal)}</td>
                       </tr>
                     </tbody>
