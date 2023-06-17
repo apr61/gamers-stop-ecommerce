@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { currencyFormatter } from "../../utils/utils";
-import { AiFillHeart, AiFillStar, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import "./singleProductPage.css";
 
 import QuantityCounter from "../../components/quantityCounter/QuantityCounter";
-
+import Loader from "../../components/loader/Loader"
 import ProductImages from "../../components/productImages/ProductImages";
 import { useCartState } from "../../context/CartContext";
 import { useEffect, useState } from "react";
@@ -36,7 +36,7 @@ function SingleProductPage() {
     getProductById(productId);
   }, [productId]);
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <Loader />;
 
   const {
     id,

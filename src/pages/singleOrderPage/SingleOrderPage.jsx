@@ -9,6 +9,8 @@ import {
   firebaseTimestapFormatter,
 } from "../../utils/utils";
 import "./singleOrderPage.css";
+import Loader from '../../components/loader/Loader'
+
 function SingleOrderPage() {
   const { orderId } = useParams();
   const [order, setOrder] = useState({});
@@ -26,7 +28,7 @@ function SingleOrderPage() {
   useEffect(() => {
     getOrderById(orderId);
   }, [orderId]);
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <Loader />;
   console.log(order);
   const {
     id,

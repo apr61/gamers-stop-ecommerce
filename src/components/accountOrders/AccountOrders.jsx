@@ -8,6 +8,7 @@ import {
   firebaseTimestapFormatter,
 } from "../../utils/utils";
 import "./accountOrders.css";
+import Loader from '../loader/Loader'
 
 function AccountOrders() {
   const {
@@ -45,7 +46,7 @@ function AccountOrders() {
       <div className="orders__container">
         <ul className="orders__list">
           {isLoading ? (
-            <h2>Loading...</h2>
+            <Loader />
           ) : filteredOrders.length === 0 ? (
             <p className="orders__empty">No Orders are available...</p>
           ) : (

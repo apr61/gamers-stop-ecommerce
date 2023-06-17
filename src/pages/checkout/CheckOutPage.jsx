@@ -7,6 +7,7 @@ import { currencyFormatter } from "../../utils/utils";
 import { serverTimestamp } from "firebase/firestore";
 import { useAuthContext } from "../../context/AuthContext";
 import { createAnOrderService } from "../../services/orders";
+import Loader from '../../components/loader/Loader'
 
 function CheckOutPage() {
   document.title = "Checkout | Gamers Stop";
@@ -46,9 +47,6 @@ function CheckOutPage() {
     if (isLoading) return;
     setCheckoutAddress(addresses[0]);
   }, [addresses]);
-  if (cart.length <= 0) {
-    navigate("/cart");
-  }
   return (
     <>
       <section className="checkout">
@@ -58,40 +56,44 @@ function CheckOutPage() {
             <h3 className="checkout__title checkout__title--md">
               Select Address
             </h3>
-            <div className="checkout__address-container">
-              {addresses.map((address) => (
-                <div className="checkout__address-card" key={address.id}>
-                  <input
-                    type="radio"
-                    name="address"
-                    checked={address.id === checkoutAddress?.id}
-                    id={address.id}
-                    onChange={() => setCheckoutAddress(address)}
-                  />
-                  <label
-                    htmlFor={address.id}
-                    className="checkout__address-label"
-                  >
-                    <h4 className="address__details address__details--heading">
-                      {address.fullName}
-                    </h4>
-                    <p className="address__details">
-                      {address.flat}, {address.area}
-                    </p>
-                    <p className="address__details">{address.landmark}</p>
-                    <p className="address__details">
-                      {address.town}, {address.state.toUpperCase()}{" "}
-                      {address.pincode}
-                    </p>
-                    <p className="address__details">India</p>
-                    <p className="address__details">
-                      Phone Number : {address.phoneNumber}
-                    </p>
-                  </label>
+            {
+              isLoading ? <Loader /> : (
+                <div className="checkout__address-container">
+                  {addresses.map((address) => (
+                    <div className="checkout__address-card" key={address.id}>
+                      <input
+                        type="radio"
+                        name="address"
+                        checked={address.id === checkoutAddress?.id}
+                        id={address.id}
+                        onChange={() => setCheckoutAddress(address)}
+                      />
+                      <label
+                        htmlFor={address.id}
+                        className="checkout__address-label"
+                      >
+                        <h4 className="address__details address__details--heading">
+                          {address.fullName}
+                        </h4>
+                        <p className="address__details">
+                          {address.flat}, {address.area}
+                        </p>
+                        <p className="address__details">{address.landmark}</p>
+                        <p className="address__details">
+                          {address.town}, {address.state.toUpperCase()}{" "}
+                          {address.pincode}
+                        </p>
+                        <p className="address__details">India</p>
+                        <p className="address__details">
+                          Phone Number : {address.phoneNumber}
+                        </p>
+                      </label>
+                    </div>
+                  ))}
+                  <Link to="/account/addresses/new">Add new address</Link>
                 </div>
-              ))}
-              <Link to="/account/addresses/new">Add new address</Link>
-            </div>
+              )
+            }
           </section>
           <div className="checkout__summary">
             <section className="checkout__sec">
@@ -143,23 +145,27 @@ function CheckOutPage() {
               <h2 className="checkout__title checkout__title--md">
                 Deliver To
               </h2>
-              <div className="checkout__selected-address">
-                <h4 className="address__details address__details--heading">
-                  {checkoutAddress?.fullName}
-                </h4>
-                <p className="address__details">
-                  {checkoutAddress?.flat}, {checkoutAddress?.area}
-                </p>
-                <p className="address__details">{checkoutAddress?.landmark}</p>
-                <p className="address__details">
-                  {checkoutAddress?.town}, {checkoutAddress?.state}{" "}
-                  {checkoutAddress?.pincode}
-                </p>
-                <p className="address__details">India</p>
-                <p className="address__details">
-                  Phone Number : {checkoutAddress?.phoneNumber}
-                </p>
-              </div>
+              {
+                isLoading ? <Loader /> : (
+                  <div className="checkout__selected-address">
+                    <h4 className="address__details address__details--heading">
+                      {checkoutAddress?.fullName}
+                    </h4>
+                    <p className="address__details">
+                      {checkoutAddress?.flat}, {checkoutAddress?.area}
+                    </p>
+                    <p className="address__details">{checkoutAddress?.landmark}</p>
+                    <p className="address__details">
+                      {checkoutAddress?.town}, {checkoutAddress?.state}{" "}
+                      {checkoutAddress?.pincode}
+                    </p>
+                    <p className="address__details">India</p>
+                    <p className="address__details">
+                      Phone Number : {checkoutAddress?.phoneNumber}
+                    </p>
+                  </div>
+                )
+              }
             </section>
             <button
               className="checkout__btn"

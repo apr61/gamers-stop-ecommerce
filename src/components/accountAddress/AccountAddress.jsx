@@ -3,6 +3,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useAddressContext } from "../../context/AddressContext";
 import { deleteAddressById } from "../../services/address";
+import Loader from '../loader/Loader'
 import AddressCard from "./AddressCard";
 import "./style.css";
 
@@ -23,7 +24,7 @@ function AccountAddress() {
           Add Address
         </Link>
         {isLoading ? (
-          <h2>Loading...</h2>
+          <Loader />
         ) : (
           addresses.map((address) => (
             <div key={address.id} className="address__card">

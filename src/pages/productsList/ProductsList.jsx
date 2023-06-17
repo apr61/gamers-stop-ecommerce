@@ -3,6 +3,7 @@ import ProductCard from "../../components/productCard/ProductCard";
 import Filter from "../../components/filter/Filter";
 import { FaSort } from "react-icons/fa";
 import { useProducts } from "../../context/ProductContext";
+import Loader from "../../components/loader/Loader";
 
 function ProductsList() {
   document.title = "Store | Gamers Stop";
@@ -42,30 +43,30 @@ function ProductsList() {
         </section>
         <section className="category-products__container">
           {isLoading ? (
-            <h1>Loading...</h1>
-          ) : (
-            <header className="category-products__header">
-              <p className="categorty-products__items-found">
-                Showing {filteredProducts.length} of {products.length}
-              </p>
-              <button
-                className="category-products__filter-btn"
-                onClick={() => toggleFilter()}
-              >
-                <FaSort />
-              </button>
-            </header>
-          )}
-          {filteredProducts?.length > 0 ? (
-            <div className="category-products__list">
-              {filteredProducts?.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  customStyles={"category-products__products-card--width"}
-                />
-              ))}
-            </div>
+            <Loader />
+          ) : filteredProducts.length > 0 ? (
+            <>
+              <header className="category-products__header">
+                <p className="categorty-products__items-found">
+                  Showing {filteredProducts.length} of {products.length}
+                </p>
+                <button
+                  className="category-products__filter-btn"
+                  onClick={() => toggleFilter()}
+                >
+                  <FaSort />
+                </button>
+              </header>
+              <div className="category-products__list">
+                {filteredProducts?.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    customStyles={"category-products__products-card--width"}
+                  />
+                ))}
+              </div>
+            </>
           ) : (
             <div className="category-products__empty">
               <p className="category-products__para">
