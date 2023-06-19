@@ -1,6 +1,7 @@
+import {lazy, Suspense} from "react"
 import { Route, Routes } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import "./globalStyle.css";
+
+import "./index.css";
 import RequireAuth from "./routeLayouts/RequireAuth";
 import MainLayout from "./routeLayouts/MainLayout";
 import ProductProvider from "./context/ProductContext";
