@@ -7,7 +7,7 @@ import { currencyFormatter } from "../../utils/utils";
 import { serverTimestamp } from "firebase/firestore";
 import { useAuthContext } from "../../context/AuthContext";
 import { createAnOrderService } from "../../services/orders";
-import Loader from '../../components/loader/Loader'
+import Loader from "../../components/loader/Loader";
 
 function CheckOutPage() {
   document.title = "Checkout | Gamers Stop";
@@ -53,66 +53,64 @@ function CheckOutPage() {
         <h2 className="checkout__title">Check Out</h2>
         <div className="checkout__body">
           <section className="checkout__address">
-            <h3 className="checkout__title checkout__title--md">
-              Select Address
-            </h3>
-            {
-              isLoading ? <Loader /> : (
-                <div className="checkout__address-container">
-                  {addresses.map((address) => (
-                    <div className="checkout__address-card" key={address.id}>
-                      <input
-                        type="radio"
-                        name="address"
-                        checked={address.id === checkoutAddress?.id}
-                        id={address.id}
-                        onChange={() => setCheckoutAddress(address)}
-                      />
-                      <label
-                        htmlFor={address.id}
-                        className="checkout__address-label"
-                      >
-                        <h4 className="address__details address__details--heading">
-                          {address.fullName}
-                        </h4>
-                        <p className="address__details">
-                          {address.flat}, {address.area}
-                        </p>
-                        <p className="address__details">{address.landmark}</p>
-                        <p className="address__details">
-                          {address.town}, {address.state.toUpperCase()}{" "}
-                          {address.pincode}
-                        </p>
-                        <p className="address__details">India</p>
-                        <p className="address__details">
-                          Phone Number : {address.phoneNumber}
-                        </p>
-                      </label>
-                    </div>
-                  ))}
-                  <Link to="/account/addresses/new">Add new address</Link>
-                </div>
-              )
-            }
+            <h3 className="checkout__title">Select Address</h3>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <div className="checkout__address-container">
+                {addresses.map((address) => (
+                  <div className="checkout__address-card" key={address.id}>
+                    <input
+                      type="radio"
+                      name="address"
+                      checked={address.id === checkoutAddress?.id}
+                      id={address.id}
+                      onChange={() => setCheckoutAddress(address)}
+                    />
+                    <label
+                      htmlFor={address.id}
+                      className="checkout__address-label"
+                    >
+                      <h4 className="address__details address__details--heading">
+                        {address.fullName}
+                      </h4>
+                      <p className="address__details">
+                        {address.flat}, {address.area}
+                      </p>
+                      <p className="address__details">{address.landmark}</p>
+                      <p className="address__details">
+                        {address.town}, {address.state.toUpperCase()}{" "}
+                        {address.pincode}
+                      </p>
+                      <p className="address__details">India</p>
+                      <p className="address__details">
+                        Phone Number : {address.phoneNumber}
+                      </p>
+                    </label>
+                  </div>
+                ))}
+                <Link to="/account/addresses/new">Add new address</Link>
+              </div>
+            )}
           </section>
           <div className="checkout__summary">
             <section className="checkout__sec">
               <h2 className="checkout__title checkout__title--md">
                 Order Summary
               </h2>
-              <table className="checkout__table">
-                <tbody>
-                  {cart.map((product) => (
-                    <tr key={product.id} className="checkout__trow">
-                      <th className="checkout__th">
-                        {product.name} ({currencyFormatter(product.price)} x{" "}
-                        {product.qty})
-                      </th>
-                      <td>{currencyFormatter(product.price * product.qty)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div>
+                {cart.map(({ id, name, images, price, qty }) => (
+                  <article key={id} className="checkout__item">
+                    <img className="checkout__img" src={images[0]} alt={name} />
+                    <div>
+                      <h3>{name}</h3>
+                      <p>{currencyFormatter(price)}</p>
+                      <p>Qty : {qty}</p>
+                      <p>SUB : {currencyFormatter(qty * price)}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </section>
             <section className="checkout__sec">
               <h2 className="checkout__title checkout__title--md">
@@ -145,27 +143,29 @@ function CheckOutPage() {
               <h2 className="checkout__title checkout__title--md">
                 Deliver To
               </h2>
-              {
-                isLoading ? <Loader /> : (
-                  <div className="checkout__selected-address">
-                    <h4 className="address__details address__details--heading">
-                      {checkoutAddress?.fullName}
-                    </h4>
-                    <p className="address__details">
-                      {checkoutAddress?.flat}, {checkoutAddress?.area}
-                    </p>
-                    <p className="address__details">{checkoutAddress?.landmark}</p>
-                    <p className="address__details">
-                      {checkoutAddress?.town}, {checkoutAddress?.state}{" "}
-                      {checkoutAddress?.pincode}
-                    </p>
-                    <p className="address__details">India</p>
-                    <p className="address__details">
-                      Phone Number : {checkoutAddress?.phoneNumber}
-                    </p>
-                  </div>
-                )
-              }
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <div className="checkout__selected-address">
+                  <h4 className="address__details address__details--heading">
+                    {checkoutAddress?.fullName}
+                  </h4>
+                  <p className="address__details">
+                    {checkoutAddress?.flat}, {checkoutAddress?.area}
+                  </p>
+                  <p className="address__details">
+                    {checkoutAddress?.landmark}
+                  </p>
+                  <p className="address__details">
+                    {checkoutAddress?.town}, {checkoutAddress?.state}{" "}
+                    {checkoutAddress?.pincode}
+                  </p>
+                  <p className="address__details">India</p>
+                  <p className="address__details">
+                    Phone Number : {checkoutAddress?.phoneNumber}
+                  </p>
+                </div>
+              )}
             </section>
             <button
               className="checkout__btn"
