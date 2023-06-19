@@ -1,0 +1,24 @@
+.loader-wrapper{
+    display: grid;
+    place-content: center;
+    min-height: 100%;
+}
+
+
+.loader{
+    width: 3rem;
+    height: 3rem;
+    border: .25rem solid var(--clr-border);
+    border-right: .25rem solid var(--clr-loader);
+    animation: spin 300ms ease infinite;
+    border-radius: 50%;
+}
+
+@keyframes spin {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}

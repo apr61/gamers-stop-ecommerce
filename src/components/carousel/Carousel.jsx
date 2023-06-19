@@ -1,7 +1,8 @@
 import "./carousel.css";
 import { carouselImages } from "../../data/imagesLoader";
 import { useEffect, useState } from "react";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft } from "react-icons/ai";
+import { AiOutlineRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 function Carousel() {

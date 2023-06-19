@@ -5,10 +5,9 @@ import Input from "../../components/inputFields/Input";
 import { updateUserProfile } from "../../services/auth";
 
 function AccountProfilePage() {
-  const { currentUser, setCurrentUser } = useAuthContext();
+  const { currentUser, authDispatch } = useAuthContext();
   const [isEditing, setIsEditing] = useState(false);
   const nameRef = useRef();
-
   function handleUpdateUserProfile(e) {
     e.preventDefault();
     const newUser = {
@@ -16,7 +15,10 @@ function AccountProfilePage() {
     };
 
     updateUserProfile(newUser, currentUser);
-    setCurrentUser({ ...currentUser, displayName: nameRef.current.value });
+    authDispatch({
+      type: "SET_CURRENT_USER",
+      paylaod: { ...currentUser, displayName: nameRef.current.value },
+    });
     setIsEditing(false);
   }
 

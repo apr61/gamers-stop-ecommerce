@@ -6,7 +6,11 @@ import React, {
   useState,
 } from "react";
 import productReducer, { productInitalState } from "../reducers/productReducer";
-import { getCategoriesService, getProducts } from "../services/products";
+import {
+  getCategoriesService,
+  getProductByIdService,
+  getProducts,
+} from "../services/products";
 
 const ProductContext = createContext();
 

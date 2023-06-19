@@ -1,46 +1,70 @@
-import { createContext, useContext, useEffect, useState } from "react"
-import { useAsync } from '../hooks/useAsync'
-import { getAddresses } from "../services/address"
-import { useAuthContext } from '../context/AuthContext'
+import { createContext, useContext, useEffect, useState } from "react";
+import { getAddressesService } from "../services/address";
+import { useAuthContext } from "../context/AuthContext";
 
-const AddressContext = createContext()
+const AddressContext = createContext();
 
 function UserAddressProvider({ children }) {
-    const { loading, error, value: addresses } = useAsync(getAddresses)
-    const { currentUser } = useAuthContext()
+  const [addresses, setAddresses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const [localAddresses, setLocalAddresses] = useState([])
+  const { currentUser } = useAuthContext();
 
-    useEffect(() => {
-        !loading && setLocalAddresses(addresses.filter(address => address.uid === currentUser.uid))
-    }, [addresses])
-
-    function createLocalAddress(newAddress) {
-        setLocalAddresses(oldAddresses => [newAddress, ...oldAddresses])
+  const getAddresses = async (userId) => {
+    try {
+      setIsLoading(true);
+      const data = await getAddressesService(userId);
+      setAddresses(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    function updateLocalAddress(updatedAddress) {
-        setLocalAddresses(oldAddresses => oldAddresses.map(address => {
-            if(address.id === updatedAddress.id){
-                return updatedAddress
-            }
-            return address
-        }))
-    }
+  useEffect(() => {
+    currentUser.uid && getAddresses(currentUser?.uid);
+  }, [currentUser?.uid]);
 
-    function deleteLocalAddress(id) {
-        setLocalAddresses(oldAddresses => oldAddresses.filter(address => address.id !== id))
-        console.table(localAddresses)
-    }
+  function createLocalAddress(newAddress) {
+    setAddresses((oldAddresses) => [newAddress, ...oldAddresses]);
+  }
 
-    return <AddressContext.Provider value={{ loading, error, localAddresses, createLocalAddress, deleteLocalAddress, updateLocalAddress }}>
-        {children}
+  function updateLocalAddress(updatedAddress) {
+    setAddresses((oldAddresses) =>
+      oldAddresses.map((address) => {
+        if (address.id === updatedAddress.id) {
+          return updatedAddress;
+        }
+        return address;
+      })
+    );
+  }
+
+  function deleteLocalAddress(id) {
+    setAddresses((oldAddresses) =>
+      oldAddresses.filter((address) => address.id !== id)
+    );
+    console.table(localAddresses);
+  }
+
+  return (
+    <AddressContext.Provider
+      value={{
+        isLoading,
+        addresses,
+        createLocalAddress,
+        deleteLocalAddress,
+        updateLocalAddress,
+      }}
+    >
+      {children}
     </AddressContext.Provider>
+  );
 }
 
-export default UserAddressProvider
-
+export default UserAddressProvider;
 
 export function useAddressContext() {
-    return useContext(AddressContext)
+  return useContext(AddressContext);
 }

@@ -3,13 +3,17 @@ import "./accountPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
 import { logOut } from "../../services/auth";
+import { useAuthContext } from "../../context/AuthContext";
 
 function AccountPage() {
   const navigate = useNavigate();
-  document.title = "Account | Gamers Stop"
-  function handleLogOut() {
-    logOut().then(() => navigate("/"));
-  }
+  document.title = "Account | Gamers Stop";
+  const { authDispatch } = useAuthContext();
+  const handleLogOut = async () => {
+    await logOut();
+    authDispatch({ type: "SET_CURRENT_USER", payload: null });
+    navigate("/");
+  };
   return (
     <>
       <section className="account-sec">
