@@ -44,10 +44,10 @@ function CheckOutPage() {
       state: { orderId: docRef.id, order: newOrder },
     });
   };
-
+  console.log(grandTotal)
   const RazorpayOptions = {
     key: import.meta.env.VITE_APP_RAZORPAY_KEY_ID,
-    amount: grandTotal * 100,
+    amount: Math.floor(grandTotal) * 100,
     currency: "INR",
     name: "Gamers Stop",
     description: "Thank you for shopping with us.",

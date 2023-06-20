@@ -1,5 +1,5 @@
 import { onAuthStateChanged } from "firebase/auth";
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { auth } from "../FirebaseConfig";
 import authReducer, { authInitialState } from "../reducers/authReducer";
 
@@ -11,16 +11,17 @@ export function useAuthContext() {
 
 function AuthProvider({ children }) {
   const [authState, authDispatch] = useReducer(authReducer, authInitialState);
+  const [currentUser, setCurrentUser] = useState({})
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      authDispatch({ type: "SET_CURRENT_USER", payload: user });
+      setCurrentUser(user)
     });
     return () => unsubscribe;
   }, []);
 
   return (
-    <AuthContext.Provider value={{ ...authState, authDispatch }}>
+    <AuthContext.Provider value={{ ...authState, authDispatch, currentUser, setCurrentUser }}>
       {children}
     </AuthContext.Provider>
   );
