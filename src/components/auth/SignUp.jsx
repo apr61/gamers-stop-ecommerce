@@ -99,9 +99,7 @@ function SignUp() {
               }
             />
           </div>
-          <button className="auth-page__btn" disabled={loading}>
-            Sign Up
-          </button>
+          <button className="auth-page__btn">Sign Up</button>
         </form>
         <p className="auth-page__info">
           Already have an account? Go <Link to="/signin">here</Link>

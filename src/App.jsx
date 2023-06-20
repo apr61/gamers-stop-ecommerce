@@ -1,4 +1,4 @@
-import {lazy, Suspense} from "react"
+
 import { Route, Routes } from "react-router-dom";
 
 import "./index.css";
@@ -8,8 +8,8 @@ import ProductProvider from "./context/ProductContext";
 import UserAddressProvider from "./context/AddressContext";
 import OrdersProvider from "./context/OrderContext";
 import ContextLayout from "./routeLayouts/ContextLayout";
+import { Suspense, lazy } from "react";
 import Loader from "./components/loader/Loader";
-
 
 const Home = lazy(() => import('./pages/home/Home'))
 const SingleOrderPage = lazy(() => import("./pages/singleOrderPage/SingleOrderPage"))
@@ -65,6 +65,7 @@ function App() {
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </Suspense>
+
   );
 }
 

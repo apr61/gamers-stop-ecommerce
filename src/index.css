@@ -29,7 +29,7 @@
   --clr-txt-cnf: hsl(100, 80%, 30%);
   --clr-header-bg: hsl(200, 50%, 50%);
   --box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
-  --clr-loader: var(--clr-btn-bg); 
+  --clr-loader: var(--clr-btn-bg);
 }
 
 body {
@@ -78,4 +78,29 @@ label {
   .main {
     padding: 0 0.5rem;
   }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+}
+
+.input-group__label {
+  font-size: 1.125rem;
+}
+
+.input-group__input {
+  padding: 0.5rem 0.75rem;
+  font-size: 1.15rem;
+  border: 2px solid var(--clr-border);
+  border-radius: 0.25rem;
+  width: 100%;
+}
+
+.input-group__input:focus,
+.input-group__input:focus-visible {
+  outline: 1px solid var(--clr-txt-hover);
+  border: 1px solid var(--clr-txt-hover);
 }

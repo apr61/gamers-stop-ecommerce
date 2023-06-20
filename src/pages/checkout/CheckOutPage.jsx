@@ -24,25 +24,54 @@ function CheckOutPage() {
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
 
-  function handlePlaceOrder() {
+  const handlePaymentSuccess = async (response) => {
     const newOrder = {
+      paymentId: response.razorpay_payment_id,
       shippingAddress: checkoutAddress,
-      paymentStatus: "Not Paid",
+      paymentStatus: "Paid",
       orderStatus: "yet tobe shipped",
       orderedDate: serverTimestamp(),
-      productsOrdered: cart,
+      productsOrdered: [...cart],
       totalAmount: totalPrice,
       totalItemsOrdered: totalItems,
       deliveryFee: deliveryFee,
+      grandTotal: grandTotal,
       uid: currentUser.uid,
+      discount,
     };
-
-    createAnOrderService(newOrder).then((docRef) => {
-      navigate(`/order-successful/${docRef.id}`, {
-        state: { orderId: docRef.id, order: newOrder },
-      });
+    const docRef = await createAnOrderService(newOrder);
+    navigate(`/order-successful/${docRef.id}`, {
+      state: { orderId: docRef.id, order: newOrder },
     });
-  }
+  };
+  console.log(grandTotal)
+  const RazorpayOptions = {
+    key: import.meta.env.VITE_APP_RAZORPAY_KEY_ID,
+    amount: Math.floor(grandTotal) * 100,
+    currency: "INR",
+    name: "Gamers Stop",
+    description: "Thank you for shopping with us.",
+    image: "https://example.com/your_logo",
+    handler: (response) => handlePaymentSuccess(response),
+    prefill: {
+      name: currentUser.dispalyName,
+      email: currentUser.email,
+      contact: checkoutAddress?.phoneNumber,
+    },
+    notes: {
+      address: checkoutAddress,
+    },
+    theme: {
+      color: "#3399cc",
+    },
+  };
+
+  const handlePlaceOrder = () => {
+    if (checkoutAddress) {
+      const razorpayInstance = new window.Razorpay(RazorpayOptions);
+      razorpayInstance.open();
+    }
+  };
   useEffect(() => {
     if (isLoading) return;
     setCheckoutAddress(addresses[0]);
@@ -167,10 +196,7 @@ function CheckOutPage() {
                 </div>
               )}
             </section>
-            <button
-              className="checkout__btn"
-              onClick={() => handlePlaceOrder()}
-            >
+            <button className="checkout__btn" onClick={handlePlaceOrder}>
               Place Order & Pay
             </button>
           </div>

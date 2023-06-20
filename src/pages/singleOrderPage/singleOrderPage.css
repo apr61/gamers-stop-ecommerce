@@ -57,6 +57,18 @@
   font-weight: 600;
 }
 
+.orders__product {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.orders__product-img {
+  width: 15rem;
+  height: 10rem;
+  filter: brightness(0.8);
+}
+
 @media (max-width: 55rem) {
   .order-page__container {
     grid-template-columns: repeat(1, minmax(0, 1fr));
