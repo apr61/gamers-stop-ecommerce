@@ -9,7 +9,7 @@ import {
   firebaseTimestapFormatter,
 } from "../../utils/utils";
 import "./singleOrderPage.css";
-import Loader from '../../components/loader/Loader'
+import Loader from "../../components/loader/Loader";
 
 function SingleOrderPage() {
   const { orderId } = useParams();
@@ -29,7 +29,7 @@ function SingleOrderPage() {
     getOrderById(orderId);
   }, [orderId]);
   if (isLoading) return <Loader />;
-  console.log(order);
+
   const {
     id,
     orderedDate,
@@ -39,6 +39,7 @@ function SingleOrderPage() {
     totalAmount,
     deliveryFee,
     discount,
+    paymentId,
   } = { ...order };
   const grandTotal = totalAmount - discount + deliveryFee;
   return (
@@ -89,7 +90,7 @@ function SingleOrderPage() {
           <section className="order-page__sec">
             <h3>Payment Details</h3>
             <div>
-              <p>Transaction # 1</p>
+              <p>Transaction # {paymentId}</p>
             </div>
           </section>
           <section className="order-page__sec">
