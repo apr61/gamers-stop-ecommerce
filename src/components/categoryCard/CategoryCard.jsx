@@ -7,7 +7,6 @@ function CategoryCard({ category }) {
   const navigate = useNavigate();
   const { productDispatch } = useProducts();
   function handleImageClick(category) {
-    console.log(category);
     productDispatch({ type: "CATEGORY", payload: category.toLowerCase() });
     navigate("/store");
   }

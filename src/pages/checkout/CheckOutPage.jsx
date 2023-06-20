@@ -44,7 +44,6 @@ function CheckOutPage() {
       state: { orderId: docRef.id, order: newOrder },
     });
   };
-  console.log(grandTotal)
   const RazorpayOptions = {
     key: import.meta.env.VITE_APP_RAZORPAY_KEY_ID,
     amount: Math.floor(grandTotal) * 100,
