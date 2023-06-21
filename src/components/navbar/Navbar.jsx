@@ -25,7 +25,7 @@ function Navbar() {
             <FaStore />
           </NavLink>
         </li>
-        <li className="navbar__list">
+        <li className="navbar__list" title={theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}>
           <button className="navbar__theme-btn" onClick={() => toggleTheme()}>
             {theme === "light" ? <FaRegMoon /> : <FaRegSun />}
           </button>
