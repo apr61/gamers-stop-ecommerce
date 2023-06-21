@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CartItem from "../../components/cartItem/CartItem";
 import Footer from "../../components/footer/Footer";
 import Navbar from "../../components/navbar/Navbar";

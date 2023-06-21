@@ -30,7 +30,7 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  color: var(--clr-txt-black);
+  color: var(--clr-txt);
 }
 
 .address__add-address:hover {
@@ -96,16 +96,12 @@
 .address-form-sec__btn--border {
   background-color: transparent;
   border: 1px solid var(--clr-border);
-  color: var(--clr-txt-black);
+  color: var(--clr-txt);
   padding: 0.5rem 1rem;
 }
 
 .address-form-sec__btn:focus {
   outline: 2px solid var(--clr-txt-hover);
-}
-
-.address-form-sec__btn--loading {
-  background-color: var(--clr-btn-laoding-bg);
 }
 
 .address__del-btn {
@@ -114,7 +110,7 @@
   cursor: pointer;
   text-align: center;
   font-size: 1.01rem;
-  color: var(--clr-txt-black);
+  color: var(--clr-danger);
 }
 
 .address__del-btn:focus {
@@ -123,7 +119,7 @@
 }
 
 .address__link {
-  color: var(--clr-txt-black);
+  color: var(--clr-txt);
 }
 
 .address__link:hover,

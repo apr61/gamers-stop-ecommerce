@@ -72,7 +72,7 @@
 }
 
 .orders__link {
-  color: var(--clr-txt-black);
+  color: var(--clr-link);
 }
 
 .orders__link:hover {

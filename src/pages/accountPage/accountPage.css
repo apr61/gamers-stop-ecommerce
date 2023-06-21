@@ -38,7 +38,7 @@
 }
 
 .account-sec__link {
-  color: var(--clr-txt-black);
+  color: var(--clr-link);
 }
 
 .account-sec__link:hover {

@@ -5,17 +5,20 @@ import { BrowserRouter } from "react-router-dom";
 import CartProvider from "./context/CartContext";
 import AuthProvider from "./context/AuthContext";
 import ProductProvider from "./context/ProductContext";
+import ThemeProvider from "./context/ThemeContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <ProductProvider>
-          <CartProvider>
-            <App />
-          </CartProvider>
-        </ProductProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <ProductProvider>
+            <CartProvider>
+              <App />
+            </CartProvider>
+          </ProductProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

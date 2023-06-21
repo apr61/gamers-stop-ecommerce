@@ -82,7 +82,7 @@
 }
 
 .cart__link {
-  color: currentColor;
+  color: var(--clr-link);
 }
 
 @media (max-width: 60rem) {

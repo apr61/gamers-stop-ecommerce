@@ -1,13 +1,13 @@
-.quantity-counter{
-    display: flex;
-    gap: .5rem;
-    align-items: center;
+.quantity-counter {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
-.quantity-counter__button{
-    border: 0;
-    background-color: var(--clr-border);
-    cursor: pointer;
-    padding: .25rem .5rem;
-    border-radius: .25rem;
+.quantity-counter__button {
+  border: 0;
+  background-color: var(--clr-border);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
 }

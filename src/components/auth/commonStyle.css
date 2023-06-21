@@ -1,44 +1,39 @@
-.auth-page{
-    max-width: 30rem;
-    margin-inline: auto;
-    text-align: center;
-    padding: 1rem;
+.auth-page {
+  max-width: 30rem;
+  margin-inline: auto;
+  text-align: center;
+  padding: 1rem;
 }
 
-.auth-page__title{
-    font-size: 1.75rem;
-    text-align: start;
-    color: var(--clr-nav-bg);
+.auth-page__title {
+  font-size: 1.75rem;
+  text-align: center;
 }
 
-.auth-page__form{
-    display: flex;
-    gap:.5rem;
-    flex-direction: column;
+.auth-page__form {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
 }
 
-.auth-page__btn{
-    padding: .5rem 1rem;
-    border: 0;
-    background-color: var(--clr-btn-bg);
-    color: var(--clr-txt-white);
-    border-radius: .25rem;
-    font-size: 1.25rem;
-    cursor: pointer;
-    align-self: center;
-    margin-top: .75rem;
-    width: 100%;
+.auth-page__btn {
+  padding: 0.5rem 1rem;
+  border: 0;
+  background-color: var(--clr-btn-bg);
+  color: var(--clr-txt-white);
+  border-radius: 0.25rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  align-self: center;
+  margin-top: 0.75rem;
+  width: 100%;
 }
 
-.auth-page__info{
-    margin-top: 1rem;
-    text-align: start;
+.auth-page__info {
+  margin-top: 1rem;
+  text-align: start;
 }
 
-.auth-page__error-msg{
-    color: var(--clr-btn-error);
-}
-
-.auth-page__btn--loading{
-    color: var(--clr-btn-laoding-bg);
+.auth-page__error-msg {
+  color: var(--clr-btn-error);
 }
