@@ -63,6 +63,7 @@ function SingleOrderPage() {
                 className="orders__product-img"
                 src={product.images[0]}
                 alt={product.name}
+                loading="lazy"
               />
               <div className="orders__product-content">
                 <Link

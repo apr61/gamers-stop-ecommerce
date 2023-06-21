@@ -25,7 +25,12 @@ function ProductCard({ product }) {
   return (
     <article className="product-card">
       <div className="product-card__image-container">
-        <img className="product-card__img" src={images[0]} alt={name} />
+        <img
+          className="product-card__img"
+          src={images[0]}
+          alt={name}
+          loading="lazy"
+        />
       </div>
       <div className="product-card__content">
         <h4 className="product-card__name">

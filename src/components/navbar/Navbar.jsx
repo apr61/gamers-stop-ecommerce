@@ -4,7 +4,6 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCartState } from "../../context/CartContext";
 import { useAuthContext } from "../../context/AuthContext";
-import { logOut } from "../../services/auth";
 import { FaUserAlt, FaStore } from "react-icons/fa";
 import { MdLogin } from "react-icons/md";
 
@@ -12,7 +11,6 @@ function Navbar() {
   const { totalItems } = useCartState();
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
-
 
   return (
     <nav className="navbar">
@@ -28,10 +26,7 @@ function Navbar() {
         </li>
         <li className="navbar__list-item" title="Cart">
           <Link className="navbar__link navbar__link--cart" to={"/cart"}>
-            <span
-              className="navbar__cart-icon"
-              data-cart-items={totalItems}
-            >
+            <span className="navbar__cart-icon" data-cart-items={totalItems}>
               <AiOutlineShoppingCart />
             </span>
           </Link>

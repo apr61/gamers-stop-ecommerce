@@ -10,6 +10,7 @@ function ProductImages({ images, name }) {
           className="product-images__img"
           src={images[mainImage]}
           alt={name}
+          loading="lazy"
         />
       </div>
       <div className="product-images__other-images">
@@ -29,6 +30,7 @@ function ProductImages({ images, name }) {
               className="product-images__img"
               src={image}
               alt={name + i + 1}
+              loading="lazy"
             />
           </div>
         ))}

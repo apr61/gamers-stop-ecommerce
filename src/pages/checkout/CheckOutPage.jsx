@@ -129,7 +129,12 @@ function CheckOutPage() {
               <div>
                 {cart.map(({ id, name, images, price, qty }) => (
                   <article key={id} className="checkout__item">
-                    <img className="checkout__img" src={images[0]} alt={name} />
+                    <img
+                      className="checkout__img"
+                      src={images[0]}
+                      alt={name}
+                      loading="lazy"
+                    />
                     <div>
                       <h3>{name}</h3>
                       <p>{currencyFormatter(price)}</p>

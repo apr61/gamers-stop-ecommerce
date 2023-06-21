@@ -8,7 +8,7 @@ import {
   firebaseTimestapFormatter,
 } from "../../utils/utils";
 import "./accountOrders.css";
-import Loader from '../loader/Loader'
+import Loader from "../loader/Loader";
 
 function AccountOrders() {
   const {
@@ -94,6 +94,7 @@ function AccountOrders() {
                           className="orders__product-img"
                           src={product.images[0]}
                           alt={product.name}
+                          loading="lazy"
                         />
                         <div className="orders__product-content">
                           <Link

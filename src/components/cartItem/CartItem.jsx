@@ -19,6 +19,7 @@ function CartItem({ product }) {
           className="cart-item__img"
           src={product.images[0]}
           alt={product.name}
+          loading="lazy"
         />
       </div>
       <div className="cart-item__body">

@@ -29,7 +29,12 @@ function Carousel() {
     <div className="carousel">
       <Link to="/store">
         <div className="carousel__image-container">
-          <img className="carousel__img" src={carouselImages[currentSlide]} />
+          <img
+            className="carousel__img"
+            src={carouselImages[currentSlide]}
+            loading="lazy"
+            alt={`Carousel image ${currentSlide}`}
+          />
         </div>
       </Link>
       <div className="carousel__btn__container">
