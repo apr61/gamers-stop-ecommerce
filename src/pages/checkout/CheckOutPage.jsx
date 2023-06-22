@@ -117,7 +117,9 @@ function CheckOutPage() {
                     </label>
                   </div>
                 ))}
-                <Link to="/account/addresses/new">Add new address</Link>
+                <Link className="checkout__link" to="/account/addresses/new">
+                  Add new address
+                </Link>
               </div>
             )}
           </section>

@@ -1,14 +1,15 @@
 .account-sec {
   max-width: 50rem;
   width: 100%;
+  margin: 2rem 0;
   margin-inline: auto;
-  margin-top: 1rem;
 }
 
 .account-sec__title {
   font-size: 1.75rem;
   font-weight: 500;
   padding: 0 1rem;
+  text-align: center;
 }
 
 .account-sec__sub-title {

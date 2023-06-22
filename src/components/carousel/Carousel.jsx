@@ -27,7 +27,7 @@ function Carousel() {
   }, []);
   return (
     <div className="carousel">
-      <Link to="/store">
+      <Link to="/store" className="carousel__link">
         <div className="carousel__image-container">
           <img
             className="carousel__img"

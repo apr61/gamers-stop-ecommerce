@@ -72,7 +72,7 @@
 }
 
 .orders__link {
-  color: var(--clr-link);
+  color: var(--clr-primary-200);
 }
 
 .orders__link:hover {
@@ -86,11 +86,11 @@
 .orders__empty {
   text-align: center;
 }
-.orders__link--high {
-  color: var(--clr-btn-bg);
-}
 
 @media (max-width: 55rem) {
+  .orders {
+    padding: 1rem 0.25rem;
+  }
   .orders__header {
     flex-direction: column;
     align-items: flex-start;

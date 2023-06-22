@@ -10,18 +10,18 @@ function ProductCard({ product }) {
     cartState: { cart },
     cartDispatch,
   } = useCartState();
+
   const navigate = useNavigate();
-  function handleGoToCart() {
-    navigate("/cart");
-  }
+  const isCartItem = cart.some((product) => product.id === id);
+  const isOutOfStock = product.quantity === 0;
+
   function handleAddToCart() {
+    if (isCartItem) return navigate("/cart");
     cartDispatch({
       type: "ADD_TO_CART",
       payload: product,
     });
   }
-  const isCartItem = cart.some((product) => product.id === id);
-  const isOutOfStock = product.quantity === 0;
   return (
     <article className="product-card">
       <div className="product-card__image-container">
@@ -57,26 +57,21 @@ function ProductCard({ product }) {
           <p className="product-card__brand-name">{brand}</p>
         </div>
         <h5 className="product-card__price">{currencyFormatter(price)}</h5>
-        {isCartItem ? (
-          <button
-            className="product-card__btn"
-            onClick={() => handleGoToCart()}
-          >
-            Go to cart
-          </button>
-        ) : (
-          <button
-            className={
-              isOutOfStock
-                ? "product-card__btn product-card__btn--out-of-stock"
-                : "product-card__btn"
-            }
-            onClick={() => handleAddToCart()}
-            disabled={isOutOfStock}
-          >
-            {isOutOfStock ? "Out Of Stock" : "Add to cart"}
-          </button>
-        )}
+        <button
+          className={
+            isOutOfStock
+              ? "product-card__btn product-card__btn--out-of-stock"
+              : "product-card__btn"
+          }
+          onClick={() => handleAddToCart()}
+          disabled={isOutOfStock}
+        >
+          {isOutOfStock
+            ? "Out Of Stock"
+            : isCartItem
+            ? "Go to cart"
+            : "Add to cart"}
+        </button>
       </div>
     </article>
   );

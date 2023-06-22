@@ -35,5 +35,5 @@
 }
 
 .auth-page__error-msg {
-  color: var(--clr-btn-error);
+  color: var(--clr-danger);
 }

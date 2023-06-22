@@ -1,6 +1,5 @@
 .footer {
-  border-top: 1px solid var(--clr-border);
-  box-shadow: var(--box-shadow);
+  background-color: var(--clr-fade-bg);
 }
 .footer__top {
   padding: 3rem 1rem;

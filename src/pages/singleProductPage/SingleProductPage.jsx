@@ -5,7 +5,7 @@ import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import "./singleProductPage.css";
 
 import QuantityCounter from "../../components/quantityCounter/QuantityCounter";
-import Loader from "../../components/loader/Loader"
+import Loader from "../../components/loader/Loader";
 import ProductImages from "../../components/productImages/ProductImages";
 import { useCartState } from "../../context/CartContext";
 import { useEffect, useState } from "react";
@@ -57,7 +57,7 @@ function SingleProductPage() {
   document.title = `${name} | Gamers Stop`;
 
   const isItemInCart = cart.some((item) => item.id === id);
-
+  const isOutOfStock = quantity <= 0 ? true : false;
   function handleAddToCart() {
     if (isItemInCart) return navigate("/cart");
     cartDispatch({ type: "ADD_TO_CART", payload: product });
@@ -84,12 +84,18 @@ function SingleProductPage() {
           <QuantityCounter product={product} />
 
           <div className="product-page__section">
-            <div className="product-page__row">
+            <div className="product-page__row product-page__row--col">
               <button
-                className="product-page__button"
+                className={
+                  isOutOfStock
+                    ? "product-page__button product-page__button--out-of-stock"
+                    : "product-page__button"
+                }
                 onClick={() => handleAddToCart()}
               >
-                {isItemInCart ? (
+                {isOutOfStock ? (
+                  "Out of stock"
+                ) : isItemInCart ? (
                   "Go To Cart"
                 ) : (
                   <>

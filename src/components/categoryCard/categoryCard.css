@@ -9,6 +9,7 @@
   transition: transform 300ms ease-in;
   filter: brightness(0.75);
   cursor: pointer;
+  aspect-ratio: 16 / 9;
 }
 
 .category-card:hover .category-card__img {

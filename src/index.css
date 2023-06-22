@@ -14,17 +14,14 @@
   --clr-txt-white: hsl(0, 0%, 100%);
   --clr-txt-hover: hsl(29, 87%, 67%);
   --clr-txt-black: hsl(0, 0%, 0%);
-  --clr-footer-section-heading: hsl(0, 0%, 15%);
+  --clr-footer: hsl(0, 0%, 15%);
   --clr-border: hsl(0, 0%, 60%, 0.25);
-  --clr-btn-bg: hsl(200, 50%, 50%);
-  --clr-btn-error: hsl(0, 50%, 50%);
   --clr-btn-out-of-stock: hsl(0, 0%, 30%);
   --clr-txt-fade: hsl(0, 0%, 60%);
   --clr-fade-bg: hsl(0, 0%, 90%, 0.9);
-  --clr-error: hsl(0, 95%, 50%);
-  --clr-txt-cnf: hsl(100, 80%, 30%);
   --box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
-  --clr-loader: var(--clr-btn-bg);
+  --clr-loader: hsl(200, 70%, 50%);
+  --clr-loader-border: hsl(0, 0%, 60%, 0.25);
   --clr-primary-200: hsl(200, 70%, 50%);
   --clr-danger: hsl(0, 95%, 50%);
   --clr-success: hsl(100, 80%, 50%);
@@ -48,6 +45,7 @@ body {
   --box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 4.75);
   --clr-link: var(--clr-txt-white);
   --clr-fade-bg: hsl(0, 0%, 90%, 0.2);
+  --clr-loader-border: var(--clr-txt);
 }
 
 input,
@@ -72,10 +70,6 @@ a {
   margin-inline: auto;
   min-height: 25rem;
   padding: 0 0.5rem;
-}
-
-.error-msg {
-  color: var(--clr-error);
 }
 
 label {
@@ -111,4 +105,23 @@ label {
 .input-group__input:focus-visible {
   outline: 1px solid var(--clr-txt-hover);
   border: 1px solid var(--clr-txt-hover);
+}
+
+.page-not-found {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.page-not-found__title {
+  font-size: 2.5rem;
+  padding-bottom: 1rem;
+}
+
+.page-not-found__link {
+  color: var(--clr-primary-200);
+}
+
+.page-not-found__link:hover {
+  text-decoration: underline;
 }

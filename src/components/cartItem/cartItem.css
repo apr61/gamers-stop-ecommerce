@@ -37,7 +37,7 @@
   top: 0.5rem;
   right: 0.5rem;
   border: 0;
-  background-color: var(--clr-btn-error);
+  background-color: var(--clr-danger);
   cursor: pointer;
   border-radius: 50%;
   color: var(--clr-txt-white);

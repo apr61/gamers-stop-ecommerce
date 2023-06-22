@@ -56,10 +56,7 @@ function AccountOrders() {
                   <div className="orders__header-item">
                     <p className="orders__desc">
                       Order #{" "}
-                      <Link
-                        to={order.id}
-                        className="orders__link orders__link--high"
-                      >
+                      <Link to={order.id} className="orders__link">
                         {order.id}
                       </Link>
                     </p>

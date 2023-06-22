@@ -74,12 +74,16 @@
   padding: 1rem 0.5rem;
 }
 
+.checkout__link {
+  color: var(--clr-primary-200);
+}
+
 .checkout__btn {
   border: 0;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   font-size: 1.1rem;
-  background-color: var(--clr-btn-bg);
+  background-color: var(--clr-primary-200);
   color: var(--clr-txt-white);
   cursor: pointer;
 }
