@@ -63,7 +63,7 @@ function SignUp() {
               value={email}
               required
               onChange={(e) =>
-                authDispatch({ type: "Email", payload: e.target.value })
+                authDispatch({ type: "EMAIL", payload: e.target.value })
               }
             />
           </div>

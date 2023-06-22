@@ -102,6 +102,8 @@ label {
   border: 2px solid var(--clr-border);
   border-radius: 0.25rem;
   width: 100%;
+  background-color: var(--clr-main-bg);
+  color: var(--clr-txt);
 }
 
 .input-group__input:focus,
