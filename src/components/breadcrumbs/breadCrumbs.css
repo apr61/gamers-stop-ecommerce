@@ -1,0 +1,22 @@
+.breadcrumbs {
+  max-width: 30rem;
+  margin: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.breadcrumb__link {
+  color: var(--clr-txt);
+  text-transform: capitalize;
+}
+
+.breadcrumb__link:hover {
+  text-decoration: underline;
+  color: var(--clr-txt-hover);
+}
+
+.breadcrumb__link:last-of-type {
+  color: var(--clr-breadcrumb-active);
+}

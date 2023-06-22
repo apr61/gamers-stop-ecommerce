@@ -43,10 +43,10 @@ function App() {
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
           <Route path="/store" element={<ProductsList />} />
-          <Route path="/:productName" element={<SingleProductPage />} />
+          <Route path="/store/:productName" element={<SingleProductPage />} />
           <Route element={<RequireAuth />}>
             <Route element={<ContextLayout provider={UserAddressProvider} />}>
               <Route element={<ContextLayout provider={OrdersProvider} />}>

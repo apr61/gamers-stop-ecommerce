@@ -1,8 +1,9 @@
 import { BsTrash } from "react-icons/bs";
 import { useCartState } from "../../context/CartContext";
-import { currencyFormatter } from "../../utils/utils";
+import { currencyFormatter, createRouterPath } from "../../utils/utils";
 import QuantityCounter from "../quantityCounter/QuantityCounter";
 import "./cartItem.css";
+import { Link } from "react-router-dom";
 
 function CartItem({ product }) {
   const { cartDispatch } = useCartState();
@@ -23,7 +24,13 @@ function CartItem({ product }) {
         />
       </div>
       <div className="cart-item__body">
-        <h3 className="cart-item__product-name">{product.name}</h3>
+        <Link
+          to={`/store/${createRouterPath(product.name)}`}
+          state={{ productId: product.id }}
+          className="cart-item__product-name"
+        >
+          {product.name}
+        </Link>
         <p className="cart-item__total-amount">
           {currencyFormatter(product.price)}
         </p>

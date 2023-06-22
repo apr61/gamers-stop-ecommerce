@@ -11,7 +11,6 @@
 }
 
 .footer__title {
-  color: var(--clr-footer__section-heading);
   text-transform: uppercase;
   font-size: 1.125rem;
   margin-bottom: 0.5rem;

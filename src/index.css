@@ -14,7 +14,6 @@
   --clr-txt-white: hsl(0, 0%, 100%);
   --clr-txt-hover: hsl(29, 87%, 67%);
   --clr-txt-black: hsl(0, 0%, 0%);
-  --clr-footer: hsl(0, 0%, 15%);
   --clr-border: hsl(0, 0%, 60%, 0.25);
   --clr-btn-out-of-stock: hsl(0, 0%, 30%);
   --clr-txt-fade: hsl(0, 0%, 60%);
@@ -25,6 +24,8 @@
   --clr-primary-200: hsl(200, 70%, 50%);
   --clr-danger: hsl(0, 95%, 50%);
   --clr-success: hsl(100, 80%, 50%);
+  --clr-img-bg: var(--clr-txt-white);
+  --clr-breadcrumb-active: hsl(0, 0%, 30%, 0.9);
   /* color-scheme: light dark; */
 }
 
@@ -40,12 +41,14 @@ body {
 .dark {
   --clr-txt: var(--clr-txt-white);
   --clr-bg: var(--clr-txt-black);
-  background-color: hsl(0, 0%, 0%, 0.9);
+  --clr-main-bg: hsl(0, 0%, 0%, 0.9);
+  background-color: var(--clr-main-bg);
   color: var(--clr-txt);
   --box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 4.75);
   --clr-link: var(--clr-txt-white);
   --clr-fade-bg: hsl(0, 0%, 90%, 0.2);
   --clr-loader-border: var(--clr-txt);
+  --clr-breadcrumb-active: var(--clr-txt-fade);
 }
 
 input,

@@ -95,7 +95,7 @@ function AccountOrders() {
                         />
                         <div className="orders__product-content">
                           <Link
-                            to={`/${createRouterPath(product.name)}`}
+                            to={`/store/${createRouterPath(product.name)}`}
                             className="orders__link"
                             state={{ productId: product.id }}
                           >

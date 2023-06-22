@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import CartItem from "../../components/cartItem/CartItem";
 import Footer from "../../components/footer/Footer";
 import Navbar from "../../components/navbar/Navbar";
+import BreadCrumbs from "../../components/breadcrumbs/BreadCrumbs";
 import { useCartState } from "../../context/CartContext";
 import { currencyFormatter } from "../../utils/utils";
 import "./cart.css";
@@ -20,7 +21,8 @@ function Cart() {
   return (
     <>
       <Navbar />
-      <div className="cart main">
+      <BreadCrumbs />
+      <main className="cart main">
         {cart.length > 0 ? (
           <>
             <h2 className="cart__title">My Cart ({totalItems})</h2>
@@ -76,7 +78,7 @@ function Cart() {
             </button>
           </div>
         )}
-      </div>
+      </main>
       <Footer />
     </>
   );

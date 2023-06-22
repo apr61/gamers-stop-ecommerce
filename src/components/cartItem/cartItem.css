@@ -28,6 +28,16 @@
   width: 100%;
 }
 
+.cart-item__product-name {
+  font-size: 1.25rem;
+  color: var(--clr-primary-200);
+  width: fit-content;
+}
+
+.cart-item__product-name:hover {
+  color: var(--clr-txt-hover);
+}
+
 .cart-item__total-amount {
   font-size: 1.25rem;
 }

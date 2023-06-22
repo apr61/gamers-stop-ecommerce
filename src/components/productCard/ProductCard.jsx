@@ -36,7 +36,7 @@ function ProductCard({ product }) {
         <h4 className="product-card__name">
           <Link
             className="product-card__link"
-            to={`/${createRouterPath(name)}`}
+            to={`/store/${createRouterPath(name)}`}
             state={{ productId: id }}
           >
             {name}

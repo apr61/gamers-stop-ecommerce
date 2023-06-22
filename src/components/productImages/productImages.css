@@ -9,6 +9,7 @@
 .product-images__main-image {
   max-width: 35rem;
   border: 1px solid var(--clr-border);
+  background-color: var(--clr-img-bg);
 }
 
 .product-images__img {
