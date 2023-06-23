@@ -23,6 +23,7 @@ function CheckOutPage() {
   } = useCartState();
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
+  const canPlaceOrder = checkoutAddress != null;
 
   const handlePaymentSuccess = async (response) => {
     const newOrder = {
@@ -180,6 +181,10 @@ function CheckOutPage() {
               </h2>
               {isLoading ? (
                 <Loader />
+              ) : !canPlaceOrder ? (
+                <div className="checkout__selected-address">
+                  <p className="checkout__address-empty">No address selected</p>
+                </div>
               ) : (
                 <div className="checkout__selected-address">
                   <h4 className="address__details address__details--heading">
@@ -202,9 +207,25 @@ function CheckOutPage() {
                 </div>
               )}
             </section>
-            <button className="checkout__btn" onClick={handlePlaceOrder}>
-              Place Order & Pay
-            </button>
+            <div className="checkout__row">
+              <button
+                className={
+                  canPlaceOrder
+                    ? "checkout__btn"
+                    : "checkout__btn checkout__btn--disabled"
+                }
+                disabled={!canPlaceOrder}
+                onClick={handlePlaceOrder}
+              >
+                Place Order & Pay
+              </button>
+              <button
+                className="checkout__btn checkout__btn--ghost"
+                onClick={() => navigate("/cart")}
+              >
+                Cancel & Go back
+              </button>
+            </div>
           </div>
         </div>
       </section>

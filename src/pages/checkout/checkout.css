@@ -26,6 +26,12 @@
   flex: 1;
 }
 
+.checkout__row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .checkout__summary {
   flex: 1;
   box-shadow: var(--box-shadow);
@@ -88,6 +94,16 @@
   cursor: pointer;
 }
 
+.checkout__btn--ghost {
+  background-color: transparent;
+  border: 1px solid var(--clr-border);
+}
+
+.checkout__btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .checkout__btn:hover {
   opacity: 0.8;
 }
@@ -105,6 +121,10 @@
   object-fit: cover;
   filter: brightness(0.95);
   border-radius: 0.5rem;
+}
+
+.checkout__address-empty {
+  color: var(--clr-txt-fade);
 }
 
 @media (max-width: 50rem) {

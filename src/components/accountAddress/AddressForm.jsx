@@ -111,6 +111,7 @@ function AddressFormPage() {
             ref={townRef}
             value={preAddress?.town}
           />
+          <Input placeholder="State" ref={stateRef} value={preAddress?.state} />
           <div className="address-from-sec__row">
             <button
               className={

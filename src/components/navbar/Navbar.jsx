@@ -4,8 +4,9 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link, NavLink } from "react-router-dom";
 import { useCartState } from "../../context/CartContext";
 import { useAuthContext } from "../../context/AuthContext";
-import { FaUserAlt, FaStore, FaRegSun, FaRegMoon } from "react-icons/fa";
+import { FaUserAlt, FaStore } from "react-icons/fa";
 import { MdLogin } from "react-icons/md";
+import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { useTheme } from "../../context/ThemeContext";
 
 function Navbar() {
@@ -29,8 +30,8 @@ function Navbar() {
           className="navbar__list"
           title={theme === "light" ? "Switch to Dark" : "Switch to Light"}
         >
-          <button className="navbar__theme-btn" onClick={() => toggleTheme()}>
-            {theme === "light" ? <FaRegMoon /> : <FaRegSun />}
+          <button className="navbar__theme-btn" onClick={toggleTheme}>
+            {theme === "light" ? <BsFillMoonStarsFill /> : <BsFillSunFill />}
           </button>
         </li>
         <li className="navbar__list-item" title="Cart">

@@ -29,12 +29,12 @@
 }
 
 body {
-  font-family: var(--ff);
-  min-height: 100vh;
-  scroll-behavior: smooth;
   --clr-link: var(--clr-txt-black);
   --clr-txt: var(--clr-txt-black);
   --clr-bg: var(--clr-txt-white);
+  font-family: var(--ff);
+  min-height: 100vh;
+  scroll-behavior: smooth;
   transition: background-color 200ms ease-in;
 }
 
@@ -42,13 +42,13 @@ body {
   --clr-txt: var(--clr-txt-white);
   --clr-bg: var(--clr-txt-black);
   --clr-main-bg: hsl(0, 0%, 0%, 0.9);
-  background-color: var(--clr-main-bg);
-  color: var(--clr-txt);
   --box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 4.75);
   --clr-link: var(--clr-txt-white);
   --clr-fade-bg: hsl(0, 0%, 90%, 0.2);
   --clr-loader-border: var(--clr-txt);
   --clr-breadcrumb-active: var(--clr-txt-fade);
+  background-color: var(--clr-main-bg);
+  color: var(--clr-txt);
 }
 
 input,
