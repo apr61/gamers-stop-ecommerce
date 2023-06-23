@@ -26,7 +26,6 @@
   --clr-success: hsl(100, 80%, 50%);
   --clr-img-bg: var(--clr-txt-white);
   --clr-breadcrumb-active: hsl(0, 0%, 30%, 0.9);
-  /* color-scheme: light dark; */
 }
 
 body {
@@ -36,6 +35,7 @@ body {
   --clr-link: var(--clr-txt-black);
   --clr-txt: var(--clr-txt-black);
   --clr-bg: var(--clr-txt-white);
+  transition: background-color 200ms ease-in;
 }
 
 .dark {
