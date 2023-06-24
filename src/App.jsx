@@ -38,6 +38,7 @@ const SingleProductPage = lazy(() =>
 );
 const ProductsList = lazy(() => import("./pages/productsList/ProductsList"));
 const PageNotFound = lazy(() => import("./pages/pageNotFound/PageNotFound"));
+const AddNewProduct = lazy(() => import('./components/addNewProduct/AddNewProduct'))
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/store" element={<ProductsList />} />
           <Route path="/store/:productName" element={<SingleProductPage />} />
+          <Route path="/store/new" element={<AddNewProduct />} />
           <Route element={<RequireAuth />}>
             <Route element={<ContextLayout provider={UserAddressProvider} />}>
               <Route element={<ContextLayout provider={OrdersProvider} />}>

@@ -1,7 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
 import { currencyFormatter } from "../../utils/utils";
-import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import "./singleProductPage.css";
 
 import QuantityCounter from "../../components/quantityCounter/QuantityCounter";
@@ -10,6 +8,9 @@ import ProductImages from "../../components/productImages/ProductImages";
 import { useCartState } from "../../context/CartContext";
 import { useEffect, useState } from "react";
 import { getProductByIdService } from "../../services/products";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import StarIcon from '@mui/icons-material/Star';
 
 function SingleProductPage() {
   // getting state
@@ -76,7 +77,7 @@ function SingleProductPage() {
               <p className="product-page__price">{currencyFormatter(price)}</p>
               <p className="product-page__rating">
                 {avgrating}
-                <AiFillStar color="gold" />
+                <StarIcon htmlColor="gold" />
               </p>
             </div>
             <p className="product-page__desc">{description}</p>
@@ -99,13 +100,13 @@ function SingleProductPage() {
                   "Go To Cart"
                 ) : (
                   <>
-                    <FaShoppingCart />
+                    <ShoppingCartIcon />
                     Add To Cart
                   </>
                 )}
               </button>
               <button className="product-page__button">
-                <AiFillHeart />
+                <FavoriteBorderIcon />
                 Add To Wish List
               </button>
             </div>

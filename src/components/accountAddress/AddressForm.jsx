@@ -29,6 +29,18 @@ function AddressFormPage() {
   const townRef = useRef();
   const stateRef = useRef();
 
+  const dummyAddress = {
+    uid: currentUser.uid,
+    fullName: "Monkey D Luffy",
+    phoneNumber: "8500654785",
+    pincode: "865478",
+    flat: "4 / 51 - 58",
+    area: "Unknown Area",
+    landmark: "Besides windmill",
+    town: "Vijayawada",
+    state: "Andhra Pradesh",
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     const newAddress = {
@@ -66,6 +78,17 @@ function AddressFormPage() {
 
   function handleCancel() {
     navigate(-1);
+  }
+
+  function handleAddDemoAddress(){
+    nameRef.current.value = dummyAddress.fullName
+    phoneNumberRef.current.value = dummyAddress.phoneNumber
+    pinCodeRef.current.value = dummyAddress.pincode
+    areaRef.current.value = dummyAddress.area
+    flatRef.current.value = dummyAddress.flat
+    landmarkRef.current.value = dummyAddress.landmark
+    townRef.current.value = dummyAddress.town
+    stateRef.current.value = dummyAddress.state
   }
 
   return (
@@ -112,7 +135,7 @@ function AddressFormPage() {
             value={preAddress?.town}
           />
           <Input placeholder="State" ref={stateRef} value={preAddress?.state} />
-          <div className="address-from-sec__row">
+          <div className="address-from-sec__btn-wrapper">
             <button
               className={
                 loading
@@ -123,6 +146,7 @@ function AddressFormPage() {
             >
               {edit ? "Edit Address" : "Add Address"}
             </button>
+            <button type='button' className="address-form-sec__btn address-form-sec__btn--border" onClick={handleAddDemoAddress}>Demo Address</button>
             <button
               type="button"
               className="address-form-sec__btn address-form-sec__btn--border"

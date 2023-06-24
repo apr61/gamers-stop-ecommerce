@@ -16,22 +16,32 @@ function SignIn() {
     e.preventDefault();
     try {
       await signInService(email, password);
-      navigate(from, { replace: true });
     } catch (err) {
       if (err.code === "auth/user-not-found")
         authDispatch({ type: "ERROR", payload: "User not found" });
       else if (err.code === "auth/wrong-password")
         authDispatch({ type: "ERROR", payload: "Wrong password" });
       else authDispatch({ type: "ERROR", payload: err.code });
+      return
     } finally {
-      authDispatch({ type: "ERROR", payload: "" });
-      authDispatch({ type: "NAME", payload: "" });
       authDispatch({ type: "EMAIL", payload: "" });
       authDispatch({ type: "PASSWORD", payload: "" });
-      authDispatch({ type: "CPASSWORD", payload: "" });
+      navigate(from, { replace: true });
     }
   };
 
+  const handleLoginAsGuest = async () => {
+    authDispatch({ type: "EMAIL", payload: "guest@dev.com" });
+    authDispatch({ type: "PASSWORD", payload: "Guest@1234" });
+
+    try {
+      await signInService("guest@dev.com", "Guest@1234");
+    } finally {
+      authDispatch({ type: "EMAIL", payload: "" });
+      authDispatch({ type: "PASSWORD", payload: "" });
+      navigate(from, { replace: true });
+    }
+  }
   return (
     <>
       <Navbar />
@@ -72,6 +82,7 @@ function SignIn() {
             />
           </div>
           <button className="auth-page__btn">Sign In</button>
+          <button type="button" className="auth-page__btn auth-page__btn--ghost" onClick={handleLoginAsGuest}>Login as guest</button>
         </form>
         <p className="auth-page__info">
           Don't have a account? Create <Link to="/signup">here</Link>

@@ -37,3 +37,15 @@
 .auth-page__error-msg {
   color: var(--clr-danger);
 }
+
+.auth-page__btn--ghost{
+  background-color: transparent;
+  border: 2px solid var(--clr-border);
+  transition: all 500ms ease;
+  color: var(--clr-txt)
+}
+
+.auth-page__btn--ghost:hover{
+  background-color: var(--clr-txt-hover);
+  color: var(--clr-txt-white)
+}

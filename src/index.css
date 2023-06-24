@@ -112,6 +112,20 @@ label {
   border: 1px solid var(--clr-txt-hover);
 }
 
+.input_select{
+  width: 100%;
+  padding: .5rem .75rem;
+  font-size: 1.25rem;
+  background-color: var(--clr-bg);
+  color: var(--clr-txt);
+  border: 2px solid var(--clr-border);
+  border-radius: .25rem;
+}
+
+.input_select:focus{
+  outline: 2px solid var(--clr-txt-hover);
+}
+
 .page-not-found {
   min-height: 100vh;
   display: grid;

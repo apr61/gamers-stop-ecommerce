@@ -65,7 +65,6 @@
 .address-form-sec {
   max-width: 30rem;
   margin-inline: auto;
-  overflow-y: auto;
 }
 
 .address-form {
@@ -75,10 +74,11 @@
   margin: 1rem;
 }
 
-.address-from-sec__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+.address-from-sec__btn-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  place-items: center;
 }
 
 .address-form-sec__btn {
@@ -86,7 +86,7 @@
   background-color: var(--clr-primary-200);
   color: var(--clr-txt-white);
   padding: 0.5rem 0.75rem;
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 3vw, 1.25rem);
   width: fit-content;
   border-radius: 0.25rem;
   cursor: pointer;
@@ -137,10 +137,17 @@
     grid-template-columns: 1fr 1fr;
     place-items: center;
   }
+  
 }
 
 @media (max-width: 50rem) {
   .address__container {
     grid-template-columns: 1fr;
+  }
+  .address-from-sec__btn-wrapper{
+    gap: .5rem;
+  }
+  .address-form{
+    margin: 1rem .5rem;
   }
 }

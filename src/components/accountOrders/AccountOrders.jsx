@@ -21,24 +21,27 @@ function AccountOrders() {
     <div className="orders main">
       <header className="orders__main-header">
         <h2 className="orders__title">My Orders</h2>
-        <select
-          onChange={(e) => handleOrderOptions(e)}
-          className="orders__select"
-          value={currentOption}
-        >
-          <option className="orders__options" value="all orders">
-            All orders
-          </option>
-          <option className="orders__options" value="delivered">
-            Delivered
-          </option>
-          <option className="orders__options" value="yet tobe shipped">
-            Yet tobe shipped
-          </option>
-          <option className="orders__options" value="cancelled">
-            Cancelled
-          </option>
-        </select>
+        <div>
+
+          <select
+            onChange={(e) => handleOrderOptions(e)}
+            className="input_select"
+            value={currentOption}
+          >
+            <option className="orders__options" value="all orders">
+              All orders
+            </option>
+            <option className="orders__options" value="delivered">
+              Delivered
+            </option>
+            <option className="orders__options" value="yet tobe shipped">
+              Yet tobe shipped
+            </option>
+            <option className="orders__options" value="cancelled">
+              Cancelled
+            </option>
+          </select>
+        </div>
       </header>
       <p>
         Showing {filteredOrders.length} of {orders.length}
