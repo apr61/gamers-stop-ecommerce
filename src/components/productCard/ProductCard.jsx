@@ -1,7 +1,8 @@
 import "./productCard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { createRouterPath, currencyFormatter } from "../../utils/utils";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import StarIcon from '@mui/icons-material/Star';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { useCartState } from "../../context/CartContext";
 
 function ProductCard({ product }) {
@@ -48,9 +49,9 @@ function ProductCard({ product }) {
               .fill(0)
               .map((_, i) =>
                 i < avgrating ? (
-                  <AiFillStar color="gold" key={i} className="star-icon" />
+                  <StarIcon htmlColor="gold" key={i} className="star-icon" />
                 ) : (
-                  <AiOutlineStar color="gold" key={i} className="star-icon" />
+                  <StarOutlineIcon htmlColor="gold" key={i} className="star-icon" />
                 )
               )}
           </div>

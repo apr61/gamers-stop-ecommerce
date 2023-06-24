@@ -1,4 +1,4 @@
-import { BsTrash } from "react-icons/bs";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useCartState } from "../../context/CartContext";
 import { currencyFormatter, createRouterPath } from "../../utils/utils";
 import QuantityCounter from "../quantityCounter/QuantityCounter";
@@ -36,7 +36,7 @@ function CartItem({ product }) {
         </p>
         <QuantityCounter product={product} />
         <button className="cart-item__btn" onClick={handleRemoveFromCart}>
-          <BsTrash />
+          <DeleteIcon />
         </button>
       </div>
     </li>

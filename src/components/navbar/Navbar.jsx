@@ -1,13 +1,15 @@
 import "./navbar.css";
 import Search from "../search/Search";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCartState } from "../../context/CartContext";
 import { useAuthContext } from "../../context/AuthContext";
-import { FaUserAlt, FaStore } from "react-icons/fa";
-import { MdLogin } from "react-icons/md";
-import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { useTheme } from "../../context/ThemeContext";
+import StoreIcon from '@mui/icons-material/Store';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import PersonIcon from '@mui/icons-material/Person';
+import LoginIcon from '@mui/icons-material/Login';
 
 function Navbar() {
   const { totalItems } = useCartState();
@@ -22,22 +24,22 @@ function Navbar() {
       <Search />
       <ul className="navbar__list">
         <li className="navbar__list-item" title="Store">
-          <NavLink to="/store" className="navbar__link">
-            <FaStore />
-          </NavLink>
+          <Link to="/store" className="navbar__link">
+            <StoreIcon />
+          </Link>
         </li>
         <li
           className="navbar__list"
           title={theme === "light" ? "Switch to Dark" : "Switch to Light"}
         >
           <button className="navbar__theme-btn" onClick={toggleTheme}>
-            {theme === "light" ? <BsFillMoonStarsFill /> : <BsFillSunFill />}
+            {theme === "light" ? <DarkModeIcon /> : <WbSunnyIcon />}
           </button>
         </li>
         <li className="navbar__list-item" title="Cart">
           <Link className="navbar__link navbar__link--cart" to={"/cart"}>
             <span className="navbar__cart-icon" data-cart-items={totalItems}>
-              <AiOutlineShoppingCart />
+              <ShoppingCartIcon />
             </span>
           </Link>
         </li>
@@ -46,7 +48,7 @@ function Navbar() {
           title={currentUser ? "Account" : "Login"}
         >
           <Link className="navbar__link" to={"/account"}>
-            {currentUser ? <FaUserAlt /> : <MdLogin />}
+            {currentUser ? <PersonIcon /> : <LoginIcon />}
           </Link>
         </li>
       </ul>

@@ -1,39 +1,46 @@
+import { Link } from 'react-router-dom'
 import './footer.css'
-import { AiOutlineFacebook, AiFillInstagram, AiFillYoutube, AiOutlineTwitter } from 'react-icons/ai'
-
+import GitHubIcon from '@mui/icons-material/GitHub';
+import TwitterIcon from '@mui/icons-material/Twitter';
 
 function Footer() {
     return (
         <footer className='footer'>
             <div className="footer__top">
                 <section className="footer__section">
-                    <h5 className='footer__title'>Social</h5>
+                    <h2 className='footer__title footer__title--bg'>Gamers Stop</h2>
+                    <p>A perfect stop for every gamer around the world.</p>
                     <ul className="footer__list">
-                        <li className="footer__list-item"><AiFillInstagram /> Instagram</li>
-                        <li className="footer__list-item"><AiOutlineFacebook /> Facebook</li>
-                        <li className="footer__list-item"><AiOutlineTwitter /> Twitter</li>
-                        <li className="footer__list-item"><AiFillYoutube /> YouTube</li>
-                    </ul>
-                </section>
-                <section className="footer__section">
-                    <h5 className='footer__title'>Help</h5>
-                    <ul className="footer__list">
-                        <li className="footer__list-item">Payments</li>
-                        <li className="footer__list-item">Shipping</li>
-                        <li className="footer__list-item">FAQ</li>
-                        <li className="footer__list-item">Returns & Cancellation</li>
+                        <li className="footer__list-item">
+                            <Link to='https://github.com/apr61' className='footer__link'>
+                                <GitHubIcon />
+                            </Link>
+                        </li>
+                        <li className="footer__list-item">
+                            <Link to='https://twitter.com/apradeepreddy9' className='footer__link'>
+                            <TwitterIcon /> 
+                            </Link>
+                        </li>
                     </ul>
                 </section>
                 <section className="footer__section">
                     <h5 className='footer__title'>Quick Links</h5>
-                    <ul className="footer__list">
-                        <li className="footer__list-item">Graphic Card</li>
-                        <li className="footer__list-item">Monitors</li>
-                        <li className="footer__list-item">Consoles</li>
-                        <li className="footer__list-item">Gamepad</li>
-                        <li className="footer__list-item">Mousepads</li>
-                        <li className="footer__list-item">Games</li>
-                        <li className="footer__list-item">Routers</li>
+                    <ul className="footer__list footer__list--col">
+                        <li className="footer__list-item">
+                            <Link to="/store" className='footer__link'>
+                                Store
+                            </Link>
+                        </li>
+                        <li className="footer__list-item">
+                            <Link to='/cart' className='footer__link'>
+                                Cart
+                            </Link>
+                        </li>
+                        <li className="footer__list-item">
+                            <Link to='/account' className='footer__link'>
+                                Account
+                            </Link>
+                        </li>
                     </ul>
                 </section>
                 <section className="footer__section">

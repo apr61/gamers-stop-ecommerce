@@ -1,6 +1,7 @@
 import "./filter.css";
 import Accoridon from "../accordion/Accordion";
-import { AiOutlineClose, AiFillStar } from "react-icons/ai";
+import StarIcon from '@mui/icons-material/Star';
+import CloseIcon from '@mui/icons-material/Close';
 import { useProducts } from "../../context/ProductContext";
 
 function Filter() {
@@ -27,7 +28,7 @@ function Filter() {
         className="filter-section__close-btn"
         onClick={() => toggleFilter()}
       >
-        <AiOutlineClose />
+        <CloseIcon />
       </button>
       <Accoridon title="Categories">
         {allCategories.map(({ id, category }) => (
@@ -74,11 +75,11 @@ function Filter() {
         <div className="filter__cus-review">
           <div className="filter__star-con">
             <div className="filter__star">
-              <AiFillStar color="gold" />
+              <StarIcon htmlColor="gold" />
               <span>1</span>
             </div>
             <div className="filter__star">
-              <AiFillStar color="gold" />
+              <StarIcon htmlColor="gold" />
               <span>5</span>
             </div>
           </div>

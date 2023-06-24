@@ -1,5 +1,5 @@
 import "./search.css";
-import { AiOutlineSearch } from "react-icons/ai";
+import SearchIcon from '@mui/icons-material/Search';
 import { useProducts } from "../../context/ProductContext";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ function Search() {
   };
   return (
     <div className="search-box">
-      <AiOutlineSearch />
+      <SearchIcon />
       <input
         type="search"
         className="search-box__input"

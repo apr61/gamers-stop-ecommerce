@@ -20,7 +20,7 @@ function BreadCrumbs() {
     </Link>
   );
   const crumbs = [homeCrumb, ...crumbsUpdated];
-  return <div className="breadcrumbs">{crumbs}</div>;
+  return <nav className="breadcrumbs">{crumbs}</nav>;
 }
 
 export default BreadCrumbs;

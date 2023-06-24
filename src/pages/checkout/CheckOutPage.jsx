@@ -51,7 +51,7 @@ function CheckOutPage() {
     currency: "INR",
     name: "Gamers Stop",
     description: "Thank you for shopping with us.",
-    image: "https://example.com/your_logo",
+    image: "https://firebasestorage.googleapis.com/v0/b/gamers-stop-ecom-dev.appspot.com/o/favicon.ico?alt=media&token=26721467-df11-408f-bb40-31670d555e36",
     handler: (response) => handlePaymentSuccess(response),
     prefill: {
       name: currentUser.dispalyName,
