@@ -7,7 +7,7 @@
 }
 
 .ordersuccess__body {
-  background-color: var(--clr-txt-white);
+  background-color: var(--clr-bg);
   border-radius: 0.5rem;
   box-shadow: var(--box-shadow);
   padding: 1rem;
@@ -20,7 +20,7 @@
 .ordersuccess__title {
   display: flex;
   align-items: center;
-  color: var(--clr-txt-cnf);
+  color: var(--clr-success);
   font-weight: 600;
 }
 
@@ -42,11 +42,11 @@
 }
 
 .ordersuccess__link {
-  color: var(--clr-txt-cnf);
+  color: var(--clr-success);
 }
 
 .ordersuccess__link--btn {
   margin-top: 1rem;
-  color: var(--clr-txt-black);
+  color: var(--clr-txt);
   text-align: end;
 }

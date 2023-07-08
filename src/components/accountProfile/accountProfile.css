@@ -1,40 +1,41 @@
-
-.profile{
-    max-width: 30rem;
-    width: 100%;
+.profile {
+  max-width: 30rem;
+  width: 100%;
+  margin-top: 2rem;
 }
 
-.profile__title{
-    font-size: 1.5rem;
-    font-weight: 500;
-    padding: 0 1rem;
+.profile__title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 0 1rem;
+  text-align: center;
 }
 
-.profile__body{
-    display: flex;
-    flex-direction: column;
-    gap: .75rem; 
-    margin: 0 1rem;
+.profile__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0 1rem;
 }
 
-.profile__btn-container{
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    justify-content: center;
+.profile__btn-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 
-.profile__btn{
-    border: 0;
-    background-color: var(--clr-btn-bg);
-    color:  var(--clr-txt-white);
-    border-radius: .25rem;
-    padding: .5rem 1.5rem;
-    width: 10rem;       
-    font-size: 1.25rem;
-    cursor: pointer; 
+.profile__btn {
+  border: 0;
+  background-color: var(--clr-primary-200);
+  color: var(--clr-txt-white);
+  border-radius: 0.25rem;
+  padding: 0.5rem 1.5rem;
+  width: 10rem;
+  font-size: 1.25rem;
+  cursor: pointer;
 }
 
-.profile__btn--cancel{
-    background-color: var(--clr-error);
+.profile__btn--cancel {
+  background-color: var(--clr-danger);
 }

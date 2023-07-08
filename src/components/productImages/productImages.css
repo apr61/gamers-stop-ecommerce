@@ -7,14 +7,15 @@
 }
 
 .product-images__main-image {
-  height: 30rem;
   max-width: 35rem;
   border: 1px solid var(--clr-border);
+  background-color: var(--clr-img-bg);
 }
 
 .product-images__img {
   object-fit: contain;
   height: 100%;
+  aspect-ratio: 1/1;
 }
 
 .product-images__other-images {
@@ -38,9 +39,6 @@
 }
 
 @media (max-width: 50rem) {
-  .product-images__main-image {
-    height: 25rem;
-  }
   .product-images__image-box {
     height: 5rem;
     width: 5rem;

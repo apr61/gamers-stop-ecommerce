@@ -8,7 +8,7 @@ import {
   firebaseTimestapFormatter,
 } from "../../utils/utils";
 import "./accountOrders.css";
-import Loader from '../loader/Loader'
+import Loader from "../loader/Loader";
 
 function AccountOrders() {
   const {
@@ -21,24 +21,27 @@ function AccountOrders() {
     <div className="orders main">
       <header className="orders__main-header">
         <h2 className="orders__title">My Orders</h2>
-        <select
-          onChange={(e) => handleOrderOptions(e)}
-          className="orders__select"
-          value={currentOption}
-        >
-          <option className="orders__options" value="all orders">
-            All orders
-          </option>
-          <option className="orders__options" value="delivered">
-            Delivered
-          </option>
-          <option className="orders__options" value="yet tobe shipped">
-            Yet tobe shipped
-          </option>
-          <option className="orders__options" value="cancelled">
-            Cancelled
-          </option>
-        </select>
+        <div>
+
+          <select
+            onChange={(e) => handleOrderOptions(e)}
+            className="input_select"
+            value={currentOption}
+          >
+            <option className="orders__options" value="all orders">
+              All orders
+            </option>
+            <option className="orders__options" value="delivered">
+              Delivered
+            </option>
+            <option className="orders__options" value="yet tobe shipped">
+              Yet tobe shipped
+            </option>
+            <option className="orders__options" value="cancelled">
+              Cancelled
+            </option>
+          </select>
+        </div>
       </header>
       <p>
         Showing {filteredOrders.length} of {orders.length}
@@ -56,10 +59,7 @@ function AccountOrders() {
                   <div className="orders__header-item">
                     <p className="orders__desc">
                       Order #{" "}
-                      <Link
-                        to={order.id}
-                        className="orders__link orders__link--high"
-                      >
+                      <Link to={order.id} className="orders__link">
                         {order.id}
                       </Link>
                     </p>
@@ -94,10 +94,11 @@ function AccountOrders() {
                           className="orders__product-img"
                           src={product.images[0]}
                           alt={product.name}
+                          loading="lazy"
                         />
                         <div className="orders__product-content">
                           <Link
-                            to={`/${createRouterPath(product.name)}`}
+                            to={`/store/${createRouterPath(product.name)}`}
                             className="orders__link"
                             state={{ productId: product.id }}
                           >

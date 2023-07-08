@@ -1,7 +1,7 @@
 import React from "react";
 import "./accountPage.css";
 import { Link, useNavigate } from "react-router-dom";
-import { MdLogout } from "react-icons/md";
+import LogoutIcon from '@mui/icons-material/Logout';
 import { logOut } from "../../services/auth";
 
 function AccountPage() {
@@ -46,7 +46,7 @@ function AccountPage() {
             className="account-sec__logout-btn"
             onClick={() => handleLogOut()}
           >
-            <MdLogout />
+            <LogoutIcon />
             Logout
           </button>
         </div>

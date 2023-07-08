@@ -1,5 +1,5 @@
 import React from "react";
-import { AiOutlinePlus } from "react-icons/ai";
+import AddIcon from '@mui/icons-material/Add';
 import { Link } from "react-router-dom";
 import { useAddressContext } from "../../context/AddressContext";
 import { deleteAddressById } from "../../services/address";
@@ -20,7 +20,7 @@ function AccountAddress() {
       <h2 className="address__title">My Addresses</h2>
       <div className="address__container">
         <Link to="new" className="address__add-address">
-          <AiOutlinePlus />
+          <AddIcon />
           Add Address
         </Link>
         {isLoading ? (

@@ -1,15 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
 import { currencyFormatter } from "../../utils/utils";
-import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import "./singleProductPage.css";
 
 import QuantityCounter from "../../components/quantityCounter/QuantityCounter";
-import Loader from "../../components/loader/Loader"
+import Loader from "../../components/loader/Loader";
 import ProductImages from "../../components/productImages/ProductImages";
 import { useCartState } from "../../context/CartContext";
 import { useEffect, useState } from "react";
 import { getProductByIdService } from "../../services/products";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import StarIcon from '@mui/icons-material/Star';
 
 function SingleProductPage() {
   // getting state
@@ -57,7 +58,7 @@ function SingleProductPage() {
   document.title = `${name} | Gamers Stop`;
 
   const isItemInCart = cart.some((item) => item.id === id);
-
+  const isOutOfStock = quantity <= 0 ? true : false;
   function handleAddToCart() {
     if (isItemInCart) return navigate("/cart");
     cartDispatch({ type: "ADD_TO_CART", payload: product });
@@ -76,7 +77,7 @@ function SingleProductPage() {
               <p className="product-page__price">{currencyFormatter(price)}</p>
               <p className="product-page__rating">
                 {avgrating}
-                <AiFillStar color="gold" />
+                <StarIcon htmlColor="gold" />
               </p>
             </div>
             <p className="product-page__desc">{description}</p>
@@ -84,22 +85,28 @@ function SingleProductPage() {
           <QuantityCounter product={product} />
 
           <div className="product-page__section">
-            <div className="product-page__row">
+            <div className="product-page__row product-page__row--col">
               <button
-                className="product-page__button"
+                className={
+                  isOutOfStock
+                    ? "product-page__button product-page__button--out-of-stock"
+                    : "product-page__button"
+                }
                 onClick={() => handleAddToCart()}
               >
-                {isItemInCart ? (
+                {isOutOfStock ? (
+                  "Out of stock"
+                ) : isItemInCart ? (
                   "Go To Cart"
                 ) : (
                   <>
-                    <FaShoppingCart />
+                    <ShoppingCartIcon />
                     Add To Cart
                   </>
                 )}
               </button>
               <button className="product-page__button">
-                <AiFillHeart />
+                <FavoriteBorderIcon />
                 Add To Wish List
               </button>
             </div>

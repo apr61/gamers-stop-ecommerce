@@ -63,7 +63,7 @@
   gap: 0.35rem;
   padding: 0.5rem 0.75rem;
   border: 0;
-  background-color: var(--clr-btn-bg);
+  background-color: var(--clr-primary-200);
   cursor: pointer;
   border-radius: 0.25rem;
   color: var(--clr-txt-white);
@@ -75,6 +75,10 @@
 
 .product-page__button:focus {
   outline: 2px solid var(--clr-txt-hover);
+}
+
+.product-page__button--out-of-stock {
+  background-color: var(--clr-btn-out-of-stock);
 }
 
 .product-page__list {
@@ -110,5 +114,12 @@
   }
   .product-page__price {
     font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 25rem) {
+  .product-page__row--col {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

@@ -36,7 +36,7 @@
 .navbar__cart-icon::before {
   content: attr(data-cart-items);
   position: absolute;
-  background-color: var(--clr-btn-error);
+  background-color: var(--clr-danger);
   top: -0.35rem;
   right: -0.5rem;
   border-radius: 50%;
@@ -55,7 +55,15 @@
   gap: 0.25rem;
 }
 
-@media (max-width: 45rem) {
+.navbar__theme-btn {
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: var(--clr-txt-white);
+  border: 0;
+}
+
+@media (max-width: 50rem) {
   .navbar {
     display: grid;
     grid-template-areas:
@@ -65,10 +73,16 @@
     padding: 1rem;
   }
   .navbar__link--logo {
-    grid-area: "logo";
+    grid-area: logo;
   }
   .navbar__list {
     gap: 1.5rem;
-    grid-area: "list";
+    grid-area: list;
+  }
+}
+
+@media (max-width: 40rem) {
+  .navbar__list {
+    gap: 1rem;
   }
 }

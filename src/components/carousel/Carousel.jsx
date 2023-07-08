@@ -1,8 +1,8 @@
 import "./carousel.css";
 import { carouselImages } from "../../data/imagesLoader";
 import { useEffect, useState } from "react";
-import { AiOutlineLeft } from "react-icons/ai";
-import { AiOutlineRight } from "react-icons/ai";
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link } from "react-router-dom";
 
 function Carousel() {
@@ -27,19 +27,22 @@ function Carousel() {
   }, []);
   return (
     <div className="carousel">
-      <Link to="/store">
+      <Link to="/store" className="carousel__link">
         <div className="carousel__image-container">
-          <img className="carousel__img" src={carouselImages[currentSlide]} />
+          <img
+            className="carousel__img"
+            src={carouselImages[currentSlide]}
+            loading="lazy"
+            alt={`Carousel image ${currentSlide}`}
+          />
         </div>
       </Link>
       <div className="carousel__btn__container">
         <button className="carousel__btn" onClick={() => prevSlide()}>
-          <span>
-            <AiOutlineLeft />
-          </span>
+          <ChevronLeftIcon fontSize="2rem" />
         </button>
         <button className="carousel__btn" onClick={() => nextSlide()}>
-          <AiOutlineRight />
+          <ChevronRightIcon fontSize="2rem" />
         </button>
       </div>
     </div>

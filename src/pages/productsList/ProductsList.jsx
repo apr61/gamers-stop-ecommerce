@@ -1,7 +1,7 @@
 import "./productsList.css";
 import ProductCard from "../../components/productCard/ProductCard";
 import Filter from "../../components/filter/Filter";
-import { FaSort } from "react-icons/fa";
+import FilterListIcon from '@mui/icons-material/FilterList';
 import { useProducts } from "../../context/ProductContext";
 import Loader from "../../components/loader/Loader";
 
@@ -54,7 +54,7 @@ function ProductsList() {
                   className="category-products__filter-btn"
                   onClick={() => toggleFilter()}
                 >
-                  <FaSort />
+                  <FilterListIcon />
                 </button>
               </header>
               <div className="category-products__list">

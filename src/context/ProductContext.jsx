@@ -6,11 +6,7 @@ import React, {
   useState,
 } from "react";
 import productReducer, { productInitalState } from "../reducers/productReducer";
-import {
-  getCategoriesService,
-  getProductByIdService,
-  getProducts,
-} from "../services/products";
+import { getCategoriesService, getProducts } from "../services/products";
 
 const ProductContext = createContext();
 
@@ -35,7 +31,7 @@ function ProductProvider({ children }) {
         payload: data,
       });
     } catch (err) {
-      console.error(err.message);
+      console.error(err);
     } finally {
       setIsLoading(false);
     }
@@ -72,8 +68,12 @@ function ProductProvider({ children }) {
           productsState.brands.some((brand) => product.brand === brand)
         )
       : filterByCategory;
-
-  const filterByRating = filterByBrands.filter(
+  const filterBySearch = productsState.search
+    ? filterByBrands.filter((product) =>
+        product.name.toLowerCase().includes(productsState.search.toLowerCase())
+      )
+    : filterByBrands;
+  const filterByRating = filterBySearch.filter(
     (product) => product.avgrating <= productsState.rating
   );
   const filterByAvailability =

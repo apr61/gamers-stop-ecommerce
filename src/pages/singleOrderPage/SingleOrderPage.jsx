@@ -45,7 +45,7 @@ function SingleOrderPage() {
   return (
     <div className="order-page">
       <header className="order-page__header">
-        <h2>Order # {id}</h2>
+        <h2 className="order-page__title">Order # {id}</h2>
         <p>
           Placed date{" "}
           {dateFormatter(firebaseTimestapFormatter(orderedDate.seconds))}
@@ -63,6 +63,7 @@ function SingleOrderPage() {
                 className="orders__product-img"
                 src={product.images[0]}
                 alt={product.name}
+                loading="lazy"
               />
               <div className="orders__product-content">
                 <Link

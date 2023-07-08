@@ -56,7 +56,7 @@
 
 .cart__checkout-btn {
   border: 0;
-  background-color: var(--clr-btn-bg);
+  background-color: var(--clr-primary-200);
   cursor: pointer;
   padding: 0.5rem;
   font-size: 1.25rem;
@@ -82,7 +82,7 @@
 }
 
 .cart__link {
-  color: currentColor;
+  color: var(--clr-link);
 }
 
 @media (max-width: 60rem) {

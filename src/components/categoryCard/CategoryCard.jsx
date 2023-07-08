@@ -16,6 +16,7 @@ function CategoryCard({ category }) {
         className="category-card__img"
         src={images}
         alt={name}
+        loading="lazy"
         onClick={() => handleImageClick(name)}
       />
       <h3 className="category-card__name">{name}</h3>

@@ -6,6 +6,7 @@ export const productInitalState = {
   availability: "inStock",
   sort: "price_low_to_high",
   categoryIn: "",
+  search: "",
 };
 
 const productReducer = (state, { type, payload }) => {
@@ -46,6 +47,11 @@ const productReducer = (state, { type, payload }) => {
       return {
         ...state,
         categoryIn: payload,
+      };
+    case "SEARCH":
+      return {
+        ...state,
+        search: payload,
       };
     case "CLEAR_ALL_FILTERS":
       return {

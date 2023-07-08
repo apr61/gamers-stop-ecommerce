@@ -1,8 +1,9 @@
-import { BsTrash } from "react-icons/bs";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useCartState } from "../../context/CartContext";
-import { currencyFormatter } from "../../utils/utils";
+import { currencyFormatter, createRouterPath } from "../../utils/utils";
 import QuantityCounter from "../quantityCounter/QuantityCounter";
 import "./cartItem.css";
+import { Link } from "react-router-dom";
 
 function CartItem({ product }) {
   const { cartDispatch } = useCartState();
@@ -19,16 +20,23 @@ function CartItem({ product }) {
           className="cart-item__img"
           src={product.images[0]}
           alt={product.name}
+          loading="lazy"
         />
       </div>
       <div className="cart-item__body">
-        <h3 className="cart-item__product-name">{product.name}</h3>
+        <Link
+          to={`/store/${createRouterPath(product.name)}`}
+          state={{ productId: product.id }}
+          className="cart-item__product-name"
+        >
+          {product.name}
+        </Link>
         <p className="cart-item__total-amount">
           {currencyFormatter(product.price)}
         </p>
         <QuantityCounter product={product} />
         <button className="cart-item__btn" onClick={handleRemoveFromCart}>
-          <BsTrash />
+          <DeleteIcon />
         </button>
       </div>
     </li>

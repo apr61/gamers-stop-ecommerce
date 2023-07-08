@@ -63,7 +63,7 @@ function SignUp() {
               value={email}
               required
               onChange={(e) =>
-                authDispatch({ type: "Email", payload: e.target.value })
+                authDispatch({ type: "EMAIL", payload: e.target.value })
               }
             />
           </div>
@@ -78,9 +78,7 @@ function SignUp() {
               id="password"
               value={password}
               required
-              onChange={(e) =>
-                authDispatch({ type: "PASSWORD", payload: e.target.value })
-              }
+              onChange={(e) => authDispatch({ type: "PASSWORD", payload: e.target.value })}
             />
           </div>
           <div className="input-group">

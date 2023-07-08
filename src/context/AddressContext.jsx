@@ -45,7 +45,6 @@ function UserAddressProvider({ children }) {
     setAddresses((oldAddresses) =>
       oldAddresses.filter((address) => address.id !== id)
     );
-    console.table(localAddresses);
   }
 
   return (

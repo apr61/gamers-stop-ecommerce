@@ -5,6 +5,7 @@
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: var(--box-shadow);
+  border: 1px solid var(--clr-border);
   /* custom properties */
   --clr-product-brand-name: hsl(0, 0%, 50%);
 }
@@ -54,7 +55,7 @@
 }
 
 .product-card__link {
-  color: var(--clr-txt-black);
+  color: var(--clr-link);
 }
 
 .product-card__link:hover {
@@ -74,7 +75,7 @@
   padding: 0.25rem 0.5rem;
   font-size: 1.1rem;
   cursor: pointer;
-  background-color: var(--clr-header-bg);
+  background-color: var(--clr-primary-200);
   color: var(--clr-txt-white);
 }
 

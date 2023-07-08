@@ -23,6 +23,7 @@ function CheckOutPage() {
   } = useCartState();
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
+  const canPlaceOrder = checkoutAddress != null;
 
   const handlePaymentSuccess = async (response) => {
     const newOrder = {
@@ -50,7 +51,7 @@ function CheckOutPage() {
     currency: "INR",
     name: "Gamers Stop",
     description: "Thank you for shopping with us.",
-    image: "https://example.com/your_logo",
+    image: "https://firebasestorage.googleapis.com/v0/b/gamers-stop-ecom-dev.appspot.com/o/favicon.ico?alt=media&token=26721467-df11-408f-bb40-31670d555e36",
     handler: (response) => handlePaymentSuccess(response),
     prefill: {
       name: currentUser.dispalyName,
@@ -117,7 +118,9 @@ function CheckOutPage() {
                     </label>
                   </div>
                 ))}
-                <Link to="/account/addresses/new">Add new address</Link>
+                <Link className="checkout__link" to="/account/addresses/new">
+                  Add new address
+                </Link>
               </div>
             )}
           </section>
@@ -129,7 +132,12 @@ function CheckOutPage() {
               <div>
                 {cart.map(({ id, name, images, price, qty }) => (
                   <article key={id} className="checkout__item">
-                    <img className="checkout__img" src={images[0]} alt={name} />
+                    <img
+                      className="checkout__img"
+                      src={images[0]}
+                      alt={name}
+                      loading="lazy"
+                    />
                     <div>
                       <h3>{name}</h3>
                       <p>{currencyFormatter(price)}</p>
@@ -173,6 +181,10 @@ function CheckOutPage() {
               </h2>
               {isLoading ? (
                 <Loader />
+              ) : !canPlaceOrder ? (
+                <div className="checkout__selected-address">
+                  <p className="checkout__address-empty">No address selected</p>
+                </div>
               ) : (
                 <div className="checkout__selected-address">
                   <h4 className="address__details address__details--heading">
@@ -195,9 +207,25 @@ function CheckOutPage() {
                 </div>
               )}
             </section>
-            <button className="checkout__btn" onClick={handlePlaceOrder}>
-              Place Order & Pay
-            </button>
+            <div className="checkout__row">
+              <button
+                className={
+                  canPlaceOrder
+                    ? "checkout__btn"
+                    : "checkout__btn checkout__btn--disabled"
+                }
+                disabled={!canPlaceOrder}
+                onClick={handlePlaceOrder}
+              >
+                Place Order & Pay
+              </button>
+              <button
+                className="checkout__btn checkout__btn--ghost"
+                onClick={() => navigate("/cart")}
+              >
+                Cancel & Go back
+              </button>
+            </div>
           </div>
         </div>
       </section>
