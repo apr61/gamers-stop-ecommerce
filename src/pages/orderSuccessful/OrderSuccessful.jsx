@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/navbar/Navbar";
 import "./orderSuccessful.css";
-import { MdVerified } from "react-icons/md";
+import VerifiedIcon from '@mui/icons-material/Verified';
 import { Link, useLocation } from "react-router-dom";
 
 function OrderSuccessful() {
@@ -16,7 +16,7 @@ function OrderSuccessful() {
         <div className="ordersuccess__body">
           <h2 className="ordersuccess__title">
             <>
-              <MdVerified />
+              <VerifiedIcon />
             </>{" "}
             Order Placed, thank you.
           </h2>
