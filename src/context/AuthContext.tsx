@@ -76,6 +76,8 @@ function AuthProvider({ children }: ChildrenType): ReactElement {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
+      }else{
+        setCurrentUser(null)
       }
       setIsLoading(false);
     });

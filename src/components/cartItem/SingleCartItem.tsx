@@ -4,13 +4,18 @@ import { currencyFormatter, createRouterPath } from "../../utils/utils";
 import QuantityCounter from "../quantityCounter/QuantityCounter";
 import "./cartItem.css";
 import { Link } from "react-router-dom";
+import { CartItem } from '../../utils/types';
 
-function CartItem({ product }) {
+type CartItemProps = {
+  cartItem: CartItem
+}
+
+function SingleCartItem({ cartItem } : CartItemProps) {
   const { cartDispatch } = useCartState();
   function handleRemoveFromCart() {
     cartDispatch({
       type: "REMOVE_FROM_CART",
-      payload: product,
+      payload: cartItem,
     });
   }
   return (
@@ -18,23 +23,23 @@ function CartItem({ product }) {
       <div className="cart-item__image-container">
         <img
           className="cart-item__img"
-          src={product.images[0]}
-          alt={product.name}
+          src={cartItem.images[0]}
+          alt={cartItem.name}
           loading="lazy"
         />
       </div>
       <div className="cart-item__body">
         <Link
-          to={`/store/${createRouterPath(product.name)}`}
-          state={{ productId: product.id }}
-          className="cart-item__product-name"
+          to={`/store/${createRouterPath(cartItem.name)}`}
+          state={{ cartItemId: cartItem.id }}
+          className="cart-item__cartItem-name"
         >
-          {product.name}
+          {cartItem.name}
         </Link>
         <p className="cart-item__total-amount">
-          {currencyFormatter(product.price)}
+          {currencyFormatter(cartItem.price)}
         </p>
-        <QuantityCounter product={product} />
+        <QuantityCounter cartItem={cartItem} />
         <button className="cart-item__btn" onClick={handleRemoveFromCart}>
           <DeleteIcon />
         </button>
@@ -43,4 +48,4 @@ function CartItem({ product }) {
   );
 }
 
-export default CartItem;
+export default SingleCartItem;

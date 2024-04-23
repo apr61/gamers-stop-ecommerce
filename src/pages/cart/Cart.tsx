@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import CartItem from "../../components/cartItem/CartItem";
+import SingleCartItem from "../../components/cartItem/SingleCartItem";
 import Footer from "../../components/footer/Footer";
 import Navbar from "../../components/navbar/Navbar";
 import BreadCrumbs from "../../components/breadcrumbs/BreadCrumbs";
@@ -28,8 +28,8 @@ function Cart() {
             <h2 className="cart__title">My Cart ({totalItems})</h2>
             <div className="cart__container">
               <ul className="cart__content">
-                {cart.map((product) => (
-                  <CartItem product={product} key={product.id} />
+                {cart.map((cartItem) => (
+                  <SingleCartItem cartItem={cartItem} key={cartItem.id} />
                 ))}
               </ul>
               <div className="cart__summary">

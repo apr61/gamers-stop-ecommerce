@@ -1,33 +1,31 @@
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import { useAuthContext } from "../../context/AuthContext";
 import { signInService } from "../../services/auth";
 import "./commonStyle.css";
 import { User } from "../../utils/types";
+import { FormEvent } from "react";
 
 function SignIn() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const { email, password, error, authDispatch } = useAuthContext();
+  const { authState: {email, password, error}, authDispatch } = useAuthContext();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const user: Partial<User> = {
         email: email,
-        password: password
-      }
+        password: password,
+      };
       await signInService(user);
     } catch (err) {
-      if (err.code === "auth/user-not-found")
-        authDispatch({ type: "ERROR", payload: "User not found" });
-      else if (err.code === "auth/wrong-password")
-        authDispatch({ type: "ERROR", payload: "Wrong password" });
-      else authDispatch({ type: "ERROR", payload: err.code });
-      return
+      if (err instanceof Error) {
+        authDispatch({ type: "ERROR", payload: err.message });
+      }
+      return;
     } finally {
       authDispatch({ type: "EMAIL", payload: "" });
       authDispatch({ type: "PASSWORD", payload: "" });
@@ -40,13 +38,13 @@ function SignIn() {
     authDispatch({ type: "PASSWORD", payload: "Guest@1234" });
 
     try {
-      await signInService("guest@dev.com", "Guest@1234");
+      await signInService({email: "guest@dev.com", password: "Guest@1234"});
     } finally {
       authDispatch({ type: "EMAIL", payload: "" });
       authDispatch({ type: "PASSWORD", payload: "" });
       navigate(from, { replace: true });
     }
-  }
+  };
   return (
     <>
       <Navbar />
@@ -87,7 +85,13 @@ function SignIn() {
             />
           </div>
           <button className="auth-page__btn">Sign In</button>
-          <button type="button" className="auth-page__btn auth-page__btn--ghost" onClick={handleLoginAsGuest}>Login as guest</button>
+          <button
+            type="button"
+            className="auth-page__btn auth-page__btn--ghost"
+            onClick={handleLoginAsGuest}
+          >
+            Login as guest
+          </button>
         </form>
         <p className="auth-page__info">
           Don't have a account? Create <Link to="/signup">here</Link>

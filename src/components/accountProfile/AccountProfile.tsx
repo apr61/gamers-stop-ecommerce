@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import "./accountProfile.css";
 import Input from "../inputFields/Input";
@@ -10,14 +10,14 @@ function AccountProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const nameRef = useRef(null);
 
-  const handleUpdateUserProfile = async (e) => {
+  const handleUpdateUserProfile = async (e : FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userFullname = nameRef.current?.['value']
     const updatedUser : Partial<User> = {
       name: userFullname
     };
     await updateUserProfile(updatedUser);
-    setCurrentUser({...currentUser, ...updatedUser})
+    setCurrentUser({...currentUser!, ...updatedUser})
     setIsEditing(false);
   }
 
@@ -29,22 +29,25 @@ function AccountProfilePage() {
           <Input
             labelName={"Name"}
             ref={nameRef}
-            value={currentUser.displayName}
+            value={currentUser!.displayName as string}
             readOnly={!isEditing}
+            placeholder="Your name"
           />
         ) : (
           <>
             <Input
               labelName={"Name"}
               ref={nameRef}
-              value={currentUser.displayName}
+              value={currentUser!.displayName as string}
               readOnly={!isEditing}
+              placeholder="Your name"
             />
             <Input
               labelName={"Email"}
               inputType={"email"}
-              value={currentUser.email}
+              value={currentUser?.email!}
               readOnly={!isEditing}
+              placeholder="you@exmaple.com"
             />
           </>
         )}

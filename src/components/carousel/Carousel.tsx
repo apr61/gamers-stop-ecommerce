@@ -39,10 +39,10 @@ function Carousel() {
       </Link>
       <div className="carousel__btn__container">
         <button className="carousel__btn" onClick={() => prevSlide()}>
-          <ChevronLeftIcon fontSize="2rem" />
+          <ChevronLeftIcon fontSize="large" />
         </button>
         <button className="carousel__btn" onClick={() => nextSlide()}>
-          <ChevronRightIcon fontSize="2rem" />
+          <ChevronRightIcon fontSize="large" />
         </button>
       </div>
     </div>

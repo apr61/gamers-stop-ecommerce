@@ -8,9 +8,9 @@ import ProductImages from "../../components/productImages/ProductImages";
 import { useCartState } from "../../context/CartContext";
 import { useEffect, useState } from "react";
 import { getProductByIdService } from "../../services/products";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import StarIcon from '@mui/icons-material/Star';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import StarIcon from "@mui/icons-material/Star";
 import { CartItem, Product } from "../../utils/types";
 
 function SingleProductPage() {
@@ -18,12 +18,16 @@ function SingleProductPage() {
   const location = useLocation();
   const productId = location.state?.productId;
   const navigate = useNavigate();
+  // TODO:: Handle page reload 
   const {
     cartDispatch,
     cartState: { cart },
   } = useCartState();
+
   const [isLoading, setIsLoading] = useState(true);
+
   const [product, setProduct] = useState<Product | null>(null);
+
   const getProductById = async (productId: string) => {
     try {
       const data = await getProductByIdService(productId);
@@ -40,8 +44,8 @@ function SingleProductPage() {
 
   if (isLoading) return <Loader />;
 
-  if(product === null){
-    <Navigate to="/store" />
+  if (product === null) {
+    <Navigate to="/store" />;
   }
 
   document.title = `${name} | Gamers Stop`;
@@ -64,7 +68,9 @@ function SingleProductPage() {
           <header className="product-page__header">
             <h3 className="product-page__name">{product?.name}</h3>
             <div className="product-page__row">
-              <p className="product-page__price">{currencyFormatter(product?.price!)}</p>
+              <p className="product-page__price">
+                {currencyFormatter(product?.price!)}
+              </p>
               <p className="product-page__rating">
                 {product?.avgrating}
                 <StarIcon htmlColor="gold" />

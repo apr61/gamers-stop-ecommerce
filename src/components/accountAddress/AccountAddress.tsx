@@ -1,4 +1,3 @@
-import React from "react";
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from "react-router-dom";
 import { useAddressContext } from "../../context/AddressContext";
@@ -11,8 +10,8 @@ function AccountAddress() {
   document.title = "User Addresses | Gamers stop";
   const { isLoading, addresses, deleteLocalAddress } = useAddressContext();
 
-  function handleAddressDel(id) {
-    deleteAddressById(id).then(deleteLocalAddress(id));
+  function handleAddressDel(id : string) {
+    deleteAddressById(id).then(() => deleteLocalAddress(id));
   }
 
   return (
@@ -29,7 +28,7 @@ function AccountAddress() {
           addresses.map((address) => (
             <div key={address.id} className="address__card">
               <div className="address__card-body">
-                <AddressCard {...address} />
+                <AddressCard address={address} />
               </div>
 
               <div className="address__card-options">

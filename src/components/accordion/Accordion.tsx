@@ -1,8 +1,20 @@
 import "./accordion.css";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
-function Accoridon({ children, title, modifiedStyles, defaultOpen }) {
-  const [isExpanded, setIsExpanded] = useState(defaultOpen ?? false);
+type AccoridonPropsType = {
+  children: ReactNode;
+  title: string;
+  modifiedStyles: string;
+  defaultOpen: boolean;
+};
+
+function Accoridon({
+  children,
+  title,
+  modifiedStyles,
+  defaultOpen = false,
+}: AccoridonPropsType) {
+  const [isExpanded, setIsExpanded] = useState(defaultOpen);
   return (
     <div className="accordion">
       <div
