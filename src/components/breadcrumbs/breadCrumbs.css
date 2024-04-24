@@ -19,4 +19,5 @@
 
 .breadcrumb__link:last-of-type {
   color: var(--clr-breadcrumb-active);
+  pointer-events: none;
 }
