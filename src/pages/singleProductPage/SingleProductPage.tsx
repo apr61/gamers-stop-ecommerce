@@ -1,4 +1,8 @@
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { currencyFormatter } from "../../utils/utils";
 import "./singleProductPage.css";
 
@@ -7,18 +11,16 @@ import Loader from "../../components/loader/Loader";
 import ProductImages from "../../components/productImages/ProductImages";
 import { useCartState } from "../../context/CartContext";
 import { useEffect, useState } from "react";
-import { getProductByIdService } from "../../services/products";
+import { getProductBySlugService } from "../../services/products";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import StarIcon from "@mui/icons-material/Star";
 import { CartItem, Product } from "../../utils/types";
 
 function SingleProductPage() {
-  // getting state
-  const location = useLocation();
-  const productId = location.state?.productId;
+  const { slugurl } = useParams();
   const navigate = useNavigate();
-  // TODO:: Handle page reload 
+  // TODO:: Handle page reload
   const {
     cartDispatch,
     cartState: { cart },
@@ -28,9 +30,9 @@ function SingleProductPage() {
 
   const [product, setProduct] = useState<Product | null>(null);
 
-  const getProductById = async (productId: string) => {
+  const getProductById = async (slugurl: string) => {
     try {
-      const data = await getProductByIdService(productId);
+      const data = await getProductBySlugService(slugurl);
       setProduct(data);
     } catch (err) {
       console.error(err);
@@ -38,31 +40,32 @@ function SingleProductPage() {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
-    getProductById(productId);
-  }, [productId]);
+    getProductById(slugurl as string);
+  }, [slugurl]);
 
   if (isLoading) return <Loader />;
 
   if (product === null) {
-    <Navigate to="/store" />;
+    return <Navigate to="/store" />;
   }
 
-  document.title = `${name} | Gamers Stop`;
+  document.title = `${product.name} | Gamers Stop`;
 
   const isItemInCart = cart.some((item) => item.id === product?.id);
   const isOutOfStock = product?.quantity! <= 0 ? true : false;
 
   function handleAddToCart() {
     if (isItemInCart) return navigate("/cart");
-    cartDispatch({ type: "ADD_TO_CART", payload: product as CartItem });
+    cartDispatch({ type: "ADD_TO_CART", payload: {qty:1, ...product} as CartItem });
   }
 
   return (
     <>
       <div className="main product-page">
         <div className="product-page__image-container">
-          <ProductImages images={product?.images} name={name} />
+          <ProductImages images={product?.images!} name={product?.name} />
         </div>
         <div className="product-page__content">
           <header className="product-page__header">
@@ -78,7 +81,7 @@ function SingleProductPage() {
             </div>
             <p className="product-page__desc">{product?.description}</p>
           </header>
-          <QuantityCounter product={product} />
+          <QuantityCounter cartItem={{qty: 0, ...product} as CartItem} />
 
           <div className="product-page__section">
             <div className="product-page__row product-page__row--col">
@@ -88,7 +91,7 @@ function SingleProductPage() {
                     ? "product-page__button product-page__button--out-of-stock"
                     : "product-page__button"
                 }
-                onClick={() => handleAddToCart()}
+                onClick={handleAddToCart}
               >
                 {isOutOfStock ? (
                   "Out of stock"

@@ -1,7 +1,12 @@
 import { useState } from "react";
 import "./productImages.css";
 
-function ProductImages({ images, name }) {
+type ProductImagesProps = {
+  images: string[],
+  name: string
+}
+
+function ProductImages({ images, name } : ProductImagesProps) {
   const [mainImage, setMainImage] = useState(0);
   return (
     <div className="product-images">

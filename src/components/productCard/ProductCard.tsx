@@ -1,12 +1,17 @@
 import "./productCard.css";
 import { Link, useNavigate } from "react-router-dom";
-import { createRouterPath, currencyFormatter } from "../../utils/utils";
-import StarIcon from '@mui/icons-material/Star';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import { currencyFormatter } from "../../utils/utils";
+import StarIcon from "@mui/icons-material/Star";
+import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { useCartState } from "../../context/CartContext";
+import { Product } from "../../utils/types";
 
-function ProductCard({ product }) {
-  const { id, images, name, price, brand, avgrating } = { ...product };
+type ProductCardProps = {
+  product: Product;
+};
+
+function ProductCard({ product }: ProductCardProps) {
+  const { id, images, name, price, brand, avgrating, slugurl } = { ...product };
   const {
     cartState: { cart },
     cartDispatch,
@@ -20,7 +25,7 @@ function ProductCard({ product }) {
     if (isCartItem) return navigate("/cart");
     cartDispatch({
       type: "ADD_TO_CART",
-      payload: product,
+      payload: { qty: 1, ...product },
     });
   }
   return (
@@ -35,11 +40,7 @@ function ProductCard({ product }) {
       </div>
       <div className="product-card__content">
         <h4 className="product-card__name">
-          <Link
-            className="product-card__link"
-            to={`/store/${createRouterPath(name)}`}
-            state={{ productId: id }}
-          >
+          <Link className="product-card__link" to={`/store/${slugurl}`}>
             {name}
           </Link>
         </h4>
@@ -51,7 +52,11 @@ function ProductCard({ product }) {
                 i < avgrating ? (
                   <StarIcon htmlColor="gold" key={i} className="star-icon" />
                 ) : (
-                  <StarOutlineIcon htmlColor="gold" key={i} className="star-icon" />
+                  <StarOutlineIcon
+                    htmlColor="gold"
+                    key={i}
+                    className="star-icon"
+                  />
                 )
               )}
           </div>

@@ -7,7 +7,8 @@ import { currencyFormatter } from "../../utils/utils";
 import { useAuthContext } from "../../context/AuthContext";
 import { createAnOrderService } from "../../services/orders";
 import Loader from "../../components/loader/Loader";
-import { Address, OrderData, RazorpayPaymentResponse } from "../../utils/types";
+import { Address, OrderData, RazorpayPaymentResponse, ServerTimestamp } from "../../utils/types";
+import { serverTimestamp } from "firebase/firestore";
 
 function CheckOutPage() {
   document.title = "Checkout | Gamers Stop";
@@ -31,7 +32,7 @@ function CheckOutPage() {
       shippingAddress: checkoutAddress!,
       paymentStatus: "paid",
       orderStatus: "yet-to-be-shipped",
-      orderedDate: new Date(),
+      orderedDate: serverTimestamp() as ServerTimestamp,
       productsOrdered: [...cart],
       totalAmount: totalPrice,
       totalItemsOrdered: totalItems,
@@ -69,7 +70,7 @@ function CheckOutPage() {
 
   const handlePlaceOrder = () => {
     if (checkoutAddress) {
-      const razorpayInstance = new window.Razorpay(RazorpayOptions);
+      const razorpayInstance = new (window as any).Razorpay(RazorpayOptions);
       razorpayInstance.open();
     }
   };

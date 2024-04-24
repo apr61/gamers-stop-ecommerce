@@ -4,13 +4,18 @@ import { useLocation, Link } from "react-router-dom";
 function BreadCrumbs() {
   const location = useLocation();
   let currentLink = "";
+
   const crumbsUpdated = location.pathname
     .split("/")
     .filter((crumb) => crumb !== "")
     .map((crumb) => {
       currentLink += `/${crumb}`;
       return (
-        <Link key={crumb} className="breadcrumb__link" to={currentLink}>
+        <Link
+          key={crumb}
+          className="breadcrumb__link"
+          to={currentLink}
+        >
           {crumb} <span>&gt;</span>
         </Link>
       );

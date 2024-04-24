@@ -7,8 +7,9 @@ type QuantityCounterProps = {
 };
 
 function QuantityCounter({ cartItem }: QuantityCounterProps) {
-  const { cartDispatch } = useCartState();
-
+  const { cartState, cartDispatch } = useCartState();
+  const existsInCart = cartState.cart.find(cart => cart.id === cartItem.id)
+  
   const quantityDecrementor = () => {
     cartDispatch({
       type: "QUANTITY_DECREMENTOR",
@@ -22,7 +23,7 @@ function QuantityCounter({ cartItem }: QuantityCounterProps) {
       payload: cartItem,
     });
   };
-  return (
+  return existsInCart ? (
     <div className="quantity-counter">
       <button
         className="quantity-counter__button"
@@ -30,7 +31,7 @@ function QuantityCounter({ cartItem }: QuantityCounterProps) {
       >
         -
       </button>
-      <span>{cartItem?.qty ?? 1}</span>
+      <span>{existsInCart.qty}</span>
       <button
         className="quantity-counter__button"
         onClick={quantityIncrementor}
@@ -38,7 +39,7 @@ function QuantityCounter({ cartItem }: QuantityCounterProps) {
         +
       </button>
     </div>
-  );
+  ) : null
 }
 
 export default QuantityCounter;

@@ -47,7 +47,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route element={<MainLayout />}>
           <Route path="/store" element={<ProductsList />} />
-          <Route path="/store/:productName" element={<SingleProductPage />} />
+          <Route path="/store/:slugurl" element={<SingleProductPage />} />
           <Route path="/store/new" element={<AddNewProduct />} />
           <Route element={<RequireAuth />}>
             <Route element={<ContextLayout provider={UserAddressProvider} />}>

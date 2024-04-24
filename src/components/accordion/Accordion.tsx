@@ -4,8 +4,8 @@ import { ReactNode, useState } from "react";
 type AccoridonPropsType = {
   children: ReactNode;
   title: string;
-  modifiedStyles: string;
-  defaultOpen: boolean;
+  modifiedStyles?: string;
+  defaultOpen?: boolean;
 };
 
 function Accoridon({

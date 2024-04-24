@@ -1,12 +1,13 @@
 import "./search.css";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import { useProducts } from "../../context/ProductContext";
 import { useNavigate } from "react-router-dom";
+import { ChangeEvent } from "react";
 
 function Search() {
   const { productsState, productDispatch } = useProducts();
   const navigate = useNavigate();
-  const handleSearchChange = (e) => {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     productDispatch({ type: "SEARCH", payload: value });
     navigate("/store");
@@ -17,7 +18,7 @@ function Search() {
       <input
         type="search"
         className="search-box__input"
-        onChange={(e) => handleSearchChange(e)}
+        onChange={handleSearchChange}
         placeholder="Search"
         value={productsState.search}
       />

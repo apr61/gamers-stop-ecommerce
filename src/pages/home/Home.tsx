@@ -20,7 +20,7 @@ function Home() {
           <h2 className="home__title">Shop By Categories</h2>
           <div className="home__category">
             {categoryData.map((category) => (
-              <CategoryCard key={category.name} category={category} />
+              <CategoryCard key={category.category} category={category} />
             ))}
           </div>
         </section>

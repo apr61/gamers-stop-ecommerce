@@ -93,7 +93,7 @@ function SingleOrderPage() {
           <section className="order-page__sec">
             <h3>Shipping address</h3>
             <div>
-              <AddressCard {...shippingAddress} />
+              <AddressCard address={shippingAddress} />
             </div>
           </section>
           <section className="order-page__sec">

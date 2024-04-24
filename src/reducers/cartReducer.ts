@@ -6,43 +6,45 @@ import {
 
 const cartReducer = (
   state: CartStateType,
-  action: ReducerAction
+  { type, payload }: ReducerAction
 ) => {
-  switch (action.type) {
+  switch (type) {
     case CART_REDUCER_ACTION_TYPES.ADD_TO_CART:
       return {
         ...state,
-        cart: [...state.cart, { ...action.payload, qty: 1 }],
+        cart: [...state.cart, { ...payload }],
       };
     case CART_REDUCER_ACTION_TYPES.REMOVE_FROM_CART:
       return {
         ...state,
-        cart: state.cart.filter((c) => c.id !== action.payload?.id),
+        cart: state.cart.filter((c) => c.id !== payload?.id),
       };
     case CART_REDUCER_ACTION_TYPES.QUANTITY_INCREMENTOR: {
-      const existingItems = state.cart.find((cart) => cart.id === action.payload.id);
-      const filteredItems = state.cart.filter((cart) => cart.id !== action.payload.id);
-      let qty;
-      if (existingItems) {
-        qty =
-          existingItems.qty < existingItems.quantity
-            ? existingItems.qty + 1
-            : existingItems.quantity;
-      }
+      const existingItems = state.cart.filter(
+        (cart) => cart.id === payload.id
+      )[0];
+      const filteredItems = state.cart.filter((cart) => cart.id !== payload.id);
+      const qty =
+        existingItems.qty < existingItems.quantity
+          ? existingItems.qty + 1
+          : existingItems.quantity;
       return {
         ...state,
         cart: [...filteredItems, { ...existingItems, qty: qty }],
       };
     }
     case CART_REDUCER_ACTION_TYPES.QUANTITY_DECREMENTOR: {
-      const existingItems = state.cart.find((cart) => cart.id === action.payload.id);
-      const filteredItems = state.cart.filter((cart) => cart.id !== action.payload.id);
-      let qty;
-      if (existingItems) {
-        qty =
-          existingItems.qty > 1
-            ? existingItems.qty - 1
-            : 1;
+      const existingItems = state.cart.filter(
+        (cart) => cart.id === payload.id
+      )[0];
+      const filteredItems = state.cart.filter((cart) => cart.id !== payload.id);
+      const qty = existingItems.qty >= 1 ? existingItems.qty - 1 : 0;
+      // Handle when qty is zero or remove item
+      if (qty === 0) {
+        return {
+          ...state,
+          cart: [...filteredItems],
+        };
       }
       return {
         ...state,

@@ -1,7 +1,7 @@
 export type Product = {
   id: string;
   name: string;
-  dateAdded: Date;
+  dateAdded: ServerTimestamp;
   category: string;
   avgrating: number;
   description: string;
@@ -13,6 +13,7 @@ export type Product = {
   quantity: number;
   brand: string;
   memory?: string;
+  slugurl: string;
 };
 
 export type AddressData = {
@@ -36,6 +37,7 @@ export type Address = AddressData & AddressId;
 export type Category = {
   id: string;
   category: string;
+  images?: string;
 };
 
 export type OrderData = {
@@ -43,7 +45,7 @@ export type OrderData = {
   discount: number;
   grandTotal: number;
   orderStatus: "yet-to-be-shipped" | "cancelled" | "delivered";
-  orderedDate: Date;
+  orderedDate: ServerTimestamp;
   paymentId: string;
   paymentStatus: "paid" | "not-paid" | "cash-on-delivery";
   totalAmount: number;
@@ -57,26 +59,33 @@ type OrderId = {
   id: string;
 };
 
-export type Order = OrderData & OrderId
+export type Order = OrderData & OrderId;
 
 export type UserData = {
-    name: string,
-    email: string,
-    password: string
-}
+  name: string;
+  email: string;
+  password: string;
+};
 
 type UserId = {
-    id: string
-}
+  id: string;
+};
 
-export type User = UserId & UserData
+export type User = UserId & UserData;
 
 export type CartItem = {
-  qty: number
-} & Product
+  qty: number;
+} & Product;
 
 export type RazorpayPaymentResponse = {
   razorpay_payment_id: string;
   razorpay_order_id: string;
   razorpay_signature: string;
+};
+
+export type ServerTimestamp = {
+  nanoseconds: number;
+  seconds: number;
+  toDate: () => Date;
+  isEqual: (other: ServerTimestamp) => boolean;
 };

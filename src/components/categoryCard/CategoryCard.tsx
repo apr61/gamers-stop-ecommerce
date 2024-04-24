@@ -1,12 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import "./categoryCard.css";
 import { useProducts } from "../../context/ProductContext";
+import { Category } from "../../utils/types";
 
-function CategoryCard({ category }) {
+type CategoryCardProps = {
+  category : Category
+}
+
+function CategoryCard({ category } : CategoryCardProps) {
   const { name, images } = { ...category };
   const navigate = useNavigate();
   const { productDispatch } = useProducts();
-  function handleImageClick(category) {
+  function handleImageClick(category : string) {
     productDispatch({ type: "CATEGORY", payload: category.toLowerCase() });
     navigate("/store");
   }
