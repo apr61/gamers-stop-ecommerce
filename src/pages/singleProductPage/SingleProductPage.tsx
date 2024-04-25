@@ -1,30 +1,24 @@
-import {
-  Navigate,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { currencyFormatter } from "../../utils/utils";
 import "./singleProductPage.css";
 
-import QuantityCounter from "../../components/quantityCounter/QuantityCounter";
+import QuantityCounter from "../../features/cart/quantityCounter/QuantityCounter";
 import Loader from "../../components/loader/Loader";
 import ProductImages from "../../components/productImages/ProductImages";
-import { useCartState } from "../../context/CartContext";
 import { useEffect, useState } from "react";
 import { getProductBySlugService } from "../../services/products";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import StarIcon from "@mui/icons-material/Star";
 import { CartItem, Product } from "../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { addToCart, getAllCartItems } from "../../features/cart/cartSlice";
 
 function SingleProductPage() {
   const { slugurl } = useParams();
   const navigate = useNavigate();
-  // TODO:: Handle page reload
-  const {
-    cartDispatch,
-    cartState: { cart },
-  } = useCartState();
+  const cart = useAppSelector(getAllCartItems);
+  const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -52,13 +46,12 @@ function SingleProductPage() {
   }
 
   document.title = `${product.name} | Gamers Stop`;
-
-  const isItemInCart = cart.some((item) => item.id === product?.id);
+  const isItemInCart = cart.find((item) => item.id === product.id);
   const isOutOfStock = product?.quantity! <= 0 ? true : false;
 
   function handleAddToCart() {
     if (isItemInCart) return navigate("/cart");
-    cartDispatch({ type: "ADD_TO_CART", payload: {qty:1, ...product} as CartItem });
+    dispatch(addToCart({ qty: 1, ...product }));
   }
 
   return (
@@ -81,7 +74,7 @@ function SingleProductPage() {
             </div>
             <p className="product-page__desc">{product?.description}</p>
           </header>
-          <QuantityCounter cartItem={{qty: 0, ...product} as CartItem} />
+          <QuantityCounter cartItem={{ qty: 0, ...product } as CartItem} />
 
           <div className="product-page__section">
             <div className="product-page__row product-page__row--col">

@@ -20,35 +20,29 @@ const cartReducer = (
         cart: state.cart.filter((c) => c.id !== payload?.id),
       };
     case CART_REDUCER_ACTION_TYPES.QUANTITY_INCREMENTOR: {
-      const existingItems = state.cart.filter(
-        (cart) => cart.id === payload.id
-      )[0];
-      const filteredItems = state.cart.filter((cart) => cart.id !== payload.id);
-      const qty =
-        existingItems.qty < existingItems.quantity
-          ? existingItems.qty + 1
-          : existingItems.quantity;
       return {
         ...state,
-        cart: [...filteredItems, { ...existingItems, qty: qty }],
+        cart: state.cart.map((item) =>
+          item.id === payload.id
+            ? {
+                ...item,
+                qty: Math.min(item.qty + 1, item.quantity),
+              }
+            : item
+        ),
       };
     }
     case CART_REDUCER_ACTION_TYPES.QUANTITY_DECREMENTOR: {
-      const existingItems = state.cart.filter(
-        (cart) => cart.id === payload.id
-      )[0];
-      const filteredItems = state.cart.filter((cart) => cart.id !== payload.id);
-      const qty = existingItems.qty >= 1 ? existingItems.qty - 1 : 0;
-      // Handle when qty is zero or remove item
-      if (qty === 0) {
-        return {
-          ...state,
-          cart: [...filteredItems],
-        };
-      }
       return {
         ...state,
-        cart: [...filteredItems, { ...existingItems, qty: qty }],
+        cart: state.cart.map((item) =>
+          item.id === payload.id
+            ? {
+                ...item,
+                qty: Math.max(item.qty - 1, 0),
+              }
+            : item
+        ),
       };
     }
     default:

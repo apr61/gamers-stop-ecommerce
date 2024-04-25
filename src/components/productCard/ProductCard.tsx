@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { currencyFormatter } from "../../utils/utils";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import { useCartState } from "../../context/CartContext";
 import { Product } from "../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { addToCart, getAllCartItems } from "../../features/cart/cartSlice";
 
 type ProductCardProps = {
   product: Product;
@@ -12,10 +13,8 @@ type ProductCardProps = {
 
 function ProductCard({ product }: ProductCardProps) {
   const { id, images, name, price, brand, avgrating, slugurl } = { ...product };
-  const {
-    cartState: { cart },
-    cartDispatch,
-  } = useCartState();
+  const cart = useAppSelector(getAllCartItems);
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
   const isCartItem = cart.some((product) => product.id === id);
@@ -23,10 +22,7 @@ function ProductCard({ product }: ProductCardProps) {
 
   function handleAddToCart() {
     if (isCartItem) return navigate("/cart");
-    cartDispatch({
-      type: "ADD_TO_CART",
-      payload: { qty: 1, ...product },
-    });
+    dispatch(addToCart({ qty: 1, ...product }));
   }
   return (
     <article className="product-card">

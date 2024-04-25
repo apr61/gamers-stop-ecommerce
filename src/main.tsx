@@ -6,19 +6,23 @@ import CartProvider from "./context/CartContext";
 import AuthProvider from "./context/AuthContext";
 import ProductProvider from "./context/ProductContext";
 import ThemeProvider from "./context/ThemeContext";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ThemeProvider>
-        <AuthProvider>
-          <ProductProvider>
-            <CartProvider>
-              <App />
-            </CartProvider>
-          </ProductProvider>
-        </AuthProvider>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider>
+          <AuthProvider>
+            <ProductProvider>
+              <CartProvider>
+                <App />
+              </CartProvider>
+            </ProductProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

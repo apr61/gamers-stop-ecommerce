@@ -32,7 +32,7 @@ const CheckOutPage = lazy(() => import("./pages/checkout/CheckOutPage"));
 const AccountPage = lazy(() => import("./pages/accountPage/AccountPage"));
 const SignUp = lazy(() => import("./components/auth/SignUp"));
 const SignIn = lazy(() => import("./components/auth/SignIn"));
-const Cart = lazy(() => import("./pages/cart/Cart"));
+const Cart = lazy(() => import("./features/cart/cart/Cart"));
 const SingleProductPage = lazy(() =>
   import("./pages/singleProductPage/SingleProductPage")
 );

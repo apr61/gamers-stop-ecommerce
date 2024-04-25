@@ -1,5 +1,5 @@
 .cart {
-  max-width: 65rem;
+  max-width: 70rem;
   margin: 2rem 0;
   margin-inline: auto;
 }
@@ -23,7 +23,7 @@
   border: 1px solid var(--clr-border);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  box-shadow: var(--box-shadow);
+  /* box-shadow: var(--box-shadow); */
 }
 
 .summary__row {

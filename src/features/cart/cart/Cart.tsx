@@ -1,23 +1,26 @@
 import { useNavigate } from "react-router-dom";
-import SingleCartItem from "../../components/cartItem/SingleCartItem";
-import Footer from "../../components/footer/Footer";
-import Navbar from "../../components/navbar/Navbar";
-import BreadCrumbs from "../../components/breadcrumbs/BreadCrumbs";
-import { useCartState } from "../../context/CartContext";
-import { currencyFormatter } from "../../utils/utils";
+import SingleCartItem from "../cartItem/SingleCartItem";
+import Footer from "../../../components/footer/Footer";
+import Navbar from "../../../components/navbar/Navbar";
+import BreadCrumbs from "../../../components/breadcrumbs/BreadCrumbs";
+import { currencyFormatter } from "../../../utils/utils";
 import "./cart.css";
+import { useAppSelector } from "../../../app/hooks";
+import {
+  getAllCartItems,
+  getTotalCost,
+  getTotalItems,
+} from "../cartSlice";
 
 function Cart() {
-  const {
-    cartState: { cart },
-    totalItems,
-    totalPrice,
-    deliveryFee,
-    discount,
-    grandTotal,
-  } = useCartState();
+  const totalItems = useAppSelector(getTotalItems);
+  const totalPrice = useAppSelector(getTotalCost);
+  const cart = useAppSelector(getAllCartItems);
   const navigate = useNavigate();
   document.title = "Cart | Gamers Stop";
+  const deliveryFee = 100;
+  const discount = totalPrice * 0.05;
+  const grandTotal = totalPrice - discount + deliveryFee;
   return (
     <>
       <Navbar />

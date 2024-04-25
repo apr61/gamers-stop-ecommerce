@@ -1,20 +1,21 @@
 import "./navbar.css";
 import Search from "../search/Search";
 import { Link } from "react-router-dom";
-import { useCartState } from "../../context/CartContext";
 import { useAuthContext } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
-import StoreIcon from '@mui/icons-material/Store';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import PersonIcon from '@mui/icons-material/Person';
-import LoginIcon from '@mui/icons-material/Login';
+import StoreIcon from "@mui/icons-material/Store";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import PersonIcon from "@mui/icons-material/Person";
+import LoginIcon from "@mui/icons-material/Login";
+import { useAppSelector } from "../../app/hooks";
+import { getTotalItems } from "../../features/cart/cartSlice";
 
 function Navbar() {
-  const { totalItems } = useCartState();
   const { currentUser } = useAuthContext();
   const { theme, toggleTheme } = useTheme();
+  const totalItems = useAppSelector(getTotalItems);
 
   return (
     <nav className="navbar">
