@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import AddressCard from "../../components/accountAddress/AddressCard";
+import AddressCard from "../../features/address/accountAddress/AddressCard";
 import { getOrderByIdService } from "../../services/orders";
 import {
   createRouterPath,

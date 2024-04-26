@@ -10,35 +10,42 @@ import { Suspense, lazy } from "react";
 import Loader from "./components/loader/Loader";
 
 const Home = lazy(() => import("./pages/home/Home"));
-const SingleOrderPage = lazy(() =>
-  import("./pages/singleOrderPage/SingleOrderPage")
+const SingleOrderPage = lazy(
+  () => import("./pages/singleOrderPage/SingleOrderPage")
 );
-const AddressForm = lazy(() =>
-  import("./components/accountAddress/AddressForm")
+const AddNewAddress = lazy(
+  () => import("./features/address/accountAddress/AddNewAddess")
 );
-const AccountAddress = lazy(() =>
-  import("./components/accountAddress/AccountAddress")
+const EditAddress = lazy(
+  () => import("./features/address/accountAddress/EditAddress")
 );
-const AccountProfile = lazy(() =>
-  import("./components/accountProfile/AccountProfile")
+const AccountAddress = lazy(
+  () => import("./features/address/accountAddress/AccountAddress")
 );
-const AccountOrders = lazy(() =>
-  import("./components/accountOrders/AccountOrders")
+const AccountProfile = lazy(
+  () => import("./components/accountProfile/AccountProfile")
 );
-const OrderSuccessful = lazy(() =>
-  import("./pages/orderSuccessful/OrderSuccessful")
+const AccountOrders = lazy(
+  () => import("./components/accountOrders/AccountOrders")
+);
+const OrderSuccessful = lazy(
+  () => import("./pages/orderSuccessful/OrderSuccessful")
 );
 const CheckOutPage = lazy(() => import("./pages/checkout/CheckOutPage"));
 const AccountPage = lazy(() => import("./pages/accountPage/AccountPage"));
 const SignUp = lazy(() => import("./components/auth/SignUp"));
 const SignIn = lazy(() => import("./components/auth/SignIn"));
 const Cart = lazy(() => import("./features/cart/cart/Cart"));
-const SingleProductPage = lazy(() =>
-  import("./pages/singleProductPage/SingleProductPage")
+const SingleProductPage = lazy(
+  () => import("./pages/singleProductPage/SingleProductPage")
 );
 const ProductsList = lazy(() => import("./pages/productsList/ProductsList"));
-const PageNotFound = lazy(() => import("./pages/pageNotFound/PageNotFound"));
-const AddNewProduct = lazy(() => import('./components/addNewProduct/AddNewProduct'))
+const PageNotFound = lazy(
+  () => import("./components/pageNotFound/PageNotFound")
+);
+const AddNewProduct = lazy(
+  () => import("./components/addNewProduct/AddNewProduct")
+);
 
 function App() {
   return (
@@ -50,17 +57,18 @@ function App() {
           <Route path="/store/:slugurl" element={<SingleProductPage />} />
           <Route path="/store/new" element={<AddNewProduct />} />
           <Route element={<RequireAuth />}>
-            <Route element={<ContextLayout provider={UserAddressProvider} />}>
-              <Route element={<ContextLayout provider={OrdersProvider} />}>
-                <Route path="/account">
-                  <Route index element={<AccountPage />} />
-                  <Route path="profile" element={<AccountProfile />} />
-                  <Route path="addresses" element={<AccountAddress />} />
-                  <Route path="addresses/new" element={<AddressForm />} />
-                  <Route path="addresses/edit" element={<AddressForm />} />
-                  <Route path="orders" element={<AccountOrders />} />
-                  <Route path="orders/:orderId" element={<SingleOrderPage />} />
-                </Route>
+            <Route element={<ContextLayout provider={OrdersProvider} />}>
+              <Route path="/account">
+                <Route index element={<AccountPage />} />
+                <Route path="profile" element={<AccountProfile />} />
+                <Route path="addresses" element={<AccountAddress />} />
+                <Route path="addresses/new" element={<AddNewAddress />} />
+                <Route
+                  path="addresses/edit/:addressId"
+                  element={<EditAddress />}
+                />
+                <Route path="orders" element={<AccountOrders />} />
+                <Route path="orders/:orderId" element={<SingleOrderPage />} />
               </Route>
             </Route>
           </Route>

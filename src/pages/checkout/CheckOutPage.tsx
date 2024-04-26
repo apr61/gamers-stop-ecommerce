@@ -1,33 +1,49 @@
 import { useEffect, useState } from "react";
 import "./checkout.css";
-import { useAddressContext } from "../../context/AddressContext";
 import { Link, useNavigate } from "react-router-dom";
-import { useCartState } from "../../context/CartContext";
 import { currencyFormatter } from "../../utils/utils";
 import { useAuthContext } from "../../context/AuthContext";
 import { createAnOrderService } from "../../services/orders";
 import Loader from "../../components/loader/Loader";
-import { Address, OrderData, RazorpayPaymentResponse, ServerTimestamp } from "../../utils/types";
+import {
+  Address,
+  OrderData,
+  RazorpayPaymentResponse,
+  ServerTimestamp,
+} from "../../utils/types";
 import { serverTimestamp } from "firebase/firestore";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import {
+  getAllCartItems,
+  getTotalCost,
+  getTotalItems,
+} from "../../features/cart/cartSlice";
+import {
+  fetchAddressByUser,
+  selectAddressStatus,
+  selectAddresses,
+} from "../../features/address/addressSlice";
 
 function CheckOutPage() {
   document.title = "Checkout | Gamers Stop";
-  const { isLoading, addresses } = useAddressContext();
   const [checkoutAddress, setCheckoutAddress] = useState<Address | null>(null);
-  const {
-    cartState: { cart },
-    totalPrice,
-    totalItems,
-    discount,
-    grandTotal,
-    deliveryFee,
-  } = useCartState();
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const cart = useAppSelector(getAllCartItems);
+  const totalPrice = useAppSelector(getTotalCost);
+  const totalItems = useAppSelector(getTotalItems);
+  const isLoading = useAppSelector(selectAddressStatus);
+  const addresses = useAppSelector(selectAddresses);
+
+  const deliveryFee = 100;
+  const discount = totalPrice * 0.05;
+  const grandTotal = totalPrice - discount + deliveryFee;
   const canPlaceOrder = checkoutAddress != null;
 
   const handlePaymentSuccess = async (response: RazorpayPaymentResponse) => {
-    const newOrder : OrderData = {
+    const newOrder: OrderData = {
       paymentId: response.razorpay_payment_id as string,
       shippingAddress: checkoutAddress!,
       paymentStatus: "paid",
@@ -53,8 +69,10 @@ function CheckOutPage() {
     currency: "INR",
     name: "Gamers Stop",
     description: "Thank you for shopping with us.",
-    image: "https://firebasestorage.googleapis.com/v0/b/gamers-stop-ecom-dev.appspot.com/o/favicon.ico?alt=media&token=26721467-df11-408f-bb40-31670d555e36",
-    handler: (response : RazorpayPaymentResponse) => handlePaymentSuccess(response),
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/gamers-stop-ecom-dev.appspot.com/o/favicon.ico?alt=media&token=26721467-df11-408f-bb40-31670d555e36",
+    handler: (response: RazorpayPaymentResponse) =>
+      handlePaymentSuccess(response),
     prefill: {
       name: currentUser?.displayName,
       email: currentUser?.email,
@@ -76,9 +94,10 @@ function CheckOutPage() {
   };
 
   useEffect(() => {
-    if (isLoading) return;
+    dispatch(fetchAddressByUser(currentUser?.uid as string));
+    if (isLoading === "loading") return;
     setCheckoutAddress(addresses[0]);
-  }, [addresses]);
+  }, [currentUser?.uid, dispatch]);
 
   return (
     <>
@@ -87,7 +106,7 @@ function CheckOutPage() {
         <div className="checkout__body">
           <section className="checkout__address">
             <h3 className="checkout__title">Select Address</h3>
-            {isLoading ? (
+            {isLoading === "loading" ? (
               <Loader />
             ) : (
               <div className="checkout__address-container">
@@ -183,7 +202,7 @@ function CheckOutPage() {
               <h2 className="checkout__title checkout__title--md">
                 Deliver To
               </h2>
-              {isLoading ? (
+              {isLoading === "loading" ? (
                 <Loader />
               ) : !canPlaceOrder ? (
                 <div className="checkout__selected-address">

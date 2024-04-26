@@ -2,6 +2,7 @@
   max-width: 70rem;
   margin: 2rem 0;
   margin-inline: auto;
+  width: 100%;
 }
 
 .cart__container {

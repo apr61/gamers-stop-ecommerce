@@ -1,18 +1,32 @@
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
-import { useAddressContext } from "../../context/AddressContext";
-import { deleteAddressById } from "../../services/address";
-import Loader from '../loader/Loader'
+import Loader from "../../../components/loader/Loader";
 import AddressCard from "./AddressCard";
 import "./style.css";
+import { useEffect } from "react";
+import { useAuthContext } from "../../../context/AuthContext";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {
+  fetchAddressByUser,
+  removeAddressThunk,
+  selectAddressStatus,
+  selectAddresses,
+} from "../addressSlice";
 
 function AccountAddress() {
   document.title = "User Addresses | Gamers stop";
-  const { isLoading, addresses, deleteLocalAddress } = useAddressContext();
+  const { currentUser } = useAuthContext();
+  const isLoading = useAppSelector(selectAddressStatus);
+  const addresses = useAppSelector(selectAddresses);
+  const dispatch = useAppDispatch();
 
-  function handleAddressDel(id : string) {
-    deleteAddressById(id).then(() => deleteLocalAddress(id));
-  }
+  const handleAddressDel = (id: string) => {
+    dispatch(removeAddressThunk(id));
+  };
+
+  useEffect(() => {
+    dispatch(fetchAddressByUser(currentUser?.uid!));
+  }, [currentUser?.uid, dispatch]);
 
   return (
     <section className="address main">
@@ -22,7 +36,7 @@ function AccountAddress() {
           <AddIcon />
           Add Address
         </Link>
-        {isLoading ? (
+        {isLoading === "loading" ? (
           <Loader />
         ) : (
           addresses.map((address) => (
@@ -32,7 +46,7 @@ function AccountAddress() {
               </div>
 
               <div className="address__card-options">
-                <Link to="edit" className="address__link" state={address}>
+                <Link to={`edit/${address.id}`} className="address__link">
                   Edit
                 </Link>{" "}
                 |{" "}

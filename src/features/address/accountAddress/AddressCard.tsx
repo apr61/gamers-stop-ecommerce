@@ -1,4 +1,4 @@
-import { Address } from "../../utils/types";
+import { Address } from "../../../utils/types";
 import "./style.css";
 
 type AddressCardProps = {
