@@ -1,25 +1,27 @@
 import { FormEvent, useRef, useState } from "react";
-import { useAuthContext } from "../../context/AuthContext";
 import "./accountProfile.css";
 import Input from "../inputFields/Input";
 import { updateUserProfile } from "../../services/auth";
 import { User } from "../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectCurrentUser, setUser } from "../../features/auth/authSlice";
 
 function AccountProfilePage() {
-  const { currentUser, setCurrentUser } = useAuthContext();
+  const currentUser = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const nameRef = useRef(null);
 
-  const handleUpdateUserProfile = async (e : FormEvent<HTMLFormElement>) => {
+  const handleUpdateUserProfile = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const userFullname = nameRef.current?.['value']
-    const updatedUser : Partial<User> = {
-      name: userFullname
+    const userFullname = nameRef.current?.["value"];
+    const updatedUser: Partial<User> = {
+      name: userFullname,
     };
     await updateUserProfile(updatedUser);
-    setCurrentUser({...currentUser!, ...updatedUser})
+    dispatch(setUser({ ...currentUser!, ...updatedUser }));
     setIsEditing(false);
-  }
+  };
 
   return (
     <section className="profile main">

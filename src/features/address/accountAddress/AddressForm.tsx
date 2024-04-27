@@ -10,7 +10,7 @@ import {
   updateAddressThunk,
 } from "../addressSlice";
 import { Address, AddressData } from "../../../utils/types";
-import { useAuthContext } from "../../../context/AuthContext";
+import { selectCurrentUser } from "../../auth/authSlice";
 
 type RefType = RefObject<HTMLInputElement>;
 
@@ -22,7 +22,7 @@ type AddressFormProps = {
 function AddressForm({ edit = false, address }: AddressFormProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { currentUser } = useAuthContext();
+  const currentUser = useAppSelector(selectCurrentUser);
 
   const isLoading = useAppSelector(selectAddressStatus);
   const error = useAppSelector(selectAddressError);

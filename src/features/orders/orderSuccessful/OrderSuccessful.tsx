@@ -1,14 +1,38 @@
-import React from "react";
-import Navbar from "../../components/navbar/Navbar";
+import { useEffect, useState } from "react";
+import Navbar from "../../../components/navbar/Navbar";
+import { getOrderByIdService } from "../../../services/orders";
 import "./orderSuccessful.css";
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
+import { Order } from "../../../utils/types";
+import Loader from "../../../components/loader/Loader";
 
 function OrderSuccessful() {
-  const location = useLocation();
-  const {
-    order: { shippingAddress, productsOrdered },
-  } = location?.state;
+  const { orderId } = useParams();
+  const [order, setOrder] = useState<Order | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  
+  const getOrderById = async (orderId: string) => {
+    try {
+      const data = await getOrderByIdService(orderId);
+      setOrder(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getOrderById(orderId as string);
+  }, [orderId]);
+
+  if (isLoading) return <Loader />;
+
+  if(order === null){
+    return <Navigate to="/account/orders" />
+  }
+  const {shippingAddress, productsOrdered} = order
   return (
     <>
       <Navbar />
@@ -25,10 +49,10 @@ function OrderSuccessful() {
           </p>
           <p className="ordersuccess__address">
             <span className="ordersuccess__name">
-              Shipping to {shippingAddress.fullName},
+              Shipping to {shippingAddress.fullname},
             </span>
             {shippingAddress?.flat}, {shippingAddress?.area},{" "}
-            {shippingAddress?.town.toUpperCase()},{" "}
+            {shippingAddress?.city.toUpperCase()},{" "}
             {shippingAddress?.state.toUpperCase()},{shippingAddress?.pincode},
             India, Phone Number: {shippingAddress?.phoneNumber}
           </p>

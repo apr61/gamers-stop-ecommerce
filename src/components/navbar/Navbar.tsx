@@ -1,7 +1,6 @@
 import "./navbar.css";
 import Search from "../search/Search";
 import { Link } from "react-router-dom";
-import { useAuthContext } from "../../context/AuthContext";
 import StoreIcon from "@mui/icons-material/Store";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -11,22 +10,13 @@ import LoginIcon from "@mui/icons-material/Login";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getTotalItems } from "../../features/cart/cartSlice";
 import { getTheme, toggleTheme } from "../../features/theme/themeSlice";
-import { useEffect } from "react";
+import { selectCurrentUser } from "../../features/auth/authSlice";
 
 function Navbar() {
-  const { currentUser } = useAuthContext();
+  const currentUser = useAppSelector(selectCurrentUser);
   const theme = useAppSelector(getTheme);
   const dispatch = useAppDispatch();
   const totalItems = useAppSelector(getTotalItems);
-
-  // Saving theme state in local storage
-  useEffect(() => {
-    theme === "dark"
-      ? document.body.classList.add("dark")
-      : document.body.classList.remove("dark");
-    localStorage.setItem("gamers-stop-theme", theme);
-  }, [dispatch, theme]);
-
   return (
     <nav className="navbar">
       <Link to="/" className="navbar__link navbar__link--logo">

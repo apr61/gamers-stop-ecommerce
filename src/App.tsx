@@ -6,12 +6,18 @@ import MainLayout from "./routeLayouts/MainLayout";
 import UserAddressProvider from "./context/AddressContext";
 import OrdersProvider from "./context/OrderContext";
 import ContextLayout from "./routeLayouts/ContextLayout";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import Loader from "./components/loader/Loader";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { getTheme } from "./features/theme/themeSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./FirebaseConfig";
+import { setStatus, setUser } from "./features/auth/authSlice";
+import { selectCart } from "./features/cart/cartSlice";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const SingleOrderPage = lazy(
-  () => import("./pages/singleOrderPage/SingleOrderPage")
+  () => import("./features/orders/singleOrderPage/SingleOrderPage")
 );
 const AddNewAddress = lazy(
   () => import("./features/address/accountAddress/AddNewAddess")
@@ -26,10 +32,10 @@ const AccountProfile = lazy(
   () => import("./components/accountProfile/AccountProfile")
 );
 const AccountOrders = lazy(
-  () => import("./components/accountOrders/AccountOrders")
+  () => import("./features/orders/accountOrders/AccountOrders")
 );
 const OrderSuccessful = lazy(
-  () => import("./pages/orderSuccessful/OrderSuccessful")
+  () => import("./features/orders/orderSuccessful/OrderSuccessful")
 );
 const CheckOutPage = lazy(() => import("./pages/checkout/CheckOutPage"));
 const AccountPage = lazy(() => import("./pages/accountPage/AccountPage"));
@@ -48,6 +54,30 @@ const AddNewProduct = lazy(
 );
 
 function App() {
+  const theme = useAppSelector(getTheme);
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector(selectCart);
+  
+  useEffect(() => {
+    theme === "dark"
+      ? document.body.classList.add("dark")
+      : document.body.classList.remove("dark");
+    localStorage.setItem("gamers-stop-theme", theme);
+    localStorage.setItem("gamers-stop-cart", JSON.stringify(cart));
+  }, [dispatch, theme, cart]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(setUser(user));
+      } else {
+        dispatch(setUser(null));
+      }
+      dispatch(setStatus({ status: "success" }));
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <Suspense fallback={<Loader />}>
       <Routes>

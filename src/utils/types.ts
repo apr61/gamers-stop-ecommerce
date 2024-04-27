@@ -45,7 +45,7 @@ export type OrderData = {
   discount: number;
   grandTotal: number;
   orderStatus: "yet-to-be-shipped" | "cancelled" | "delivered";
-  orderedDate: ServerTimestamp;
+  orderedDate: string;
   paymentId: string;
   paymentStatus: "paid" | "not-paid" | "cash-on-delivery";
   totalAmount: number;

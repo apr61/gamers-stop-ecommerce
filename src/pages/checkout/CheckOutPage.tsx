@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import "./checkout.css";
 import { Link, useNavigate } from "react-router-dom";
 import { currencyFormatter } from "../../utils/utils";
-import { useAuthContext } from "../../context/AuthContext";
 import { createAnOrderService } from "../../services/orders";
 import Loader from "../../components/loader/Loader";
 import {
   Address,
   OrderData,
   RazorpayPaymentResponse,
-  ServerTimestamp,
 } from "../../utils/types";
-import { serverTimestamp } from "firebase/firestore";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   getAllCartItems,
@@ -23,11 +20,12 @@ import {
   selectAddressStatus,
   selectAddresses,
 } from "../../features/address/addressSlice";
+import { selectCurrentUser } from "../../features/auth/authSlice";
 
 function CheckOutPage() {
   document.title = "Checkout | Gamers Stop";
   const [checkoutAddress, setCheckoutAddress] = useState<Address | null>(null);
-  const { currentUser } = useAuthContext();
+  const currentUser = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -48,7 +46,7 @@ function CheckOutPage() {
       shippingAddress: checkoutAddress!,
       paymentStatus: "paid",
       orderStatus: "yet-to-be-shipped",
-      orderedDate: serverTimestamp() as ServerTimestamp,
+      orderedDate: new Date().toString(),
       productsOrdered: [...cart],
       totalAmount: totalPrice,
       totalItemsOrdered: totalItems,

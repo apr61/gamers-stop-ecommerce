@@ -4,7 +4,6 @@ import Loader from "../../../components/loader/Loader";
 import AddressCard from "./AddressCard";
 import "./style.css";
 import { useEffect } from "react";
-import { useAuthContext } from "../../../context/AuthContext";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   fetchAddressByUser,
@@ -12,10 +11,11 @@ import {
   selectAddressStatus,
   selectAddresses,
 } from "../addressSlice";
+import { selectCurrentUser } from "../../auth/authSlice";
 
 function AccountAddress() {
   document.title = "User Addresses | Gamers stop";
-  const { currentUser } = useAuthContext();
+  const currentUser = useAppSelector(selectCurrentUser);
   const isLoading = useAppSelector(selectAddressStatus);
   const addresses = useAppSelector(selectAddresses);
   const dispatch = useAppDispatch();

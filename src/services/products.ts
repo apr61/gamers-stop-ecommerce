@@ -7,11 +7,10 @@ export const getProducts = async (): Promise<Product[]> => {
   let productsArray: Product[] = [];
   const querySnapshot = await getDocs(collection(db, "products"));
   querySnapshot.forEach((doc) => {
-    console.log();
     productsArray.push({
       ...doc.data(),
       id: doc.id,
-      dateadded: dateFormatter(new Date(doc.data().dateadded.seconds * 1000)),
+      dateadded: dateFormatter(new Date(doc.data().dateadded)),
     } as Product);
   });
   return productsArray;

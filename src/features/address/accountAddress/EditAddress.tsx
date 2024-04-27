@@ -4,12 +4,13 @@ import { Address } from "../../../utils/types";
 import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import Loader from "../../../components/loader/Loader";
-import { useAuthContext } from "../../../context/AuthContext";
 import { getAddressForCurrentUserById } from "../../../services/address";
+import { selectCurrentUser } from "../../auth/authSlice";
+import { useAppSelector } from "../../../app/hooks";
 
 function EditAddress() {
   document.title = `Edit Address | Gamers stop`;
-  const { currentUser } = useAuthContext();
+  const currentUser = useAppSelector(selectCurrentUser);
   const { addressId } = useParams();
   const [loading, setLoading] = useState(true);
   const [address, setAddress] = useState<Address | null>(null);

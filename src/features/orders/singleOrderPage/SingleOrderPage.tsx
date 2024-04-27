@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import AddressCard from "../../features/address/accountAddress/AddressCard";
-import { getOrderByIdService } from "../../services/orders";
+import AddressCard from "../../address/accountAddress/AddressCard";
+import { getOrderByIdService } from "../../../services/orders";
 import {
-  createRouterPath,
   currencyFormatter,
-  dateFormatter,
-  firebaseTimestapFormatter,
-} from "../../utils/utils";
+} from "../../../utils/utils";
 import "./singleOrderPage.css";
-import Loader from "../../components/loader/Loader";
-import { Order } from "../../utils/types";
+import Loader from "../../../components/loader/Loader";
+import { Order } from "../../../utils/types";
 
 function SingleOrderPage() {
   const { orderId } = useParams();
@@ -56,7 +53,7 @@ function SingleOrderPage() {
         <h2 className="order-page__title">Order # {id}</h2>
         <p>
           Placed date{" "}
-          {dateFormatter(firebaseTimestapFormatter(orderedDate?.seconds))}
+          {orderedDate}
         </p>
       </header>
       <p className="order-page__status">Status : {orderStatus}</p>
@@ -75,7 +72,7 @@ function SingleOrderPage() {
               />
               <div className="orders__product-content">
                 <Link
-                  to={`/${createRouterPath(product.name)}`}
+                  to={`/${product.slugurl}`}
                   className="orders__link"
                   state={{ productId: product.id }}
                 >

@@ -7,7 +7,8 @@ type CartState = {
 };
 
 const initialState: CartState = {
-  cart: [],
+  cart:
+    JSON.parse(localStorage.getItem("gamers-stop-cart") as string) || [],
 };
 
 export const cartSlice = createSlice({
@@ -75,5 +76,7 @@ export const getCartItemById = (id: string) =>
   );
 export const { addToCart, removeFromCart, increment, decrement } =
   cartSlice.actions;
+
+export const selectCart = (state: RootState) => state.cart.cart;
 
 export default cartSlice.reducer;

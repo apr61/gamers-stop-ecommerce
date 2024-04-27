@@ -1,20 +1,32 @@
 import { Link } from "react-router-dom";
-import { useOrderContext } from "../../context/OrderContext";
 import {
-  createRouterPath,
   currencyFormatter,
-  dateFormatter,
-  firebaseTimestapFormatter,
-} from "../../utils/utils";
+} from "../../../utils/utils";
 import "./accountOrders.css";
-import Loader from "../loader/Loader";
+import Loader from "../../../components/loader/Loader";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { selectCurrentUser } from "../../auth/authSlice";
+import {
+  fetchOrdersByUserThunk,
+  selectFilteredOrders,
+  selectOrderCurrentOption,
+  selectOrderStatus,
+  selectOrders,
+  setCurrentOption,
+} from "../orderSlice";
 
 function AccountOrders() {
-  const {
-    ordersState: { orders, isLoading, currentOption },
-    handleOrderOptions,
-    filteredOrders,
-  } = useOrderContext();
+  const currentUser = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
+  const orders = useAppSelector(selectOrders);
+  const filteredOrders = useAppSelector(selectFilteredOrders);
+  const isLoading = useAppSelector(selectOrderStatus);
+  const currentOption = useAppSelector(selectOrderCurrentOption);
+
+  useEffect(() => {
+    dispatch(fetchOrdersByUserThunk(currentUser?.uid as string));
+  }, [currentUser?.uid]);
 
   return (
     <div className="orders main">
@@ -22,7 +34,7 @@ function AccountOrders() {
         <h2 className="orders__title">My Orders</h2>
         <div>
           <select
-            onChange={(e) => handleOrderOptions(e)}
+            onChange={(e) => dispatch(setCurrentOption(e.target.value))}
             className="input_select"
             value={currentOption}
           >
@@ -46,7 +58,7 @@ function AccountOrders() {
       </p>
       <div className="orders__container">
         <ul className="orders__list">
-          {isLoading ? (
+          {isLoading === "loading" ? (
             <Loader />
           ) : filteredOrders.length === 0 ? (
             <p className="orders__empty">No Orders are available...</p>
@@ -64,11 +76,7 @@ function AccountOrders() {
                   </div>
                   <div className="orders__header-item">
                     <p className="orders__desc">Placed date</p>
-                    <p className="orders__desc">
-                      {dateFormatter(
-                        firebaseTimestapFormatter(order.orderedDate?.seconds)
-                      )}
-                    </p>
+                    <p className="orders__desc">{order.orderedDate}</p>
                   </div>
                   <div className="orders__header-item">
                     <p className="orders__desc">Total</p>
@@ -96,9 +104,8 @@ function AccountOrders() {
                         />
                         <div className="orders__product-content">
                           <Link
-                            to={`/store/${createRouterPath(product.name)}`}
+                            to={`/store/${product.slugurl}`}
                             className="orders__link"
-                            state={{ productId: product.id }}
                           >
                             {product.name}
                           </Link>
