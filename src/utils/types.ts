@@ -1,3 +1,5 @@
+import { ProductAvailabilityType } from "../features/products/productSlice";
+
 export type Product = {
   id: string;
   name: string;
@@ -88,4 +90,12 @@ export type ServerTimestamp = {
   seconds: number;
   toDate: () => Date;
   isEqual: (other: ServerTimestamp) => boolean;
+};
+
+export type FilterArgsType = {
+  categoryIn: string | undefined;
+  search: string | null;
+  brands: string[];
+  rating: number;
+  availability: ProductAvailabilityType;
 };

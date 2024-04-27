@@ -4,7 +4,7 @@ import "./singleProductPage.css";
 
 import QuantityCounter from "../../features/cart/quantityCounter/QuantityCounter";
 import Loader from "../../components/loader/Loader";
-import ProductImages from "../../components/productImages/ProductImages";
+import ProductImages from "../../features/products/productImages/ProductImages";
 import { useEffect, useState } from "react";
 import { getProductBySlugService } from "../../services/products";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";

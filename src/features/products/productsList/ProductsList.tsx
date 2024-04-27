@@ -1,20 +1,26 @@
 import "./productsList.css";
-import ProductCard from "../../components/productCard/ProductCard";
-import Filter from "../../components/filter/Filter";
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { useProducts } from "../../context/ProductContext";
-import Loader from "../../components/loader/Loader";
+import ProductCard from "../productCard/ProductCard";
+import Filter from "../filter/Filter";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import Loader from "../../../components/loader/Loader";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {
+  clearFilter,
+  getFilteredProducts,
+  selectIsFilterOpen,
+  selectProductStatus,
+  selectProducts,
+  toggleFilter,
+} from "../productSlice";
 
 function ProductsList() {
   document.title = "Store | Gamers Stop";
-  const {
-    productsState: { products, allCategories },
-    isLoading,
-    isFilterOpen,
-    filteredProducts,
-    productDispatch,
-    toggleFilter,
-  } = useProducts();
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(selectProducts);
+  const isLoading = useAppSelector(selectProductStatus);
+  const isFilterOpen = useAppSelector(selectIsFilterOpen);
+  const totalProductsCount = products.length;
+  const filteredProducts = useAppSelector(getFilteredProducts);
 
   return (
     <>
@@ -30,12 +36,7 @@ function ProductsList() {
             <h3 className="category-products__title">Filters</h3>
             <button
               className="category-products__clear-btn"
-              onClick={() =>
-                productDispatch({
-                  type: "CLEAR_ALL_FILTERS",
-                  payload: { products, allCategories },
-                })
-              }
+              onClick={() => dispatch(clearFilter())}
             >
               Clear
             </button>
@@ -43,27 +44,24 @@ function ProductsList() {
           <Filter />
         </section>
         <section className="category-products__container">
-          {isLoading ? (
+          {isLoading === "loading" ? (
             <Loader />
           ) : filteredProducts.length > 0 ? (
             <>
               <header className="category-products__header">
                 <p className="categorty-products__items-found">
-                  Showing {filteredProducts.length} of {products.length}
+                  Showing {filteredProducts.length} of {totalProductsCount}
                 </p>
                 <button
                   className="category-products__filter-btn"
-                  onClick={() => toggleFilter()}
+                  onClick={() => dispatch(toggleFilter())}
                 >
                   <FilterListIcon />
                 </button>
               </header>
               <div className="category-products__list">
                 {filteredProducts?.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                  />
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             </>

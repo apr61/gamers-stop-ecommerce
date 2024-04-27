@@ -1,11 +1,11 @@
 import "./productCard.css";
 import { Link, useNavigate } from "react-router-dom";
-import { currencyFormatter } from "../../utils/utils";
+import { currencyFormatter } from "../../../utils/utils";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import { Product } from "../../utils/types";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { addToCart, getAllCartItems } from "../../features/cart/cartSlice";
+import { Product } from "../../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { addToCart, getAllCartItems } from "../../cart/cartSlice";
 
 type ProductCardProps = {
   product: Product;

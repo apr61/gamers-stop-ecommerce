@@ -1,54 +1,68 @@
 import "./filter.css";
-import Accoridon from "../accordion/Accordion";
-import StarIcon from '@mui/icons-material/Star';
-import CloseIcon from '@mui/icons-material/Close';
-import { useProducts } from "../../context/ProductContext";
+import Accoridon from "../../../components/accordion/Accordion";
+import StarIcon from "@mui/icons-material/Star";
+import CloseIcon from "@mui/icons-material/Close";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {
+  ProductAvailabilityType,
+  ProductSortType,
+  fetchProductsThunk,
+  productAvailability,
+  productBrands,
+  productCategoryIn,
+  productRating,
+  productSort,
+  selectCategories,
+  selectProductAvailability,
+  selectProductCategory,
+  selectProductRating,
+  selectProductSort,
+  selectProducts,
+  selectProductsBrands,
+  toggleFilter,
+} from "../productSlice";
+import { useEffect } from "react";
 
 function Filter() {
-  const {
-    productsState: {
-      allCategories,
-      sort,
-      rating,
-      brands,
-      categoryIn,
-      availability,
-      products,
-    },
-    productDispatch,
-    toggleFilter,
-  } = useProducts();
-  
+  const dispatch = useAppDispatch();
+
+  const allCategories = useAppSelector(selectCategories);
+  const sort = useAppSelector(selectProductSort);
+  const rating = useAppSelector(selectProductRating);
+  const brands = useAppSelector(selectProductsBrands);
+  const categoryIn = useAppSelector(selectProductCategory);
+  const availability = useAppSelector(selectProductAvailability);
+  const products = useAppSelector(selectProducts);
+
   const allUniqueBrands = [
     ...new Set(products.map((product) => product.brand)),
   ];
+
+  useEffect(() => {
+    dispatch(fetchProductsThunk());
+  }, []);
 
   return (
     <section className="filter-section">
       <button
         className="filter-section__close-btn"
-        onClick={() => toggleFilter()}
+        onClick={() => dispatch(toggleFilter())}
       >
         <CloseIcon />
       </button>
       <Accoridon title="Categories">
-        {allCategories.map(({ id, category }) => (
-          <div className="filter__input" key={id}>
+        {allCategories.map((category) => (
+          <div className="filter__input" key={category.id}>
             <input
               type="radio"
-              id={id}
+              id={category.id}
               name="categories"
-              value={category}
-              checked={categoryIn === category}
-              onChange={(e) =>
-                productDispatch({
-                  type: "CATEGORY",
-                  payload: e.target.value.toLowerCase(),
-                })
-              }
+              value={category.category}
+              checked={categoryIn?.id === category.id}
+              onChange={() => dispatch(productCategoryIn(category))}
             />
-            <label htmlFor={id} className="filter__input-label">
-              {category}
+            <label htmlFor={category.id} className="filter__input-label">
+              {category.category}
             </label>
           </div>
         ))}
@@ -62,9 +76,7 @@ function Filter() {
               name={brand}
               value={brand}
               checked={brands.includes(brand)}
-              onChange={(e) =>
-                productDispatch({ type: "BRANDS", payload: e.target.value })
-              }
+              onChange={(e) => dispatch(productBrands(e.target.value))}
             />
             <label htmlFor={brand} className="filter__input-label">
               {brand}
@@ -92,9 +104,7 @@ function Filter() {
             step="1"
             list="values"
             value={rating}
-            onChange={(e) =>
-              productDispatch({ type: "RATING", payload: e.target.value })
-            }
+            onChange={(e) => dispatch(productRating(+e.target.value))}
           />
           <datalist className="filter__datalist" id="values">
             <option value="1" label="1"></option>
@@ -113,7 +123,9 @@ function Filter() {
             value={availability === "inStock" ? "outOfStock" : "inStock"}
             checked={availability === "outOfStock"}
             onChange={(e) =>
-              productDispatch({ type: "AVAILABILITY", payload: e.target.value })
+              dispatch(
+                productAvailability(e.target.value as ProductAvailabilityType)
+              )
             }
           />
           <label htmlFor="out_of_stock" className="filter__input-label">
@@ -130,7 +142,7 @@ function Filter() {
             value="price_low_to_high"
             checked={sort === "price_low_to_high"}
             onChange={(e) =>
-              productDispatch({ type: "SORT", payload: e.target.value })
+              dispatch(productSort(e.target.value as ProductSortType))
             }
           />
           <label htmlFor="price_low_to_high" className="filter__input-label">
@@ -145,7 +157,7 @@ function Filter() {
             value="price_high_to_low"
             checked={sort === "price_high_to_low"}
             onChange={(e) =>
-              productDispatch({ type: "SORT", payload: e.target.value })
+              dispatch(productSort(e.target.value as ProductSortType))
             }
           />
           <label htmlFor="price_high_to_low" className="filter__input-label">

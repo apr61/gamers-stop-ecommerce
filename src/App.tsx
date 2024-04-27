@@ -3,9 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import "./index.css";
 import RequireAuth from "./routeLayouts/RequireAuth";
 import MainLayout from "./routeLayouts/MainLayout";
-import UserAddressProvider from "./context/AddressContext";
-import OrdersProvider from "./context/OrderContext";
-import ContextLayout from "./routeLayouts/ContextLayout";
 import { Suspense, lazy, useEffect } from "react";
 import Loader from "./components/loader/Loader";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
@@ -45,7 +42,7 @@ const Cart = lazy(() => import("./features/cart/cart/Cart"));
 const SingleProductPage = lazy(
   () => import("./pages/singleProductPage/SingleProductPage")
 );
-const ProductsList = lazy(() => import("./pages/productsList/ProductsList"));
+const ProductsList = lazy(() => import("./features/products/productsList/ProductsList"));
 const PageNotFound = lazy(
   () => import("./components/pageNotFound/PageNotFound")
 );
@@ -57,7 +54,7 @@ function App() {
   const theme = useAppSelector(getTheme);
   const dispatch = useAppDispatch();
   const cart = useAppSelector(selectCart);
-  
+
   useEffect(() => {
     theme === "dark"
       ? document.body.classList.add("dark")
@@ -87,26 +84,22 @@ function App() {
           <Route path="/store/:slugurl" element={<SingleProductPage />} />
           <Route path="/store/new" element={<AddNewProduct />} />
           <Route element={<RequireAuth />}>
-            <Route element={<ContextLayout provider={OrdersProvider} />}>
-              <Route path="/account">
-                <Route index element={<AccountPage />} />
-                <Route path="profile" element={<AccountProfile />} />
-                <Route path="addresses" element={<AccountAddress />} />
-                <Route path="addresses/new" element={<AddNewAddress />} />
-                <Route
-                  path="addresses/edit/:addressId"
-                  element={<EditAddress />}
-                />
-                <Route path="orders" element={<AccountOrders />} />
-                <Route path="orders/:orderId" element={<SingleOrderPage />} />
-              </Route>
+            <Route path="/account">
+              <Route index element={<AccountPage />} />
+              <Route path="profile" element={<AccountProfile />} />
+              <Route path="addresses" element={<AccountAddress />} />
+              <Route path="addresses/new" element={<AddNewAddress />} />
+              <Route
+                path="addresses/edit/:addressId"
+                element={<EditAddress />}
+              />
+              <Route path="orders" element={<AccountOrders />} />
+              <Route path="orders/:orderId" element={<SingleOrderPage />} />
             </Route>
           </Route>
         </Route>
         <Route element={<RequireAuth />}>
-          <Route element={<ContextLayout provider={UserAddressProvider} />}>
-            <Route path="/checkout" element={<CheckOutPage />} />
-          </Route>
+          <Route path="/checkout" element={<CheckOutPage />} />
           <Route path="/order-successful/:id" element={<OrderSuccessful />} />
         </Route>
         <Route path="/cart" element={<Cart />} />

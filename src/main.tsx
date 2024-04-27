@@ -6,6 +6,9 @@ import AuthProvider from "./context/AuthContext";
 import ProductProvider from "./context/ProductContext";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { fetchCategory } from "./features/products/productSlice";
+
+store.dispatch(fetchCategory());
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

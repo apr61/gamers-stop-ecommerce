@@ -1,6 +1,6 @@
 import "./search.css";
 import SearchIcon from "@mui/icons-material/Search";
-import { useProducts } from "../../context/ProductContext";
+import { useProducts } from "../../../context/ProductContext";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
 
