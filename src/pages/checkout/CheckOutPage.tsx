@@ -1,38 +1,49 @@
 import { useEffect, useState } from "react";
 import "./checkout.css";
-import { useAddressContext } from "../../context/AddressContext";
 import { Link, useNavigate } from "react-router-dom";
-import { useCartState } from "../../context/CartContext";
 import { currencyFormatter } from "../../utils/utils";
-import { useAuthContext } from "../../context/AuthContext";
 import { createAnOrderService } from "../../services/orders";
 import Loader from "../../components/loader/Loader";
-import { Address, OrderData, RazorpayPaymentResponse, ServerTimestamp } from "../../utils/types";
-import { serverTimestamp } from "firebase/firestore";
+import AddIcon from "@mui/icons-material/Add";
+import { Address, OrderData, RazorpayPaymentResponse } from "../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import {
+  getAllCartItems,
+  getTotalCost,
+  getTotalItems,
+} from "../../features/cart/cartSlice";
+import {
+  fetchAddressByUser,
+  selectAddressStatus,
+  selectAddresses,
+} from "../../features/address/addressSlice";
+import { selectCurrentUser } from "../../features/auth/authSlice";
 
 function CheckOutPage() {
   document.title = "Checkout | Gamers Stop";
-  const { isLoading, addresses } = useAddressContext();
   const [checkoutAddress, setCheckoutAddress] = useState<Address | null>(null);
-  const {
-    cartState: { cart },
-    totalPrice,
-    totalItems,
-    discount,
-    grandTotal,
-    deliveryFee,
-  } = useCartState();
-  const { currentUser } = useAuthContext();
+  const currentUser = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const cart = useAppSelector(getAllCartItems);
+  const totalPrice = useAppSelector(getTotalCost);
+  const totalItems = useAppSelector(getTotalItems);
+  const isLoading = useAppSelector(selectAddressStatus);
+  const addresses = useAppSelector(selectAddresses);
+
+  const deliveryFee = 100;
+  const discount = totalPrice * 0.05;
+  const grandTotal = totalPrice - discount + deliveryFee;
   const canPlaceOrder = checkoutAddress != null;
 
   const handlePaymentSuccess = async (response: RazorpayPaymentResponse) => {
-    const newOrder : OrderData = {
+    const newOrder: OrderData = {
       paymentId: response.razorpay_payment_id as string,
       shippingAddress: checkoutAddress!,
       paymentStatus: "paid",
       orderStatus: "yet-to-be-shipped",
-      orderedDate: serverTimestamp() as ServerTimestamp,
+      orderedDate: new Date().toString(),
       productsOrdered: [...cart],
       totalAmount: totalPrice,
       totalItemsOrdered: totalItems,
@@ -53,8 +64,10 @@ function CheckOutPage() {
     currency: "INR",
     name: "Gamers Stop",
     description: "Thank you for shopping with us.",
-    image: "https://firebasestorage.googleapis.com/v0/b/gamers-stop-ecom-dev.appspot.com/o/favicon.ico?alt=media&token=26721467-df11-408f-bb40-31670d555e36",
-    handler: (response : RazorpayPaymentResponse) => handlePaymentSuccess(response),
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/gamers-stop-ecom-dev.appspot.com/o/favicon.ico?alt=media&token=26721467-df11-408f-bb40-31670d555e36",
+    handler: (response: RazorpayPaymentResponse) =>
+      handlePaymentSuccess(response),
     prefill: {
       name: currentUser?.displayName,
       email: currentUser?.email,
@@ -76,9 +89,10 @@ function CheckOutPage() {
   };
 
   useEffect(() => {
-    if (isLoading) return;
+    dispatch(fetchAddressByUser(currentUser?.uid as string));
+    if (isLoading === "loading") return;
     setCheckoutAddress(addresses[0]);
-  }, [addresses]);
+  }, [currentUser?.uid, dispatch]);
 
   return (
     <>
@@ -87,7 +101,7 @@ function CheckOutPage() {
         <div className="checkout__body">
           <section className="checkout__address">
             <h3 className="checkout__title">Select Address</h3>
-            {isLoading ? (
+            {isLoading === "loading" ? (
               <Loader />
             ) : (
               <div className="checkout__address-container">
@@ -105,25 +119,23 @@ function CheckOutPage() {
                       className="checkout__address-label"
                     >
                       <h4 className="address__details address__details--heading">
-                        {address.fullname}
+                        {address.name}
                       </h4>
+                      <p className="address__details">{address.address}</p>
+                      <p className="address__details">{address.townLocality}</p>
                       <p className="address__details">
-                        {address.flat}, {address.area}
-                      </p>
-                      <p className="address__details">{address.landmark}</p>
-                      <p className="address__details">
-                        {address.city}, {address.state.toUpperCase()}{" "}
+                        {address.cityDistrict}, {address.state.toUpperCase()}{" "}
                         {address.pincode}
                       </p>
                       <p className="address__details">India</p>
                       <p className="address__details">
-                        Phone Number : {address.phoneNumber}
+                        Mobile : {address.phoneNumber}
                       </p>
                     </label>
                   </div>
                 ))}
                 <Link className="checkout__link" to="/account/addresses/new">
-                  Add new address
+                  <AddIcon /> Add new address
                 </Link>
               </div>
             )}
@@ -183,30 +195,30 @@ function CheckOutPage() {
               <h2 className="checkout__title checkout__title--md">
                 Deliver To
               </h2>
-              {isLoading ? (
+              {isLoading === "loading" ? (
                 <Loader />
               ) : !canPlaceOrder ? (
                 <div className="checkout__selected-address">
                   <p className="checkout__address-empty">No address selected</p>
+                  <p className="checkout__address-empty">
+                    Please select from left section or create a new address
+                  </p>
                 </div>
               ) : (
                 <div className="checkout__selected-address">
                   <h4 className="address__details address__details--heading">
-                    {checkoutAddress?.fullname}
+                    {checkoutAddress?.name}
                   </h4>
+                  <p className="address__details">{checkoutAddress?.address}</p>
                   <p className="address__details">
-                    {checkoutAddress?.flat}, {checkoutAddress?.area}
+                    {checkoutAddress?.townLocality}
                   </p>
                   <p className="address__details">
-                    {checkoutAddress?.landmark}
-                  </p>
-                  <p className="address__details">
-                    {checkoutAddress?.city}, {checkoutAddress?.state}{" "}
+                    {checkoutAddress?.cityDistrict}, {checkoutAddress?.state}{" "}
                     {checkoutAddress?.pincode}
                   </p>
-                  <p className="address__details">India</p>
                   <p className="address__details">
-                    Phone Number : {checkoutAddress?.phoneNumber}
+                    Mobile : {checkoutAddress?.phoneNumber}
                   </p>
                 </div>
               )}

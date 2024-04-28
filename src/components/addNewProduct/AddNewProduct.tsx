@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import "./addNewProduct.css";
 import CloseIcon from "@mui/icons-material/Close";
+import { addNewProductService } from "../../services/products";
 
 const specifications = {
   "graphics Card": [
@@ -52,6 +53,12 @@ const specifications = {
 };
 
 const AddNewProduct = () => {
+  const [productName, setProductName] = useState("");
+  const [productDesc, setProductDesc] = useState("");
+  const [productBrand, setProductBrand] = useState("");
+  const [productPrice, setProductPrice] = useState("");
+  const [productQuantity, setProductQuantity] = useState("");
+  const [category, setCategory] = useState("");
   const [images, setImages] = useState<FileList | null>(null);
 
   function fileHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -72,10 +79,29 @@ const AddNewProduct = () => {
     });
   }
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Prepare form data to send
+    const formData = new FormData();
+    formData.append("productName", productName);
+    formData.append("productDesc", productDesc);
+    formData.append("productBrand", productBrand);
+    formData.append("productPrice", productPrice);
+    formData.append("productQuantity", productQuantity);
+    formData.append("category", category);
+    if (images) {
+      Array.from(images).forEach((image, index) => {
+        formData.append(`productImage${index}`, image);
+      });
+    }
+    // Call API to add new product
+    // await addNewProductService(formData)
+  };
+
   return (
     <section className="add-new-product">
       <h2>Add New Product</h2>
-      <form className="add-new-product__form">
+      <form className="add-new-product__form" onSubmit={(e) => handleSubmit(e)}>
         <div className="input-group">
           <label htmlFor="product_name" className="input-group__label">
             Product Name
@@ -85,6 +111,8 @@ const AddNewProduct = () => {
             type="text"
             placeholder="Enter product name"
             id="product_name"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
             required
           />
         </div>
@@ -95,6 +123,8 @@ const AddNewProduct = () => {
           <textarea
             id="product_desc"
             className="product_desc"
+            value={productDesc}
+            onChange={(e) => setProductDesc(e.target.value)}
             required
             placeholder="Product description"
           ></textarea>
@@ -108,6 +138,8 @@ const AddNewProduct = () => {
             type="text"
             placeholder="Enter brand"
             id="product_brand"
+            value={productBrand}
+            onChange={(e) => setProductBrand(e.target.value)}
             required
           />
         </div>
@@ -120,6 +152,8 @@ const AddNewProduct = () => {
             type="number"
             placeholder="Enter product price"
             id="product_price"
+            value={productPrice}
+            onChange={(e) => setProductPrice(e.target.value)}
             required
           />
         </div>
@@ -132,11 +166,18 @@ const AddNewProduct = () => {
             type="number"
             placeholder="Enter product quantity"
             id="product_quantity"
+            value={productQuantity}
+            onChange={(e) => setProductQuantity(e.target.value)}
             required
           />
         </div>
         <div className="input-group">
-          <select className="input_select" required>
+          <select
+            className="input_select"
+            required
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
             <option>Select category</option>
             <option value="graphics card">Graphics Card</option>
             <option value="monitors">Monitors</option>

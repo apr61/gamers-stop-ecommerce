@@ -11,6 +11,7 @@ import { categoryData } from "../../data/imagesLoader";
 
 function Home() {
   document.title = "Gamers Stop";
+  
   return (
     <>
       <Navbar />

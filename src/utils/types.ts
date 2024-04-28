@@ -1,7 +1,9 @@
+import { ProductAvailabilityType } from "../features/products/productSlice";
+
 export type Product = {
   id: string;
   name: string;
-  dateAdded: ServerTimestamp;
+  dateadded: string;
   category: string;
   avgrating: number;
   description: string;
@@ -17,13 +19,12 @@ export type Product = {
 };
 
 export type AddressData = {
-  area: string;
-  flat: string;
-  fullname: string;
-  landmark: string;
+  address: string;
+  name: string;
   phoneNumber: number;
   pincode: number;
-  city: string;
+  townLocality: string;
+  cityDistrict: string;
   state: string;
   uid: string;
 };
@@ -45,7 +46,7 @@ export type OrderData = {
   discount: number;
   grandTotal: number;
   orderStatus: "yet-to-be-shipped" | "cancelled" | "delivered";
-  orderedDate: ServerTimestamp;
+  orderedDate: string;
   paymentId: string;
   paymentStatus: "paid" | "not-paid" | "cash-on-delivery";
   totalAmount: number;
@@ -88,4 +89,12 @@ export type ServerTimestamp = {
   seconds: number;
   toDate: () => Date;
   isEqual: (other: ServerTimestamp) => boolean;
+};
+
+export type FilterArgsType = {
+  categoryIn: string | undefined;
+  search: string | null;
+  brands: string[];
+  rating: number;
+  availability: ProductAvailabilityType;
 };

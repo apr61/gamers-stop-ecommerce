@@ -81,7 +81,16 @@
 }
 
 .checkout__link {
+  display: block;
   color: var(--clr-primary-200);
+  width: 100%;
+  padding: 1rem;
+  border: 3px dashed var(--clr-border);
+  border-radius: .25rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .checkout__btn {
@@ -97,6 +106,7 @@
 .checkout__btn--ghost {
   background-color: transparent;
   border: 1px solid var(--clr-border);
+  color: var(--clr-txt);
 }
 
 .checkout__btn--disabled {

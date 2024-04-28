@@ -45,15 +45,15 @@ function Footer() {
                 </section>
                 <section className="footer__section">
                     <h5 className='footer__title'>Contact Us</h5>
-                    <p className='footer__address'>Demo Street,</p>
-                    <p className='footer__address'>D/No. 1234, Demo City, Demo Country, 11111</p>
-                    <p className='footer__address'>Phone : +91 1234567890</p>
+                    <p className='footer__address'>Unknown street,</p>
+                    <p className='footer__address'>Unknown City, Unknown Country, 00000</p>
+                    <p className='footer__address'>Phone : 0000000000</p>
                     <p className='footer__address'>Mail : support@gamersstop.com</p>
                 </section>
             </div>
             <div className="footer__bottom">
                 <div className="footer__section footer__section--bottom">
-                    <div className="footer__copy-right">&copy; Gamers Stop</div>
+                    <div className="footer__copy-right">&copy; 2023 - {new Date().getFullYear()} Gamers Stop</div>
                 </div>
             </div>
         </footer>
