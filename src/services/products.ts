@@ -1,15 +1,17 @@
 import {
   addDoc,
   collection,
+  doc,
   getCountFromServer,
   getDocs,
   limit,
   or,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../FirebaseConfig";
-import { Category, FilterArgsType, Product } from "../utils/types";
+import { CartItem, Category, FilterArgsType, Product } from "../utils/types";
 import { dateFormatter } from "../utils/utils";
 
 export const getProducts = async () => {
@@ -111,10 +113,18 @@ export const getCategoriesService = async () => {
 };
 
 export const addNewProductService = async (data: any) => {
-  const collectionRef = collection(db, "cities");
+  const collectionRef = collection(db, "products");
   const docRef = await addDoc(collectionRef, data);
   return {
     id: docRef.id,
     ...data,
   };
+};
+
+export const updateProdudct = async (data: CartItem) => {
+  const docRef = doc(db, "products", data.id);
+  const response = await updateDoc(docRef, {
+    quantity: data.quantity,
+  });
+  return response;
 };

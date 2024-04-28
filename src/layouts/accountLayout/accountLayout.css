@@ -1,0 +1,69 @@
+/* Account layout syles */
+
+.account {
+  max-width: 60rem;
+  width: 100%;
+  margin: 2rem 0;
+  margin-inline: auto;
+  min-height: 20rem;
+}
+
+.account__header {
+  border-bottom: 1px solid var(--clr-border);
+  padding-bottom: 0.75rem;
+}
+
+.account__name {
+  font-size: 0.75rem;
+}
+
+.account__container {
+  display: grid;
+  grid-template-columns: 0.25fr 1fr;
+  gap: 1rem;
+}
+
+.account_aside {
+  border-right: 1px solid var(--clr-border);
+  flex: 1;
+}
+
+.account_list {
+  list-style: none;
+  font-size: 1rem;
+  padding-right: 1rem;
+}
+
+.account__link {
+  color: var(--clr-link);
+}
+
+.account__active {
+  color: var(--clr-txt-hover);
+}
+
+.account_list-item {
+  border-bottom: 1px solid var(--clr-border);
+  padding: 1rem 0;
+}
+
+.account_list-item:last-child {
+  border-bottom: 0;
+}
+
+.account_layout {
+  padding-top: 1rem;
+}
+
+.account__sub-title {
+  font-size: .85rem;
+  font-weight: 400;
+  color: var(--clr-txt-fade);
+  text-transform: uppercase;
+}
+
+.account__sub-container{
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+}

@@ -26,8 +26,6 @@ const Pagination = ({
     }
   };
 
-  console.log(pagesCount)
-
   if (pagesCount <= 1) {
     return;
   }

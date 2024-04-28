@@ -10,6 +10,7 @@ import {
 import { db } from "../FirebaseConfig";
 import { Order, OrderData } from "../utils/types";
 import { dateFormatter } from "../utils/utils";
+import { updateProdudct } from "./products";
 
 export const getAllOrdersByUserIdService = async (
   userId: string
@@ -28,7 +29,14 @@ export const getAllOrdersByUserIdService = async (
 };
 
 export const createAnOrderService = async (order: OrderData) => {
-  return await addDoc(collection(db, "orders"), order);
+  const response = await addDoc(collection(db, "orders"), order);
+  for (const product of order.productsOrdered) {
+    await updateProdudct({
+      ...product,
+      quantity: product.quantity - product.qty,
+    });
+  }
+  return response;
 };
 
 export const getOrderByIdService = async (
@@ -40,9 +48,7 @@ export const getOrderByIdService = async (
     return {
       ...docSnap.data(),
       id: orderId,
-      orderedDate: dateFormatter(
-        new Date(docSnap.data()!.orderedDate.seconds * 1000)
-      ),
+      orderedDate: dateFormatter(new Date(docSnap.data()?.orderedDate)),
     } as Order;
   }
   return null;

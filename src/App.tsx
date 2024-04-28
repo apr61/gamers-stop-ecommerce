@@ -1,8 +1,8 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import "./index.css";
-import RequireAuth from "./routeLayouts/RequireAuth";
-import MainLayout from "./routeLayouts/MainLayout";
+import RequireAuth from "./layouts/RequireAuth";
+import MainLayout from "./layouts/MainLayout";
 import { Suspense, lazy, useEffect } from "react";
 import Loader from "./components/loader/Loader";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
@@ -11,6 +11,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./FirebaseConfig";
 import { setStatus, setUser } from "./features/auth/authSlice";
 import { selectCart } from "./features/cart/cartSlice";
+import AccountLayout from "./layouts/accountLayout/AccountLayout";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const SingleOrderPage = lazy(
@@ -26,7 +27,7 @@ const AccountAddress = lazy(
   () => import("./features/address/accountAddress/AccountAddress")
 );
 const AccountProfile = lazy(
-  () => import("./components/accountProfile/AccountProfile")
+  () => import("./features/auth/accountProfile/AccountProfile")
 );
 const AccountOrders = lazy(
   () => import("./features/orders/accountOrders/AccountOrders")
@@ -35,7 +36,9 @@ const OrderSuccessful = lazy(
   () => import("./features/orders/orderSuccessful/OrderSuccessful")
 );
 const CheckOutPage = lazy(() => import("./pages/checkout/CheckOutPage"));
-const AccountPage = lazy(() => import("./pages/accountPage/AccountPage"));
+const AccountOverview = lazy(
+  () => import("./pages/accountPage/AccountOverview")
+);
 const SignUp = lazy(() => import("./components/auth/SignUp"));
 const SignIn = lazy(() => import("./components/auth/SignIn"));
 const Cart = lazy(() => import("./features/cart/cart/Cart"));
@@ -86,8 +89,9 @@ function App() {
           <Route path="/store/:slugurl" element={<SingleProductPage />} />
           <Route path="/store/new" element={<AddNewProduct />} />
           <Route element={<RequireAuth />}>
-            <Route path="/account">
-              <Route index element={<AccountPage />} />
+            <Route path="/account" element={<AccountLayout />}>
+              <Route path="" element={<Navigate to="dashboard" replace />} />
+              <Route index path="dashboard" element={<AccountOverview />} />
               <Route path="profile" element={<AccountProfile />} />
               <Route path="addresses" element={<AccountAddress />} />
               <Route path="addresses/new" element={<AddNewAddress />} />
@@ -98,9 +102,14 @@ function App() {
               <Route path="orders" element={<AccountOrders />} />
               <Route path="orders/:orderId" element={<SingleOrderPage />} />
             </Route>
-            <Route path="/checkout" element={<CheckOutPage />} />
-            <Route path="/order-successful/:id" element={<OrderSuccessful />} />
           </Route>
+        </Route>
+        <Route element={<RequireAuth />}>
+          <Route path="/checkout" element={<CheckOutPage />} />
+          <Route
+            path="/order-successful/:orderId"
+            element={<OrderSuccessful />}
+          />
         </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/signin" element={<SignIn />} />

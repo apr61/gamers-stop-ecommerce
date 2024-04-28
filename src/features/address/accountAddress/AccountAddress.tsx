@@ -29,35 +29,24 @@ function AccountAddress() {
   }, [currentUser?.uid, dispatch]);
 
   return (
-    <section className="address main">
-      <h2 className="address__title">My Addresses</h2>
-      <div className="address__container">
-        <Link to="new" className="address__add-address">
+    <section className="address">
+      <header className="address__header">
+        <h2 className="address__title">Saved Addresses</h2>
+        <Link to="new" className="address__add-new-link">
           <AddIcon />
-          Add Address
+          Add new Address
         </Link>
+      </header>
+      <div className="address__container">
         {isLoading === "loading" ? (
           <Loader />
         ) : (
           addresses.map((address) => (
-            <div key={address.id} className="address__card">
-              <div className="address__card-body">
-                <AddressCard address={address} />
-              </div>
-
-              <div className="address__card-options">
-                <Link to={`edit/${address.id}`} className="address__link">
-                  Edit
-                </Link>{" "}
-                |{" "}
-                <button
-                  className="address__del-btn"
-                  onClick={() => handleAddressDel(address.id)}
-                >
-                  Remove
-                </button>
-              </div>
-            </div>
+            <AddressCard
+              key={address.id}
+              addressData={address}
+              handleAddressDel={handleAddressDel}
+            />
           ))
         )}
       </div>

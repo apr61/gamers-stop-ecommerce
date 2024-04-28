@@ -1,6 +1,6 @@
 import { FormEvent, RefObject, useRef } from "react";
 import "./style.css";
-import Input from "../../../components/inputFields/Input";
+import Input from "../../../components/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
@@ -30,10 +30,9 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
   const nameRef: RefType = useRef(null);
   const phoneNumberRef: RefType = useRef(null);
   const pinCodeRef: RefType = useRef(null);
-  const flatRef: RefType = useRef(null);
-  const areaRef: RefType = useRef(null);
-  const landmarkRef: RefType = useRef(null);
-  const townRef: RefType = useRef(null);
+  const addressRef: RefType = useRef(null);
+  const townLocalityRef: RefType = useRef(null);
+  const cityDistrictRef: RefType = useRef(null);
   const stateRef: RefType = useRef(null);
 
   function handleCancel() {
@@ -42,19 +41,18 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
 
   const dummyAddress: AddressData = {
     uid: currentUser!.uid,
-    fullname: "Monkey D Luffy",
-    phoneNumber: 8500654785,
-    pincode: 865478,
-    flat: "4 / 51 - 58",
-    area: "Unknown Area",
-    landmark: "Besides windmill",
-    city: "Vijayawada",
-    state: "Andhra Pradesh",
+    name: "Unknown me",
+    phoneNumber: 1111111111,
+    pincode: 111111,
+    address: "4 / 51 - 58, Unknown Area",
+    townLocality: "Unkown town",
+    cityDistrict: "Unkonwn District",
+    state: "Unknow state",
   };
 
   function handleAddDemoAddress() {
     if (nameRef.current) {
-      nameRef.current.value = dummyAddress.fullname;
+      nameRef.current.value = dummyAddress.name;
     }
     if (phoneNumberRef.current) {
       phoneNumberRef.current.value = dummyAddress.phoneNumber.toString();
@@ -62,17 +60,14 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
     if (pinCodeRef.current) {
       pinCodeRef.current.value = dummyAddress.pincode.toString();
     }
-    if (areaRef.current) {
-      areaRef.current.value = dummyAddress.area;
+    if (addressRef.current) {
+      addressRef.current.value = dummyAddress.address;
     }
-    if (flatRef.current) {
-      flatRef.current.value = dummyAddress.flat;
+    if (townLocalityRef.current) {
+      townLocalityRef.current.value = dummyAddress.townLocality;
     }
-    if (landmarkRef.current) {
-      landmarkRef.current.value = dummyAddress.landmark;
-    }
-    if (townRef.current) {
-      townRef.current.value = dummyAddress.city;
+    if (cityDistrictRef.current) {
+      cityDistrictRef.current.value = dummyAddress.cityDistrict;
     }
     if (stateRef.current) {
       stateRef.current.value = dummyAddress.state;
@@ -83,13 +78,12 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
     e.preventDefault();
     const newAddress: AddressData = {
       uid: currentUser!.uid,
-      fullname: (nameRef.current as HTMLInputElement).value,
+      name: (nameRef.current as HTMLInputElement).value,
       phoneNumber: +(phoneNumberRef.current as HTMLInputElement).value,
       pincode: +(pinCodeRef.current as HTMLInputElement).value,
-      flat: (flatRef.current as HTMLInputElement).value,
-      area: (areaRef.current as HTMLInputElement).value,
-      landmark: (landmarkRef.current as HTMLInputElement).value,
-      city: (townRef.current as HTMLInputElement).value,
+      address: (addressRef.current as HTMLInputElement).value,
+      cityDistrict: (cityDistrictRef.current as HTMLInputElement).value,
+      townLocality: (townLocalityRef.current as HTMLInputElement).value,
       state: (stateRef.current as HTMLInputElement).value,
     };
 
@@ -112,38 +106,37 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
     <>
       {error && <p className="error-msg">{error}</p>}
       <form className="address-form" onSubmit={handleSubmit}>
-        <Input
-          placeholder="Full name"
-          ref={nameRef}
-          value={address?.fullname!}
-        />
-        <Input
-          placeholder="Phone number"
-          ref={phoneNumberRef}
-          value={address?.phoneNumber.toString()!}
-        />
-        <Input
-          placeholder="Pincode"
-          ref={pinCodeRef}
-          value={address?.pincode.toString()!}
-        />
-        <Input
-          placeholder="Flat, House no, Building, Apartment"
-          ref={flatRef}
-          value={address?.flat!}
-        />
-        <Input
-          placeholder="Area, Street, Village"
-          ref={areaRef}
-          value={address?.area!}
-        />
-        <Input
-          placeholder="Landmark - eg. near Med Plus Store"
-          ref={landmarkRef}
-          value={address?.landmark!}
-        />
-        <Input placeholder="Town/City" ref={townRef} value={address?.city!} />
-        <Input placeholder="State" ref={stateRef} value={address?.state!} />
+        <div className="address-form__wrapper">
+          <Input placeholder="Name" ref={nameRef} value={address?.name!} />
+          <Input
+            placeholder="Phone number"
+            ref={phoneNumberRef}
+            value={address?.phoneNumber.toString()!}
+          />
+        </div>
+        <div className="address-form__wrapper">
+          <Input
+            placeholder="Pincode"
+            ref={pinCodeRef}
+            value={address?.pincode.toString()!}
+          />
+          <Input
+            placeholder="House no, Building, Street, Area"
+            ref={addressRef}
+            value={address?.address!}
+          />
+          <Input
+            placeholder="Locality/Town"
+            ref={townLocalityRef}
+            value={address?.townLocality!}
+          />
+          <Input
+            placeholder="City/District"
+            ref={cityDistrictRef}
+            value={address?.cityDistrict!}
+          />
+          <Input placeholder="State" ref={stateRef} value={address?.state!} />
+        </div>
         <div className="address-from-sec__btn-wrapper">
           <button
             className={
@@ -153,7 +146,7 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
             }
             disabled={isLoading === "loading"}
           >
-            {edit ? "Edit Address" : "Add Address"}
+            {edit ? "Edit Address" : "Add new Address"}
           </button>
           {!edit && (
             <button

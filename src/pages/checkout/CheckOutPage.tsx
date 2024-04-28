@@ -4,11 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { currencyFormatter } from "../../utils/utils";
 import { createAnOrderService } from "../../services/orders";
 import Loader from "../../components/loader/Loader";
-import {
-  Address,
-  OrderData,
-  RazorpayPaymentResponse,
-} from "../../utils/types";
+import AddIcon from "@mui/icons-material/Add";
+import { Address, OrderData, RazorpayPaymentResponse } from "../../utils/types";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   getAllCartItems,
@@ -122,25 +119,23 @@ function CheckOutPage() {
                       className="checkout__address-label"
                     >
                       <h4 className="address__details address__details--heading">
-                        {address.fullname}
+                        {address.name}
                       </h4>
+                      <p className="address__details">{address.address}</p>
+                      <p className="address__details">{address.townLocality}</p>
                       <p className="address__details">
-                        {address.flat}, {address.area}
-                      </p>
-                      <p className="address__details">{address.landmark}</p>
-                      <p className="address__details">
-                        {address.city}, {address.state.toUpperCase()}{" "}
+                        {address.cityDistrict}, {address.state.toUpperCase()}{" "}
                         {address.pincode}
                       </p>
                       <p className="address__details">India</p>
                       <p className="address__details">
-                        Phone Number : {address.phoneNumber}
+                        Mobile : {address.phoneNumber}
                       </p>
                     </label>
                   </div>
                 ))}
                 <Link className="checkout__link" to="/account/addresses/new">
-                  Add new address
+                  <AddIcon /> Add new address
                 </Link>
               </div>
             )}
@@ -205,25 +200,25 @@ function CheckOutPage() {
               ) : !canPlaceOrder ? (
                 <div className="checkout__selected-address">
                   <p className="checkout__address-empty">No address selected</p>
+                  <p className="checkout__address-empty">
+                    Please select from left section or create a new address
+                  </p>
                 </div>
               ) : (
                 <div className="checkout__selected-address">
                   <h4 className="address__details address__details--heading">
-                    {checkoutAddress?.fullname}
+                    {checkoutAddress?.name}
                   </h4>
+                  <p className="address__details">{checkoutAddress?.address}</p>
                   <p className="address__details">
-                    {checkoutAddress?.flat}, {checkoutAddress?.area}
+                    {checkoutAddress?.townLocality}
                   </p>
                   <p className="address__details">
-                    {checkoutAddress?.landmark}
-                  </p>
-                  <p className="address__details">
-                    {checkoutAddress?.city}, {checkoutAddress?.state}{" "}
+                    {checkoutAddress?.cityDistrict}, {checkoutAddress?.state}{" "}
                     {checkoutAddress?.pincode}
                   </p>
-                  <p className="address__details">India</p>
                   <p className="address__details">
-                    Phone Number : {checkoutAddress?.phoneNumber}
+                    Mobile : {checkoutAddress?.phoneNumber}
                   </p>
                 </div>
               )}

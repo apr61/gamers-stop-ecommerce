@@ -1,10 +1,10 @@
 import { FormEvent, useRef, useState } from "react";
 import "./accountProfile.css";
-import Input from "../inputFields/Input";
-import { updateUserProfile } from "../../services/auth";
-import { User } from "../../utils/types";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectCurrentUser, setUser } from "../../features/auth/authSlice";
+import Input from "../../../components/input/Input";
+import { updateUserProfile } from "../../../services/auth";
+import { User } from "../../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { selectCurrentUser, setUser } from "../authSlice";
 
 function AccountProfilePage() {
   const currentUser = useAppSelector(selectCurrentUser);

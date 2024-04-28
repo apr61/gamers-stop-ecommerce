@@ -28,8 +28,10 @@ function AccountOrders() {
     dispatch(fetchOrdersByUserThunk(currentUser?.uid as string));
   }, [currentUser?.uid]);
 
+  document.title = "Orders | Gamers Stop"
+
   return (
-    <div className="orders main">
+    <div className="orders">
       <header className="orders__main-header">
         <h2 className="orders__title">My Orders</h2>
         <div>
@@ -87,7 +89,7 @@ function AccountOrders() {
                   <div className="orders__header-item">
                     <p className="orders__desc">Ship To</p>
                     <p className="orders__desc">
-                      {order.shippingAddress.fullname}
+                      {order.shippingAddress.name}
                     </p>
                   </div>
                 </header>

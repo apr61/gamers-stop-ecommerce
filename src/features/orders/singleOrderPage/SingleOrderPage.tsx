@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import AddressCard from "../../address/accountAddress/AddressCard";
 import { getOrderByIdService } from "../../../services/orders";
-import {
-  currencyFormatter,
-} from "../../../utils/utils";
+import { currencyFormatter } from "../../../utils/utils";
 import "./singleOrderPage.css";
 import Loader from "../../../components/loader/Loader";
 import { Order } from "../../../utils/types";
@@ -13,7 +10,7 @@ function SingleOrderPage() {
   const { orderId } = useParams();
   const [order, setOrder] = useState<Order | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  
+
   const getOrderById = async (orderId: string) => {
     try {
       const data = await getOrderByIdService(orderId);
@@ -31,8 +28,8 @@ function SingleOrderPage() {
 
   if (isLoading) return <Loader />;
 
-  if(order === null){
-    return <Navigate to="/account/orders" />
+  if (order === null) {
+    return <Navigate to="/account/orders" />;
   }
 
   const {
@@ -50,20 +47,13 @@ function SingleOrderPage() {
   return (
     <div className="order-page">
       <header className="order-page__header">
-        <h2 className="order-page__title">Order # {id}</h2>
-        <p>
-          Placed date{" "}
-          {orderedDate}
-        </p>
+        <p className="order-page__status">{orderStatus}</p>
+        <p>Placed date {orderedDate}</p>
       </header>
-      <p className="order-page__status">Status : {orderStatus}</p>
       <div className="order-page__body">
         <div className="orders__products">
           {productsOrdered.map((product) => (
-            <article
-              className="orders__product orders__product--order-page"
-              key={product.id}
-            >
+            <article className="orders__product-single" key={product.id}>
               <img
                 className="orders__product-img"
                 src={product.images[0]}
@@ -78,30 +68,34 @@ function SingleOrderPage() {
                 >
                   {product.name}
                 </Link>
-                <p className="orders__desc">Quantity Ordered : {product.qty}</p>
-                <p className="orders__desc">
-                  Sub Total : {currencyFormatter(product.qty * product.price)}
-                </p>
+                <p className="orders__desc">Quantity : {product.qty}</p>
               </div>
             </article>
           ))}
         </div>
         <div className="order-page__container">
           <section className="order-page__sec">
-            <h3>Shipping address</h3>
-            <div>
-              <AddressCard address={shippingAddress} />
+            <h3 className="order-page__sec-head">Shipping address</h3>
+            <div className="order-page__sec-wrap">
+              <p className="order-page__address-details order-page__address-details--bold">
+                {shippingAddress.name} | {shippingAddress.phoneNumber}
+              </p>
+              <p className="order-page__address-details">
+                {shippingAddress.address},{shippingAddress.townLocality},{" "}
+                {shippingAddress.cityDistrict},{shippingAddress.state} ,
+                {shippingAddress.pincode}
+              </p>
             </div>
           </section>
           <section className="order-page__sec">
-            <h3>Payment Details</h3>
-            <div>
+            <h3 className="order-page__sec-head">Payment Details</h3>
+            <div className="order-page__sec-wrap">
               <p>Transaction # {paymentId}</p>
             </div>
           </section>
           <section className="order-page__sec">
-            <h3>Payment Summary</h3>
-            <div>
+            <h3 className="order-page__sec-head">Payment Summary</h3>
+            <div className="order-page__sec-wrap">
               <table className="order-page__table">
                 <tbody>
                   <tr className="order-page__trow">
@@ -116,15 +110,18 @@ function SingleOrderPage() {
                     <th className="order-page__th">Delivery Fee</th>
                     <td>+ {currencyFormatter(deliveryFee)}</td>
                   </tr>
-                  <tr className="order-page__trow order-page__trow--grand-total">
-                    <th className="order-page__th order-page__th--grand-total">
-                      Grand total
+                  <tr className="order-page__trow">
+                    <th className="order-page__th">
+                      Total paid
                     </th>
                     <td>{currencyFormatter(grandTotal)}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
+          </section>
+          <section className="order-page__sec">
+            <p>Order ID # {id}</p>
           </section>
         </div>
       </div>

@@ -26,6 +26,9 @@ function ProductsList() {
   const filteredProducts = useAppSelector(getFilteredProducts);
   const currentPage = useAppSelector(selectProductPage);
   const itemsPerPage = 3;
+  const filterProductStart = currentPage * itemsPerPage - itemsPerPage
+  const filterProductEnd = currentPage * itemsPerPage
+  const filteredProductsLength = filteredProducts.length
 
   const handlePaginationCallback = (selectPage: number) => {
     dispatch(productPage(selectPage));
@@ -54,11 +57,11 @@ function ProductsList() {
         <section className="category-products__container">
           {isLoading === "loading" ? (
             <Loader />
-          ) : filteredProducts.length > 0 ? (
+          ) : filteredProductsLength > 0 ? (
             <>
               <header className="category-products__header">
                 <p className="categorty-products__items-found">
-                  Showing {filteredProducts.length} of {totalProductsCount}
+                  Showing {filteredProductsLength} of {totalProductsCount}
                 </p>
                 <button
                   className="category-products__filter-btn"
@@ -70,15 +73,15 @@ function ProductsList() {
               <div className="category-products__list">
                 {filteredProducts
                   .slice(
-                    currentPage * itemsPerPage - itemsPerPage,
-                    currentPage * itemsPerPage
+                    filterProductStart,
+                    filterProductEnd
                   )
                   .map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}
               </div>
               <Pagination
-                totalCount={totalProductsCount}
+                totalCount={filteredProductsLength}
                 itemsPerPage={itemsPerPage}
                 callback={handlePaginationCallback}
               />

@@ -1,67 +1,98 @@
 .address {
-  max-width: 62rem;
   width: 100%;
-  margin-inline: auto;
+}
+
+.address__header{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.address__add-new-link{
+  outline: 2px solid var(--clr-border);
+  color: var(--clr-txt);
+  padding: .5rem 1rem;
+  border-radius: .25rem;
+  font-size: .9rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
 }
 
 .address__title {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 500;
-  margin: 1rem;
 }
 
 .address__container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin: 1rem;
-}
-
-.address__add-address {
-  border: 3px dotted var(--clr-border);
-  width: 20rem;
-  height: 15rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-size: 1.25rem;
-  background-color: transparent;
+  width: 90%;
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
-  color: var(--clr-txt);
 }
 
-.address__add-address:hover {
-  color: var(--clr-txt-hover);
+
+/* Address card styles Start*/
+.address-card {
+  width: 100%;
+  outline: 1px solid var(--clr-border);
+  box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
 }
 
-.address__add-address:focus {
+.address-card__wrapper{
+  padding: .5rem;
+}
+
+.address-card__details {
+  font-size: 0.8rem;
+  color: var(--clr-txt-fade);
+  font-weight: 300;
+}
+
+.address-card__details--bold {
+  font-weight: bold;
+}
+
+.address-card__container{
+  padding: .75rem 0;
+}
+.address-card__actions{
+  display: flex;
+  width: 100%;
+  padding: .75rem;
+  border-top: 2px solid var(--clr-border);
+  justify-content: space-around;
+}
+
+.address-card__del-btn {
   border: 0;
-  outline: 3px dotted var(--clr-txt-hover);
+  background-color: transparent;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.01rem;
+  color: var(--clr-danger);
+  width: 50%;
 }
 
-.address__card {
-  width: 20rem;
-  height: 15rem;
-  padding: 1rem 1.25rem;
-  border: 1px solid var(--clr-border);
-  border-radius: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.address-card__del-btn:focus {
+  outline: 2px solid var(--clr-txt-hover);
+  border-radius: 0.25rem;
 }
 
-.address__details {
-  font-size: 0.9rem;
-  font-weight: 400;
+.address-card__link {
+  color: var(--clr-txt);
+  width: 50%;
+  text-align: center;
 }
 
-.address__details--heading {
-  font-weight: 500;
+.address-card__link:focus {
+  outline: 2px solid var(--clr-txt-hover);
+  border-radius: 0.25rem;
 }
+/* Address card styles end*/
 
+/* Address form styles start*/
 .address-form-sec {
   max-width: 30rem;
   margin-inline: auto;
@@ -71,7 +102,15 @@
   display: flex;
   gap: 1rem;
   flex-direction: column;
-  margin: 1rem;
+}
+
+.address-form__wrapper{
+  margin-bottom: .5rem;
+}
+
+.address-form__wrapper:first-of-type{
+  margin-top: .5rem;
+  margin-bottom: 0;
 }
 
 .address-from-sec__btn-wrapper {
@@ -103,51 +142,23 @@
 .address-form-sec__btn:focus {
   outline: 2px solid var(--clr-txt-hover);
 }
-
-.address__del-btn {
-  border: 0;
-  background-color: transparent;
-  cursor: pointer;
-  text-align: center;
-  font-size: 1.01rem;
-  color: var(--clr-danger);
-}
-
-.address__del-btn:focus {
-  outline: 2px solid var(--clr-txt-hover);
-  border-radius: 0.25rem;
-}
-
-.address__link {
-  color: var(--clr-txt);
-}
-
-.address__link:hover,
-.address__del-btn:hover {
-  color: var(--clr-txt-hover);
-}
-
-.address__link:focus {
-  outline: 2px solid var(--clr-txt-hover);
-  border-radius: 0.25rem;
-}
+/* Address form styles end*/
 
 @media (max-width: 65rem) {
   .address__container {
     grid-template-columns: 1fr 1fr;
     place-items: center;
   }
-  
 }
 
 @media (max-width: 50rem) {
   .address__container {
     grid-template-columns: 1fr;
   }
-  .address-from-sec__btn-wrapper{
-    gap: .5rem;
+  .address-from-sec__btn-wrapper {
+    gap: 0.5rem;
   }
-  .address-form{
-    margin: 1rem .5rem;
+  .address-form {
+    margin: 1rem 0.5rem;
   }
 }

@@ -19,13 +19,12 @@ export type Product = {
 };
 
 export type AddressData = {
-  area: string;
-  flat: string;
-  fullname: string;
-  landmark: string;
+  address: string;
+  name: string;
   phoneNumber: number;
   pincode: number;
-  city: string;
+  townLocality: string;
+  cityDistrict: string;
   state: string;
   uid: string;
 };

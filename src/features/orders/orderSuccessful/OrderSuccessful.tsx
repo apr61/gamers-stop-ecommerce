@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../../../components/navbar/Navbar";
 import { getOrderByIdService } from "../../../services/orders";
 import "./orderSuccessful.css";
-import VerifiedIcon from '@mui/icons-material/Verified';
+import VerifiedIcon from "@mui/icons-material/Verified";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { Order } from "../../../utils/types";
 import Loader from "../../../components/loader/Loader";
@@ -29,10 +29,10 @@ function OrderSuccessful() {
 
   if (isLoading) return <Loader />;
 
-  if(order === null){
-    return <Navigate to="/account/orders" />
+  if (order === null) {
+    return <Navigate to="/account/orders" />;
   }
-  const {shippingAddress, productsOrdered} = order
+  const { shippingAddress, productsOrdered } = order;
   return (
     <>
       <Navbar />
@@ -49,12 +49,12 @@ function OrderSuccessful() {
           </p>
           <p className="ordersuccess__address">
             <span className="ordersuccess__name">
-              Shipping to {shippingAddress.fullname},
+              Shipping to {shippingAddress.name},
             </span>
-            {shippingAddress?.flat}, {shippingAddress?.area},{" "}
-            {shippingAddress?.city.toUpperCase()},{" "}
+            {shippingAddress?.address},{shippingAddress?.townLocality},{" "}
+            {shippingAddress?.cityDistrict.toUpperCase()},{" "}
             {shippingAddress?.state.toUpperCase()},{shippingAddress?.pincode},
-            India, Phone Number: {shippingAddress?.phoneNumber}
+            Phone Number: {shippingAddress?.phoneNumber}
           </p>
           <div className="ordersuccess__summary">
             <div className="ordersucess__product">
