@@ -1,18 +1,18 @@
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { currencyFormatter } from "../../utils/utils";
+import { currencyFormatter } from "../../../utils/utils";
 import "./singleProductPage.css";
 
-import QuantityCounter from "../../features/cart/quantityCounter/QuantityCounter";
-import Loader from "../../components/loader/Loader";
-import ProductImages from "../../features/products/productImages/ProductImages";
+import QuantityCounter from "../../cart/quantityCounter/QuantityCounter";
+import Loader from "../../../components/loader/Loader";
+import ProductImages from "../productImages/ProductImages";
 import { useEffect, useState } from "react";
-import { getProductBySlugService } from "../../services/products";
+import { getProductBySlugService } from "../../../services/products";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import StarIcon from "@mui/icons-material/Star";
-import { CartItem, Product } from "../../utils/types";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { addToCart, getAllCartItems } from "../../features/cart/cartSlice";
+import { CartItem, Product } from "../../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { addToCart, getAllCartItems } from "../../cart/cartSlice";
 
 function SingleProductPage() {
   const { slugurl } = useParams();

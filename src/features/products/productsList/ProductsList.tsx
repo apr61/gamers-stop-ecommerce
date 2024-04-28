@@ -7,11 +7,14 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   clearFilter,
   getFilteredProducts,
+  productPage,
   selectIsFilterOpen,
+  selectProductPage,
   selectProductStatus,
   selectProducts,
   toggleFilter,
 } from "../productSlice";
+import Pagination from "../../../components/pagination/Pagination";
 
 function ProductsList() {
   document.title = "Store | Gamers Stop";
@@ -21,7 +24,12 @@ function ProductsList() {
   const isFilterOpen = useAppSelector(selectIsFilterOpen);
   const totalProductsCount = products.length;
   const filteredProducts = useAppSelector(getFilteredProducts);
+  const currentPage = useAppSelector(selectProductPage);
+  const itemsPerPage = 3;
 
+  const handlePaginationCallback = (selectPage: number) => {
+    dispatch(productPage(selectPage));
+  };
   return (
     <>
       <div className="category-products__body">
@@ -60,10 +68,20 @@ function ProductsList() {
                 </button>
               </header>
               <div className="category-products__list">
-                {filteredProducts?.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+                {filteredProducts
+                  .slice(
+                    currentPage * itemsPerPage - itemsPerPage,
+                    currentPage * itemsPerPage
+                  )
+                  .map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
               </div>
+              <Pagination
+                totalCount={totalProductsCount}
+                itemsPerPage={itemsPerPage}
+                callback={handlePaginationCallback}
+              />
             </>
           ) : (
             <div className="category-products__empty">

@@ -1,15 +1,17 @@
 import "./search.css";
 import SearchIcon from "@mui/icons-material/Search";
-import { useProducts } from "../../../context/ProductContext";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { productSearch, selectProductSearch } from "../productSlice";
 
 function Search() {
-  const { productsState, productDispatch } = useProducts();
+  const dispatch = useAppDispatch();
+  const search = useAppSelector(selectProductSearch);
   const navigate = useNavigate();
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    productDispatch({ type: "SEARCH", payload: value });
+    dispatch(productSearch(value));
     navigate("/store");
   };
   return (
@@ -20,7 +22,7 @@ function Search() {
         className="search-box__input"
         onChange={handleSearchChange}
         placeholder="Search"
-        value={productsState.search}
+        value={search}
       />
     </div>
   );

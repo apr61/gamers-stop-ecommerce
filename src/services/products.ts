@@ -1,4 +1,5 @@
 import {
+  addDoc,
   collection,
   getCountFromServer,
   getDocs,
@@ -27,7 +28,7 @@ export const getProducts = async () => {
   //   products: productsArray,
   //   totalCount: totalCountSnapshot.data().count,
   // };
-  return productsArray
+  return productsArray;
 };
 
 export const getFilteredProducts = async (filterArgs: FilterArgsType) => {
@@ -93,7 +94,7 @@ export const getProductBySlugService = async (
       product = {
         ...doc.data(),
         id: doc.id,
-        dateadded: dateFormatter(new Date(doc.data().dateadded.seconds * 1000)),
+        dateadded: dateFormatter(new Date(doc.data().dateadded)),
       } as Product;
     });
   }
@@ -107,4 +108,13 @@ export const getCategoriesService = async () => {
     categories.push({ id: doc.id, ...doc.data() } as Category);
   });
   return categories;
+};
+
+export const addNewProductService = async (data: any) => {
+  const collectionRef = collection(db, "cities");
+  const docRef = await addDoc(collectionRef, data);
+  return {
+    id: docRef.id,
+    ...data,
+  };
 };

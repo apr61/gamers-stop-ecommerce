@@ -24,6 +24,7 @@ type ProductStateType = {
   categoryIn: Category | null;
   search: string;
   filterOpen: boolean;
+  page: number;
 };
 
 const initialState: ProductStateType = {
@@ -38,6 +39,7 @@ const initialState: ProductStateType = {
   categoryIn: null,
   search: "",
   filterOpen: false,
+  page: 1,
 };
 
 // export const fetchProductsThunk = createAsyncThunk(
@@ -108,7 +110,10 @@ const productSlice = createSlice({
       state.sort = action.payload;
     },
     productCategoryIn: (state, action: PayloadAction<Category>) => {
-      state.categoryIn = action.payload;
+      state.categoryIn = {
+        ...action.payload,
+        category: action.payload.category.toLowerCase(),
+      };
     },
     productBrands: (state, action: PayloadAction<string>) => {
       state.brands = state.brands.includes(action.payload)
@@ -123,6 +128,9 @@ const productSlice = createSlice({
     },
     toggleFilter: (state) => {
       state.filterOpen = !state.filterOpen;
+    },
+    productPage: (state, action) => {
+      state.page = action.payload;
     },
   },
   extraReducers(builder) {
@@ -169,6 +177,7 @@ export const selectProductCategory = (state: RootState) =>
 export const selectCategories = (state: RootState) => state.product.categories;
 export const selectIsFilterOpen = (state: RootState) =>
   state.product.filterOpen;
+export const selectProductPage = (state: RootState) => state.product.page
 
 export const getFilteredProducts = createSelector(
   (state: RootState) => state.product.products,
@@ -225,6 +234,7 @@ export const {
   productSearch,
   productSort,
   toggleFilter,
+  productPage
 } = productSlice.actions;
 
 export default productSlice.reducer;

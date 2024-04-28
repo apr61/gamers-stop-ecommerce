@@ -40,9 +40,11 @@ const SignUp = lazy(() => import("./components/auth/SignUp"));
 const SignIn = lazy(() => import("./components/auth/SignIn"));
 const Cart = lazy(() => import("./features/cart/cart/Cart"));
 const SingleProductPage = lazy(
-  () => import("./pages/singleProductPage/SingleProductPage")
+  () => import("./features/products/singleProductPage/SingleProductPage")
 );
-const ProductsList = lazy(() => import("./features/products/productsList/ProductsList"));
+const ProductsList = lazy(
+  () => import("./features/products/productsList/ProductsList")
+);
 const PageNotFound = lazy(
   () => import("./components/pageNotFound/PageNotFound")
 );
@@ -96,11 +98,9 @@ function App() {
               <Route path="orders" element={<AccountOrders />} />
               <Route path="orders/:orderId" element={<SingleOrderPage />} />
             </Route>
+            <Route path="/checkout" element={<CheckOutPage />} />
+            <Route path="/order-successful/:id" element={<OrderSuccessful />} />
           </Route>
-        </Route>
-        <Route element={<RequireAuth />}>
-          <Route path="/checkout" element={<CheckOutPage />} />
-          <Route path="/order-successful/:id" element={<OrderSuccessful />} />
         </Route>
         <Route path="/cart" element={<Cart />} />
         <Route path="/signin" element={<SignIn />} />
