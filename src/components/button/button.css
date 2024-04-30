@@ -1,0 +1,23 @@
+.button {
+  cursor: pointer;
+  background-color: var(--clr-primary-200);
+  color: var(--clr-txt-white);
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 0.25rem;
+  font-size: 1.25rem;
+  transition: all ease-in 100ms;
+}
+
+.button:hover{
+    background-color: var(--clr-bg-primary-hover);
+}
+
+.button--gray{
+    background-color: var(--clr-fade-bg);
+    cursor: not-allowed;
+}
+
+.button--gray:hover{
+    background-color: var(--clr-fade-bg-hover);
+}
