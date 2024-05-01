@@ -36,7 +36,8 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
     register,
     formState: { isValid, errors },
     handleSubmit,
-    setValue
+    setValue,
+    trigger
   } = useForm<AddressFormType>({
     defaultValues: {
       name: address?.name,
@@ -75,6 +76,7 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
     setValue("townLocality", dummyAddress.townLocality)
     setValue("cityDistrict", dummyAddress.cityDistrict)
     setValue("state", dummyAddress.state)
+    trigger()
   }
 
   const onsubmit: SubmitHandler<AddressFormType> = async (data) => {
