@@ -5,14 +5,16 @@ type PaginationProps = {
   totalCount: number;
   itemsPerPage: number;
   callback: (selectPage: number) => void;
+  currentPage: number
 };
 
 const Pagination = ({
   totalCount,
   itemsPerPage,
   callback,
+  currentPage = 1
 }: PaginationProps) => {
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(currentPage);
   const pagesCount = Math.ceil(totalCount / itemsPerPage);
 
   const handleOnClick = (selectedPageNumber: number) => {

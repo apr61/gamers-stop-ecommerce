@@ -1,19 +1,32 @@
 import "./search.css";
 import SearchIcon from "@mui/icons-material/Search";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { productSearch, selectProductSearch } from "../productSlice";
+import { useFilteredProducts } from "../../../hooks/useFilteredProducts";
 
 function Search() {
-  const dispatch = useAppDispatch();
-  const search = useAppSelector(selectProductSearch);
   const navigate = useNavigate();
+  const { search, setProductsSearchParams } = useFilteredProducts();
+
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    dispatch(productSearch(value));
-    navigate("/store");
+    setProductsSearchParams(
+      (prev) => {
+        if (value.length > 0) {
+          prev.set("search", value);
+        } else {
+          prev.delete("search");
+        }
+        return prev;
+      },
+      { replace: true }
+    );
+    navigate({
+      pathname: "/store",
+      search: createSearchParams({ search: value }).toString(),
+    });
   };
+
   return (
     <div className="search-box">
       <SearchIcon />

@@ -5,16 +5,13 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import Loader from "../../../components/loader/Loader";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
-  clearFilter,
-  getFilteredProducts,
-  productPage,
   selectIsFilterOpen,
-  selectProductPage,
   selectProductStatus,
   selectProducts,
   toggleFilter,
 } from "../productSlice";
 import Pagination from "../../../components/pagination/Pagination";
+import { useFilteredProducts } from "../../../hooks/useFilteredProducts";
 
 function ProductsList() {
   document.title = "Store | Gamers Stop";
@@ -22,17 +19,14 @@ function ProductsList() {
   const products = useAppSelector(selectProducts);
   const isLoading = useAppSelector(selectProductStatus);
   const isFilterOpen = useAppSelector(selectIsFilterOpen);
+  const {filteredProducts, currentPage, handlePagination, clearAllFilters} = useFilteredProducts()
+
   const totalProductsCount = products.length;
-  const filteredProducts = useAppSelector(getFilteredProducts);
-  const currentPage = useAppSelector(selectProductPage);
   const itemsPerPage = 3;
   const filterProductStart = currentPage * itemsPerPage - itemsPerPage
   const filterProductEnd = currentPage * itemsPerPage
   const filteredProductsLength = filteredProducts.length
 
-  const handlePaginationCallback = (selectPage: number) => {
-    dispatch(productPage(selectPage));
-  };
   return (
     <>
       <div className="category-products__body">
@@ -47,7 +41,7 @@ function ProductsList() {
             <h3 className="category-products__title">Filters</h3>
             <button
               className="category-products__clear-btn"
-              onClick={() => dispatch(clearFilter())}
+              onClick={clearAllFilters}
             >
               Clear
             </button>
@@ -83,7 +77,8 @@ function ProductsList() {
               <Pagination
                 totalCount={filteredProductsLength}
                 itemsPerPage={itemsPerPage}
-                callback={handlePaginationCallback}
+                callback={handlePagination}
+                currentPage={currentPage}
               />
             </>
           ) : (
