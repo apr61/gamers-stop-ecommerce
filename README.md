@@ -10,7 +10,7 @@ Welcome to our Gamers Stop Ecommerce Web App! This project is built using React.
 ![Checkout Page](public/images/checkout-page.jpeg)  
 ![Profile Page](public/images/profile-page.jpeg)
 
-## Technologies used
+## Built with
 
 1. [React](https://react.dev/)
 2. [Typescript](https://www.typescriptlang.org/)
@@ -18,6 +18,7 @@ Welcome to our Gamers Stop Ecommerce Web App! This project is built using React.
 4. [Firebase](https://firebase.google.com/) (For data storage)
 5. [Material Ui Icons](https://mui.com/material-ui/material-icons/)
 6. [Redux Toolkit](https://redux-toolkit.js.org/)
+7. [react-hook-form](https://react-hook-form.com/)
 
 ## Links
 
@@ -47,6 +48,8 @@ VITE_APP_FIREBASE_STORAGE_BUCKET = ""
 VITE_APP_FIREBASE_MESSAGE_ID = ""
 VITE_APP_FIREBASE_APP_ID = ""
 VITE_APP_FIREBASE_MEASUREMENT_ID = ""
+VITE_APP_RAZORPAY_KEY_ID = ""
+VITE_APP_RAZORPAY_KEY_SECRET = ""
 ```
 
 - Run the project
