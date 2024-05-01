@@ -10,7 +10,7 @@ Welcome to our Gamers Stop Ecommerce Web App! This project is built using React.
 ![Checkout Page](public/images/checkout-page.jpeg)  
 ![Profile Page](public/images/profile-page.jpeg)
 
-## Technologies used
+## Built with
 
 1. [React](https://react.dev/)
 2. [Typescript](https://www.typescriptlang.org/)
