@@ -9,6 +9,10 @@ function BreadCrumbs() {
     .split("/")
     .filter((crumb) => crumb !== "")
     .map((crumb) => {
+      // For removing extra unique id in product slug for SingleProductPage
+      if(crumb.split('-').length > 1){
+        crumb = crumb.split('-').slice(0, -1).join(' ')
+      }
       currentLink += `/${crumb}`;
       return (
         <Link

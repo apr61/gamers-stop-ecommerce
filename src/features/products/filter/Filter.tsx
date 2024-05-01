@@ -4,34 +4,26 @@ import StarIcon from "@mui/icons-material/Star";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
-  ProductAvailabilityType,
-  ProductSortType,
   fetchProductsThunk,
-  productAvailability,
-  productBrands,
-  productCategoryIn,
-  productRating,
-  productSort,
   selectCategories,
-  selectProductAvailability,
-  selectProductCategory,
-  selectProductRating,
-  selectProductSort,
   selectProducts,
-  selectProductsBrands,
   toggleFilter,
 } from "../productSlice";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect } from "react";
+import { useFilteredProducts } from "../../../hooks/useFilteredProducts";
 
 function Filter() {
   const dispatch = useAppDispatch();
+  const {
+    sort,
+    rating,
+    brands,
+    categoryIn,
+    availability,
+    setProductsSearchParams,
+  } = useFilteredProducts();
 
   const allCategories = useAppSelector(selectCategories);
-  const sort = useAppSelector(selectProductSort);
-  const rating = useAppSelector(selectProductRating);
-  const brands = useAppSelector(selectProductsBrands);
-  const categoryIn = useAppSelector(selectProductCategory);
-  const availability = useAppSelector(selectProductAvailability);
   const products = useAppSelector(selectProducts);
 
   const allUniqueBrands = [
@@ -41,6 +33,26 @@ function Filter() {
   useEffect(() => {
     dispatch(fetchProductsThunk());
   }, []);
+
+  const handleBrandsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setProductsSearchParams((prev) => {
+      const prevBrandsSearch = prev.get("brands") || "";
+      let prevBrands = prevBrandsSearch.split("-").filter((p) => p !== "");
+      if (prevBrands.indexOf(value) !== -1) {
+        prevBrands = prevBrands.filter((brand) => brand !== value);
+      } else {
+        prevBrands.push(value);
+      }
+      const res = prevBrands.join("-").toString();
+      if (res.length > 0) {
+        prev.set("brands", res);
+      } else {
+        prev.delete("brands");
+      }
+      return prev;
+    }, {replace: true});
+  };
 
   return (
     <section className="filter-section">
@@ -58,8 +70,13 @@ function Filter() {
               id={category.id}
               name="categories"
               value={category.category}
-              checked={categoryIn?.id === category.id}
-              onChange={() => dispatch(productCategoryIn(category))}
+              checked={categoryIn === category.category}
+              onChange={(e) => {
+                setProductsSearchParams((prev) => {
+                  prev.set("category", e.target.value);
+                  return prev;
+                }, {replace: true});
+              }}
             />
             <label htmlFor={category.id} className="filter__input-label">
               {category.category}
@@ -76,7 +93,7 @@ function Filter() {
               name={brand}
               value={brand}
               checked={brands.includes(brand)}
-              onChange={(e) => dispatch(productBrands(e.target.value))}
+              onChange={(e) => handleBrandsChange(e)}
             />
             <label htmlFor={brand} className="filter__input-label">
               {brand}
@@ -104,7 +121,12 @@ function Filter() {
             step="1"
             list="values"
             value={rating}
-            onChange={(e) => dispatch(productRating(+e.target.value))}
+            onChange={(e) => {
+              setProductsSearchParams((prev) => {
+                prev.set("rating", e.target.value);
+                return prev;
+              }, {replace: true});
+            }}
           />
           <datalist className="filter__datalist" id="values">
             <option value="1" label="1"></option>
@@ -122,11 +144,12 @@ function Filter() {
             id="out_of_stock"
             value={availability === "inStock" ? "outOfStock" : "inStock"}
             checked={availability === "outOfStock"}
-            onChange={(e) =>
-              dispatch(
-                productAvailability(e.target.value as ProductAvailabilityType)
-              )
-            }
+            onChange={(e) => {
+              setProductsSearchParams((prev) => {
+                prev.set("availability", e.target.value);
+                return prev;
+              }, {replace: true});
+            }}
           />
           <label htmlFor="out_of_stock" className="filter__input-label">
             Include out of stock
@@ -141,9 +164,12 @@ function Filter() {
             id="price_low_to_high"
             value="price_low_to_high"
             checked={sort === "price_low_to_high"}
-            onChange={(e) =>
-              dispatch(productSort(e.target.value as ProductSortType))
-            }
+            onChange={(e) => {
+              setProductsSearchParams((prev) => {
+                prev.set("sort", e.target.value);
+                return prev;
+              }, {replace: true});
+            }}
           />
           <label htmlFor="price_low_to_high" className="filter__input-label">
             Price Low To High
@@ -156,9 +182,12 @@ function Filter() {
             id="price_high_to_low"
             value="price_high_to_low"
             checked={sort === "price_high_to_low"}
-            onChange={(e) =>
-              dispatch(productSort(e.target.value as ProductSortType))
-            }
+            onChange={(e) => {
+              setProductsSearchParams((prev) => {
+                prev.set("sort", e.target.value);
+                return prev;
+              }, {replace: true});
+            }}
           />
           <label htmlFor="price_high_to_low" className="filter__input-label">
             Price High To Low

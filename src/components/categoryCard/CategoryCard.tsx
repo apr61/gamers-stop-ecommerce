@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import "./categoryCard.css";
 import { Category } from "../../utils/types";
-import { useAppDispatch } from "../../app/hooks";
-import { productCategoryIn } from "../../features/products/productSlice";
+import { useFilteredProducts } from "../../hooks/useFilteredProducts";
 
 type CategoryCardProps = {
   category: Category;
@@ -11,10 +10,17 @@ type CategoryCardProps = {
 function CategoryCard({ category }: CategoryCardProps) {
   const { category: name, images } = { ...category };
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const { setProductsSearchParams } = useFilteredProducts();
   function handleImageClick(category: Category) {
-    dispatch(productCategoryIn(category));
-    navigate("/store");
+    const categoryName = category.category.toLowerCase()
+    setProductsSearchParams((prev) => {
+      prev.set("category", categoryName);
+      return prev;
+    }, {replace: true});
+    navigate({
+      pathname: "/store",
+      search: createSearchParams({ category: categoryName }).toString(),
+    });
   }
   return (
     <div className="category-card">
