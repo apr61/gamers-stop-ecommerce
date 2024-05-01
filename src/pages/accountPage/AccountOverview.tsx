@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { logOut } from "../../services/auth";
 import "./accountPage.css";
+import Button from "../../components/button/Button";
 
 function AccountOverview() {
   const navigate = useNavigate();
@@ -39,10 +40,15 @@ function AccountOverview() {
         </Link>
       </div>
       <div className="account-overview__logout">
-        <button className="account-overview__logout-btn" onClick={handleLogOut}>
-          <LogoutIcon />
-          Logout
-        </button>
+        <Button
+          text={
+            <>
+              <LogoutIcon /> Log Out
+            </>
+          }
+          onClick={handleLogOut}
+          btnType="danger"
+        />
       </div>
     </section>
   );

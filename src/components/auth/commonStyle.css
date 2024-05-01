@@ -15,19 +15,6 @@
   flex-direction: column;
 }
 
-.auth-page__btn {
-  padding: 0.5rem 1rem;
-  border: 0;
-  background-color: var(--clr-primary-200);
-  color: var(--clr-txt-white);
-  border-radius: 0.25rem;
-  font-size: 1.25rem;
-  cursor: pointer;
-  align-self: center;
-  margin-top: 0.75rem;
-  width: 100%;
-}
-
 .auth-page__info {
   margin-top: 1rem;
   text-align: start;
@@ -37,14 +24,7 @@
   color: var(--clr-danger);
 }
 
-.auth-page__btn--ghost{
-  background-color: transparent;
-  border: 2px solid var(--clr-border);
-  transition: all 500ms ease;
-  color: var(--clr-txt)
-}
-
-.auth-page__btn--ghost:hover{
-  background-color: var(--clr-txt-hover);
-  color: var(--clr-txt-white)
+.auth-page__link{
+  color: var(--clr-txt-hover);
+  text-decoration: underline;
 }

@@ -48,7 +48,6 @@ function SignUp() {
       <Navbar />
       <section className="auth-page">
         <h2 className="auth-page__title">Sign up</h2>
-        {/* {error && <p className="auth-page__error-msg">{error}</p>} */}
         <form className="auth-page__form" onSubmit={handleSubmit(onSubmit)}>
           <Input
             label="Name"
@@ -63,12 +62,13 @@ function SignUp() {
           <Input
             label="Email"
             placeholder="Enter your email"
+            type="email"
             {...register("email", {
               required: "Email is required",
               validate: {
                 matchPatern: (value) =>
                   /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                  "Email address must be a valid address",
+                  "Email must be a valid",
               },
             })}
           />
@@ -121,7 +121,10 @@ function SignUp() {
           )}
         </form>
         <p className="auth-page__info">
-          Already have an account? Go <Link to="/signin">here</Link>
+          Already have an account? Go{" "}
+          <Link to="/signin" className="auth-page__link">
+            here
+          </Link>
         </p>
       </section>
     </>

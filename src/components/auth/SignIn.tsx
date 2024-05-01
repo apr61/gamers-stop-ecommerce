@@ -1,100 +1,112 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
-import { useAuthContext } from "../../context/AuthContext";
 import { signInService } from "../../services/auth";
 import "./commonStyle.css";
-import { User } from "../../utils/types";
-import { FormEvent } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import Input from "../input/Input";
+import Button from "../button/Button";
+import { FirebaseError } from "firebase/app";
+
+type SignInFormType = {
+  email: string;
+  password: string;
+};
 
 function SignIn() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const { authState: {email, password, error}, authDispatch } = useAuthContext();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { isValid, isSubmitting, errors },
+  } = useForm<SignInFormType>();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<SignInFormType> = async (data) => {
     try {
-      const user: Partial<User> = {
-        email: email,
-        password: password,
-      };
-      await signInService(user);
+      await signInService(data.email, data.password);
     } catch (err) {
-      if (err instanceof Error) {
-        authDispatch({ type: "ERROR", payload: err.message });
+      if (err instanceof FirebaseError) {
+        setError("root", { message: err.code });
       }
-      return;
-    } finally {
-      authDispatch({ type: "EMAIL", payload: "" });
-      authDispatch({ type: "PASSWORD", payload: "" });
+    }
+    if (errors) {
       navigate(from, { replace: true });
     }
   };
 
   const handleLoginAsGuest = async () => {
-    authDispatch({ type: "EMAIL", payload: "guest@dev.com" });
-    authDispatch({ type: "PASSWORD", payload: "Guest@1234" });
-
-    try {
-      await signInService({email: "guest@dev.com", password: "Guest@1234"});
-    } finally {
-      authDispatch({ type: "EMAIL", payload: "" });
-      authDispatch({ type: "PASSWORD", payload: "" });
+    await signInService("guest@dev.com", "Guest@1234");
+    if (errors) {
       navigate(from, { replace: true });
     }
   };
+
   return (
     <>
       <Navbar />
       <section className="auth-page">
         <h2 className="auth-page__title">Sign In</h2>
-        {error && <p className="auth-page__error-msg">{error}</p>}
-        <form className="auth-page__form" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="email" className="input-group__label">
-              Email
-            </label>
-            <input
-              className="input-group__input"
-              type="email"
-              placeholder="Enter email"
-              id="email"
-              value={email}
-              required
-              onChange={(e) =>
-                authDispatch({ type: "EMAIL", payload: e.target.value })
-              }
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="password" className="input-group__label">
-              Password
-            </label>
-            <input
-              className="input-group__input"
-              type="password"
-              placeholder="Enter password"
-              id="password"
-              value={password}
-              required
-              onChange={(e) =>
-                authDispatch({ type: "PASSWORD", payload: e.target.value })
-              }
-            />
-          </div>
-          <button className="auth-page__btn">Sign In</button>
-          <button
+        <form className="auth-page__form" onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            label="Email"
+            placeholder="you@example.com"
+            type="email"
+            {...register("email", {
+              required: "Email is required",
+              validate: {
+                matchPattern: (value) =>
+                  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                  "Email must be a valid",
+              },
+            })}
+          />
+          {errors.email && (
+            <p role="alert" className="form-errors">
+              {errors.email.message}
+            </p>
+          )}
+          <Input
+            label="Password"
+            type="password"
+            placeholder="Your password"
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 8,
+                message: "Password must be 8 characters",
+              },
+            })}
+          />
+          {errors.password && (
+            <p role="alert" className="form-errors">
+              {errors.password.message}
+            </p>
+          )}
+          <Button
+            text={isSubmitting ? "Loading..." : "Sign In"}
+            isDisabled={isSubmitting || !isValid}
+          />
+          <Button
+            text={isSubmitting ? "Loading..." : "Login as guest"}
             type="button"
-            className="auth-page__btn auth-page__btn--ghost"
+            isDisabled={isSubmitting}
+            btnType="ghost"
             onClick={handleLoginAsGuest}
-          >
-            Login as guest
-          </button>
+          />
+          {errors.root && (
+            <p role="alert" className="form-errors">
+              {errors.root.message}
+            </p>
+          )}
         </form>
         <p className="auth-page__info">
-          Don't have a account? Create <Link to="/signup">here</Link>
+          Don't have a account? Create{" "}
+          <Link to="/signup" className="auth-page__link">
+            here
+          </Link>
         </p>
       </section>
     </>

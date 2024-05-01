@@ -1,4 +1,3 @@
-import { FormEvent, RefObject, useRef } from "react";
 import "./style.css";
 import Input from "../../../components/input/Input";
 import { useNavigate } from "react-router-dom";
@@ -11,29 +10,47 @@ import {
 } from "../addressSlice";
 import { Address, AddressData } from "../../../utils/types";
 import { selectCurrentUser } from "../../auth/authSlice";
-
-type RefType = RefObject<HTMLInputElement>;
+import { SubmitHandler, useForm } from "react-hook-form";
+import Button from "../../../components/button/Button";
 
 type AddressFormProps = {
   edit?: boolean;
   address?: Address;
 };
 
+type AddressFormType = {
+  name: string;
+  phoneNumber: number;
+  pincode: number;
+  address: string;
+  townLocality: string;
+  cityDistrict: string;
+  state: string;
+};
+
 function AddressForm({ edit = false, address }: AddressFormProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
+  const {
+    register,
+    formState: { isValid, errors },
+    handleSubmit,
+    setValue
+  } = useForm<AddressFormType>({
+    defaultValues: {
+      name: address?.name,
+      phoneNumber: address?.phoneNumber,
+      pincode: address?.pincode,
+      address: address?.address,
+      townLocality: address?.townLocality,
+      cityDistrict: address?.cityDistrict,
+      state: address?.state,
+    }
+  });
 
   const isLoading = useAppSelector(selectAddressStatus);
   const error = useAppSelector(selectAddressError);
-
-  const nameRef: RefType = useRef(null);
-  const phoneNumberRef: RefType = useRef(null);
-  const pinCodeRef: RefType = useRef(null);
-  const addressRef: RefType = useRef(null);
-  const townLocalityRef: RefType = useRef(null);
-  const cityDistrictRef: RefType = useRef(null);
-  const stateRef: RefType = useRef(null);
 
   function handleCancel() {
     navigate(-1);
@@ -42,7 +59,7 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
   const dummyAddress: AddressData = {
     uid: currentUser!.uid,
     name: "Unknown me",
-    phoneNumber: 1111111111,
+    phoneNumber: 7867777777,
     pincode: 111111,
     address: "4 / 51 - 58, Unknown Area",
     townLocality: "Unkown town",
@@ -51,40 +68,25 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
   };
 
   function handleAddDemoAddress() {
-    if (nameRef.current) {
-      nameRef.current.value = dummyAddress.name;
-    }
-    if (phoneNumberRef.current) {
-      phoneNumberRef.current.value = dummyAddress.phoneNumber.toString();
-    }
-    if (pinCodeRef.current) {
-      pinCodeRef.current.value = dummyAddress.pincode.toString();
-    }
-    if (addressRef.current) {
-      addressRef.current.value = dummyAddress.address;
-    }
-    if (townLocalityRef.current) {
-      townLocalityRef.current.value = dummyAddress.townLocality;
-    }
-    if (cityDistrictRef.current) {
-      cityDistrictRef.current.value = dummyAddress.cityDistrict;
-    }
-    if (stateRef.current) {
-      stateRef.current.value = dummyAddress.state;
-    }
+    setValue("name", dummyAddress.name)
+    setValue("phoneNumber", dummyAddress.phoneNumber)
+    setValue("pincode", dummyAddress.pincode)
+    setValue("address", dummyAddress.address)
+    setValue("townLocality", dummyAddress.townLocality)
+    setValue("cityDistrict", dummyAddress.cityDistrict)
+    setValue("state", dummyAddress.state)
   }
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onsubmit: SubmitHandler<AddressFormType> = async (data) => {
     const newAddress: AddressData = {
       uid: currentUser!.uid,
-      name: (nameRef.current as HTMLInputElement).value,
-      phoneNumber: +(phoneNumberRef.current as HTMLInputElement).value,
-      pincode: +(pinCodeRef.current as HTMLInputElement).value,
-      address: (addressRef.current as HTMLInputElement).value,
-      cityDistrict: (cityDistrictRef.current as HTMLInputElement).value,
-      townLocality: (townLocalityRef.current as HTMLInputElement).value,
-      state: (stateRef.current as HTMLInputElement).value,
+      name: data.name,
+      phoneNumber: data.phoneNumber,
+      pincode: data.pincode,
+      address: data.address,
+      cityDistrict: data.cityDistrict,
+      townLocality: data.townLocality,
+      state: data.state,
     };
 
     let addressDataReq = {
@@ -104,66 +106,124 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
 
   return (
     <>
-      {error && <p className="error-msg">{error}</p>}
-      <form className="address-form" onSubmit={handleSubmit}>
+      {error && <p role="alert" className="form-errors">{error}</p>}
+      <form className="address-form" onSubmit={handleSubmit(onsubmit)}>
         <div className="address-form__wrapper">
-          <Input placeholder="Name" ref={nameRef} value={address?.name!} />
           <Input
-            placeholder="Phone number"
-            ref={phoneNumberRef}
-            value={address?.phoneNumber.toString()!}
+            placeholder="Name"
+            label="Name"
+            {...register("name", { required: "Name is required" })}
           />
+          {errors.name && (
+            <p role="alert" className="form-errors">
+              {errors.name.message}
+            </p>
+          )}
+          <Input
+            placeholder="Mobile"
+            label="Mobile"
+            {...register("phoneNumber", {
+              required: "Phone number is required",
+              validate: {
+                matchPattern: (value) =>
+                  /^[6-9]\d{9}$/.test(value.toString()) ||
+                  "Mobile must be valid",
+              },
+            })}
+          />
+          {errors.phoneNumber && (
+            <p role="alert" className="form-errors">
+              {errors.phoneNumber.message}
+            </p>
+          )}
         </div>
         <div className="address-form__wrapper">
           <Input
+            label="Pincode"
             placeholder="Pincode"
-            ref={pinCodeRef}
-            value={address?.pincode.toString()!}
+            {...register("pincode", {
+              required: "Pincode is required",
+              minLength: {
+                value: 6,
+                message: "Pincode must be 6 digits",
+              },
+              maxLength: {
+                value: 6,
+                message: "Pincode must be 6 digits",
+              },
+            })}
           />
+          {errors.pincode && (
+            <p role="alert" className="form-errors">
+              {errors.pincode.message}
+            </p>
+          )}
           <Input
+            label="House no, Building, Street, Area"
             placeholder="House no, Building, Street, Area"
-            ref={addressRef}
-            value={address?.address!}
+            {...register("address", {
+              required: "House no, Building, Street, Area is required",
+            })}
           />
+          {errors.address && (
+            <p role="alert" className="form-errors">
+              {errors.address.message}
+            </p>
+          )}
           <Input
+            label="Locality/Town"
             placeholder="Locality/Town"
-            ref={townLocalityRef}
-            value={address?.townLocality!}
+            {...register("townLocality", {
+              required: "Locality/Town is required",
+            })}
           />
+          {errors.townLocality && (
+            <p role="alert" className="form-errors">
+              {errors.townLocality.message}
+            </p>
+          )}
           <Input
+            label="City/District"
             placeholder="City/District"
-            ref={cityDistrictRef}
-            value={address?.cityDistrict!}
+            {...register("cityDistrict", {
+              required: "City/District is required",
+            })}
           />
-          <Input placeholder="State" ref={stateRef} value={address?.state!} />
+          {errors.cityDistrict && (
+            <p role="alert" className="form-errors">
+              {errors.cityDistrict.message}
+            </p>
+          )}
+          <Input
+            placeholder="State"
+            label="State"
+            {...register("state", { required: "State is required" })}
+          />
+          {errors.state && (
+            <p role="alert" className="form-errors">
+              {errors.state.message}
+            </p>
+          )}
         </div>
         <div className="address-from-sec__btn-wrapper">
-          <button
-            className={
-              isLoading
-                ? "address-form-sec__btn address-form-sec__btn--loading"
-                : "address-form-sec__btn"
-            }
-            disabled={isLoading === "loading"}
-          >
-            {edit ? "Edit Address" : "Add new Address"}
-          </button>
+          <Button
+            text={edit ? "Edit Address" : "Add new Address"}
+            isDisabled={isLoading === "loading" || !isValid}
+          />
           {!edit && (
-            <button
+            <Button
               type="button"
-              className="address-form-sec__btn address-form-sec__btn--border"
+              text="Demo Address"
+              btnType="ghost"
               onClick={handleAddDemoAddress}
-            >
-              Demo Address
-            </button>
+            />
           )}
-          <button
+          <Button
             type="button"
-            className="address-form-sec__btn address-form-sec__btn--border"
+            text="Cancel"
+            btnType="ghost"
             onClick={handleCancel}
-          >
-            Cancel
-          </button>
+          />
         </div>
       </form>
     </>

@@ -20,11 +20,11 @@ export const signUp = async (newUser: UserData) => {
   });
 };
 
-export const signInService = async (user: Partial<User>) => {
+export const signInService = async (email: string, password: string) => {
   return await signInWithEmailAndPassword(
     auth,
-    user.email as string,
-    user.password as string
+    email,
+    password
   );
 };
 
@@ -32,9 +32,7 @@ export const logOut = async () => {
   return await signOut(auth);
 };
 
-export const updateUserProfile = async (
-  user: Partial<User>
-) => {
+export const updateUserProfile = async (user: Partial<User>) => {
   if (auth) {
     await updateProfile(auth.currentUser as AuthUser, {
       displayName: user.name,
