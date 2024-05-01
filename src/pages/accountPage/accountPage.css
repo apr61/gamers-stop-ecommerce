@@ -49,30 +49,9 @@
 }
 
 .account-overview__logout {
+  width: 100%;
   margin-top: 2rem;
-}
-
-.account-overview__logout-btn {
-  border: none;
-  background-color: red;
-  color: white;
-  border-radius: 0.5rem;
-  cursor: pointer;
   display: flex;
-  gap: 0.5rem;
   align-items: center;
-  font-size: 1.25rem;
-  padding: 0.5rem 1rem;
-  width: fit-content;
-  margin-inline: auto;
-}
-
-.account-overview__logout-btn:hover {
-  opacity: 0.9;
-}
-
-@media (max-width: 60rem) {
-  .account-overview__container {
-    grid-template-columns: 1fr;
-  }
+  justify-content: center;
 }

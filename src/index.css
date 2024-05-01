@@ -12,16 +12,18 @@
   --ff: "Poppins", sans-serif;
   --clr-nav-bg: hsl(200, 50%, 20%);
   --clr-txt-white: hsl(0, 0%, 100%);
-  --clr-txt-hover: hsl(29, 87%, 67%);
+  --clr-txt-hover: hsl(200, 70%, 50%);
   --clr-txt-black: hsl(0, 0%, 0%);
   --clr-border: hsl(0, 0%, 60%, 0.25);
   --clr-btn-out-of-stock: hsl(0, 0%, 30%);
   --clr-txt-fade: hsl(0, 0%, 60%);
   --clr-fade-bg: hsl(0, 0%, 90%, 0.9);
+  --clr-fade-bg-hover: hsl(0, 0%, 50%);
   --box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
   --clr-loader: hsl(200, 70%, 50%);
   --clr-loader-border: hsl(0, 0%, 60%, 0.25);
   --clr-primary-200: hsl(200, 70%, 50%);
+  --clr-bg-primary-hover: hsl(200, 70%, 55%);
   --clr-danger: hsl(0, 95%, 50%);
   --clr-success: hsl(100, 80%, 50%);
   --clr-img-bg: var(--clr-txt-white);
@@ -78,6 +80,11 @@ a {
 
 label {
   cursor: pointer;
+}
+
+.form-errors{
+  color: var(--clr-danger);
+  font-size: .85rem;
 }
 
 @media (max-width: 50rem) {

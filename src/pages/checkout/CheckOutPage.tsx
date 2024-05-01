@@ -18,6 +18,7 @@ import {
   selectAddresses,
 } from "../../features/address/addressSlice";
 import { selectCurrentUser } from "../../features/auth/authSlice";
+import Button from "../../components/button/Button";
 
 function CheckOutPage() {
   document.title = "Checkout | Gamers Stop";
@@ -224,23 +225,18 @@ function CheckOutPage() {
               )}
             </section>
             <div className="checkout__row">
-              <button
-                className={
-                  canPlaceOrder
-                    ? "checkout__btn"
-                    : "checkout__btn checkout__btn--disabled"
-                }
-                disabled={!canPlaceOrder}
+              <Button
+                type="button"
+                text="Place Order & Pay"
+                isDisabled={!canPlaceOrder}
                 onClick={handlePlaceOrder}
-              >
-                Place Order & Pay
-              </button>
-              <button
-                className="checkout__btn checkout__btn--ghost"
+              />
+              <Button
+                type="button"
+                text="Cancel & Go back"
                 onClick={() => navigate("/cart")}
-              >
-                Cancel & Go back
-              </button>
+                btnType="ghost"
+              />
             </div>
           </div>
         </div>

@@ -67,27 +67,3 @@
   align-items: center;
   gap: 0.25rem;
 }
-
-.product-card__btn {
-  background-color: transparent;
-  border: 2px solid var(--clr-border);
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.5rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  background-color: var(--clr-primary-200);
-  color: var(--clr-txt-white);
-}
-
-.product-card__btn:hover {
-  opacity: 0.75;
-}
-
-.product-card__btn--out-of-stock {
-  background-color: var(--clr-btn-out-of-stock);
-  cursor: not-allowed;
-}
-
-.product-card__btn--out-of-stock:hover {
-  opacity: 1;
-}

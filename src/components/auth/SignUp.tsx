@@ -1,41 +1,46 @@
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
-import { useAuthContext } from "../../context/AuthContext";
 import { signUp } from "../../services/auth";
 import "./commonStyle.css";
 import { UserData } from "../../utils/types";
+import { SubmitHandler, useForm } from "react-hook-form";
+import Input from "../input/Input";
+import Button from "../button/Button";
+
+interface SignUpFormType {
+  name: string;
+  email: string;
+  password: string;
+  cpassword: string;
+}
 
 function SignUp() {
   const {
-    authState: { name, email, password, cpassword, error },
-    authDispatch,
-  } = useAuthContext();
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid, isSubmitting },
+    setError,
+  } = useForm<SignUpFormType>();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (password !== cpassword) {
-      authDispatch({ type: "ERROR", payload: "Password's don't match" });
-      return;
-    }
+  const password = watch("password", "");
+
+  const onSubmit: SubmitHandler<SignUpFormType> = async (data) => {
     try {
       const newUser: UserData = {
-        name: name,
-        email: email,
-        password: password,
+        name: data.name,
+        email: data.email,
+        password: data.password,
       };
       await signUp(newUser);
-      navigate("/");
     } catch (err) {
       if (err instanceof Error) {
-        authDispatch({ type: "ERROR", payload: err.message });
+        setError("root", { message: err.message });
       }
-    } finally {
-      authDispatch({ type: "ERROR", payload: "" });
-      authDispatch({ type: "NAME", payload: "" });
-      authDispatch({ type: "EMAIL", payload: "" });
-      authDispatch({ type: "PASSWORD", payload: "" });
-      authDispatch({ type: "CPASSWORD", payload: "" });
+    }
+    if (errors) {
+      navigate("/");
     }
   };
   return (
@@ -43,76 +48,83 @@ function SignUp() {
       <Navbar />
       <section className="auth-page">
         <h2 className="auth-page__title">Sign up</h2>
-        {error && <p className="auth-page__error-msg">{error}</p>}
-        <form className="auth-page__form" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="name" className="input-group__label">
-              Name
-            </label>
-            <input
-              className="input-group__input"
-              type="text"
-              placeholder="Enter name"
-              id="name"
-              value={name}
-              required
-              onChange={(e) =>
-                authDispatch({ type: "NAME", payload: e.target.value })
-              }
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="email" className="input-group__label">
-              Email
-            </label>
-            <input
-              className="input-group__input"
-              type="email"
-              placeholder="Enter Email"
-              id="email"
-              value={email}
-              required
-              onChange={(e) =>
-                authDispatch({ type: "EMAIL", payload: e.target.value })
-              }
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="password" className="input-group__label">
-              Password
-            </label>
-            <input
-              className="input-group__input"
-              type="password"
-              placeholder="Enter password"
-              id="password"
-              value={password}
-              required
-              onChange={(e) =>
-                authDispatch({ type: "PASSWORD", payload: e.target.value })
-              }
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="password" className="input-group__label">
-              Confirm Password
-            </label>
-            <input
-              className="input-group__input"
-              type="password"
-              placeholder="Enter password again"
-              id="cpassword"
-              value={cpassword}
-              required
-              onChange={(e) =>
-                authDispatch({ type: "CPASSWORD", payload: e.target.value })
-              }
-            />
-          </div>
-          <button className="auth-page__btn">Sign Up</button>
+        <form className="auth-page__form" onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            label="Name"
+            placeholder="Enter your name"
+            {...register("name", { required: "Name is required" })}
+          />
+          {errors.name && (
+            <p role="alert" className="form-errors">
+              {errors.name.message}
+            </p>
+          )}
+          <Input
+            label="Email"
+            placeholder="Enter your email"
+            type="email"
+            {...register("email", {
+              required: "Email is required",
+              validate: {
+                matchPatern: (value) =>
+                  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                  "Email must be a valid",
+              },
+            })}
+          />
+          {errors.email && (
+            <p role="alert" className="form-errors">
+              {errors.email.message}
+            </p>
+          )}
+          <Input
+            label="Password"
+            placeholder="Enter your password"
+            type="password"
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 8,
+                message: "Password must be atleast 8 characters",
+              },
+              maxLength: 10,
+            })}
+          />
+          {errors.password && (
+            <p role="alert" className="form-errors">
+              {errors.password.message}
+            </p>
+          )}
+          <Input
+            label="Confirm Password"
+            placeholder="Enter your password again"
+            type="password"
+            {...register("cpassword", {
+              required: "Confirm password is required",
+              validate: (value) =>
+                password === value || "The passwords doesn't match!!!",
+            })}
+          />
+          {errors.cpassword && (
+            <p role="alert" className="form-errors">
+              {errors.cpassword.message}
+            </p>
+          )}
+          <Button
+            text={isSubmitting ? "Loading..." : "Sign Up"}
+            isDisabled={!isValid || isSubmitting}
+          />
+          {errors.root && (
+            <p role="alert" className="form-errors">
+              {errors.root.message}
+            </p>
+          )}
         </form>
         <p className="auth-page__info">
-          Already have an account? Go <Link to="/signin">here</Link>
+          Already have an account? Go{" "}
+          <Link to="/signin" className="auth-page__link">
+            here
+          </Link>
         </p>
       </section>
     </>

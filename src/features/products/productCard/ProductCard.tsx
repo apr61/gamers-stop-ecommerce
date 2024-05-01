@@ -6,6 +6,7 @@ import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { Product } from "../../../utils/types";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { addToCart, getAllCartItems } from "../../cart/cartSlice";
+import Button from "../../../components/button/Button";
 
 type ProductCardProps = {
   product: Product;
@@ -59,21 +60,18 @@ function ProductCard({ product }: ProductCardProps) {
           <p className="product-card__brand-name">{brand}</p>
         </div>
         <h5 className="product-card__price">{currencyFormatter(price)}</h5>
-        <button
-          className={
+        <Button
+          type="button"
+          text={
             isOutOfStock
-              ? "product-card__btn product-card__btn--out-of-stock"
-              : "product-card__btn"
+              ? "Out Of Stock"
+              : isCartItem
+              ? "Go to cart"
+              : "Add to cart"
           }
-          onClick={() => handleAddToCart()}
-          disabled={isOutOfStock}
-        >
-          {isOutOfStock
-            ? "Out Of Stock"
-            : isCartItem
-            ? "Go to cart"
-            : "Add to cart"}
-        </button>
+          isDisabled={isOutOfStock}
+          onClick={handleAddToCart}
+        />
       </div>
     </article>
   );

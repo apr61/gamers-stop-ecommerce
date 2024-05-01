@@ -6,11 +6,8 @@ import BreadCrumbs from "../../../components/breadcrumbs/BreadCrumbs";
 import { currencyFormatter } from "../../../utils/utils";
 import "./cart.css";
 import { useAppSelector } from "../../../app/hooks";
-import {
-  getAllCartItems,
-  getTotalCost,
-  getTotalItems,
-} from "../cartSlice";
+import { getAllCartItems, getTotalCost, getTotalItems } from "../cartSlice";
+import Button from "../../../components/button/Button";
 
 function Cart() {
   const totalItems = useAppSelector(getTotalItems);
@@ -58,12 +55,11 @@ function Cart() {
                       </tr>
                     </tbody>
                   </table>
-                  <button
-                    className="cart__checkout-btn"
+                  <Button
+                    type="button"
+                    text="Check Out"
                     onClick={() => navigate("/checkout")}
-                  >
-                    Check Out
-                  </button>
+                  />
                 </div>
               </div>
             </div>
@@ -73,12 +69,11 @@ function Cart() {
             <h3 className="cart__title cart__title-empty">
               Your cart is empty
             </h3>
-            <button
-              className="cart__checkout-btn"
+            <Button
+              type="button"
+              text="Shop Now"
               onClick={() => navigate("/store")}
-            >
-              Shop Now
-            </button>
+            />
           </div>
         )}
       </main>
