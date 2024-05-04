@@ -29,7 +29,7 @@ function Search() {
 
   return (
     <div className="search-box">
-      <SearchIcon />
+      <SearchIcon className="search-box__icon"/>
       <input
         type="search"
         className="search-box__input"

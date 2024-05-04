@@ -2,6 +2,7 @@
   margin: 1rem 0;
   font-weight: 600;
   text-align: center;
+  font-size: 1.3rem;
 }
 
 .home__section {
@@ -20,6 +21,9 @@
   .home__category {
     gap: 0.5rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .home__title{
+    font-size: 1.1rem;
   }
 }
 

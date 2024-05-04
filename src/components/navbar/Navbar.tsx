@@ -9,8 +9,20 @@ import PersonIcon from "@mui/icons-material/Person";
 import LoginIcon from "@mui/icons-material/Login";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getTotalItems } from "../../features/cart/cartSlice";
-import { getTheme, toggleTheme } from "../../features/theme/themeSlice";
+import {
+  getTheme,
+  openSideNav,
+  toggleTheme,
+} from "../../features/theme/themeSlice";
 import { selectCurrentUser } from "../../features/auth/authSlice";
+import { ReactElement } from "react";
+import SideNav from "../sidenav/SideNav";
+
+type NavItemProps = {
+  children: ReactElement;
+  title: string;
+  className?: string;
+};
 
 function Navbar() {
   const currentUser = useAppSelector(selectCurrentUser);
@@ -18,48 +30,66 @@ function Navbar() {
   const dispatch = useAppDispatch();
   const totalItems = useAppSelector(getTotalItems);
   return (
-    <nav className="navbar">
-      <Link to="/" className="navbar__link navbar__link--logo">
-        Gamers Stop
-      </Link>
-      <Search />
-      <ul className="navbar__list">
-        <li className="navbar__list-item" title="Store">
-          <Link to="/store" className="navbar__link">
-            <StoreIcon />
-          </Link>
-        </li>
-        <li
-          className="navbar__list"
-          title={theme === "light" ? "Switch to Dark" : "Switch to Light"}
+    <>
+      <nav className="navbar">
+        <button
+          className="navbar_hamburger"
+          onClick={() => dispatch(openSideNav())}
         >
-          <button
-            className="navbar__theme-btn"
-            onClick={() =>
-              dispatch(toggleTheme(theme === "dark" ? "light" : "dark"))
-            }
+          &#9776;
+        </button>
+        <Link to="/" className="navbar__link navbar__link--logo">
+          Gamers Stop
+        </Link>
+        <Search />
+        <ul className="navbar__list">
+          <NavItem title="Store" className="navbar__list--store">
+            <Link to="/store" className="navbar__link">
+              <StoreIcon />
+            </Link>
+          </NavItem>
+          <NavItem
+            title={theme === "light" ? "Switch to Dark" : "Switch to Light"}
           >
-            {theme === "light" ? <DarkModeIcon /> : <WbSunnyIcon />}
-          </button>
-        </li>
-        <li className="navbar__list-item" title="Cart">
-          <Link className="navbar__link navbar__link--cart" to={"/cart"}>
-            <span className="navbar__cart-icon" data-cart-items={totalItems}>
-              <ShoppingCartIcon />
-            </span>
-          </Link>
-        </li>
-        <li
-          className="navbar__list-item"
-          title={currentUser ? "Account" : "Login"}
-        >
-          <Link className="navbar__link" to={"/account"}>
-            {currentUser ? <PersonIcon /> : <LoginIcon />}
-          </Link>
-        </li>
-      </ul>
-    </nav>
+            <button
+              className="navbar__theme-btn"
+              onClick={() =>
+                dispatch(toggleTheme(theme === "dark" ? "light" : "dark"))
+              }
+            >
+              {theme === "light" ? <DarkModeIcon /> : <WbSunnyIcon />}
+            </button>
+          </NavItem>
+          <NavItem title="Cart">
+            <Link className="navbar__link navbar__link--cart" to={"/cart"}>
+              <span className="navbar__cart-icon" data-cart-items={totalItems}>
+                <ShoppingCartIcon />
+              </span>
+            </Link>
+          </NavItem>
+          <NavItem
+            className="navbar__list--account"
+            title={currentUser ? "Account" : "Login"}
+          >
+            <Link className="navbar__link" to={"/account"}>
+              {currentUser ? <PersonIcon /> : <LoginIcon />}
+            </Link>
+          </NavItem>
+        </ul>
+      </nav>
+      <div className="navbar__sidenav">
+        <SideNav />
+      </div>
+    </>
   );
 }
 
 export default Navbar;
+
+function NavItem({ children, title, className = "" }: NavItemProps) {
+  return (
+    <li className={`navbar__list-item ${className}`} title={title}>
+      {children}
+    </li>
+  );
+}

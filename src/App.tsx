@@ -11,7 +11,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./FirebaseConfig";
 import { setStatus, setUser } from "./features/auth/authSlice";
 import { selectCart } from "./features/cart/cartSlice";
-import AccountLayout from "./layouts/accountLayout/AccountLayout";
+import AccountLayout from "./layouts/AccountLayout";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const SingleOrderPage = lazy(

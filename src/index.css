@@ -134,3 +134,37 @@ label {
   outline: 2px solid var(--clr-txt-hover);
 }
 
+/* Account layout syles */
+
+.account {
+  max-width: 60rem;
+  width: 100%;
+  margin: 2rem 0;
+  margin-inline: auto;
+  min-height: 20rem;
+}
+
+.account__header {
+  border-bottom: 1px solid var(--clr-border);
+  padding-bottom: 0.75rem;
+}
+
+.account__name {
+  font-size: 0.75rem;
+}
+
+.account__container {
+  display: block;
+}
+
+.account_layout {
+  padding-top: 1rem;
+}
+
+@media (min-width: 50rem) {
+  .account__container {
+    display: grid;
+    grid-template-columns: 0.25fr 1fr;
+    gap: 1rem;
+  }
+}
