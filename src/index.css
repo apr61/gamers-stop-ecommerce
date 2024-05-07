@@ -28,6 +28,7 @@
   --clr-success: hsl(100, 80%, 50%);
   --clr-img-bg: var(--clr-txt-white);
   --clr-breadcrumb-active: hsl(0, 0%, 30%, 0.9);
+  --clr-empty-backdrop: rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -35,7 +36,7 @@ body {
   --clr-txt: var(--clr-txt-black);
   --clr-bg: var(--clr-txt-white);
   font-family: var(--ff);
-  min-height: 100vh;
+  min-height: 100dvh;
   scroll-behavior: smooth;
   transition: background-color 200ms ease-in;
 }
@@ -70,21 +71,27 @@ a {
   color: var(--clr-link);
 }
 
+.app{
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
 .main {
   width: 100%;
   margin: 0.5rem 0;
   margin-inline: auto;
-  min-height: 25rem;
   padding: 0 0.5rem;
+  flex-grow: 1;
 }
 
 label {
   cursor: pointer;
 }
 
-.form-errors{
+.form-errors {
   color: var(--clr-danger);
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
 
 @media (max-width: 50rem) {
@@ -134,3 +141,38 @@ label {
   outline: 2px solid var(--clr-txt-hover);
 }
 
+/* Account layout syles */
+
+.account {
+  max-width: 80rem;
+  width: 100%;
+  margin: 2rem 0;
+  margin-inline: auto;
+  min-height: 20rem;
+  height: 100%;
+}
+
+.account__header {
+  border-bottom: 1px solid var(--clr-border);
+  padding-bottom: 0.75rem;
+}
+
+.account__name {
+  font-size: 0.75rem;
+}
+
+.account__container {
+  display: grid;
+  grid-template-columns: 0.25fr 1fr;
+  gap: 1rem;
+}
+
+.account_layout {
+  padding-top: 1rem;
+}
+
+@media (max-width: 60rem) {
+  .account__container {
+    display: block;
+  }
+}

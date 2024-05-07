@@ -209,7 +209,7 @@ function AddressForm({ edit = false, address }: AddressFormProps) {
         </div>
         <div className="address-from-sec__btn-wrapper">
           <Button
-            text={edit ? "Edit Address" : "Add new Address"}
+            text="Save"
             isDisabled={isLoading === "loading" || !isValid}
           />
           {!edit && (

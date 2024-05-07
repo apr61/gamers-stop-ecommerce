@@ -19,35 +19,39 @@ function ProductsList() {
   const products = useAppSelector(selectProducts);
   const isLoading = useAppSelector(selectProductStatus);
   const isFilterOpen = useAppSelector(selectIsFilterOpen);
-  const {filteredProducts, currentPage, handlePagination, clearAllFilters} = useFilteredProducts()
+  const { filteredProducts, currentPage, handlePagination, clearAllFilters } =
+    useFilteredProducts();
 
   const totalProductsCount = products.length;
   const itemsPerPage = 3;
-  const filterProductStart = currentPage * itemsPerPage - itemsPerPage
-  const filterProductEnd = currentPage * itemsPerPage
-  const filteredProductsLength = filteredProducts.length
+  const filterProductStart = currentPage * itemsPerPage - itemsPerPage;
+  const filterProductEnd = currentPage * itemsPerPage;
+  const filteredProductsLength = filteredProducts.length;
 
   return (
     <>
       <div className="category-products__body">
-        <section
-          className={
-            isFilterOpen
-              ? "category-products__filter isFilterOpen"
-              : "category-products__filter"
-          }
+        <div
+          className={`category-products__filter--backdrop
+          ${isFilterOpen ? "isFilterOpen" : ""} `}
+          onClick={() => dispatch(toggleFilter())}
         >
-          <div className="category-products__row">
-            <h3 className="category-products__title">Filters</h3>
-            <button
-              className="category-products__clear-btn"
-              onClick={clearAllFilters}
-            >
-              Clear
-            </button>
-          </div>
-          <Filter />
-        </section>
+          <section
+            className={`category-products__filter
+          ${isFilterOpen ? "isFilterOpen" : ""} `}
+          >
+            <div className="category-products__row">
+              <h3 className="category-products__title">Filters</h3>
+              <button
+                className="category-products__clear-btn"
+                onClick={clearAllFilters}
+              >
+                Clear
+              </button>
+            </div>
+            <Filter />
+          </section>
+        </div>
         <section className="category-products__container">
           {isLoading === "loading" ? (
             <Loader />
@@ -66,10 +70,7 @@ function ProductsList() {
               </header>
               <div className="category-products__list">
                 {filteredProducts
-                  .slice(
-                    filterProductStart,
-                    filterProductEnd
-                  )
+                  .slice(filterProductStart, filterProductEnd)
                   .map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}

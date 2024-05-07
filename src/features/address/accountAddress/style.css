@@ -130,6 +130,7 @@
   .address__container {
     grid-template-columns: 1fr 1fr;
     place-items: center;
+    width: 100%;
   }
 }
 

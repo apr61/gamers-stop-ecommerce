@@ -1,8 +1,21 @@
 .navbar {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem;
   background-color: var(--clr-nav-bg);
+  width: 100%;
+}
+
+.navbar_hamburger {
+  display: none;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+  color: var(--clr-txt-white);
+  font-size: 1.5rem;
+  height: 2rem;
+  width: 2rem;
+  margin-right: 0.5rem;
 }
 
 .navbar__link {
@@ -10,7 +23,7 @@
 }
 
 .navbar__link--logo {
-  font-size: 1.5rem;
+  font-size: 1.5em;
   margin-right: auto;
 }
 
@@ -25,7 +38,7 @@
 .navbar__list-item {
   cursor: pointer;
   color: var(--clr-txt-white);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 }
 
 .navbar__cart-icon {
@@ -58,31 +71,44 @@
 .navbar__theme-btn {
   background-color: transparent;
   cursor: pointer;
-  font-size: 1.25rem;
   color: var(--clr-txt-white);
   border: 0;
 }
 
-@media (max-width: 50rem) {
-  .navbar {
-    display: grid;
-    grid-template-areas:
-      "logo list"
-      "search search";
-    gap: 1rem;
-    padding: 1rem;
-  }
-  .navbar__link--logo {
-    grid-area: logo;
-  }
-  .navbar__list {
-    gap: 1.5rem;
-    grid-area: list;
-  }
+.navbar__list-store {
+  margin-left: auto;
 }
 
-@media (max-width: 40rem) {
+.navbar__sidenav {
+  display: none;
+}
+
+@media (max-width: 60rem) {
+  .navbar {
+    padding: 1rem;
+  }
+  .navbar_hamburger {
+    display: block;
+  }
+  .navbar__list--account,
+  .navbar__list--store {
+    display: none;
+  }
   .navbar__list {
+    margin-left: 1rem;
     gap: 1rem;
+  }
+  .navbar__sidenav {
+    display: block;
+  }
+
+  .navbar.navbar--search-box .navbar__link--logo {
+    display: none;
+  }
+  .navbar.navbar--search-box .navbar__list {
+    display: none;
+  }
+  .navbar.navbar--search-box .navbar_hamburger {
+    display: none;
   }
 }

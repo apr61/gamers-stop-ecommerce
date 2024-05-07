@@ -11,7 +11,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./FirebaseConfig";
 import { setStatus, setUser } from "./features/auth/authSlice";
 import { selectCart } from "./features/cart/cartSlice";
-import AccountLayout from "./layouts/accountLayout/AccountLayout";
+import AccountLayout from "./layouts/AccountLayout";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const SingleOrderPage = lazy(
@@ -81,42 +81,44 @@ function App() {
   }, []);
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route element={<MainLayout />}>
-          <Route path="/store" element={<ProductsList />} />
-          <Route path="/store/:slugurl" element={<SingleProductPage />} />
-          <Route path="/store/new" element={<AddNewProduct />} />
-          <Route element={<RequireAuth />}>
-            <Route path="/account" element={<AccountLayout />}>
-              <Route path="" element={<Navigate to="dashboard" replace />} />
-              <Route index path="dashboard" element={<AccountOverview />} />
-              <Route path="profile" element={<AccountProfile />} />
-              <Route path="addresses" element={<AccountAddress />} />
-              <Route path="addresses/new" element={<AddNewAddress />} />
-              <Route
-                path="addresses/edit/:addressId"
-                element={<EditAddress />}
-              />
-              <Route path="orders" element={<AccountOrders />} />
-              <Route path="orders/:orderId" element={<SingleOrderPage />} />
+    <div className="app">
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route element={<MainLayout />}>
+            <Route path="/store" element={<ProductsList />} />
+            <Route path="/store/:slugurl" element={<SingleProductPage />} />
+            <Route path="/store/new" element={<AddNewProduct />} />
+            <Route element={<RequireAuth />}>
+              <Route path="/account" element={<AccountLayout />}>
+                <Route path="" element={<Navigate to="dashboard" replace />} />
+                <Route index path="dashboard" element={<AccountOverview />} />
+                <Route path="profile" element={<AccountProfile />} />
+                <Route path="addresses" element={<AccountAddress />} />
+                <Route path="addresses/new" element={<AddNewAddress />} />
+                <Route
+                  path="addresses/edit/:addressId"
+                  element={<EditAddress />}
+                />
+                <Route path="orders" element={<AccountOrders />} />
+                <Route path="orders/:orderId" element={<SingleOrderPage />} />
+              </Route>
             </Route>
           </Route>
-        </Route>
-        <Route element={<RequireAuth />}>
-          <Route path="/checkout" element={<CheckOutPage />} />
-          <Route
-            path="/order-successful/:orderId"
-            element={<OrderSuccessful />}
-          />
-        </Route>
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </Suspense>
+          <Route element={<RequireAuth />}>
+            <Route path="/checkout" element={<CheckOutPage />} />
+            <Route
+              path="/order-successful/:orderId"
+              element={<OrderSuccessful />}
+            />
+          </Route>
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </Suspense>
+    </div>
   );
 }
 
