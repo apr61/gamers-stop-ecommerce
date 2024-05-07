@@ -24,7 +24,7 @@ Welcome to our Gamers Stop Ecommerce Web App! This project is built using React.
 
 - Live Site URL : [Click here](https://gamers-stop-ecommerce.vercel.app/)
 
-## Steps for running
+## Steps for installation
 
 - Open your faviorite terminal as paste the below commands.
 
