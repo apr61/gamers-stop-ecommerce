@@ -1,7 +1,16 @@
 .category-products__body {
   display: flex;
   gap: 1rem;
+  max-width: 100rem;
+  width: 100%;
+  margin-inline: auto;
 }
+
+.category-products__filter--backdrop{
+  display: flex;
+  flex: 1;
+}
+
 
 .category-products__filter {
   flex: 1;
@@ -101,17 +110,6 @@
   border-radius: 0.25rem;
 }
 
-.category-products__filter--backdrop {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  right: 0;
-  left: 0;
-  background-color: var(--clr-empty-backdrop);
-  z-index: 1;
-  display: none;
-}
 
 @media (max-width: 75rem) {
   .category-products__list {
@@ -120,6 +118,17 @@
 }
 
 @media (max-width: 60rem) {
+  .category-products__filter--backdrop {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: var(--clr-empty-backdrop);
+    z-index: 1;
+    display: none;
+  }
   .category-products__filter {
     height: 0;
     position: fixed;

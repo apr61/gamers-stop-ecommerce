@@ -3,6 +3,11 @@
   flex: 1;
 }
 
+.menu__backdrop {
+  display: flex;
+  flex: 1;
+}
+
 .menu__list {
   list-style: none;
   font-size: 1rem;
@@ -58,20 +63,20 @@
   padding-top: 1rem;
 }
 
-.menu__backdrop {
-  height: 100%;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--clr-empty-backdrop);
-  z-index: 1;
-  width: 100%;
-  display: none;
-  overflow: hidden;
-}
 
-@media (max-width: 55rem) {
+@media (max-width: 60rem) {
+  .menu__backdrop {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--clr-empty-backdrop);
+    z-index: 1;
+    width: 100%;
+    display: none;
+    overflow: hidden;
+  }
   .menu_aside {
     position: fixed;
     top: 0;
