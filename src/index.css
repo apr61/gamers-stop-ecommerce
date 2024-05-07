@@ -28,6 +28,7 @@
   --clr-success: hsl(100, 80%, 50%);
   --clr-img-bg: var(--clr-txt-white);
   --clr-breadcrumb-active: hsl(0, 0%, 30%, 0.9);
+  --clr-empty-backdrop: rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -35,7 +36,7 @@ body {
   --clr-txt: var(--clr-txt-black);
   --clr-bg: var(--clr-txt-white);
   font-family: var(--ff);
-  min-height: 100vh;
+  min-height: 100dvh;
   scroll-behavior: smooth;
   transition: background-color 200ms ease-in;
 }

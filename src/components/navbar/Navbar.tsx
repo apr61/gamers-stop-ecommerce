@@ -12,11 +12,13 @@ import { getTotalItems } from "../../features/cart/cartSlice";
 import {
   getTheme,
   openSideNav,
+  selectSearchBarOpen,
   toggleTheme,
 } from "../../features/theme/themeSlice";
 import { selectCurrentUser } from "../../features/auth/authSlice";
 import { ReactElement } from "react";
 import SideNav from "../sidenav/SideNav";
+import MenuIcon from '@mui/icons-material/Menu';
 
 type NavItemProps = {
   children: ReactElement;
@@ -29,14 +31,16 @@ function Navbar() {
   const theme = useAppSelector(getTheme);
   const dispatch = useAppDispatch();
   const totalItems = useAppSelector(getTotalItems);
+  const isSearchBarOpen = useAppSelector(selectSearchBarOpen);
+
   return (
     <>
-      <nav className="navbar">
+      <nav className={`navbar ${isSearchBarOpen ? "navbar--search-box" : ""}`}>
         <button
           className="navbar_hamburger"
           onClick={() => dispatch(openSideNav())}
         >
-          &#9776;
+          <MenuIcon />
         </button>
         <Link to="/" className="navbar__link navbar__link--logo">
           Gamers Stop

@@ -24,14 +24,27 @@
   outline: 0;
 }
 
-@media (max-width: 50rem) {
+.search-box:focus-within{
+  outline: 2px solid var(--clr-txt-white);
+}
+
+@media (max-width: 55rem) {
   .search-box{
     border: 0;
     width: 0;
     margin-inline: 0;
     cursor: pointer;
+    max-width: 100%;
   }
   .search-box__input{
     width: 0;
+  }
+  .search-box--open{
+    border: 1px solid var(--clr-border);
+    width: 100%;
+    flex-grow: 1;
+  }
+  .search-box.search-box--open .search-box__input{
+    width: 100%;
   }
 }

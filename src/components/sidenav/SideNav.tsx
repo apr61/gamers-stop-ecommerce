@@ -16,64 +16,75 @@ const SideNav = () => {
   const isSideNav = useAppSelector(selectSideNavOpen);
   const dispatch = useAppDispatch();
   return (
-    <aside className={`menu_aside ${isSideNav ? "menu_aside--open" : ""}`}>
-      <div
-        className="menu__backdrop"
-        onClick={() => dispatch(closeSideNav())}
-      ></div>
-      <button
-        className="menu__close-btn"
-        onClick={() => dispatch(closeSideNav())}
-      >
-        &times;
-      </button>
-      <ul className="menu__list">
-        <SideNavItem className="menu__list-item--stote">
-          <NavLink
-            to="/store"
-            className={({ isActive }) => (isActive ? "menu__active" : "")}
-          >
-            Store
-          </NavLink>
-        </SideNavItem>
-        <SideNavItem>
-          <NavLink
-            to="/account/dashboard"
-            className={({ isActive }) => (isActive ? "menu__active" : "")}
-          >
-            Dashboard
-          </NavLink>
-        </SideNavItem>
-        <SideNavItem>
-          <h4 className="menu__sub-title">Orders</h4>
-          <div className="menu__sub-container">
+    <div
+      className={`menu__backdrop ${isSideNav ? "menu_aside--open" : ""}`}
+      onClick={() => dispatch(closeSideNav())}
+    >
+      <aside className={`menu_aside ${isSideNav ? "menu_aside--open" : ""}`}>
+        <button
+          className="menu__close-btn"
+          onClick={() => dispatch(closeSideNav())}
+        >
+          &times;
+        </button>
+        <ul className="menu__list">
+          <SideNavItem className="menu__list-item--stote">
             <NavLink
-              to="/account/orders"
-              className={({ isActive }) => (isActive ? "menu__active" : "")}
+              to="/store"
+              className={({ isActive }) =>
+                isActive ? "menu__active" : "menu__link"
+              }
             >
-              Orders & returns
+              Store
             </NavLink>
-          </div>
-        </SideNavItem>
-        <SideNavItem>
-          <h4 className="menu__sub-title">Account</h4>
-          <div className="menu__sub-container">
+          </SideNavItem>
+          <SideNavItem>
             <NavLink
-              to="/account/profile"
-              className={({ isActive }) => (isActive ? "menu__active" : "")}
+              to="/account/dashboard"
+              className={({ isActive }) =>
+                isActive ? "menu__active" : "menu__link"
+              }
             >
-              Profile
+              Dashboard
             </NavLink>
-            <NavLink
-              to="/account/addresses"
-              className={({ isActive }) => (isActive ? "menu__active" : "")}
-            >
-              Addresses
-            </NavLink>
-          </div>
-        </SideNavItem>
-      </ul>
-    </aside>
+          </SideNavItem>
+          <SideNavItem>
+            <h4 className="menu__sub-title">Orders</h4>
+            <div className="menu__sub-container">
+              <NavLink
+                to="/account/orders"
+                className={({ isActive }) =>
+                  isActive ? "menu__active" : "menu__link"
+                }
+              >
+                Orders & returns
+              </NavLink>
+            </div>
+          </SideNavItem>
+          <SideNavItem>
+            <h4 className="menu__sub-title">Account</h4>
+            <div className="menu__sub-container">
+              <NavLink
+                to="/account/profile"
+                className={({ isActive }) =>
+                  isActive ? "menu__active" : "menu__link"
+                }
+              >
+                Profile
+              </NavLink>
+              <NavLink
+                to="/account/addresses"
+                className={({ isActive }) =>
+                  isActive ? "menu__active" : "menu__link"
+                }
+              >
+                Addresses
+              </NavLink>
+            </div>
+          </SideNavItem>
+        </ul>
+      </aside>
+    </div>
   );
 };
 

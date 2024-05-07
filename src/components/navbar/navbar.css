@@ -3,7 +3,7 @@
   align-items: center;
   padding: .75rem;
   background-color: var(--clr-nav-bg);
-  position: relative;
+  width: 100%;
 }
 
 .navbar_hamburger{
@@ -11,10 +11,14 @@
   background-color: transparent;
   cursor: pointer;
   border: 0;
-  color: white;
+  color: var(--clr-txt-white);
   font-size: 1.5rem;
   height: 2rem;
-  margin-right: 1rem;
+  width: 2rem;
+  margin-right: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar__link {
@@ -82,7 +86,7 @@
   display: none;
 }
 
-@media (max-width: 50rem) {
+@media (max-width: 55rem) {
   .navbar{
     padding: 1rem;
   }
@@ -98,5 +102,15 @@
   }
   .navbar__sidenav{
     display: block;
+  }
+
+  .navbar.navbar--search-box .navbar__link--logo{
+    display: none;
+  }
+  .navbar.navbar--search-box .navbar__list{
+    display: none;
+  }
+  .navbar.navbar--search-box .navbar_hamburger{
+    display: none;
   }
 }
