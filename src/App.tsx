@@ -1,17 +1,17 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import "./index.css";
-import RequireAuth from "./layouts/RequireAuth";
-import MainLayout from "./layouts/MainLayout";
+import RequireAuth from "./components/layouts/RequireAuth";
+import MainLayout from "./components/layouts/MainLayout";
 import { Suspense, lazy, useEffect } from "react";
 import Loader from "./components/loader/Loader";
-import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
 import { getTheme } from "./features/theme/themeSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./FirebaseConfig";
 import { setStatus, setUser } from "./features/auth/authSlice";
 import { selectCart } from "./features/cart/cartSlice";
-import AccountLayout from "./layouts/AccountLayout";
+import AccountLayout from "./components/layouts/AccountLayout";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const SingleOrderPage = lazy(

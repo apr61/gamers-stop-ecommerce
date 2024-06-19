@@ -1,12 +1,12 @@
 import { useState } from "react";
 import "./accountProfile.css";
-import Input from "../../../components/input/Input";
+import Input from "../../../components/ui/input/Input";
 import { updateUserProfile } from "../../../services/auth";
 import { User } from "../../../utils/types";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { selectCurrentUser, setUser } from "../authSlice";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Button from "../../../components/button/Button";
+import Button from "../../../components/ui/button/Button";
 
 type AccountFormType = {
   name: string;

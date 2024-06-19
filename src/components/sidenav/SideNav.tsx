@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "./sideNav.css";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   closeSideNav,
   selectSideNavOpen,

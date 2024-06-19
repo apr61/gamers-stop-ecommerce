@@ -1,6 +1,6 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { CartItem } from "../../utils/types";
-import { RootState } from "../../app/store";
+import { RootState } from "../../store/store";
 
 type CartState = {
   cart: CartItem[];

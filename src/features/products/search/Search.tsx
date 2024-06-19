@@ -3,7 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { ChangeEvent } from "react";
 import { useFilteredProducts } from "../../../hooks/useFilteredProducts";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   closeSearchBar,
   openSearchBar,

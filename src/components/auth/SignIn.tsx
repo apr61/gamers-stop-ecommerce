@@ -3,8 +3,8 @@ import Navbar from "../navbar/Navbar";
 import { signInService } from "../../services/auth";
 import "./commonStyle.css";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Input from "../input/Input";
-import Button from "../button/Button";
+import Input from "../ui/input/Input";
+import Button from "../ui/button/Button";
 import { FirebaseError } from "firebase/app";
 
 type SignInFormType = {

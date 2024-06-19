@@ -4,7 +4,7 @@ import {
   isAnyOf,
 } from "@reduxjs/toolkit";
 import { Category, Product } from "../../utils/types";
-import { RootState } from "../../app/store";
+import { RootState } from "../../store/store";
 import { getCategoriesService, getProducts } from "../../services/products";
 
 type ProductStateType = {

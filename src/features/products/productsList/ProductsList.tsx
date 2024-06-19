@@ -3,7 +3,7 @@ import ProductCard from "../productCard/ProductCard";
 import Filter from "../filter/Filter";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Loader from "../../../components/loader/Loader";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   selectIsFilterOpen,
   selectProductStatus,

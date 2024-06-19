@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import SingleCartItem from "../cartItem/SingleCartItem";
 import Footer from "../../../components/footer/Footer";
 import Navbar from "../../../components/navbar/Navbar";
-import BreadCrumbs from "../../../components/breadcrumbs/BreadCrumbs";
+import BreadCrumbs from "../../../components/ui/breadcrumbs/BreadCrumbs";
 import { currencyFormatter } from "../../../utils/utils";
 import "./cart.css";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppSelector } from "../../../store/hooks";
 import { getAllCartItems, getTotalCost, getTotalItems } from "../cartSlice";
-import Button from "../../../components/button/Button";
+import Button from "../../../components/ui/button/Button";
 
 function Cart() {
   const totalItems = useAppSelector(getTotalItems);

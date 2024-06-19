@@ -1,7 +1,7 @@
 import "./style.css";
-import Input from "../../../components/input/Input";
+import Input from "../../../components/ui/input/Input";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   addNewAddressThunk,
   selectAddressError,
@@ -11,7 +11,7 @@ import {
 import { Address, AddressData } from "../../../utils/types";
 import { selectCurrentUser } from "../../auth/authSlice";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Button from "../../../components/button/Button";
+import Button from "../../../components/ui/button/Button";
 
 type AddressFormProps = {
   edit?: boolean;

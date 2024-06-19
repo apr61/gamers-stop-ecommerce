@@ -4,8 +4,8 @@ import { signUp } from "../../services/auth";
 import "./commonStyle.css";
 import { UserData } from "../../utils/types";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Input from "../input/Input";
-import Button from "../button/Button";
+import Input from "../ui/input/Input";
+import Button from "../ui/button/Button";
 
 interface SignUpFormType {
   name: string;

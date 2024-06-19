@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { Address, AddressData } from "../../utils/types";
-import { RootState } from "../../app/store";
+import { RootState } from "../../store/store";
 import {
   addAddressService,
   deleteAddressById,

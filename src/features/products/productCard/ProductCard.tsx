@@ -4,9 +4,9 @@ import { currencyFormatter } from "../../../utils/utils";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { Product } from "../../../utils/types";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { addToCart, getAllCartItems } from "../../cart/cartSlice";
-import Button from "../../../components/button/Button";
+import Button from "../../../components/ui/button/Button";
 
 type ProductCardProps = {
   product: Product;

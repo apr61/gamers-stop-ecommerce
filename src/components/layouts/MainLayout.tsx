@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../components/footer/Footer";
-import Navbar from "../components/navbar/Navbar";
-import BreadCrumbs from "../components/breadcrumbs/BreadCrumbs";
+import Footer from "../footer/Footer";
+import Navbar from "../navbar/Navbar";
+import BreadCrumbs from "../ui/breadcrumbs/BreadCrumbs";
 
 function MainLayout() {
   return (

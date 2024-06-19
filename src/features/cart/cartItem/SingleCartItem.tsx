@@ -4,7 +4,7 @@ import QuantityCounter from "../quantityCounter/QuantityCounter";
 import "./cartItem.css";
 import { Link } from "react-router-dom";
 import { CartItem } from "../../../utils/types";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch } from "../../../store/hooks";
 import { removeFromCart } from "../cartSlice";
 
 type CartItemProps = {

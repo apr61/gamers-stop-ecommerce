@@ -5,7 +5,7 @@ import {
   isAnyOf,
 } from "@reduxjs/toolkit";
 import { Order } from "../../utils/types";
-import { RootState } from "../../app/store";
+import { RootState } from "../../store/store";
 import {
   createAnOrderService,
   deleteOrderByIdService,

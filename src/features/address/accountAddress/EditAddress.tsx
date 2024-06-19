@@ -6,7 +6,7 @@ import { Navigate, useParams } from "react-router-dom";
 import Loader from "../../../components/loader/Loader";
 import { getAddressForCurrentUserById } from "../../../services/address";
 import { selectCurrentUser } from "../../auth/authSlice";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppSelector } from "../../../store/hooks";
 
 function EditAddress() {
   document.title = `Edit Address | Gamers stop`;

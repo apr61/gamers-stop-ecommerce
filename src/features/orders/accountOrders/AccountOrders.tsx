@@ -5,7 +5,7 @@ import {
 import "./accountOrders.css";
 import Loader from "../../../components/loader/Loader";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { selectCurrentUser } from "../../auth/authSlice";
 import {
   fetchOrdersByUserThunk,

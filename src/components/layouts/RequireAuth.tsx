@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import Loader from "../components/loader/Loader";
-import { useAppSelector } from "../app/hooks";
-import { selectAuthStatus, selectCurrentUser } from "../features/auth/authSlice";
+import Loader from "../loader/Loader";
+import { useAppSelector } from "../../store/hooks";
+import { selectAuthStatus, selectCurrentUser } from "../../features/auth/authSlice";
 
 function RequireAuth() {
   const location = useLocation();

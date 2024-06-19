@@ -6,7 +6,7 @@ import { createAnOrderService } from "../../services/orders";
 import Loader from "../../components/loader/Loader";
 import AddIcon from "@mui/icons-material/Add";
 import { Address, OrderData, RazorpayPaymentResponse } from "../../utils/types";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   getAllCartItems,
   getTotalCost,
@@ -18,7 +18,7 @@ import {
   selectAddresses,
 } from "../../features/address/addressSlice";
 import { selectCurrentUser } from "../../features/auth/authSlice";
-import Button from "../../components/button/Button";
+import Button from "../../components/ui/button/Button";
 
 function CheckOutPage() {
   document.title = "Checkout | Gamers Stop";

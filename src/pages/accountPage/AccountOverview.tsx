@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { logOut } from "../../services/auth";
 import "./accountPage.css";
-import Button from "../../components/button/Button";
+import Button from "../../components/ui/button/Button";
 
 function AccountOverview() {
   const navigate = useNavigate();

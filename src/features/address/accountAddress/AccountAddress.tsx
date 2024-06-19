@@ -4,7 +4,7 @@ import Loader from "../../../components/loader/Loader";
 import AddressCard from "./AddressCard";
 import "./style.css";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   fetchAddressByUser,
   removeAddressThunk,

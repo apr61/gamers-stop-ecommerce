@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { User } from "firebase/auth";
-import { RootState } from "../../app/store";
+import { RootState } from "../../store/store";
 
 type AuthStateType = {
   currentUser: User | null;

@@ -1,8 +1,8 @@
-import { selectCurrentUser } from "../features/auth/authSlice";
-import { useAppSelector } from "../app/hooks";
+import { selectCurrentUser } from "../../features/auth/authSlice";
+import { useAppSelector } from "../../store/hooks";
 import { Outlet } from "react-router-dom";
-import "../index.css";
-import SideNav from "../components/sidenav/SideNav";
+import "../../index.css";
+import SideNav from "../sidenav/SideNav";
 
 const AccountLayout = () => {
   document.title = "Account | Gamers Stop";
