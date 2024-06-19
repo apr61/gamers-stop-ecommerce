@@ -1,5 +1,5 @@
 import "./filter.css";
-import Accoridon from "../../../components/accordion/Accordion";
+import Accoridon from "../../../components/ui/accordion/Accordion";
 import StarIcon from "@mui/icons-material/Star";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
