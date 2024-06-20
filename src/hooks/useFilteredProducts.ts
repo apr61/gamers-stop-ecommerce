@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useAppSelector } from "../store/hooks";
-import { selectProducts } from "../features/products/productSlice";
+import { selectProducts } from "../features-app/products/productSlice";
 
 export const useFilteredProducts = () => {
   const [searchParams, setProductsSearchParams] = useSearchParams();

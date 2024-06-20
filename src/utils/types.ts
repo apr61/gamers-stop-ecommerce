@@ -1,4 +1,4 @@
-import { ProductAvailabilityType } from "../features/products/productSlice";
+import { ProductAvailabilityType } from "../features-app/products/productSlice";
 
 export type Product = {
   id: string;

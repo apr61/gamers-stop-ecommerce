@@ -1,5 +1,5 @@
-import ProductCard from "../../../../features/products/productCard/ProductCard";
-import Filter from "../../../../features/products/filter/Filter";
+import ProductCard from "../../../../features-app/products/productCard/ProductCard";
+import Filter from "../../../../features-app/products/filter/Filter";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Loader from "../../../../components/loader/Loader";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
@@ -8,7 +8,7 @@ import {
 	selectProductStatus,
 	selectProducts,
 	toggleFilter,
-} from "../../../../features/products/productSlice";
+} from "../../../../features-app/products/productSlice";
 import Pagination from "../../../../components/pagination/Pagination";
 import { useFilteredProducts } from "../../../../hooks/useFilteredProducts";
 

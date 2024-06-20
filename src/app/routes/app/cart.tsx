@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import SingleCartItem from "../../../features/cart/cartItem/SingleCartItem";
+import SingleCartItem from "../../../features-app/cart/cartItem/SingleCartItem";
 import Footer from "../../../components/footer/Footer";
-import Navbar from "../../../components/navbar/Navbar";
+import Navbar from "../../../components/navbarApp/Navbar";
 import BreadCrumbs from "../../../components/ui/breadcrumbs/BreadCrumbs";
 import { currencyFormatter } from "../../../utils/utils";
 import { useAppSelector } from "../../../store/hooks";
@@ -9,7 +9,7 @@ import {
 	getAllCartItems,
 	getTotalCost,
 	getTotalItems,
-} from "../../../features/cart/cartSlice";
+} from "../../../features-app/cart/cartSlice";
 import Button from "../../../components/ui/button/Button";
 
 function Cart() {

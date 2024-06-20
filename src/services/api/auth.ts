@@ -43,7 +43,7 @@ const getCurrentUser = async () => {
 		error,
 	} = await supabase().auth.getUser();
 	if (error) {
-		return errorHandler(error.message, error.status);
+		return errorHandler(error);
 	}
 	return user;
 };

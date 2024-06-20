@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { store } from "./store/store";
-import { fetchCategory } from "./features/products/productSlice";
+import { fetchCategory } from "./features-app/products/productSlice";
 import App from "./app";
 import './index.css';
 

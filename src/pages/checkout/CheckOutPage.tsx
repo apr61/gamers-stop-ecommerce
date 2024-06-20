@@ -11,13 +11,13 @@ import {
   getAllCartItems,
   getTotalCost,
   getTotalItems,
-} from "../../features/cart/cartSlice";
+} from "../../features-app/cart/cartSlice";
 import {
   fetchAddressByUser,
   selectAddressStatus,
   selectAddresses,
-} from "../../features/address/addressSlice";
-import { selectCurrentUser } from "../../features/auth/authSlice";
+} from "../../features-app/address/addressSlice";
+import { selectCurrentUser } from "../../features-app/auth/authSlice";
 import Button from "../../components/ui/button/Button";
 
 function CheckOutPage() {

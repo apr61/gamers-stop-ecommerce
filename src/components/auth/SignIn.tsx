@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Navbar from "../navbar/Navbar";
+import Navbar from "../navbarApp/Navbar";
 import { signInService } from "../../services/auth";
 import "./commonStyle.css";
 import { SubmitHandler, useForm } from "react-hook-form";

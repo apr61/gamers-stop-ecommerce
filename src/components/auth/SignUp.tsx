@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../navbar/Navbar";
+import Navbar from "../navbarApp/Navbar";
 import { signUp } from "../../services/auth";
 import "./commonStyle.css";
 import { UserData } from "../../utils/types";

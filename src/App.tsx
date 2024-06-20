@@ -1,39 +1,39 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import "./index.css";
-import RequireAuth from "./components/layouts/RequireAuth";
-import MainLayout from "./components/layouts/MainLayout";
+import RequireAuth from "./components/layouts-app/RequireAuth";
+import MainLayout from "./components/layouts-app/MainLayout";
 import { Suspense, lazy, useEffect } from "react";
 import Loader from "./components/loader/Loader";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
-import { getTheme } from "./features/theme/themeSlice";
+import { getTheme } from "./features-app/theme/themeSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./FirebaseConfig";
-import { setStatus, setUser } from "./features/auth/authSlice";
-import { selectCart } from "./features/cart/cartSlice";
-import AccountLayout from "./components/layouts/AccountLayout";
+import { setStatus, setUser } from "./features-app/auth/authSlice";
+import { selectCart } from "./features-app/cart/cartSlice";
+import AccountLayout from "./components/layouts-app/AccountLayout";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const SingleOrderPage = lazy(
-  () => import("./features/orders/singleOrderPage/SingleOrderPage"),
+  () => import("./features-app/orders/singleOrderPage/SingleOrderPage"),
 );
 const AddNewAddress = lazy(
-  () => import("./features/address/accountAddress/AddNewAddess"),
+  () => import("./features-app/address/accountAddress/AddNewAddess"),
 );
 const EditAddress = lazy(
-  () => import("./features/address/accountAddress/EditAddress"),
+  () => import("./features-app/address/accountAddress/EditAddress"),
 );
 const AccountAddress = lazy(
-  () => import("./features/address/accountAddress/AccountAddress"),
+  () => import("./features-app/address/accountAddress/AccountAddress"),
 );
 const AccountProfile = lazy(
-  () => import("./features/auth/accountProfile/AccountProfile"),
+  () => import("./features-app/auth/accountProfile/AccountProfile"),
 );
 const AccountOrders = lazy(
-  () => import("./features/orders/accountOrders/AccountOrders"),
+  () => import("./features-app/orders/accountOrders/AccountOrders"),
 );
 const OrderSuccessful = lazy(
-  () => import("./features/orders/orderSuccessful/OrderSuccessful"),
+  () => import("./features-app/orders/orderSuccessful/OrderSuccessful"),
 );
 const CheckOutPage = lazy(() => import("./pages/checkout/CheckOutPage"));
 const AccountOverview = lazy(
@@ -41,12 +41,12 @@ const AccountOverview = lazy(
 );
 const SignUp = lazy(() => import("./components/auth/SignUp"));
 const SignIn = lazy(() => import("./components/auth/SignIn"));
-const Cart = lazy(() => import("./features/cart/cart/Cart"));
+const Cart = lazy(() => import("./features-app/cart/cart/Cart"));
 const SingleProductPage = lazy(
-  () => import("./features/products/singleProductPage/SingleProductPage"),
+  () => import("./features-app/products/singleProductPage/SingleProductPage"),
 );
 const ProductsList = lazy(
-  () => import("./features/products/productsList/ProductsList"),
+  () => import("./features-app/products/productsList/ProductsList"),
 );
 const PageNotFound = lazy(
   () => import("./components/pageNotFound/PageNotFound"),

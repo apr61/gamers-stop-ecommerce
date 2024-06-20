@@ -1,173 +1,268 @@
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-  createAsyncThunk,
-  createSelector,
-  createSlice,
-  isAnyOf,
-} from "@reduxjs/toolkit";
-import { Order } from "../../utils/types";
-import { RootState } from "../../store/store";
+	Order,
+	QueryType,
+	TableName,
+	OrderFormValues,
+} from "@/types/api";
+import { RootState } from "@/store/store";
 import {
-  createAnOrderService,
-  deleteOrderByIdService,
-  getAllOrdersByUserIdService,
-  getOrderByIdService,
-  updateOrderByIdService,
-} from "../../services/orders";
+	createOrder,
+	deleteOrder,
+	getOrdersByUserId,
+	searchOrders,
+	updateOrder,
+} from "@/services/api/orders";
 
-type orderOptions =
-  | "all-orders"
-  | "delivered"
-  | "yet-to-be-shipped"
-  | "cancelled";
-
-type OrderStateType = {
-  orders: Order[];
-  status: "idle" | "loading" | "failed" | "success";
-  error: string | null;
-  currentOption: orderOptions;
-  order: Order | null;
+export type CurrentType = {
+	action: "create" | "read" | "update" | "delete" | "idle";
+	record: Order | null;
+	status: "idle" | "pending" | "succeeded" | "failed";
+	error: string | null;
 };
 
-const initialState: OrderStateType = {
-  orders: [],
-  status: "idle",
-  error: null,
-  currentOption: "all-orders",
-  order: null,
+interface OrderState {
+	list: {
+		data: Order[];
+		status: "idle" | "pending" | "succeeded" | "failed";
+		error: string | null;
+	};
+	search: {
+		data: Order[];
+		totalItems: number;
+	};
+	current: CurrentType;
+}
+
+const initialState: OrderState = {
+	list: {
+		data: [],
+		status: "idle",
+		error: null,
+	},
+	search: {
+		data: [],
+		totalItems: 0,
+	},
+	current: {
+		action: "idle",
+		record: null,
+		status: "idle",
+		error: null,
+	},
 };
 
-export const fetchOrdersByUserThunk = createAsyncThunk(
-  "order/fetchOrdersByUserThunk",
-  async (userId: string, { rejectWithValue }) => {
-    try {
-      const response = getAllOrdersByUserIdService(userId);
-      return response;
-    } catch (err) {
-      if (err instanceof Error) {
-        return rejectWithValue(err.message);
-      }
-    }
-  }
+export const orderSearch = createAsyncThunk(
+	"order/search",
+	async (query: QueryType<Order>, { rejectWithValue }) => {
+		try {
+			const response = await searchOrders(query);
+			if (response) {
+				const data = {
+					data: response.data,
+					totalCount: response.count,
+				};        
+				return data;
+			}
+			return {
+				data: [],
+				totalCount: 0,
+			};
+		} catch (error) {
+			if (error instanceof Error) {
+				return rejectWithValue(error.message);
+			}
+		}
+	},
 );
 
-export const fetchSingleOrderThunk = createAsyncThunk(
-  "order/fetchSingleOrderThunk",
-  async (orderId: string, { rejectWithValue }) => {
-    try {
-      const response = getOrderByIdService(orderId);
-      return response;
-    } catch (err) {
-      if (err instanceof Error) {
-        return rejectWithValue(err.message);
-      }
-    }
-  }
+export const fetchOrdersByUser = createAsyncThunk(
+	"order/readAll",
+	async (userId: string, { rejectWithValue }) => {
+		try {
+			const response = await getOrdersByUserId(userId);
+			if (response) {
+				const data = {
+					data: response.data as Order[],
+					totalCount: response.totalItems,
+				};
+				return data;
+			}
+			return {
+				data: [],
+				totalCount: 0,
+			};
+		} catch (error) {
+			if (error instanceof Error) {
+				return rejectWithValue(error.message);
+			}
+		}
+	},
 );
 
-export const addNewOrderThunk = createAsyncThunk(
-  "order/addNewOrderThunk",
-  async (order: Order, { rejectWithValue }) => {
-    try {
-      const response = createAnOrderService(order);
-      return response;
-    } catch (err) {
-      if (err instanceof Error) {
-        return rejectWithValue(err.message);
-      }
-    }
-  }
+export const addOrder = createAsyncThunk(
+	"order/create",
+	async (
+		{
+			formData,
+		}: {
+			formData: OrderFormValues;
+		},
+		{ rejectWithValue },
+	) => {
+		try {
+			const newEntity = await createOrder(formData);
+			return newEntity;
+		} catch (error) {
+			if (error instanceof Error) {
+				return rejectWithValue(error.message);
+			}
+		}
+	},
 );
 
-export const updateOrderByIdThunk = createAsyncThunk(
-  "order/updateOrderThunk",
-  async (order: Order, { rejectWithValue }) => {
-    try {
-      const response = updateOrderByIdService(order);
-      return response;
-    } catch (err) {
-      if (err instanceof Error) {
-        return rejectWithValue(err.message);
-      }
-    }
-  }
+export const removeOrder = createAsyncThunk(
+	"order/delete",
+	async (id: number, { rejectWithValue }) => {
+		try {
+			const deletedId = await deleteOrder(id);
+			return deletedId;
+		} catch (err) {
+			if (err instanceof Error) {
+				return rejectWithValue(err.message);
+			}
+		}
+	},
 );
 
-export const deleteOrderThunk = createAsyncThunk(
-  "order/deleteOrderThunk",
-  async (orderId: string, { rejectWithValue }) => {
-    try {
-      const response = deleteOrderByIdService(orderId);
-      return response;
-    } catch (err) {
-      if (err instanceof Error) {
-        return rejectWithValue(err.message);
-      }
-    }
-  }
+export const editOrder = createAsyncThunk(
+	"order/edit",
+	async (
+		{
+			formData,
+			id,
+		}: {
+			formData: OrderFormValues;
+			tableName: TableName;
+			id: number;
+		},
+		{ rejectWithValue },
+	) => {
+		try {
+			const data = await updateOrder(id, formData);
+			return data;
+		} catch (err) {
+			if (err instanceof Error) {
+				return rejectWithValue(err.message);
+			}
+		}
+	},
 );
 
-const orderSlice = createSlice({
-  name: "orders",
-  initialState: initialState,
-  reducers: {
-    setCurrentOption: (state, action) => {
-      state.currentOption = action.payload;
-    },
-    setOrdersStatus: (state, action) => {
-      state.status = action.payload
-    }
-  },
-  extraReducers(builder) {
-    builder
-      .addCase(fetchOrdersByUserThunk.fulfilled, (state, action) => {
-        state.status = "success";
-        state.orders = action.payload as Order[];
-      })
-      .addCase(fetchSingleOrderThunk.fulfilled, (state, action) => {
-        state.status = "success";
-        state.order = action.payload as Order | null;
-      })
-      .addMatcher(
-        isAnyOf(
-          fetchOrdersByUserThunk.pending,
-          updateOrderByIdThunk.pending,
-          deleteOrderThunk.pending,
-          fetchSingleOrderThunk.pending
-        ),
-        (state) => {
-          state.status = "loading";
-        }
-      )
-      .addMatcher(
-        isAnyOf(
-          fetchOrdersByUserThunk.rejected,
-          updateOrderByIdThunk.rejected,
-          deleteOrderThunk.rejected,
-          fetchSingleOrderThunk.rejected
-        ),
-        (state, action) => {
-          state.status = "failed";
-          state.error = action.payload as string;
-        }
-      );
-  },
+const ordersSlice = createSlice({
+	name: "orders",
+	initialState: initialState,
+	reducers: {
+		setOrderCurrentItem: (
+			state,
+			action: PayloadAction<Omit<CurrentType, "status" | "error">>,
+		) => {
+			state.current.record = action.payload.record;
+			state.current.action = action.payload.action;
+		},
+		resetOrderCurrentItem: (state) => {
+			state.current = {
+				action: "create",
+				record: null,
+				status: "idle",
+				error: null,
+			};
+		},
+		resetOrderState: (state) => {
+			state = initialState;
+		},
+	},
+	extraReducers: (builder) => {
+		builder
+			.addCase(orderSearch.fulfilled, (state, action) => {
+				state.list.status = "succeeded";
+				state.search.data = action.payload?.data!;
+				state.search.totalItems = action.payload?.totalCount!;
+			})
+			.addCase(orderSearch.pending, (state) => {
+				state.list.status = "pending";
+			})
+			.addCase(orderSearch.rejected, (state, action) => {
+				state.list.status = "failed";
+				state.list.error = action.payload as string;
+				state.search = {
+					data: [],
+					totalItems: 0,
+				};
+			})
+			.addCase(fetchOrdersByUser.fulfilled, (state, action) => {
+				state.list.status = "succeeded";
+				state.search.data = action.payload?.data!;
+				state.search.totalItems = action.payload?.totalCount!;
+			})
+			.addCase(fetchOrdersByUser.pending, (state) => {
+				state.list.status = "pending";
+			})
+			.addCase(fetchOrdersByUser.rejected, (state, action) => {
+				state.list.status = "failed";
+				state.list.error = action.payload as string;
+				state.search = {
+					data: [],
+					totalItems: 0,
+				};
+			})
+			.addCase(addOrder.fulfilled, (state, action) => {
+				state.current.status = "succeeded";
+				state.search.data.unshift(action.payload!);
+			})
+			.addCase(addOrder.pending, (state) => {
+				state.current.status = "pending";
+			})
+			.addCase(addOrder.rejected, (state, action) => {
+				state.current.status = "failed";
+				state.current.error = action.payload as string;
+			})
+			.addCase(removeOrder.fulfilled, (state, action) => {
+				state.current.status = "succeeded";
+				state.search.data = state.search.data.filter(
+					(item) => item.id !== action.payload!,
+				);
+			})
+			.addCase(removeOrder.pending, (state) => {
+				state.current.status = "pending";
+			})
+			.addCase(removeOrder.rejected, (state, action) => {
+				state.current.status = "failed";
+				state.current.error = action.payload as string;
+			})
+			.addCase(editOrder.fulfilled, (state, action) => {
+				state.current.status = "succeeded";
+				state.search.data = state.search.data.map((item) => {
+					if (item.id === action.payload?.id) return action.payload as Order;
+					return item;
+				});
+			})
+			.addCase(editOrder.pending, (state) => {
+				state.current.status = "pending";
+			})
+			.addCase(editOrder.rejected, (state, action) => {
+				state.current.status = "failed";
+				state.current.error = action.payload as string;
+			});
+	},
 });
 
-export const selectOrders = (state: RootState) => state.order.orders;
-export const selectOrderStatus = (state: RootState) => state.order.status;
-export const selectOrderError = (state: RootState) => state.order.error;
-export const selectSingleOrder = (state: RootState) => state.order.order;
-export const selectOrderCurrentOption = (state: RootState) =>
-  state.order.currentOption;
-export const selectFilteredOrders = createSelector(
-  (state: RootState) => state.order.orders,
-  (state: RootState) => state.order.currentOption,
-  (orders, currentOption) =>
-    currentOption === "all-orders"
-      ? orders
-      : orders.filter((o) => o.orderStatus === currentOption)
-);
+export const selectOrders = (state: RootState) => state.orders.list;
+export const selectOrdersCurrentItem = (state: RootState) =>
+	state.orders.current;
+export const selectOrderSearch = (state: RootState) => state.orders.search;
 
-export const { setCurrentOption, setOrdersStatus } = orderSlice.actions;
+export const { setOrderCurrentItem, resetOrderCurrentItem, resetOrderState } =
+	ordersSlice.actions;
 
-export default orderSlice.reducer;
+export default ordersSlice.reducer;
