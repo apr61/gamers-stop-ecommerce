@@ -1,8 +1,8 @@
 import { Provider } from "react-redux";
-import { store } from "@/store/store";
+import { store } from "../store/store";
 import { Toaster } from "react-hot-toast";
 import * as React from "react";
-// import AuthProvider from "@/features/auth/AuthProvider";
+import AuthProvider from "@/features/auth/AuthProvider";
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -11,10 +11,10 @@ type AppProviderProps = {
 const AppProvider = ({ children }: AppProviderProps) => {
   return (
     <Provider store={store}>
-      {/* <AuthProvider> */}
+      <AuthProvider>
         <Toaster position="bottom-center" />
         {children}
-      {/* </AuthProvider> */}
+      </AuthProvider>
     </Provider>
   );
 };

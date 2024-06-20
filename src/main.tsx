@@ -1,19 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { fetchCategory } from "./features/products/productSlice";
+import App from "./app";
+import './index.css';
 
 store.dispatch(fetchCategory());
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+    <App />
+  </React.StrictMode>,
 );

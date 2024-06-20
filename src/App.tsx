@@ -15,47 +15,44 @@ import AccountLayout from "./components/layouts/AccountLayout";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const SingleOrderPage = lazy(
-  () => import("./features/orders/singleOrderPage/SingleOrderPage")
+  () => import("./features/orders/singleOrderPage/SingleOrderPage"),
 );
 const AddNewAddress = lazy(
-  () => import("./features/address/accountAddress/AddNewAddess")
+  () => import("./features/address/accountAddress/AddNewAddess"),
 );
 const EditAddress = lazy(
-  () => import("./features/address/accountAddress/EditAddress")
+  () => import("./features/address/accountAddress/EditAddress"),
 );
 const AccountAddress = lazy(
-  () => import("./features/address/accountAddress/AccountAddress")
+  () => import("./features/address/accountAddress/AccountAddress"),
 );
 const AccountProfile = lazy(
-  () => import("./features/auth/accountProfile/AccountProfile")
+  () => import("./features/auth/accountProfile/AccountProfile"),
 );
 const AccountOrders = lazy(
-  () => import("./features/orders/accountOrders/AccountOrders")
+  () => import("./features/orders/accountOrders/AccountOrders"),
 );
 const OrderSuccessful = lazy(
-  () => import("./features/orders/orderSuccessful/OrderSuccessful")
+  () => import("./features/orders/orderSuccessful/OrderSuccessful"),
 );
 const CheckOutPage = lazy(() => import("./pages/checkout/CheckOutPage"));
 const AccountOverview = lazy(
-  () => import("./pages/accountPage/AccountOverview")
+  () => import("./pages/accountPage/AccountOverview"),
 );
 const SignUp = lazy(() => import("./components/auth/SignUp"));
 const SignIn = lazy(() => import("./components/auth/SignIn"));
 const Cart = lazy(() => import("./features/cart/cart/Cart"));
 const SingleProductPage = lazy(
-  () => import("./features/products/singleProductPage/SingleProductPage")
+  () => import("./features/products/singleProductPage/SingleProductPage"),
 );
 const ProductsList = lazy(
-  () => import("./features/products/productsList/ProductsList")
+  () => import("./features/products/productsList/ProductsList"),
 );
 const PageNotFound = lazy(
-  () => import("./components/pageNotFound/PageNotFound")
-);
-const AddNewProduct = lazy(
-  () => import("./components/addNewProduct/AddNewProduct")
+  () => import("./components/pageNotFound/PageNotFound"),
 );
 
-function App() {
+function AppPrev() {
   const theme = useAppSelector(getTheme);
   const dispatch = useAppDispatch();
   const cart = useAppSelector(selectCart);
@@ -88,7 +85,6 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/store" element={<ProductsList />} />
             <Route path="/store/:slugurl" element={<SingleProductPage />} />
-            <Route path="/store/new" element={<AddNewProduct />} />
             <Route element={<RequireAuth />}>
               <Route path="/account" element={<AccountLayout />}>
                 <Route path="" element={<Navigate to="dashboard" replace />} />
@@ -122,4 +118,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppPrev;

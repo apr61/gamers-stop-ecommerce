@@ -75,7 +75,7 @@ function Navbar() {
             className="navbar__list--account"
             title={currentUser ? "Account" : "Login"}
           >
-            <Link className="navbar__link" to={"/account"}>
+            <Link className="navbar__link" to={"/auth/login"}>
               {currentUser ? <PersonIcon /> : <LoginIcon />}
             </Link>
           </NavItem>
