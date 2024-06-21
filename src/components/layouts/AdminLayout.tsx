@@ -8,7 +8,7 @@ type AdminLayoutProps = {
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-background text-foreground">
       <LoadingProgress />
       <Sidenav />
       <div className="w-full flex flex-col relative h-full">

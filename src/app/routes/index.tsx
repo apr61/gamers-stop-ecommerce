@@ -7,12 +7,17 @@ import RequireAuth from "@/components/layouts/RequireAuth";
 import AdminRoot from "./admin/root";
 import * as React from "react";
 import PageLoader from "@/components/PageLoader";
+import AccountLayout from "@/components/layouts/AccountLayout";
 
 // const Dashboard = React.lazy(() => import("./admin/dashboard/dashboard"));
 const Login = React.lazy(() => import("./auth/login"));
 const SignUp = React.lazy(() => import("./auth/signup"));
 const Unauthorized = React.lazy(() => import("./unauthorized"));
 const NotFoundRoute = React.lazy(() => import("./not-found"));
+const Dashboard = React.lazy(() => import("./app/dashboard/dashboard"));
+const UserOrders = React.lazy(() => import("./app/orders/UserOrders"));
+const Profile = React.lazy(() => import("./app/profile/Profile"));
+const UserAddresses = React.lazy(() => import("./app/addresses/UserAddresses"));
 
 const adminRoutes: RouteObject[] = [
   {
@@ -130,12 +135,58 @@ const appRoutes: RouteObject[] = [
         path: "/store",
         element: <Store />,
       },
+      {
+        path: "/account",
+        element: (
+          <RequireAuth allowedRoles={["user"]}>
+            <AccountLayout />
+          </RequireAuth>
+        ),
+        children: [
+          {
+            path: "",
+            element: (
+              <React.Suspense fallback={<PageLoader />}>
+                <Dashboard />
+              </React.Suspense>
+            ),
+          },
+          {
+            path: "orders",
+            element: (
+              <React.Suspense fallback={<PageLoader />}>
+                <UserOrders />
+              </React.Suspense>
+            ),
+          },
+          {
+            path: "profile",
+            element: (
+              <React.Suspense fallback={<PageLoader />}>
+                <Profile />
+              </React.Suspense>
+            ),
+          },
+          {
+            path: "addresses",
+            element: (
+              <React.Suspense fallback={<PageLoader />}>
+                <UserAddresses />
+              </React.Suspense>
+            ),
+          },
+        ],
+      },
     ],
   },
   {
     path: "/cart",
     element: <Cart />,
   },
+  {
+    path: "/checkout",
+    element: <Login />,
+  }
 ];
 
 const commonRoutes: RouteObject[] = [

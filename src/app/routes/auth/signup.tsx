@@ -1,10 +1,14 @@
 import SignUpForm from "@/features/auth/components/SignupForm";
+import Navbar from "@/components/navbarApp/Navbar";
 
 const SignUp = () => {
   return (
-    <main className="max-w-md mx-auto w-full min-h-screen flex flex-col items-center justify-center">
-      <SignUpForm />
-    </main>
+    <>
+      <Navbar />
+      <main className="max-w-md mx-auto w-full min-h-screen flex flex-col items-center justify-center">
+        <SignUpForm />
+      </main>
+    </>
   );
 };
 

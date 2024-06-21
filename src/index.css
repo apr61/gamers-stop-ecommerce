@@ -24,20 +24,6 @@
   }
 }
 
-@layer base {
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-body {
-  min-height: 100vh;
-  scroll-behavior: smooth;
-  box-sizing: border-box;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-}
-
 *,
 *::before,
 *::after {
@@ -55,7 +41,7 @@ body {
   --clr-border: hsl(0, 0%, 60%, 0.25);
   --clr-btn-out-of-stock: hsl(0, 0%, 30%);
   --clr-txt-fade: hsl(0, 0%, 60%);
-  --clr-fade-bg: hsl(0, 0%, 90%, 0.9);
+  --clr-fade-bg: hsl(var(--clr-accent));
   --clr-fade-bg-hover: hsl(0, 0%, 50%);
   --box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
   --clr-loader: hsl(200, 70%, 50%);
@@ -75,11 +61,18 @@ body {
   --clr-main-bg: hsl(0, 0%, 0%, 0.9);
   --box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 4.75);
   --clr-link: var(--clr-txt-white);
-  --clr-fade-bg: hsl(0, 0%, 90%, 0.2);
   --clr-loader-border: var(--clr-txt);
   --clr-breadcrumb-active: var(--clr-txt-fade);
-  background-color: var(--clr-main-bg);
-  color: var(--clr-txt);
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  background-color: var(---clr-bg);
+  color: var(--clr-text);
 }
 
 /* Page loader styles */
@@ -193,7 +186,7 @@ label {
 /* Account layout syles */
 
 .account {
-  max-width: 80rem;
+  max-width: 70rem;
   width: 100%;
   margin: 2rem 0;
   margin-inline: auto;
@@ -218,6 +211,7 @@ label {
 
 .account_layout {
   padding-top: 1rem;
+  min-height: 60vh;
 }
 
 @media (max-width: 60rem) {
@@ -284,6 +278,7 @@ label {
   padding: 1rem;
   height: fit-content;
   padding-bottom: 0;
+  background-color: hsl(var(--clr-dim-black));
 }
 
 .category-products__row {

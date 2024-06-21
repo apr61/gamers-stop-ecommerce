@@ -40,7 +40,7 @@ const SideNav = () => {
           </SideNavItem>
           <SideNavItem>
             <NavLink
-              to="/account/dashboard"
+              to="/account"
               className={({ isActive }) =>
                 isActive ? "menu__active" : "menu__link"
               }
