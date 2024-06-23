@@ -2,7 +2,6 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   Product,
   QueryType,
-  TableName,
   ProductFormValues,
   ItemsViewType,
 } from "@/types/api";
@@ -12,11 +11,12 @@ import {
   deleteProduct,
   getProducts,
   searchProducts,
+  searchProductsAdmin,
   updateProduct,
 } from "../../services/api/product";
 
 export type CurrentType = {
-  action: "create" | "read" | "update" | "delete";
+  action: "create" | "read" | "update" | "delete" | "idle";
   record: Product | null;
   status: "idle" | "pending" | "succeeded" | "failed";
   error: string | null;
@@ -31,6 +31,8 @@ interface ProductState {
   search: {
     data: Product[];
     totalItems: number;
+    status: "idle" | "pending" | "succeeded" | "failed";
+    error: string | null;
   };
   current: CurrentType;
   itemsView: ItemsViewType;
@@ -45,9 +47,11 @@ const initialState: ProductState = {
   search: {
     data: [],
     totalItems: 0,
+    status: "idle",
+    error: null,
   },
   current: {
-    action: "create",
+    action: "idle",
     record: null,
     status: "idle",
     error: null,
@@ -56,10 +60,34 @@ const initialState: ProductState = {
 };
 
 export const productSearch = createAsyncThunk(
-  "product/search",
+  "product/searchProducts",
   async (query: QueryType<Product>, { rejectWithValue }) => {
     try {
-      const response = await searchProducts(query);
+      const response = await searchProductsAdmin(query);
+      if (response) {
+        const data = {
+          data: response.data as Product[],
+          totalCount: response.count,
+        };
+        return data;
+      }
+      return {
+        data: [],
+        totalCount: 0,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const searchProductsFn = createAsyncThunk(
+  "product/search",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await searchProducts();
       if (response) {
         const data = {
           data: response.data as Product[],
@@ -84,7 +112,7 @@ export const fetchProducts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await getProducts();
-      return response;
+      return response as Product[];
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error.message);
@@ -100,13 +128,12 @@ export const addProduct = createAsyncThunk(
       formData,
     }: {
       formData: ProductFormValues;
-      tableName: TableName;
     },
     { rejectWithValue }
   ) => {
     try {
       const newEntity = await createProduct(formData);
-      return newEntity;
+      return newEntity as Product;
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error.message);
@@ -137,7 +164,6 @@ export const editProduct = createAsyncThunk(
       id,
     }: {
       formData: ProductFormValues;
-      tableName: TableName;
       id: number;
     },
     { rejectWithValue }
@@ -166,7 +192,7 @@ const productSlice = createSlice({
     },
     resetProductCurrentItem: (state) => {
       state.current = {
-        action: "create",
+        action: "idle",
         record: null,
         status: "idle",
         error: null,
@@ -195,6 +221,26 @@ const productSlice = createSlice({
         state.search = {
           data: [],
           totalItems: 0,
+          status: "failed",
+          error: action.payload as string,
+        };
+      })
+      .addCase(searchProductsFn.fulfilled, (state, action) => {
+        state.search.status = "succeeded";
+        state.search.data = action.payload?.data!;
+        state.search.totalItems = action.payload?.totalCount!;
+      })
+      .addCase(searchProductsFn.pending, (state) => {
+        state.search.status = "pending";
+      })
+      .addCase(searchProductsFn.rejected, (state, action) => {
+        state.search.status = "failed";
+        state.search.error = action.payload as string;
+        state.search = {
+          data: [],
+          totalItems: 0,
+          status: "failed",
+          error: action.payload as string,
         };
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {

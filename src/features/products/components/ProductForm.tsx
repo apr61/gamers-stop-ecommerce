@@ -1,9 +1,9 @@
 import {
-  FieldErrors,
+  FormProvider,
   SubmitHandler,
-  UseFormRegister,
-  UseFormSetValue,
+  useFieldArray,
   useForm,
+  useFormContext,
 } from "react-hook-form";
 import { ProductFormValues } from "@/types/api";
 import FileInput from "@/components/ui/FileInput";
@@ -22,6 +22,8 @@ import {
   selectProdcutsCurrentItem,
 } from "@/features/products/productSlice";
 import { fetchBrands, selectBrands } from "@/features/brands/brandsSlice";
+import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
+import { createSlug } from "@/utils/utils";
 
 type ProductFormProps = {
   product?: ProductFormValues;
@@ -29,13 +31,7 @@ type ProductFormProps = {
 };
 
 const ProductsForm = ({ product, images }: ProductFormProps) => {
-  const {
-    register,
-    formState: { errors, isSubmitting },
-    handleSubmit,
-    setValue,
-    reset,
-  } = useForm<ProductFormValues>({
+  const methods = useForm<ProductFormValues>({
     defaultValues: product ? product : undefined,
   });
   const { action, record, error, status } = useAppSelector(
@@ -49,124 +45,125 @@ const ProductsForm = ({ product, images }: ProductFormProps) => {
   const FormHeading = action === "create" ? "Add new" : "Edit";
 
   const onSubmit: SubmitHandler<ProductFormValues> = async (data) => {
+    const formData: ProductFormValues = {
+      ...data,
+      slug_url: createSlug(data.name),
+    };
     if (action === "create") {
-      await dispatch(addProduct({ formData: data, tableName: "products" }));
+      await dispatch(addProduct({ formData: formData }));
     } else {
       if (record && "name" in record)
         await dispatch(
           editProduct({
-            formData: data,
-            tableName: "products",
+            formData: formData,
             id: record.id,
           })
         );
     }
-    reset();
+    methods.reset();
     setImagePreviews([]);
   };
 
   return (
-    <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-      <h3 className="text-xl">{FormHeading} product</h3>
-      <div className="flex gap-6 flex-col md:flex-row">
-        <div className="flex flex-col gap-6 flex-[1] md:flex-[1.5] lg:flex-[3]">
-          <ProductMain register={register} errors={errors} />
-          <ProductGallery
-            register={register}
-            errors={errors}
-            setImagePreviews={setImagePreviews}
-            imagePreviews={imagePreviews}
-            setValue={setValue}
-          />
-        </div>
-        <div className="flex-[1] flex gap-6 flex-col">
-          <CategorySelect
-            register={register}
-            errors={errors}
-            currentCategoryId={
-              record && "name" in record ? record.category_id : null
-            }
-          />
-
-          <BrandSelect
-            register={register}
-            errors={errors}
-            currentBrandId={
-              record && "name" in record ? record.brand?.id! : null
-            }
-          />
-          <div className="bg-dimBlack p-4 rounded-md shadow-md">
-            <Input
-              placeholder="Stock"
-              label="Stock"
-              type="number"
-              {...register("quantity", {
-                required: "Quantity is required",
-                min: {
-                  value: 1,
-                  message: "Quantity must be greater that 1",
-                },
-              })}
+    <FormProvider {...methods}>
+      <form
+        className="flex flex-col gap-6"
+        onSubmit={methods.handleSubmit(onSubmit)}
+      >
+        <h3 className="text-xl">{FormHeading} product</h3>
+        <div className="flex gap-6 flex-col md:flex-row">
+          <div className="flex flex-col gap-6 flex-[1] md:flex-[1.5] lg:flex-[3]">
+            <ProductMain />
+            <ProductGallery
+              setImagePreviews={setImagePreviews}
+              imagePreviews={imagePreviews}
             />
-            {errors.quantity && (
-              <p className="text-red-500">{errors.quantity.message}</p>
-            )}
+            <ProductSpecification />
           </div>
-          <div className="bg-dimBlack p-4 rounded-md shadow-md">
-            <Input
-              placeholder="Price"
-              label="Price"
-              type="number"
-              {...register("price", {
-                required: "Price is required",
-                min: {
-                  value: 1,
-                  message: "Price must be greater that 1",
-                },
-              })}
+          <div className="flex-[1] flex gap-6 flex-col">
+            <CategorySelect
+              currentCategoryId={
+                record && "name" in record ? record.category_id : null
+              }
             />
-            {errors.price && (
-              <p className="text-red-500">{errors.price.message}</p>
-            )}
+
+            <BrandSelect
+              currentBrandId={
+                record && "name" in record ? record.brand?.id! : null
+              }
+            />
+            <div className="bg-dimBlack p-4 rounded-md shadow-md">
+              <Input
+                placeholder="Stock"
+                label="Stock"
+                type="number"
+                {...methods.register("quantity", {
+                  required: "Quantity is required",
+                  min: {
+                    value: 1,
+                    message: "Quantity must be greater that 1",
+                  },
+                })}
+              />
+              {methods.formState.errors.quantity && (
+                <p className="text-red-500">
+                  {methods.formState.errors.quantity.message}
+                </p>
+              )}
+            </div>
+            <div className="bg-dimBlack p-4 rounded-md shadow-md">
+              <Input
+                placeholder="Price"
+                label="Price"
+                type="number"
+                {...methods.register("price", {
+                  required: "Price is required",
+                  min: {
+                    value: 1,
+                    message: "Price must be greater that 1",
+                  },
+                })}
+              />
+              {methods.formState.errors.price && (
+                <p className="text-red-500">
+                  {methods.formState.errors.price.message}
+                </p>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      {error && <p className="text-red-500">{error}</p>}
-      <div className="flex gap-2">
-        <Button
-          type="submit"
-          disabled={isSubmitting || status === "pending"}
-          loading={isSubmitting || status === "pending"}
-        >
-          Save
-        </Button>
-      </div>
-    </form>
+        {error && <p className="text-red-500">{error}</p>}
+        <div className="flex gap-2">
+          <Button
+            type="submit"
+            disabled={methods.formState.isSubmitting || status === "pending"}
+            loading={methods.formState.isSubmitting || status === "pending"}
+          >
+            Save
+          </Button>
+        </div>
+      </form>
+    </FormProvider>
   );
 };
 
 export default ProductsForm;
 
-type ProductFromType = {
-  register: UseFormRegister<ProductFormValues>;
-  errors: FieldErrors<ProductFormValues>;
-};
-
-type CategorySelectProps = ProductFromType & {
+type CategorySelectProps = {
   currentCategoryId: number | null;
 };
 
-const CategorySelect = ({
-  register,
-  errors,
-  currentCategoryId,
-}: CategorySelectProps) => {
+const CategorySelect = ({ currentCategoryId }: CategorySelectProps) => {
   const { data: categories, status, error } = useAppSelector(selectCategories);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<ProductFormValues>();
   return (
     <>
       <div className="w-full flex gap-2 flex-col  shadow-md p-4 rounded-md bg-dimBlack">
@@ -206,20 +203,20 @@ const CategorySelect = ({
   );
 };
 
-type BrandSelectProps = ProductFromType & {
+type BrandSelectProps = {
   currentBrandId: number | null;
 };
 
-const BrandSelect = ({
-  register,
-  errors,
-  currentBrandId,
-}: BrandSelectProps) => {
+const BrandSelect = ({ currentBrandId }: BrandSelectProps) => {
   const { data, status, error } = useAppSelector(selectBrands);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchBrands());
   }, [dispatch]);
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<ProductFormValues>();
   return (
     <>
       <div className="w-full flex gap-2 flex-col shadow-md p-4 rounded-md bg-dimBlack">
@@ -257,7 +254,11 @@ const BrandSelect = ({
   );
 };
 
-const ProductMain = ({ register, errors }: ProductFromType) => {
+const ProductMain = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<ProductFormValues>();
   return (
     <div className="bg-dimBlack shadow-md p-4 rounded-md flex flex-col gap-2">
       <Input
@@ -285,19 +286,20 @@ const ProductMain = ({ register, errors }: ProductFromType) => {
   );
 };
 
-type ProductGalleryType = ProductFromType & {
+type ProductGalleryType = {
   setImagePreviews: React.Dispatch<React.SetStateAction<string[]>>;
   imagePreviews: string[];
-  setValue: UseFormSetValue<ProductFormValues>;
 };
 
 const ProductGallery = ({
-  register,
-  errors,
   setImagePreviews,
   imagePreviews,
-  setValue,
 }: ProductGalleryType) => {
+  const {
+    register,
+    formState: { errors },
+    setValue,
+  } = useFormContext<ProductFormValues>();
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
@@ -327,6 +329,74 @@ const ProductGallery = ({
       </div>
       <ImagePreview images={imagePreviews} handleOnClick={handleDelete} />
       {errors.images && <p className="text-red-500">{errors.images.message}</p>}
+    </div>
+  );
+};
+
+const ProductSpecification = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<ProductFormValues>();
+  const { fields, append, remove } = useFieldArray<ProductFormValues>({
+    name: "specifications",
+  });
+  useEffect(() => {
+    if (fields.length < 2) {
+      for (let i = 0; i < 2; i++) {
+        append({ name: "", value: "" });
+      }
+    }
+  }, [fields, append]);
+
+  const handleRemove = (index: number) => {
+    if (fields.length > 3) {
+      remove(index);
+    }
+  };
+  return (
+    <div className="bg-dimBlack w-full p-4 rounded-md">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg">Specifications</h3>
+        <Button
+          btnType="icon"
+          className="border border-border p-1"
+          onClick={() => append({ name: "", value: "" })}
+        >
+          <PlusOutlined />
+        </Button>
+      </div>
+      <div className="mt-4 flex flex-col gap-4">
+        {fields.map((field, index) => (
+          <div
+            key={field.id}
+            className="grid gap-4 grid-cols-[1fr_1fr_auto] items-center"
+          >
+            <Input
+              placeholder="Specification name"
+              {...register(`specifications.${index}.name`, {
+                required: "Specification name is required",
+              })}
+            />
+            <Input
+              placeholder="Specification value"
+              {...register(`specifications.${index}.value`, {
+                required: "Specification value is required",
+              })}
+            />
+            <Button
+              btnType="icon"
+              className="border border-border p-2"
+              onClick={() => handleRemove(index)}
+            >
+              <CloseOutlined />
+            </Button>
+          </div>
+        ))}
+      </div>
+      {errors.specifications && (
+        <p className="text-red-500">{errors.specifications.message}</p>
+      )}
     </div>
   );
 };

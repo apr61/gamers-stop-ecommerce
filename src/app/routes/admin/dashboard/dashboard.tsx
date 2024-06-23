@@ -95,9 +95,8 @@ const DashboardCard = () => {
 };
 
 const RecentOrders = () => {
-  const { data, loading, error } = useCustomQuery<Order>({
-    fn: () => getRecentOrders(),
-  });
+  const { data, loading, error } = useCustomQuery<Order[]>(() => getRecentOrders()
+  );
   const columns: ColumnConfig<Order>[] = [
     {
       title: "Order Number",
@@ -148,6 +147,7 @@ const RecentOrders = () => {
     },
   ];
   if (error) return <h1>{error}</h1>;
+  if (data === null) return;
   return (
     <section className=" rounded-md shadow-sm bg-dimBlack relative">
       <h2 className="p-2 text-gray-700 dark:text-white text-lg font-semibold">
@@ -165,9 +165,9 @@ const RecentOrders = () => {
 };
 
 const RecentUsers = () => {
-  const { data, loading, error } = useCustomQuery<CustomUser>({
-    fn: () => getRecentProfiles(),
-  });
+  const { data, loading, error } = useCustomQuery<CustomUser[]>(
+    () => getRecentProfiles(),
+  );
   const columns: ColumnConfig<CustomUser>[] = [
     {
       title: "Customer",
@@ -188,6 +188,7 @@ const RecentUsers = () => {
     },
   ];
   if (error) return <h1>{error}</h1>;
+  if (data === null) return;
   return (
     <section className=" rounded-md shadow-sm bg-dimBlack  relative">
       <h2 className="p-2 text-gray-700 dark:text-white text-lg font-semibold">
@@ -199,9 +200,9 @@ const RecentUsers = () => {
 };
 
 const TopSellingProducts = () => {
-  const { data, loading, error } = useCustomQuery<ProductsOrdered>({
-    fn: () => getTopSellingProducts(),
-  });
+  const { data, loading, error } = useCustomQuery<ProductsOrdered[]>(
+    () => getTopSellingProducts(),
+  );
 
   const columns: ColumnConfig<ProductsOrdered>[] = [
     {
@@ -246,6 +247,7 @@ const TopSellingProducts = () => {
   ];
 
   if (error) return <h1>{error}</h1>;
+  if (data === null) return;
   return (
     <section className=" rounded-md shadow-sm bg-dimBlack relative">
       <h2 className="p-2 text-gray-700 dark:text-white text-lg font-semibold">

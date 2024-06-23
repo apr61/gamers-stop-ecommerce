@@ -14,7 +14,7 @@ import {
   selectSearchBarOpen,
   toggleTheme,
 } from "../../features-app/theme/themeSlice";
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import SideNav from "../sidenav-app/SideNav";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useAuth } from "@/hooks/useAuth";
@@ -28,6 +28,7 @@ import {
   DropDownItem,
 } from "../ui/Dropdown";
 import { LoginOutlined } from "@ant-design/icons";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 type NavItemProps = {
   children: ReactElement;
@@ -36,11 +37,25 @@ type NavItemProps = {
 };
 
 function Navbar() {
-  const theme = useAppSelector(getTheme);
   const dispatch = useAppDispatch();
   const totalItems = useAppSelector(getTotalItems);
   const isSearchBarOpen = useAppSelector(selectSearchBarOpen);
   const { user } = useAuth();
+  const { local: theme, setLocal: setTheme } = useLocalStorage(
+    "gamers-stop-theme",
+    "light"
+  );
+  const handleThemeClick = () => {
+    const selectedTheme = theme === "dark" ? "light" : "dark";
+    setTheme(selectedTheme);
+  };
+
+  useEffect(() => {
+    theme === "dark"
+      ? document.body.classList.add("dark")
+      : document.body.classList.remove("dark");
+    setTheme(theme);
+  }, [theme]);
 
   return (
     <>
@@ -64,12 +79,7 @@ function Navbar() {
           <NavItem
             title={theme === "light" ? "Switch to Dark" : "Switch to Light"}
           >
-            <button
-              className="navbar__theme-btn"
-              onClick={() =>
-                dispatch(toggleTheme(theme === "dark" ? "light" : "dark"))
-              }
-            >
+            <button className="navbar__theme-btn" onClick={handleThemeClick}>
               {theme === "light" ? <DarkModeIcon /> : <WbSunnyIcon />}
             </button>
           </NavItem>

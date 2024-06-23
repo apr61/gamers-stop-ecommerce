@@ -13,7 +13,7 @@ export default {
       colors: {
         background: "hsl(var(--clr-bg))",
         foreground: "hsl(var(--clr-foreground))",
-        border: "hsl(var(--clr-border))",
+        border: "hsl(var(--clr-border-t))",
         primary: "hsl(var(--clr-primary))",
         dimBlack: "hsl(var(--clr-dim-black))",
         accent: "hsl(var(--clr-accent))",

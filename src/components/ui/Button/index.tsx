@@ -21,7 +21,7 @@ const Button = ({
   const styles = {
     primary: "px-2 py-1 bg-primary text-white focus:outline-blue-400",
     ghost:
-      "px-2 py-1 bg-transparent text-gray-500 border border-gray-500 hover:bg-gray-500 hover:text-white focus:outline-gray-400 focus:border-transparent",
+      "px-2 py-1 bg-transparent text-gray-500 border border-gray-500 hover:bg-gray-500 hover:text-white focus:outline-gray-400",
     danger: "py-2 bg-red-500 text-white focus:outline-red-400",
     icon: "p-1 text-md focus:outline-black",
   };

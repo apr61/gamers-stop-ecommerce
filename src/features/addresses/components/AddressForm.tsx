@@ -1,12 +1,9 @@
-import {
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { AddressFormValues } from "@/types/api";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CheckBox from "@/components/ui/checkbox";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MobileNumberRegex } from "@/utils/regex";
 
 type AddressFormProps = {
@@ -30,8 +27,14 @@ const AddressForm = ({
   } = useForm<AddressFormValues>({
     defaultValues: address ? address : undefined,
   });
+
   const [isDefaultInput, setIsDefaultInput] =
     useState<boolean>(isDefaultAddress);
+
+  useEffect(() => {
+    reset(address);
+  }, [address, reset]);
+
   const onSubmit: SubmitHandler<AddressFormValues> = async (data) => {
     await onSaveFn(data);
     reset();

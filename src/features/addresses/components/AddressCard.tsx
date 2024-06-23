@@ -1,53 +1,63 @@
-import { Link } from "react-router-dom";
 import { Address } from "@/types/api";
+import Button from "@/components/ui/Button";
+import { useAppDispatch } from "@/store/hooks";
+import { setAddressCurrentItem } from "../addressSlice";
 
 type AddressCardProps = {
-	addressData: Address;
+  addressData: Address;
 };
 
 function AddressCard({ addressData }: AddressCardProps) {
-	const {
-		id,
-		name,
-		address,
-		pincode,
-		cityDistrict,
-		townLocality,
-		state,
-		phoneNumber,
-	} = { ...addressData };
-	return (
-		<div className="w-full border shadow-sm">
-			<div className="p-2">
-				<p className="text-sm font-bold">{name}</p>
-				<div className="py-3">
-					<p className="text-gray-500">{address}, {townLocality}</p>
-					<p className="text-gray-500">
-						{cityDistrict} - {pincode}
-					</p>
-					<p className="text-gray-500">{state}</p>
-				</div>
-				<p className="text-gray-500">
-					Mobile: {phoneNumber}
-				</p>
-			</div>
-			<div className="flex w-full py-3 border-t-2 border var(--clr-border) justify-around">
-				<Link
-					to={`edit/${id}`}
-					className="text-center text-gray-700 w-1/2 focus:outline focus:ring-2 focus:ring-gray-700 rounded"
-				>
-					Edit
-				</Link>
-				<span>|</span>
-				<button
-					className="border-0 bg-transparent cursor-pointer text-center text-red-600 w-1/2 focus:outline focus:ring-2 focus:ring-gray-700 rounded"
-					onClick={() => {}}
-				>
-					Remove
-				</button>
-			</div>
-		</div>
-	);
+  const {
+    name,
+    address,
+    pincode,
+    cityDistrict,
+    townLocality,
+    state,
+    phoneNumber,
+  } = { ...addressData };
+  const dispatch = useAppDispatch();
+  const handleEdit = () => {
+    dispatch(setAddressCurrentItem({ record: addressData, action: "update" }));
+  };
+  const handleDelete = () => {
+    dispatch(setAddressCurrentItem({ record: addressData, action: "delete" }));
+  };
+  return (
+    <div className="w-full border shadow-sm">
+      <div className="p-2">
+        <p className="text-sm font-bold">{name}</p>
+        <div className="py-3">
+          <p className="text-gray-500">
+            {address}, {townLocality}
+          </p>
+          <p className="text-gray-500">
+            {cityDistrict} - {pincode}
+          </p>
+          <p className="text-gray-500">{state}</p>
+        </div>
+        <p>Mobile: {phoneNumber}</p>
+      </div>
+      <div className="flex w-full py-3 border-t-2 border var(--clr-border) justify-around">
+        <Button
+          btnType="icon"
+          className="w-full hover:text-primary"
+          onClick={handleEdit}
+        >
+          Edit
+        </Button>
+        <span>|</span>
+        <Button
+          btnType="icon"
+          className="w-full text-red-500"
+          onClick={handleDelete}
+        >
+          Delete
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 export default AddressCard;

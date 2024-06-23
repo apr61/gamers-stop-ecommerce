@@ -44,6 +44,7 @@ const SideNav = () => {
               className={({ isActive }) =>
                 isActive ? "menu__active" : "menu__link"
               }
+              end
             >
               Dashboard
             </NavLink>
@@ -56,6 +57,7 @@ const SideNav = () => {
                 className={({ isActive }) =>
                   isActive ? "menu__active" : "menu__link"
                 }
+                end
               >
                 Orders & returns
               </NavLink>
@@ -69,6 +71,7 @@ const SideNav = () => {
                 className={({ isActive }) =>
                   isActive ? "menu__active" : "menu__link"
                 }
+                end
               >
                 Profile
               </NavLink>
@@ -77,6 +80,7 @@ const SideNav = () => {
                 className={({ isActive }) =>
                   isActive ? "menu__active" : "menu__link"
                 }
+                end
               >
                 Addresses
               </NavLink>

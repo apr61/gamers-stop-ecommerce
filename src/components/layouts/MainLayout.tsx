@@ -5,14 +5,14 @@ import BreadCrumbs from "../ui/breadcrumbs/BreadCrumbs";
 
 function MainLayout() {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       <BreadCrumbs />
-      <main className="main">
+      <main className="flex-grow">
         <Outlet />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

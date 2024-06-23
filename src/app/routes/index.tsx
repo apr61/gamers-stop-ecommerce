@@ -1,6 +1,6 @@
 import Home from "./Home";
 import Store from "./app/store/store";
-import MainLayout from "../../components/layouts-app/MainLayout";
+import MainLayout from "../../components/layouts/MainLayout";
 import Cart from "./app/cart";
 import { RouteObject, createBrowserRouter } from "react-router-dom";
 import RequireAuth from "@/components/layouts/RequireAuth";
@@ -136,6 +136,13 @@ const appRoutes: RouteObject[] = [
         element: <Store />,
       },
       {
+        path: "/store/:slugUrl",
+        lazy: async () => {
+          const { SingleProduct } = await import("./app/store/SingleProduct");
+          return { Component: SingleProduct };
+        },
+      },
+      {
         path: "/account",
         element: (
           <RequireAuth allowedRoles={["user"]}>
@@ -186,7 +193,7 @@ const appRoutes: RouteObject[] = [
   {
     path: "/checkout",
     element: <Login />,
-  }
+  },
 ];
 
 const commonRoutes: RouteObject[] = [

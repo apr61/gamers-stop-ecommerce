@@ -1,10 +1,9 @@
 import { CloseOutlined } from "@ant-design/icons";
-import { ReactElement } from "react";
+import { PropsWithChildren } from "react";
 import Button from "../Button";
 import { cn } from "@/utils/cn";
 
-type DrawerProps = {
-  children: ReactElement[] | ReactElement;
+type DrawerProps = PropsWithChildren & {
   isDrawerOpen: boolean;
   closeDrawer: () => void;
   title?: string;

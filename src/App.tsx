@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import "./index.css";
 import RequireAuth from "./components/layouts-app/RequireAuth";
-import MainLayout from "./components/layouts-app/MainLayout";
+import MainLayout from "./components/layouts/MainLayout";
 import { Suspense, lazy, useEffect } from "react";
 import Loader from "./components/loader/Loader";
 import { useAppDispatch, useAppSelector } from "./store/hooks";

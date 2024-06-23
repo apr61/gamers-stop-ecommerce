@@ -16,17 +16,28 @@ import {
   DropDownItem,
   DropDownSeparator,
 } from "../ui/Dropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const Navbar = () => {
   const sidenavOpen = useAppSelector(selectSideNav);
   const dispatch = useAppDispatch();
-  const [theme, setTheme] = useState(false);
+  const { local: theme, setLocal: setTheme } = useLocalStorage(
+    "gamers-stop-theme",
+    "light"
+  );
   const handleTheme = () => {
-    setTheme((prev) => !prev);
-    document.body.classList.toggle("dark");
+    const selectedTheme = theme === "dark" ? "light" : "dark";
+    setTheme(selectedTheme);
   };
+
+  useEffect(() => {
+    theme === "dark"
+      ? document.body.classList.add("dark")
+      : document.body.classList.remove("dark");
+    setTheme(theme);
+  }, [theme]);
   return (
     <nav
       className={`sticky top-0 z-40 flex items-center w-full p-2 bg-white dark:bg-dimBlack h-[4rem]`}

@@ -1,33 +1,43 @@
-import { Navigate } from "react-router-dom";
-import { selectProdcutsCurrentItem } from "@/features/products/productSlice";
-import { useAppSelector } from "@/store/hooks";
+import PageLoader from "@/components/PageLoader";
 import ProductPreviewImage from "@/components/ProductImagePreview";
+import { useCustomQuery } from "@/hooks/useCustomQuery";
+import { getProductBySlugUrl } from "@/services/api/product";
+import { Product } from "@/types/api";
 import { currencyFormatter } from "@/utils/currencyFormatter";
+import { Navigate, useParams } from "react-router-dom";
 
-export const Product = () => {
-  const { record } = useAppSelector(selectProdcutsCurrentItem);
-  if (record === null) return <Navigate to="/products" />;
+export const SingleProduct = () => {
+  const { slugUrl } = useParams();
+  if (!slugUrl) return <Navigate to="/store" />;
+  const {
+    data: product,
+    error,
+    loading,
+  } = useCustomQuery<Product>(() => getProductBySlugUrl(slugUrl), true);
+  if (loading) return <PageLoader />;
+  if (error) return <p>{error}</p>;
+  if (product === null) return <Navigate to="/store" />;
   return (
-    <div className="w-full p-4 rounded-md flex flex-col md:flex-row gap-12">
-      <ProductPreviewImage images={record.images} name={record.name} />
+    <div className="max-w-7xl mx-auto w-full p-4 rounded-md flex flex-col md:flex-row gap-12">
+      <ProductPreviewImage images={product.images} name={product.name} />
       <div className="w-full bg-dimBlack p-4  rounded-md">
         <header>
-          <h1 className="text-2xl font-bold">{record.name}</h1>
+          <h1 className="text-2xl font-bold">{product.name}</h1>
           <p>
             <span className="text-gray-700 dark:text-slate-400 font-semibold">
               Published :{" "}
             </span>
-            {new Date(record.created_at).toLocaleDateString()}
+            {new Date(product.created_at).toLocaleDateString()}
           </p>
         </header>
         <p className="text-xl font-bold my-4">
-          {currencyFormatter(record.price)}
+          {currencyFormatter(product.price)}
         </p>
         <section className="my-4">
           <h3 className="text-lg font-semibold text-gray-700 dark:text-slate-400">
             Description :
           </h3>
-          <p>{record.description}</p>
+          <p>{product.description}</p>
         </section>
         <section className="my-4">
           <h3 className="text-lg font-semibold text-gray-700 dark:text-slate-400">
@@ -47,13 +57,13 @@ export const Product = () => {
               <tbody>
                 <tr className="border-b border-border">
                   <th className="text-start p-2">Category</th>
-                  <td className="p-2">{record.category?.category_name}</td>
+                  <td className="p-2">{product.category?.category_name}</td>
                 </tr>
                 <tr className="border-b border-border">
                   <th className="text-start p-2">Brand</th>
-                  <td className="p-2">{record.brand?.brand_name}</td>
+                  <td className="p-2">{product.brand?.brand_name}</td>
                 </tr>
-                {record.specifications.map((spec, index) => (
+                {product.specifications.map((spec, index) => (
                   <tr
                     key={spec.name + String(index)}
                     className="border-b border-border"
