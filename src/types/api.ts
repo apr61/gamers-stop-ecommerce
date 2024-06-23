@@ -225,10 +225,17 @@ export type CustomError =
       message: string;
     };
 
+export type ProductStock = "inStock" | "outOfStock"
+export type ProductSortType = "price_low_to_high" | "price_high_to_low"
+
 export type ProductFilterType = {
-  category: number | null,
-  brand: number | null,
-  stock: "include_out_of_stock" | "exclude_out_of_stock",
-  sort: "price_low_to_high" | "price_high_to_low" | null,
-  page: number
+  category: number,
+  brand: number[],
+  stock: ProductStock,
+  sort:  ProductSortType,
+  page: {
+    from: number,
+    to: number
+  },
+  rating: number
 }

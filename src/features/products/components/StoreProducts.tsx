@@ -1,15 +1,22 @@
 import ItemsGridLayout from "@/components/layouts/ItemsGridLayout";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { searchProductsFn, selectProductsSearch } from "../productSlice";
-import { ChangeEvent, useEffect } from "react";
+import { ChangeEvent, useEffect, useMemo } from "react";
 import PageLoader from "@/components/PageLoader";
-import { Product } from "@/types/api";
+import {
+  Product,
+  ProductFilterType,
+  ProductSortType,
+  ProductStock,
+} from "@/types/api";
 import { currencyFormatter } from "@/utils/currencyFormatter";
 import Button from "@/components/ui/Button";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Filter from "./Filter";
 import Select from "@/components/ui/Select";
 import Pagination from "@/components/ui/Pagination";
+import { selectBrands } from "@/features/brands/brandsSlice";
+import { selectCategories } from "@/features/categories/categorySlice";
 
 const StoreProducts = () => {
   return (
@@ -26,41 +33,86 @@ const StoreProducts = () => {
 export default StoreProducts;
 
 const ProductListWrapper = () => {
-  const { data, totalItems, status, error } =
-    useAppSelector(selectProductsSearch);
+  const [searchParams, _] = useSearchParams();
+  const {
+    data: productData = [],
+    status,
+    error,
+  } = useAppSelector(selectProductsSearch);
+  const { data: brandData } = useAppSelector(selectBrands);
+  const { data: categoryData } = useAppSelector(selectCategories);
+
   const dispatch = useAppDispatch();
+  const page = searchParams.get("page") ? +searchParams.get("page")! : 1;
+  const rating = searchParams.get("rating") ? +searchParams.get("rating")! : 5;
+  const availability = searchParams.get("availability") || "inStock";
+  const categoryIn = searchParams.get("category") || "";
+  const selectedBrands = searchParams.get("brands")?.split("-") || [];
+  const sort = searchParams.get("sort") || "price_low_to_high";
+  const itemsPerPage = 6;
 
   useEffect(() => {
-    dispatch(searchProductsFn());
-  }, []);
+    const paginationFrom = (page - 1) * itemsPerPage;
+    const paginationTo = paginationFrom + (itemsPerPage - 1);
+    const filteredCate = categoryData.find(
+      (cate) => cate.category_name === categoryIn
+    );
+    const categoryId = filteredCate ? filteredCate.id : 0;
+    const brands = brandData
+      .filter((brand) => selectedBrands.indexOf(brand.brand_name) !== -1)
+      .map((brand) => brand.id);
+
+    const query: ProductFilterType = {
+      page: {
+        from: paginationFrom,
+        to: paginationTo,
+      },
+      rating: rating,
+      sort: sort as ProductSortType,
+      stock: availability as ProductStock,
+      category: categoryId,
+      brand: brands,
+    };
+    dispatch(searchProductsFn(query));
+  }, [sort, page, availability, categoryData, brandData, categoryIn]);
 
   if (status === "pending") return <PageLoader />;
   if (status === "failed") return <p>{error}</p>;
 
-  const page = 1;
-  const itemsPerPage = 12;
-  const totalPages = Math.floor(totalItems / itemsPerPage);
-  const setPage = () => {};
-
   return (
     <div>
       <ItemsGridLayout className="grid-cols-none md:grid-cols-2 lg:grid-cols-3">
-        {data.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-        {data.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-        {data.map((product) => (
+        {productData.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </ItemsGridLayout>
-      <div className="flex justify-between mt-10">
-        <p>
-          Showing {page} of {totalPages} pages
-        </p>
-        <Pagination currentPage={1} totalPages={totalPages} setPage={setPage} />
-      </div>
+      <ProductPagination />
+    </div>
+  );
+};
+
+const ProductPagination = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { totalItems } = useAppSelector(selectProductsSearch);
+  const page = searchParams.get("page") ? +searchParams.get("page")! : 1;
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const setPage = (newPage: number) => {
+    setSearchParams((prev) => {
+      prev.set("page", String(newPage));
+      return prev;
+    });
+  };
+  return (
+    <div className="flex justify-between mt-10">
+      <p>
+        Showing {page} of {totalPages} pages
+      </p>
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        setPage={setPage}
+      />
     </div>
   );
 };
@@ -94,15 +146,22 @@ const ProductCard = ({ product }: ProductCardProps) => {
 };
 
 const ProductSort = () => {
-  const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sort = searchParams.get("sort") || "price_low_to_high";
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    if (value.length > 0) {
+      setSearchParams(
+        (prev) => {
+          prev.set("sort", value);
+          return prev;
+        },
+        { replace: true }
+      );
+    }
   };
   return (
-    <Select
-      className="w-fit ml-auto"
-      onChange={handleOnChange}
-      value={"price_low_to_high"}
-    >
+    <Select className="w-fit ml-auto" onChange={handleChange} value={sort}>
       <Select.Option value="">Sort By</Select.Option>
       <Select.Option value="price_low_to_high">Price Low to High</Select.Option>
       <Select.Option value="price_high_to_low">Price High to Low</Select.Option>

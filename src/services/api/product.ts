@@ -1,5 +1,10 @@
 import supabase from "../../utils/supabase";
-import { QueryType, ProductFormValues, Product } from "@/types/api";
+import {
+  QueryType,
+  ProductFormValues,
+  Product,
+  ProductFilterType,
+} from "@/types/api";
 import { uploadFiles, deleteFile } from "../api/fileUpload";
 
 export const searchProductsAdmin = async (query: QueryType<Product>) => {
@@ -27,26 +32,34 @@ export const searchProductsAdmin = async (query: QueryType<Product>) => {
   return response;
 };
 
-export const searchProducts = async () => {
+export const searchProducts = async (query: ProductFilterType) => {
   const { count, error: countError } = await supabase()
     .from("products")
     .select("*", { count: "exact", head: true });
 
   if (countError) throw countError;
 
+  // Fetch the products based on the query
   const { data, error } = await supabase()
     .from("products")
     .select(
       `*, category:categories(id, category_name, category_image), brand:brands(id, brand_name)`
     )
+    .gte("quantity", query.stock === "inStock" ? 1 : 0)
+    // .gte("rating", query.rating)
+    .eq("category_id", query.category)
+    // .in("brand_id", query.brand)
+    .order("price", { ascending: query.sort === "price_low_to_high" })
+    .range(query.page.from, query.page.to);
 
   if (error) throw error;
 
-  const response = {
-    data: data ? data : [],
-    count: count ? count : 0,
+  console.log(query.category)
+
+  return {
+    data: data || [],
+    count: count || 0,
   };
-  return response;
 };
 
 export async function createProduct(values: ProductFormValues) {

@@ -4,6 +4,7 @@ import {
   QueryType,
   ProductFormValues,
   ItemsViewType,
+  ProductFilterType,
 } from "@/types/api";
 import { RootState } from "@/store/store";
 import {
@@ -85,14 +86,15 @@ export const productSearch = createAsyncThunk(
 
 export const searchProductsFn = createAsyncThunk(
   "product/search",
-  async (_, { rejectWithValue }) => {
+  async (query: ProductFilterType, { rejectWithValue }) => {
     try {
-      const response = await searchProducts();
+      const response = await searchProducts(query);
       if (response) {
         const data = {
           data: response.data as Product[],
           totalCount: response.count,
         };
+        console.log(data)
         return data;
       }
       return {
