@@ -225,21 +225,44 @@ export type CustomError =
       message: string;
     };
 
-export type ProductStock = "inStock" | "outOfStock"
-export type ProductSortType = "price_low_to_high" | "price_high_to_low"
+export type ProductStock = "inStock" | "outOfStock";
+export type ProductSortType = "price_low_to_high" | "price_high_to_low";
 
 export type ProductFilterType = {
-  category: number,
-  brand: number[],
-  stock: ProductStock,
-  sort:  ProductSortType,
+  category: number;
+  brand: number[];
+  stock: ProductStock;
+  sort: ProductSortType;
   page: {
-    from: number,
-    to: number
-  },
-  rating: number
-}
+    from: number;
+    to: number;
+  };
+  rating: number;
+};
 
 export type CartItem = {
   qty: number;
 } & Product;
+
+export type OrderStatus =  "yet-to-be-shipped" | "cancelled" | "delivered" | "placed"
+
+export type OrderData = {
+  deliveryFee: number;
+  discount: number;
+  grandTotal: number;
+  orderStatus: OrderStatus;
+  orderedDate: string;
+  paymentId: string;
+  paymentStatus: "paid" | "not-paid" | "cash-on-delivery";
+  totalAmount: number;
+  totalItemsOrdered: number;
+  uid: string;
+  productsOrdered: CartItem[];
+  shippingAddress: Address;
+};
+
+export type RazorpayPaymentResponse = {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+};

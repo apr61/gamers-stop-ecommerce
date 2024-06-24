@@ -11,7 +11,7 @@ import {
   openSideNav,
   selectSearchBarOpen,
   toggleTheme,
-} from "../../features-app/theme/themeSlice";
+} from "../../features/theme/themeSlice";
 import { ReactElement, useEffect, useState } from "react";
 import SideNav from "../sidenav-app/SideNav";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -19,7 +19,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { useOnOutsideClick } from "@/hooks/useOnClickOutside";
 import BlankUserProfile from "@/assets/blank-profile-picture.webp";
 import Button from "@/components/ui/Button";
-import Drawer from "@/components/ui/Drawer";
 import {
   DropDownList,
   DropDownMenu,
@@ -27,10 +26,7 @@ import {
   DropDownItem,
 } from "../ui/Dropdown";
 import { LoginOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { useDisclosure } from "@/hooks/useDisclosure";
-import { selectCart, getTotalItems } from "@/features/cart/cartSlice";
-import SingleCartItem from "@/features/cart/components/SingleCartItem";
+import { getTotalItems } from "@/features/cart/cartSlice";
 
 type NavItemProps = {
   children: ReactElement;
@@ -43,21 +39,12 @@ function Navbar() {
   const isSearchBarOpen = useAppSelector(selectSearchBarOpen);
   const { user } = useAuth();
   const totalItems = useAppSelector(getTotalItems);
-  const { local: theme, setLocal: setTheme } = useLocalStorage(
-    "gamers-stop-theme",
-    "light",
-  );
+  const theme = useAppSelector(getTheme);
+
   const handleThemeClick = () => {
     const selectedTheme = theme === "dark" ? "light" : "dark";
-    setTheme(selectedTheme);
+    dispatch(toggleTheme(selectedTheme));
   };
-
-  useEffect(() => {
-    theme === "dark"
-      ? document.body.classList.add("dark")
-      : document.body.classList.remove("dark");
-    setTheme(theme);
-  }, [theme]);
 
   return (
     <>
@@ -126,7 +113,6 @@ const UserProfile = () => {
   const [dropDown, setDropDown] = useState(false);
   const handleClose = () => {
     setDropDown(false);
-    console.log("Cliked drop");
   };
   const dropDownRef = useOnOutsideClick(handleClose);
 

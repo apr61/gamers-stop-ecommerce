@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   closeSideNav,
   selectSideNavOpen,
-} from "../../features-app/theme/themeSlice";
+} from "../../features/theme/themeSlice";
 import { ReactElement } from "react";
 
 type SideNavItemProps = {

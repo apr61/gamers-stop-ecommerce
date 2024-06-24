@@ -5,7 +5,7 @@ import Footer from "@/components/footer/Footer.tsx";
 import Navbar from "@/components/navbarApp/Navbar";
 
 //data
-import { categoryData } from "../../data/imagesLoader";
+import { categoryData } from "@/data/imagesLoader";
 
 function Home() {
   document.title = "Gamers Stop";

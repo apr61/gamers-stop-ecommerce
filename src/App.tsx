@@ -6,7 +6,7 @@ import MainLayout from "./components/layouts/MainLayout";
 import { Suspense, lazy, useEffect } from "react";
 import Loader from "./components/loader/Loader";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
-import { getTheme } from "./features-app/theme/themeSlice";
+import { getTheme } from "./features/theme/themeSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./FirebaseConfig";
 import { setStatus, setUser } from "./features-app/auth/authSlice";

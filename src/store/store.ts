@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartSlice from "../features/cart/cartSlice";
-import themeSlice from "../features-app/theme/themeSlice";
+import themeSlice from "../features/theme/themeSlice";
 import authSlice from "../features-app/auth/authSlice";
 import orderSlice from "../features-app/orders/orderSlice";
 import productSlice from "../features-app/products/productSlice";

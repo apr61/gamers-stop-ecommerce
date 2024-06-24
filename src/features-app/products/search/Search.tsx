@@ -8,7 +8,7 @@ import {
   closeSearchBar,
   openSearchBar,
   selectSearchBarOpen,
-} from "../../theme/themeSlice";
+} from "../../../features/theme/themeSlice";
 
 function Search() {
   const navigate = useNavigate();

@@ -7,9 +7,16 @@ type ThemeStateType = {
   isSearchBarOpen: boolean;
 };
 
+const getstoredTheme = () => {
+  const theme = JSON.parse(localStorage.getItem("gamers-stop-theme") as string);
+  if ((theme && theme === "dark") || theme === "light") {
+    return theme;
+  }
+  return "light";
+};
+
 const initialState: ThemeStateType = {
-  theme:
-    (localStorage.getItem("gamers-stop-theme") as "dark" | "light") || "dark",
+  theme: getstoredTheme(),
   isSideNavOpen: false,
   isSearchBarOpen: false,
 };
