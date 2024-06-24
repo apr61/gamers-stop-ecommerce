@@ -40,21 +40,26 @@ export const searchProducts = async (query: ProductFilterType) => {
   if (countError) throw countError;
 
   // Fetch the products based on the query
-  const { data, error } = await supabase()
+  let productQuery  = supabase()
     .from("products")
     .select(
       `*, category:categories(id, category_name, category_image), brand:brands(id, brand_name)`
     )
     .gte("quantity", query.stock === "inStock" ? 1 : 0)
-    // .gte("rating", query.rating)
-    .eq("category_id", query.category)
-    // .in("brand_id", query.brand)
     .order("price", { ascending: query.sort === "price_low_to_high" })
     .range(query.page.from, query.page.to);
 
-  if (error) throw error;
+  if(query.category){
+    productQuery = productQuery.eq("category_id", query.category)
+  }
 
-  console.log(query.category)
+  if(query.brand.length > 0){
+    productQuery = productQuery.in("brand_id", query.brand)
+  }
+
+  const {data, error} = await productQuery;
+
+  if (error) throw error;
 
   return {
     data: data || [],

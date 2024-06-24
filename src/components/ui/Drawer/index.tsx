@@ -1,5 +1,5 @@
 import { CloseOutlined } from "@ant-design/icons";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, forwardRef } from "react";
 import Button from "../Button";
 import { cn } from "@/utils/cn";
 
@@ -10,13 +10,13 @@ type DrawerProps = PropsWithChildren & {
   className?: string;
 };
 
-const Drawer = ({
+const Drawer = forwardRef<HTMLDivElement, DrawerProps>(({
   children,
   isDrawerOpen,
   closeDrawer,
   title = "",
   className,
-}: DrawerProps) => {
+}, ref) => {
   const handleInnerClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
@@ -30,6 +30,7 @@ const Drawer = ({
         }
       `}
       onClick={closeDrawer}
+      ref={ref}
     >
       <div
         className={`${cn(
@@ -46,10 +47,11 @@ const Drawer = ({
             <CloseOutlined />
           </Button>
         </div>
-        <div className="p-4">{children}</div>
+        <hr className="border-b border-border" />
+        {children}
       </div>
     </div>
   );
-};
+})
 
 export default Drawer;

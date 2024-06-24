@@ -2,12 +2,10 @@ import "./navbar.css";
 import Search from "../../features-app/products/search/Search";
 import { Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import LoginIcon from "@mui/icons-material/Login";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getTotalItems } from "../../features-app/cart/cartSlice";
 import {
   getTheme,
   openSideNav,
@@ -21,14 +19,18 @@ import { useAuth } from "@/hooks/useAuth";
 import { useOnOutsideClick } from "@/hooks/useOnClickOutside";
 import BlankUserProfile from "@/assets/blank-profile-picture.webp";
 import Button from "@/components/ui/Button";
+import Drawer from "@/components/ui/Drawer";
 import {
   DropDownList,
   DropDownMenu,
   DropDownSeparator,
   DropDownItem,
 } from "../ui/Dropdown";
-import { LoginOutlined } from "@ant-design/icons";
+import { LoginOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { useDisclosure } from "@/hooks/useDisclosure";
+import { selectCart, getTotalItems } from "@/features/cart/cartSlice";
+import SingleCartItem from "@/features/cart/components/SingleCartItem";
 
 type NavItemProps = {
   children: ReactElement;
@@ -38,12 +40,12 @@ type NavItemProps = {
 
 function Navbar() {
   const dispatch = useAppDispatch();
-  const totalItems = useAppSelector(getTotalItems);
   const isSearchBarOpen = useAppSelector(selectSearchBarOpen);
   const { user } = useAuth();
+  const totalItems = useAppSelector(getTotalItems);
   const { local: theme, setLocal: setTheme } = useLocalStorage(
     "gamers-stop-theme",
-    "light"
+    "light",
   );
   const handleThemeClick = () => {
     const selectedTheme = theme === "dark" ? "light" : "dark";
@@ -83,11 +85,12 @@ function Navbar() {
               {theme === "light" ? <DarkModeIcon /> : <WbSunnyIcon />}
             </button>
           </NavItem>
-          <NavItem title="Cart">
-            <Link className="navbar__link navbar__link--cart" to={"/cart"}>
-              <span className="navbar__cart-icon" data-cart-items={totalItems}>
-                <ShoppingCartIcon />
+          <NavItem title="Store" className="navbar__list--store">
+            <Link to="/cart" className="navbar__link relative">
+              <span className="text-sm absolute bg-red-500 w-4 h-4 rounded-full -top-2 -right-2 grid place-content-center">
+                {totalItems}
               </span>
+              <ShoppingCartOutlined className="text-2xl" />
             </Link>
           </NavItem>
           {user ? (
@@ -119,9 +122,13 @@ function NavItem({ children, title, className = "" }: NavItemProps) {
 }
 
 const UserProfile = () => {
-  const { user, logOutFn, status } = useAuth();
+  const { user } = useAuth();
   const [dropDown, setDropDown] = useState(false);
-  const dropDownRef = useOnOutsideClick(() => setDropDown(false));
+  const handleClose = () => {
+    setDropDown(false);
+    console.log("Cliked drop");
+  };
+  const dropDownRef = useOnOutsideClick(handleClose);
 
   if (user === null) {
     return;
@@ -130,10 +137,6 @@ const UserProfile = () => {
   const userProfilePic = userData.avatar_url
     ? userData.avatar_url
     : BlankUserProfile;
-
-  const handleLogout = () => {
-    logOutFn();
-  };
 
   return (
     <div ref={dropDownRef} className="relative">
@@ -150,51 +153,85 @@ const UserProfile = () => {
           className="w-full h-full object-cover"
         />
       </Button>
-      <DropDownMenu
-        className={`top-14 right-0 min-w-[10rem] bg-dimBlack dark:shadow-custom-dark ${
-          dropDown ? "max-h-96 p-1" : "max-h-0"
-        }`}
-      >
-        <DropDownList>
-          <DropDownItem>
-            <div className="flex gap-2 items-center">
-              <img
-                src={userProfilePic}
-                alt={userData.full_name}
-                loading="lazy"
-                className="w-6 h-6 object-cover rounded-full"
-              />
-              <p>{userData.full_name}</p>
-            </div>
-          </DropDownItem>
-          <DropDownSeparator />
-          <DropDownItem>
-            <Link to="/account">Account</Link>
-          </DropDownItem>
-          <DropDownItem>
-            <Link to="/account/orders">Orders</Link>
-          </DropDownItem>
-          <DropDownItem>
-            <Link to="/account/addresses">Addresses</Link>
-          </DropDownItem>
-          <DropDownItem>
-            <Button
-              btnType="danger"
-              className="w-full flex gap-2 justify-center items-center py-1"
-              onClick={handleLogout}
-              loading={status === "pending"}
-              disabled={status === "pending"}
-            >
-              <>
-                <span className="text-xl">
-                  <LoginOutlined />
-                </span>
-                Logout
-              </>
-            </Button>
-          </DropDownItem>
-        </DropDownList>
-      </DropDownMenu>
+      <UserProfileDropDown dropDown={dropDown} />
     </div>
+  );
+};
+
+type UserProfileDropDownProps = {
+  dropDown: boolean;
+};
+
+const UserProfileDropDown = ({ dropDown }: UserProfileDropDownProps) => {
+  const { user, logOutFn, status, user_role } = useAuth();
+  const userData = user?.user_metadata;
+  const userProfilePic = userData?.avatar_url
+    ? userData?.avatar_url
+    : BlankUserProfile;
+
+  return (
+    <DropDownMenu
+      className={`top-14 right-0 min-w-[10rem] bg-dimBlack dark:shadow-custom-dark ${
+        dropDown ? "max-h-96 p-1" : "max-h-0"
+      }`}
+    >
+      <DropDownList>
+        <DropDownItem>
+          <div className="flex gap-2 items-center">
+            <img
+              src={userProfilePic}
+              alt={userData?.full_name}
+              loading="lazy"
+              className="w-6 h-6 object-cover rounded-full"
+            />
+            <p>{userData?.full_name}</p>
+          </div>
+        </DropDownItem>
+        <DropDownSeparator />
+        {user_role === "admin" ? <AdminDropDownList /> : <UserDropDownList />}
+        <DropDownItem>
+          <Button
+            btnType="danger"
+            className="w-full flex gap-2 justify-center items-center py-1"
+            onClick={logOutFn}
+            loading={status === "pending"}
+            disabled={status === "pending"}
+          >
+            <>
+              <span className="text-xl">
+                <LoginOutlined />
+              </span>
+              Logout
+            </>
+          </Button>
+        </DropDownItem>
+      </DropDownList>
+    </DropDownMenu>
+  );
+};
+
+const UserDropDownList = () => {
+  return (
+    <>
+      <DropDownItem>
+        <Link to="/account">Account</Link>
+      </DropDownItem>
+      <DropDownItem>
+        <Link to="/account/orders">Orders</Link>
+      </DropDownItem>
+      <DropDownItem>
+        <Link to="/account/addresses">Addresses</Link>
+      </DropDownItem>
+    </>
+  );
+};
+
+const AdminDropDownList = () => {
+  return (
+    <>
+      <DropDownItem>
+        <Link to="/admin">Dashboard</Link>
+      </DropDownItem>
+    </>
   );
 };

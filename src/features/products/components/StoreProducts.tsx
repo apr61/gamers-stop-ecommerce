@@ -17,6 +17,7 @@ import Select from "@/components/ui/Select";
 import Pagination from "@/components/ui/Pagination";
 import { selectBrands } from "@/features/brands/brandsSlice";
 import { selectCategories } from "@/features/categories/categorySlice";
+import { increment } from "@/features/cart/cartSlice";
 
 const StoreProducts = () => {
   return (
@@ -35,7 +36,7 @@ export default StoreProducts;
 const ProductListWrapper = () => {
   const [searchParams, _] = useSearchParams();
   const {
-    data: productData = [],
+    data: productData,
     status,
     error,
   } = useAppSelector(selectProductsSearch);
@@ -47,7 +48,10 @@ const ProductListWrapper = () => {
   const rating = searchParams.get("rating") ? +searchParams.get("rating")! : 5;
   const availability = searchParams.get("availability") || "inStock";
   const categoryIn = searchParams.get("category") || "";
-  const selectedBrands = searchParams.get("brands")?.split("-") || [];
+  const selectedBrands = useMemo(
+    () => searchParams.get("brands")?.split("-") || [],
+    [searchParams],
+  );
   const sort = searchParams.get("sort") || "price_low_to_high";
   const itemsPerPage = 6;
 
@@ -55,7 +59,7 @@ const ProductListWrapper = () => {
     const paginationFrom = (page - 1) * itemsPerPage;
     const paginationTo = paginationFrom + (itemsPerPage - 1);
     const filteredCate = categoryData.find(
-      (cate) => cate.category_name === categoryIn
+      (cate) => cate.category_name === categoryIn,
     );
     const categoryId = filteredCate ? filteredCate.id : 0;
     const brands = brandData
@@ -74,7 +78,7 @@ const ProductListWrapper = () => {
       brand: brands,
     };
     dispatch(searchProductsFn(query));
-  }, [sort, page, availability, categoryData, brandData, categoryIn]);
+  }, [sort, page, availability, categoryIn, selectedBrands]);
 
   if (status === "pending") return <PageLoader />;
   if (status === "failed") return <p>{error}</p>;
@@ -122,6 +126,7 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const dispatch = useAppDispatch();
   return (
     <article className="w-full p-2 border border-border shadow-md rounded-md">
       <div className="h-[15rem] rounded-md overflow-hidden">
@@ -139,7 +144,16 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <p className="text-lg font-semibold">
           {currencyFormatter(product.price)}
         </p>
-        <Button className="w-full">Add to cart</Button>
+        {product.quantity > 0 ? (
+          <Button
+            className="w-full"
+            onClick={() => dispatch(increment({ ...product, qty: 1 }))}
+          >
+            Add to cart
+          </Button>
+        ) : (
+          <Button className="w-full" disabled={true}>Out of stock</Button>
+        )}
       </div>
     </article>
   );
@@ -156,7 +170,7 @@ const ProductSort = () => {
           prev.set("sort", value);
           return prev;
         },
-        { replace: true }
+        { replace: true },
       );
     }
   };

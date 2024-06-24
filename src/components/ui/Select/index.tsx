@@ -20,7 +20,7 @@ const useSelectContext = (): SelectProps => {
   const context = useContext(SelectContext);
   if (!context) {
     throw new Error(
-      "Select component context cannot be rendered outside select "
+      "Select component context cannot be rendered outside select ",
     );
   }
   return context;
@@ -35,8 +35,8 @@ const Select: FC<SelectProps> & { Option: FC<OptionProps> } = forwardRef<
       <select
         ref={ref}
         className={cn(
-          `w-full p-4 rounded-md cursor-pointer bg-dimBlack border border-border`,
-          className
+          `w-full p-2 rounded-md cursor-pointer bg-dimBlack border border-border`,
+          className,
         )}
         value={value}
         {...props}

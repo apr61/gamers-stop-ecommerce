@@ -18,6 +18,7 @@ const Dashboard = React.lazy(() => import("./app/dashboard/dashboard"));
 const UserOrders = React.lazy(() => import("./app/orders/UserOrders"));
 const Profile = React.lazy(() => import("./app/profile/Profile"));
 const UserAddresses = React.lazy(() => import("./app/addresses/UserAddresses"));
+const CheckOut = React.lazy(() => import("./app/checkout"));
 
 const adminRoutes: RouteObject[] = [
   {
@@ -192,7 +193,13 @@ const appRoutes: RouteObject[] = [
   },
   {
     path: "/checkout",
-    element: <Login />,
+    element: (
+      <RequireAuth allowedRoles={["user"]}>
+        <React.Suspense fallback={<PageLoader />}>
+          <CheckOut />
+        </React.Suspense>
+      </RequireAuth>
+    ),
   },
 ];
 

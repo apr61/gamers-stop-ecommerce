@@ -7,9 +7,10 @@ import {
 } from "react-hook-form";
 import { ProductFormValues } from "@/types/api";
 import FileInput from "@/components/ui/FileInput";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState, memo } from "react";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import Select from "@/components/ui/Select";
 import ImagePreview from "@/components/ImagePreview";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
@@ -28,38 +29,27 @@ import { createSlug } from "@/utils/utils";
 type ProductFormProps = {
   product?: ProductFormValues;
   images?: string[];
+  saveFn: (data: ProductFormValues) => Promise<void>
+  title: string
 };
 
-const ProductsForm = ({ product, images }: ProductFormProps) => {
+const ProductsForm = ({ product, images, saveFn, title }: ProductFormProps) => {
   const methods = useForm<ProductFormValues>({
     defaultValues: product ? product : undefined,
   });
-  const { action, record, error, status } = useAppSelector(
-    selectProdcutsCurrentItem
+  const { action, error, status } = useAppSelector(
+    selectProdcutsCurrentItem,
   );
   const [imagePreviews, setImagePreviews] = useState<string[]>(
-    images ? images : []
+    images ? images : [],
   );
-  const dispatch = useAppDispatch();
-
-  const FormHeading = action === "create" ? "Add new" : "Edit";
 
   const onSubmit: SubmitHandler<ProductFormValues> = async (data) => {
     const formData: ProductFormValues = {
       ...data,
       slug_url: createSlug(data.name),
     };
-    if (action === "create") {
-      await dispatch(addProduct({ formData: formData }));
-    } else {
-      if (record && "name" in record)
-        await dispatch(
-          editProduct({
-            formData: formData,
-            id: record.id,
-          })
-        );
-    }
+    await saveFn(formData)
     methods.reset();
     setImagePreviews([]);
   };
@@ -70,7 +60,7 @@ const ProductsForm = ({ product, images }: ProductFormProps) => {
         className="flex flex-col gap-6"
         onSubmit={methods.handleSubmit(onSubmit)}
       >
-        <h3 className="text-xl">{FormHeading} product</h3>
+        <h3 className="text-xl">{title}</h3>
         <div className="flex gap-6 flex-col md:flex-row">
           <div className="flex flex-col gap-6 flex-[1] md:flex-[1.5] lg:flex-[3]">
             <ProductMain />
@@ -82,54 +72,11 @@ const ProductsForm = ({ product, images }: ProductFormProps) => {
           </div>
           <div className="flex-[1] flex gap-6 flex-col">
             <CategorySelect
-              currentCategoryId={
-                record && "name" in record ? record.category_id : null
-              }
+              currentCategoryId={product ? product.category_id : null}
             />
-
-            <BrandSelect
-              currentBrandId={
-                record && "name" in record ? record.brand?.id! : null
-              }
-            />
-            <div className="bg-dimBlack p-4 rounded-md shadow-md">
-              <Input
-                placeholder="Stock"
-                label="Stock"
-                type="number"
-                {...methods.register("quantity", {
-                  required: "Quantity is required",
-                  min: {
-                    value: 1,
-                    message: "Quantity must be greater that 1",
-                  },
-                })}
-              />
-              {methods.formState.errors.quantity && (
-                <p className="text-red-500">
-                  {methods.formState.errors.quantity.message}
-                </p>
-              )}
-            </div>
-            <div className="bg-dimBlack p-4 rounded-md shadow-md">
-              <Input
-                placeholder="Price"
-                label="Price"
-                type="number"
-                {...methods.register("price", {
-                  required: "Price is required",
-                  min: {
-                    value: 1,
-                    message: "Price must be greater that 1",
-                  },
-                })}
-              />
-              {methods.formState.errors.price && (
-                <p className="text-red-500">
-                  {methods.formState.errors.price.message}
-                </p>
-              )}
-            </div>
+            <BrandSelect currentBrandId={product ? product.brand_id : null} />
+            <ProductStock />
+            <ProductPrice />
           </div>
         </div>
 
@@ -170,17 +117,18 @@ const CategorySelect = ({ currentCategoryId }: CategorySelectProps) => {
         <label htmlFor="category" className="text-lg cursor-pointer">
           Category
         </label>
-        <select
+        <Select
           id="category"
           className={`w-full p-4  border border-border rounded-md cursor-pointer bg-dimBlack`}
           {...register("category_id", { required: "Category is required" })}
+          value={currentCategoryId ? currentCategoryId : ""}
         >
-          <option value="">Select category</option>
+          <Select.Option value="">Select category</Select.Option>
           {status === "pending" ? (
-            <option value="">Loading...</option>
+            <Select.Option value="">Loading...</Select.Option>
           ) : (
             categories.map((category) => (
-              <option
+              <Select.Option
                 key={category.id}
                 value={category.id}
                 className={`${
@@ -190,10 +138,10 @@ const CategorySelect = ({ currentCategoryId }: CategorySelectProps) => {
                 }`}
               >
                 {category.category_name}
-              </option>
+              </Select.Option>
             ))
           )}
-        </select>
+        </Select>
       </div>
       {errors.category_id && (
         <p className="text-red-500">{errors.category_id.message}</p>
@@ -223,17 +171,18 @@ const BrandSelect = ({ currentBrandId }: BrandSelectProps) => {
         <label htmlFor="brand" className="text-lg cursor-pointer">
           Brand
         </label>
-        <select
+        <Select
           id="brand"
           className={`w-full p-4  border border-border rounded-md cursor-pointer bg-dimBlack`}
           {...register("brand_id", { required: "Brand is required" })}
+          value={currentBrandId ? currentBrandId : ""}
         >
-          <option value="">Select brand</option>
+          <Select.Option value="">Select brand</Select.Option>
           {status === "pending" ? (
-            <option value="">Loading...</option>
+            <Select.Option value="">Loading...</Select.Option>
           ) : (
             data.map((brand) => (
-              <option
+              <Select.Option
                 key={brand.id}
                 value={brand.id}
                 className={`${
@@ -241,10 +190,10 @@ const BrandSelect = ({ currentBrandId }: BrandSelectProps) => {
                 }`}
               >
                 {brand.brand_name}
-              </option>
+              </Select.Option>
             ))
           )}
-        </select>
+        </Select>
       </div>
       {errors.brand_id && (
         <p className="text-red-500">{errors.brand_id.message}</p>
@@ -276,6 +225,7 @@ const ProductMain = () => {
           id="description"
           {...register("description", { required: "Description is required" })}
           className="focus:outline focus:outline-2 focus:outline-blue-500 border border-border rounded-md p-2 resize-none bg-dimBlack"
+          placeholder="Product description"
           rows={10}
         ></textarea>
       </div>
@@ -304,7 +254,7 @@ const ProductGallery = ({
     const files = e.target.files;
     if (files) {
       const filePreviews = Array.from(files).map((file) =>
-        URL.createObjectURL(file)
+        URL.createObjectURL(file),
       );
       setImagePreviews(filePreviews);
     }
@@ -342,7 +292,7 @@ const ProductSpecification = () => {
     name: "specifications",
   });
   useEffect(() => {
-    if (fields.length < 2) {
+    if (fields.length < 3) {
       for (let i = 0; i < 2; i++) {
         append({ name: "", value: "" });
       }
@@ -397,6 +347,56 @@ const ProductSpecification = () => {
       {errors.specifications && (
         <p className="text-red-500">{errors.specifications.message}</p>
       )}
+    </div>
+  );
+};
+
+const ProductStock = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<ProductFormValues>();
+  return (
+    <div className="bg-dimBlack p-4 rounded-md shadow-md">
+      <Input
+        placeholder="Stock"
+        label="Stock"
+        type="number"
+        {...register("quantity", {
+          required: "Quantity is required",
+          min: {
+            value: 0,
+            message: "Quantity must be greater that 0",
+          },
+        })}
+      />
+      {errors.quantity && (
+        <p className="text-red-500">{errors.quantity.message}</p>
+      )}
+    </div>
+  );
+};
+
+const ProductPrice = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<ProductFormValues>();
+  return (
+    <div className="bg-dimBlack p-4 rounded-md shadow-md">
+      <Input
+        placeholder="Price"
+        label="Price"
+        type="number"
+        {...register("price", {
+          required: "Price is required",
+          min: {
+            value: 1,
+            message: "Price must be greater that 1",
+          },
+        })}
+      />
+      {errors.price && <p className="text-red-500">{errors.price.message}</p>}
     </div>
   );
 };

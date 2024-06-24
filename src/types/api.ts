@@ -239,3 +239,7 @@ export type ProductFilterType = {
   },
   rating: number
 }
+
+export type CartItem = {
+  qty: number;
+} & Product;

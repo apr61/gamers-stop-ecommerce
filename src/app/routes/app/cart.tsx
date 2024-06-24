@@ -1,26 +1,23 @@
 import { useNavigate } from "react-router-dom";
-import SingleCartItem from "../../../features-app/cart/cartItem/SingleCartItem";
-import Footer from "../../../components/footer/Footer";
-import Navbar from "../../../components/navbarApp/Navbar";
-import BreadCrumbs from "../../../components/ui/breadcrumbs/BreadCrumbs";
-import { currencyFormatter } from "../../../utils/utils";
-import { useAppSelector } from "../../../store/hooks";
+import SingleCartItem from "@/features/cart/components/SingleCartItem";
+import Footer from "@/components/footer/Footer";
+import Navbar from "@/components/navbarApp/Navbar";
+import BreadCrumbs from "@/components/ui/breadcrumbs/BreadCrumbs";
+import { currencyFormatter } from "@/utils/utils";
+import { useAppSelector } from "@/store/hooks";
 import {
-	getAllCartItems,
 	getTotalCost,
 	getTotalItems,
-} from "../../../features-app/cart/cartSlice";
-import Button from "../../../components/ui/button/Button";
+	selectCart,
+} from "@/features/cart/cartSlice";
+import Button from "@/components/ui/Button";
 
 function Cart() {
 	const totalItems = useAppSelector(getTotalItems);
-	const totalPrice = useAppSelector(getTotalCost);
-	const cart = useAppSelector(getAllCartItems);
+	const cart = useAppSelector(selectCart);
 	const navigate = useNavigate();
 	document.title = "Cart | Gamers Stop";
-	const deliveryFee = 100;
-	const discount = totalPrice * 0.05;
-	const grandTotal = totalPrice - discount + deliveryFee;
+
 	return (
 		<>
 			<Navbar />
@@ -35,36 +32,7 @@ function Cart() {
 									<SingleCartItem cartItem={cartItem} key={cartItem.id} />
 								))}
 							</ul>
-							<div className="cart__summary">
-								<h3 className="cart__title cart__title--summary">Summary</h3>
-								<div className="cart__content">
-									<table>
-										<tbody>
-											<tr className="summary__row">
-												<th>SUB TOTAL</th>
-												<td>{currencyFormatter(totalPrice)}</td>
-											</tr>
-											<tr className="summary__row">
-												<th>Discount(5%)</th>
-												<td>-{currencyFormatter(discount)}</td>
-											</tr>
-											<tr className="summary__row">
-												<th>Delivery Fee</th>
-												<td>+{currencyFormatter(deliveryFee)}</td>
-											</tr>
-											<tr className="summary__row cart__total-amount">
-												<th>ORDER TOTAL</th>
-												<td>{currencyFormatter(grandTotal)}</td>
-											</tr>
-										</tbody>
-									</table>
-									<Button
-										type="button"
-										text="Check Out"
-										onClick={() => navigate("/checkout")}
-									/>
-								</div>
-							</div>
+							<CartSummary />
 						</div>
 					</>
 				) : (
@@ -72,11 +40,7 @@ function Cart() {
 						<h3 className="cart__title cart__title-empty">
 							Your cart is empty
 						</h3>
-						<Button
-							type="button"
-							text="Shop Now"
-							onClick={() => navigate("/store")}
-						/>
+						<Button onClick={() => navigate("/store")}>Shop now</Button>
 					</div>
 				)}
 			</main>
@@ -86,3 +50,42 @@ function Cart() {
 }
 
 export default Cart;
+
+const CartSummary = () => {
+	const totalPrice = useAppSelector(getTotalCost);
+	const deliveryFee = 100;
+	const discount = totalPrice * 0.05;
+	const grandTotal = totalPrice - discount + deliveryFee;
+	const navigate = useNavigate();
+
+	return (
+		<div className="cart__summary">
+			<h3 className="cart__title cart__title--summary">Summary</h3>
+			<div className="cart__content">
+				<table>
+					<tbody>
+						<tr className="summary__row">
+							<th>SUB TOTAL</th>
+							<td>{currencyFormatter(totalPrice)}</td>
+						</tr>
+						<tr className="summary__row">
+							<th>Discount(5%)</th>
+							<td>-{currencyFormatter(discount)}</td>
+						</tr>
+						<tr className="summary__row">
+							<th>Delivery Fee</th>
+							<td>+{currencyFormatter(deliveryFee)}</td>
+						</tr>
+						<tr className="summary__row cart__total-amount">
+							<th>ORDER TOTAL</th>
+							<td>{currencyFormatter(grandTotal)}</td>
+						</tr>
+					</tbody>
+				</table>
+				<Button className="w-full" onClick={() => navigate("/checkout")}>
+					Check out
+				</Button>
+			</div>
+		</div>
+	);
+};

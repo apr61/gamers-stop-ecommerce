@@ -90,7 +90,6 @@
   border: 3px dashed var(--clr-border);
   border-radius: .25rem;
   margin-top: 1rem;
-  display: flex;
   align-items: center;
   gap: 1rem;
 }
