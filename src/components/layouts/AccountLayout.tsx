@@ -7,7 +7,7 @@ const AccountLayout = () => {
 	document.title = "Account | Gamers Stop";
 	const { user } = useAuth();
 	return (
-		<div className="account">
+		<div className="account px-4">
 			<header className="account__header">
 				<h3>Account</h3>
 				<p className="account__name">{user?.user_metadata.full_name}</p>

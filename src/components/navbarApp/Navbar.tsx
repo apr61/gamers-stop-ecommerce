@@ -13,7 +13,6 @@ import {
   toggleTheme,
 } from "../../features/theme/themeSlice";
 import { ReactElement, useState } from "react";
-import SideNav from "../sidenav-app/SideNav";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useAuth } from "@/hooks/useAuth";
 import { useOnOutsideClick } from "@/hooks/useOnClickOutside";
@@ -25,7 +24,13 @@ import {
   DropDownSeparator,
   DropDownItem,
 } from "../ui/Dropdown";
-import { LoginOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import {
+  LoginOutlined,
+  MoonOutlined,
+  ShopOutlined,
+  ShoppingCartOutlined,
+  SunOutlined,
+} from "@ant-design/icons";
 import { getTotalItems } from "@/features/cart/cartSlice";
 import ProductSearch from "@/features/products/components/ProductSearch";
 
@@ -42,60 +47,55 @@ function Navbar() {
   const totalItems = useAppSelector(getTotalItems);
   const theme = useAppSelector(getTheme);
 
-  const handleThemeClick = () => {
+  const handleTheme = () => {
     const selectedTheme = theme === "dark" ? "light" : "dark";
     dispatch(toggleTheme(selectedTheme));
   };
 
   return (
-    <>
-      <nav className={`navbar ${isSearchBarOpen ? "navbar--search-box" : ""}`}>
-        <button
-          className="navbar_hamburger"
-          onClick={() => dispatch(openSideNav())}
-        >
-          <MenuIcon />
-        </button>
-        <Link to="/" className="navbar__link navbar__link--logo">
-          Gamers Stop
+    <nav className="flex p-4 items-center w-full bg-[var(--clr-nav-bg)] text-white">
+      <Button
+        btnType="icon"
+        className="block lg:hidden"
+        onClick={() => dispatch(openSideNav())}
+      >
+        <MenuIcon />
+      </Button>
+      <Link to="/" className={`text-2xl block mr-auto`}>
+        Gamers Stop
+      </Link>
+      <ProductSearch />
+      <ul className="flex items-center ml-auto gap-[2rem]">
+        <Link to="/store" className="navbar__link">
+          <ShopOutlined  className="text-xl" />
         </Link>
-        <ProductSearch />
-        <ul className="navbar__list">
-          <NavItem title="Store" className="navbar__list--store">
-            <Link to="/store" className="navbar__link">
-              <StoreIcon />
-            </Link>
-          </NavItem>
-          <NavItem
-            title={theme === "light" ? "Switch to Dark" : "Switch to Light"}
-          >
-            <button className="navbar__theme-btn" onClick={handleThemeClick}>
-              {theme === "light" ? <DarkModeIcon /> : <WbSunnyIcon />}
-            </button>
-          </NavItem>
-          <NavItem title="Store" className="navbar__list--store">
-            <Link to="/cart" className="navbar__link relative">
-              <span className="text-sm absolute bg-red-500 w-4 h-4 rounded-full -top-2 -right-2 grid place-content-center">
-                {totalItems}
-              </span>
-              <ShoppingCartOutlined className="text-2xl" />
-            </Link>
-          </NavItem>
-          {user ? (
-            <UserProfile />
+        <Button
+          type="button"
+          btnType="icon"
+          className="text-white"
+          onClick={handleTheme}
+        >
+          {theme === "dark" ? (
+            <SunOutlined className="text-xl" />
           ) : (
-            <NavItem className="navbar__list--account" title={"Login"}>
-              <Link className="navbar__link" to={"/auth/login"}>
-                <LoginIcon />
-              </Link>
-            </NavItem>
+            <MoonOutlined className="text-xl" />
           )}
-        </ul>
-      </nav>
-      <div className="navbar__sidenav">
-        <SideNav />
-      </div>
-    </>
+        </Button>
+        <Link to="/cart" className="navbar__link relative">
+          <span className="text-sm absolute bg-red-500 w-4 h-4 rounded-full -top-2 -right-2 grid place-content-center">
+            {totalItems}
+          </span>
+          <ShoppingCartOutlined className="text-2xl" />
+        </Link>
+        {user ? (
+          <UserProfile />
+        ) : (
+          <Link className="navbar__link" to={"/auth/login"}>
+            <LoginOutlined className="text-xl" />
+          </Link>
+        )}
+      </ul>
+    </nav>
   );
 }
 
