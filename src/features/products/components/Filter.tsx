@@ -10,7 +10,12 @@ import { CloseOutlined, StarFilled } from "@ant-design/icons";
 import { ChangeEvent, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const Filter = () => {
+type FilterProps = {
+  isOpen: boolean;
+  close: () => void;
+};
+
+const Filter = ({ isOpen, close }: FilterProps) => {
   const [_, setSearchParams] = useSearchParams();
 
   const handleClear = () => {
@@ -18,20 +23,36 @@ const Filter = () => {
   };
 
   return (
-    <div className="border border-border rounded-md shadow-md p-2 h-fit sticky top-0 hidden xl:block">
-      <header className="flex justify-between items-center p-2">
-        <h3 className="text-lg font-semibold">Filters</h3>
-        <Button btnType="ghost" onClick={handleClear}>
-          Clear
-        </Button>
-      </header>
-      <button className="absolute top-4 right-4 border-0 bg-transparent text-2xl cursor-pointer hidden md:block">
-        {/* <CloseOutlined /> */}
-      </button>
-      <CategoryFilter />
-      <BrandsFilter />
-      <RatingFilter />
-      <AvailabilityFilter />
+    <div
+      className={
+        isOpen ? "fixed top-0 bottom-0 left-0 right-0 bg-pop-over z-50" : ""
+      }
+    >
+      <div
+        className={
+          isOpen
+            ? "fixed top-0 bottom-0 left-0 bg-dimBlack w-[80vw] overflow-y-auto p-2"
+            : "border border-border rounded-md shadow-md p-2 h-fit sticky top-0 hidden lg:block"
+        }
+      >
+        <header className="flex items-center p-2">
+          <h3 className="text-lg font-semibold">Filters</h3>
+          <Button btnType="ghost" onClick={handleClear} className="ml-auto mr-2 md:mr-4 lg:mr-0">
+            Clear
+          </Button>
+          <Button
+            btnType="icon"
+            className={isOpen ? "text-xl block" : "hidden"}
+            onClick={close}
+          >
+            <CloseOutlined />
+          </Button>
+        </header>
+        <CategoryFilter />
+        <BrandsFilter />
+        <RatingFilter />
+        <AvailabilityFilter />
+      </div>
     </div>
   );
 };
@@ -47,7 +68,7 @@ const RatingFilter = () => {
         prev.set("rating", e.target.value);
         return prev;
       },
-      { replace: true }
+      { replace: true },
     );
   };
   return (
@@ -95,7 +116,7 @@ const AvailabilityFilter = () => {
         prev.set("availability", e.target.value);
         return prev;
       },
-      { replace: true }
+      { replace: true },
     );
   };
   return (
@@ -203,7 +224,7 @@ const BrandsFilter = () => {
         }
         return prev;
       },
-      { replace: true }
+      { replace: true },
     );
   };
 

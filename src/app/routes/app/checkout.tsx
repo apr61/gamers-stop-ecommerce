@@ -7,7 +7,6 @@ import {
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { currencyFormatter } from "@/utils/utils";
-import { createAnOrderService } from "@/services/orders";
 import AddIcon from "@mui/icons-material/Add";
 import { OrderData, RazorpayPaymentResponse } from "@/types/api";
 import { Address } from "@/types/api";
@@ -185,7 +184,7 @@ const CheckoutAddress = () => {
               />
               <label
                 htmlFor={String(address.id)}
-                className="checkout__address-label"
+                className="checkout__address-label w-full"
               >
                 <AddressCard address={address} />
               </label>

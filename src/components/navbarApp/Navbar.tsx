@@ -12,7 +12,7 @@ import {
   selectSearchBarOpen,
   toggleTheme,
 } from "../../features/theme/themeSlice";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 import SideNav from "../sidenav-app/SideNav";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useAuth } from "@/hooks/useAuth";
@@ -27,6 +27,7 @@ import {
 } from "../ui/Dropdown";
 import { LoginOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { getTotalItems } from "@/features/cart/cartSlice";
+import ProductSearch from "@/features/products/components/ProductSearch";
 
 type NavItemProps = {
   children: ReactElement;
@@ -58,7 +59,7 @@ function Navbar() {
         <Link to="/" className="navbar__link navbar__link--logo">
           Gamers Stop
         </Link>
-        <Search />
+        <ProductSearch />
         <ul className="navbar__list">
           <NavItem title="Store" className="navbar__list--store">
             <Link to="/store" className="navbar__link">

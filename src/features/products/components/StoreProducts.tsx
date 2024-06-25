@@ -18,12 +18,19 @@ import Pagination from "@/components/ui/Pagination";
 import { selectBrands } from "@/features/brands/brandsSlice";
 import { selectCategories } from "@/features/categories/categorySlice";
 import { increment } from "@/features/cart/cartSlice";
+import { FilterOutlined } from "@ant-design/icons";
+import { useDisclosure } from "@/hooks/useDisclosure";
 
 const StoreProducts = () => {
+  const { isOpen, close, open } = useDisclosure();
+
   return (
-    <div className="max-w-[100rem] w-full mx-auto grid grid-cols-1 xl:grid-cols-[25rem_auto] gap-8">
-      <Filter />
+    <div className="max-w-[100rem] w-full mx-auto grid grid-cols-1 lg:grid-cols-[22rem_auto] gap-8">
+      <Filter isOpen={isOpen} close={close} />
       <div className="flex gap-4 flex-col">
+        <Button btnType="icon" onClick={open} className="block lg:hidden ml-auto">
+          <FilterOutlined className="text-2xl" />
+        </Button>
         <ProductSort />
         <ProductListWrapper />
       </div>
@@ -85,7 +92,7 @@ const ProductListWrapper = () => {
 
   return (
     <div>
-      <ItemsGridLayout className="grid-cols-none md:grid-cols-2 lg:grid-cols-3">
+      <ItemsGridLayout className="grid-cols-none md:grid-cols-2 xl:grid-cols-3">
         {productData.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
@@ -175,7 +182,7 @@ const ProductSort = () => {
     }
   };
   return (
-    <Select className="w-fit ml-auto" onChange={handleChange} value={sort}>
+    <Select className="w-fit ml-auto hidden lg:block" onChange={handleChange} value={sort}>
       <Select.Option value="">Sort By</Select.Option>
       <Select.Option value="price_low_to_high">Price Low to High</Select.Option>
       <Select.Option value="price_high_to_low">Price High to Low</Select.Option>

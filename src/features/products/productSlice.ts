@@ -94,7 +94,6 @@ export const searchProductsFn = createAsyncThunk(
           data: response.data as Product[],
           totalCount: response.count,
         };
-        console.log(data)
         return data;
       }
       return {
