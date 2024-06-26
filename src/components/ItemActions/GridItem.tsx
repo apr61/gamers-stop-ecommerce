@@ -71,7 +71,7 @@ export const GridItemsAction = <T,>({
     (dropDown) => allowedActions.indexOf(dropDown.key) !== -1,
   );
   return (
-    <article className="border border-border bg-dimBlack p-4 shadow-md  rounded-md">
+    <article className="border border-border bg-accent p-4 shadow-md  rounded-md">
       <div className="relative" ref={dropDownRef}>
         <Button
           btnType="icon"
@@ -82,7 +82,7 @@ export const GridItemsAction = <T,>({
           <EllipsisOutlined />
         </Button>
         <DropDownMenu
-          className={`right-0 top-6 bg-dimBlack border border-border min-w-fit ${dropDown ? "max-h-96" : "border-0"}`}
+          className={`right-0 top-6 bg-accent border border-border min-w-fit ${dropDown ? "max-h-96" : "border-0"}`}
         >
           <DropDownList className="gap-0">
             {dropDownItems.map((item) => (

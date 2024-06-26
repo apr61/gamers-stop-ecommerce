@@ -113,13 +113,13 @@ const CategorySelect = ({ currentCategoryId }: CategorySelectProps) => {
   } = useFormContext<ProductFormValues>();
   return (
     <>
-      <div className="w-full flex gap-2 flex-col  shadow-md p-4 rounded-md bg-dimBlack">
+      <div className="w-full flex gap-2 flex-col  shadow-md p-4 rounded-md bg-accent">
         <label htmlFor="category" className="text-lg cursor-pointer">
           Category
         </label>
         <Select
           id="category"
-          className={`w-full p-4  border border-border rounded-md cursor-pointer bg-dimBlack`}
+          className={`w-full p-4  border border-border rounded-md cursor-pointer bg-accent`}
           {...register("category_id", { required: "Category is required" })}
           value={currentCategoryId ? currentCategoryId : ""}
         >
@@ -167,13 +167,13 @@ const BrandSelect = ({ currentBrandId }: BrandSelectProps) => {
   } = useFormContext<ProductFormValues>();
   return (
     <>
-      <div className="w-full flex gap-2 flex-col shadow-md p-4 rounded-md bg-dimBlack">
+      <div className="w-full flex gap-2 flex-col shadow-md p-4 rounded-md bg-accent">
         <label htmlFor="brand" className="text-lg cursor-pointer">
           Brand
         </label>
         <Select
           id="brand"
-          className={`w-full p-4  border border-border rounded-md cursor-pointer bg-dimBlack`}
+          className={`w-full p-4  border border-border rounded-md cursor-pointer bg-accent`}
           {...register("brand_id", { required: "Brand is required" })}
           value={currentBrandId ? currentBrandId : ""}
         >
@@ -209,7 +209,7 @@ const ProductMain = () => {
     formState: { errors },
   } = useFormContext<ProductFormValues>();
   return (
-    <div className="bg-dimBlack shadow-md p-4 rounded-md flex flex-col gap-2">
+    <div className="bg-accent shadow-md p-4 rounded-md flex flex-col gap-2">
       <Input
         placeholder="Product name"
         label="Name"
@@ -224,7 +224,7 @@ const ProductMain = () => {
         <textarea
           id="description"
           {...register("description", { required: "Description is required" })}
-          className="focus:outline focus:outline-2 focus:outline-blue-500 border border-border rounded-md p-2 resize-none bg-dimBlack"
+          className="focus:outline focus:outline-2 focus:outline-blue-500 border border-border rounded-md p-2 resize-none bg-accent"
           placeholder="Product description"
           rows={10}
         ></textarea>
@@ -264,7 +264,7 @@ const ProductGallery = ({
     setValue("images", null);
   };
   return (
-    <div className="bg-dimBlack shadow-md p-4 rounded-md flex flex-col gap-2">
+    <div className="bg-accent shadow-md p-4 rounded-md flex flex-col gap-2">
       <h2 className="text-lg">Product Gallery</h2>
       <div className="min-h-[10rem]">
         <FileInput
@@ -305,7 +305,7 @@ const ProductSpecification = () => {
     }
   };
   return (
-    <div className="bg-dimBlack w-full p-4 rounded-md">
+    <div className="bg-accent w-full p-4 rounded-md">
       <div className="flex justify-between items-center">
         <h3 className="text-lg">Specifications</h3>
         <Button
@@ -357,7 +357,7 @@ const ProductStock = () => {
     formState: { errors },
   } = useFormContext<ProductFormValues>();
   return (
-    <div className="bg-dimBlack p-4 rounded-md shadow-md">
+    <div className="bg-accent p-4 rounded-md shadow-md">
       <Input
         placeholder="Stock"
         label="Stock"
@@ -383,7 +383,7 @@ const ProductPrice = () => {
     formState: { errors },
   } = useFormContext<ProductFormValues>();
   return (
-    <div className="bg-dimBlack p-4 rounded-md shadow-md">
+    <div className="bg-accent p-4 rounded-md shadow-md">
       <Input
         placeholder="Price"
         label="Price"

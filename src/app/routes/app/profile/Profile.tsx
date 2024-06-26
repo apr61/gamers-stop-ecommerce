@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./profile.css";
-import Input from "@/components/ui/input/Input";
+import Input from "@/components/ui/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "@/components/ui/Button";
 import { useAuth } from "@/hooks/useAuth";
@@ -31,10 +31,10 @@ function AccountProfilePage() {
 	};
 
 	return (
-		<section className="profile main">
-			<h2 className="profile__title">Profile</h2>
+		<section className="max-w-[20rem] mx-auto">
+			<h2 className="text-2xl text-center">Profile</h2>
 			<form
-				className="profile__body"
+				className="flex flex-col gap-2"
 				onSubmit={handleSubmit(handleUpdateUserProfile)}
 			>
 				{isEditing ? (
@@ -68,7 +68,7 @@ function AccountProfilePage() {
 						{errors.root.message}
 					</p>
 				)}
-				<div className="profile__btn-container">
+				<div className="flex gap-4 items-center justify-center">
 					{isEditing ? (
 						<>
 							<Button

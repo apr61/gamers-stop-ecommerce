@@ -9,7 +9,7 @@ type ItemViewSelectProps = {
 
 const ItemViewSelect = ({ itemsView, onClick }: ItemViewSelectProps) => {
 	return (
-		<div className="flex rounded-lg border border-border bg-dimBlack">
+		<div className="flex rounded-lg border border-border bg-accent">
 			<Button
 				type="button"
 				btnType="icon"

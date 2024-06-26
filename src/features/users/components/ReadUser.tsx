@@ -56,7 +56,7 @@ const ReadUser = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col gap-4 items-start self-start bg-dimBlack p-4 w-full rounded-md mt-8">
+        <div className="flex flex-col gap-4 items-start self-start bg-accent p-4 w-full rounded-md mt-8">
           <div className="grid gap-2 grid-cols-[1.25rem_1fr] border-b border-border pb-4 w-full">
             <div>
               <UserOutlined />

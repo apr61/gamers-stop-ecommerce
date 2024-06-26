@@ -31,13 +31,17 @@ const Filter = ({ isOpen, close }: FilterProps) => {
       <div
         className={
           isOpen
-            ? "fixed top-0 bottom-0 left-0 bg-dimBlack w-[80vw] overflow-y-auto p-2"
+            ? "fixed top-0 bottom-0 left-0 w-[80vw] overflow-y-auto p-2 bg-black"
             : "border border-border rounded-md shadow-md p-2 h-fit sticky top-0 hidden lg:block"
         }
       >
         <header className="flex items-center p-2">
           <h3 className="text-lg font-semibold">Filters</h3>
-          <Button btnType="ghost" onClick={handleClear} className="ml-auto mr-2 md:mr-4 lg:mr-0">
+          <Button
+            btnType="ghost"
+            onClick={handleClear}
+            className="ml-auto mr-2 md:mr-4 lg:mr-0"
+          >
             Clear
           </Button>
           <Button

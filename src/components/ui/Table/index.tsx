@@ -48,7 +48,7 @@ const Table = <T,>({ columns, data }: TableProps<T>) => {
     ))
   );
   return (
-    <div className="overflow-x-auto bg-dimBlack rounded-md">
+    <div className="overflow-x-auto bg-accent rounded-md">
       <table className="w-full rounded-md border-collapse table-auto">
         <thead className="text-black bg-accent text-foreground border-b-[1px] border-b-border">
           {TableHeader}

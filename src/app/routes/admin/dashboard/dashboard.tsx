@@ -38,7 +38,7 @@ export default Dashboard;
 const DashboardCard = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-      <div className="p-4 rounded-sm shadow-sm flex items-center gap-4 transition-transform hover:scale-[1.05] bg-dimBlack">
+      <div className="p-4 rounded-sm shadow-sm flex items-center gap-4 transition-transform hover:scale-[1.05] bg-accent">
         <div className="p-4 bg-amber-300 dark:bg-amber-400 rounded-sm">
           <UserOutlined className="bg-amber-400 dark:bg-amber-600 text-white p-2 rounded-sm" />
         </div>
@@ -51,7 +51,7 @@ const DashboardCard = () => {
           </h3>
         </div>
       </div>
-      <div className="  p-4 rounded-sm shadow-sm flex items-center gap-4 transition-transform hover:scale-[1.05] bg-dimBlack">
+      <div className="  p-4 rounded-sm shadow-sm flex items-center gap-4 transition-transform hover:scale-[1.05] bg-accent">
         <div className="p-4 bg-violet-300 dark:bg-violet-400 rounded-sm">
           <ShoppingCartOutlined className="bg-violet-400 dark:bg-violet-600 text-white p-2 rounded-sm" />
         </div>
@@ -64,7 +64,7 @@ const DashboardCard = () => {
           </h3>
         </div>
       </div>
-      <div className="  p-4 rounded-sm shadow-sm flex items-center gap-4 transition-transform hover:scale-[1.05] bg-dimBlack">
+      <div className="  p-4 rounded-sm shadow-sm flex items-center gap-4 transition-transform hover:scale-[1.05] bg-accent">
         <div className="p-4 bg-emerald-300 dark:bg-emerald-400 rounded-sm">
           <DollarOutlined className="bg-emerald-400 dark:bg-emerald-600 text-white p-2 rounded-sm" />
         </div>
@@ -77,7 +77,7 @@ const DashboardCard = () => {
           </h3>
         </div>
       </div>
-      <div className="  p-4 rounded-sm shadow-sm flex items-center gap-4 transition-transform hover:scale-[1.05] bg-dimBlack">
+      <div className="  p-4 rounded-sm shadow-sm flex items-center gap-4 transition-transform hover:scale-[1.05] bg-accent">
         <div className="p-4 bg-fuchsia-300 dark:bg-fuchsia-400 rounded-sm">
           <ProductOutlined className="bg-fuchsia-400 dark:bg-fuchsia-600 text-white p-2 rounded-sm" />
         </div>
@@ -149,7 +149,7 @@ const RecentOrders = () => {
   if (error) return <h1>{error}</h1>;
   if (data === null) return;
   return (
-    <section className=" rounded-md shadow-sm bg-dimBlack relative">
+    <section className=" rounded-md shadow-sm bg-accent relative">
       <h2 className="p-2 text-gray-700 dark:text-white text-lg font-semibold">
         Recent Orders
       </h2>
@@ -190,7 +190,7 @@ const RecentUsers = () => {
   if (error) return <h1>{error}</h1>;
   if (data === null) return;
   return (
-    <section className=" rounded-md shadow-sm bg-dimBlack  relative">
+    <section className=" rounded-md shadow-sm bg-accent  relative">
       <h2 className="p-2 text-gray-700 dark:text-white text-lg font-semibold">
         Recent Users
       </h2>
@@ -249,7 +249,7 @@ const TopSellingProducts = () => {
   if (error) return <h1>{error}</h1>;
   if (data === null) return;
   return (
-    <section className=" rounded-md shadow-sm bg-dimBlack relative">
+    <section className=" rounded-md shadow-sm bg-accent relative">
       <h2 className="p-2 text-gray-700 dark:text-white text-lg font-semibold">
         Top Selling products
       </h2>

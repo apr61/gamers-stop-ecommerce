@@ -20,7 +20,7 @@ export const SingleProduct = () => {
   return (
     <div className="max-w-7xl mx-auto w-full p-4 rounded-md flex flex-col md:flex-row gap-12">
       <ProductPreviewImage images={product.images} name={product.name} />
-      <div className="w-full bg-dimBlack p-4  rounded-md">
+      <div className="w-full bg-accent p-4  rounded-md">
         <header>
           <h1 className="text-2xl font-bold">{product.name}</h1>
           <p>

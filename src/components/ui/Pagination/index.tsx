@@ -41,10 +41,8 @@ const Pagination = ({ currentPage, totalPages, setPage }: PaginationProps) => {
           key={index}
           onClick={() => handlePage(index + 1)}
           btnType="icon"
-          className={`px-4 py-2 rounded-md hover:bg-accent ${
-            index + 1 === currentPage
-              ? "bg-dimBlack text-primary"
-              : ""
+          className={`px-4 py-2 rounded-md ${
+            index + 1 === currentPage ? "bg-accent text-primary" : ""
           }`}
         >
           {index + 1}

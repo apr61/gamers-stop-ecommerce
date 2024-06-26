@@ -35,7 +35,7 @@ const Select: FC<SelectProps> & { Option: FC<OptionProps> } = forwardRef<
       <select
         ref={ref}
         className={cn(
-          `w-full p-2 rounded-md cursor-pointer bg-dimBlack border border-border`,
+          `w-full p-2 rounded-md cursor-pointer border border-border bg-accent`,
           className,
         )}
         value={value}

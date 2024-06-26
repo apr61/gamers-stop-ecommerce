@@ -1,10 +1,5 @@
 import "./navbar.css";
-import Search from "../../features-app/products/search/Search";
 import { Link } from "react-router-dom";
-import StoreIcon from "@mui/icons-material/Store";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import LoginIcon from "@mui/icons-material/Login";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   getTheme,
@@ -13,7 +8,6 @@ import {
   toggleTheme,
 } from "../../features/theme/themeSlice";
 import { ReactElement, useState } from "react";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useAuth } from "@/hooks/useAuth";
 import { useOnOutsideClick } from "@/hooks/useOnClickOutside";
 import BlankUserProfile from "@/assets/blank-profile-picture.webp";
@@ -30,9 +24,15 @@ import {
   ShopOutlined,
   ShoppingCartOutlined,
   SunOutlined,
+  MenuOutlined,
+  UserOutlined,
+  ShoppingOutlined,
+  EnvironmentOutlined,
 } from "@ant-design/icons";
 import { getTotalItems } from "@/features/cart/cartSlice";
 import ProductSearch from "@/features/products/components/ProductSearch";
+import { MainSideNav } from "../Sidenav";
+import { useDisclosure } from "@/hooks/useDisclosure";
 
 type NavItemProps = {
   children: ReactElement;
@@ -42,7 +42,7 @@ type NavItemProps = {
 
 function Navbar() {
   const dispatch = useAppDispatch();
-  const isSearchBarOpen = useAppSelector(selectSearchBarOpen);
+  const { isOpen, close, open } = useDisclosure();
   const { user } = useAuth();
   const totalItems = useAppSelector(getTotalItems);
   const theme = useAppSelector(getTheme);
@@ -53,61 +53,55 @@ function Navbar() {
   };
 
   return (
-    <nav className="flex p-4 items-center w-full bg-[var(--clr-nav-bg)] text-white">
+    <nav className="flex p-2 items-center w-full bg-accent border-b border-border h-[4rem]">
+      <MainSideNav isOpen={isOpen} close={close} />
       <Button
         btnType="icon"
-        className="block lg:hidden"
-        onClick={() => dispatch(openSideNav())}
+        className="block lg:hidden text-center mr-2"
+        onClick={open}
       >
-        <MenuIcon />
+        <MenuOutlined className="text-xl" />
       </Button>
-      <Link to="/" className={`text-2xl block mr-auto`}>
+      <Link to="/" className={`text-2xl hidden lg:block`}>
         Gamers Stop
       </Link>
       <ProductSearch />
-      <ul className="flex items-center ml-auto gap-[2rem]">
-        <Link to="/store" className="navbar__link">
-          <ShopOutlined  className="text-xl" />
-        </Link>
-        <Button
-          type="button"
-          btnType="icon"
-          className="text-white"
-          onClick={handleTheme}
-        >
-          {theme === "dark" ? (
-            <SunOutlined className="text-xl" />
-          ) : (
-            <MoonOutlined className="text-xl" />
-          )}
-        </Button>
-        <Link to="/cart" className="navbar__link relative">
-          <span className="text-sm absolute bg-red-500 w-4 h-4 rounded-full -top-2 -right-2 grid place-content-center">
-            {totalItems}
-          </span>
-          <ShoppingCartOutlined className="text-2xl" />
-        </Link>
+      <ul className="hidden lg:flex items-center gap-4 lg:gap-[2rem]">
+        <li>
+          <Link to="/store" className="flex items-center gap-2">
+            <ShopOutlined className="text-xl" />
+            Store
+          </Link>
+        </li>
         {user ? (
           <UserProfile />
         ) : (
-          <Link className="navbar__link" to={"/auth/login"}>
+          <Link className="flex items-center gap-2" to={"/auth/login"}>
             <LoginOutlined className="text-xl" />
+            Login
           </Link>
         )}
       </ul>
+      <div className="mx-1 md:mx-2 lg:mx-4 flex items-center gap-2 lg:gap-4">
+        <Button type="button" btnType="icon" onClick={handleTheme}>
+          {theme === "dark" ? (
+            <SunOutlined className="text-lg sm:text-xl" />
+          ) : (
+            <MoonOutlined className="text-lg sm:text-xl" />
+          )}
+        </Button>
+        <Link to="/cart" className="relative">
+          <span className="text-sm absolute bg-red-500 w-4 h-4 rounded-full -top-3 -right-2 grid place-content-center text-white">
+            {totalItems}
+          </span>
+          <ShoppingCartOutlined className="text-lg sm:text-xl" />
+        </Link>
+      </div>
     </nav>
   );
 }
 
 export default Navbar;
-
-function NavItem({ children, title, className = "" }: NavItemProps) {
-  return (
-    <li className={`navbar__list-item ${className}`} title={title}>
-      {children}
-    </li>
-  );
-}
 
 const UserProfile = () => {
   const { user } = useAuth();
@@ -158,7 +152,7 @@ const UserProfileDropDown = ({ dropDown }: UserProfileDropDownProps) => {
 
   return (
     <DropDownMenu
-      className={`top-14 right-0 min-w-[10rem] bg-dimBlack dark:shadow-custom-dark ${
+      className={`top-14 right-0 min-w-[10rem] bg-accent dark:shadow-custom-dark ${
         dropDown ? "max-h-96 p-1" : "max-h-0"
       }`}
     >

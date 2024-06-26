@@ -40,7 +40,7 @@ const Navbar = () => {
   }, [theme]);
   return (
     <nav
-      className={`sticky top-0 z-40 flex items-center w-full p-2 bg-white dark:bg-dimBlack h-[4rem]`}
+      className={`sticky top-0 z-40 flex items-center w-full p-2 bg-white dark:bg-accent h-[4rem]`}
     >
       <Button
         btnType="icon"
@@ -108,7 +108,7 @@ const UserProfile = () => {
         />
       </Button>
       <DropDownMenu
-        className={`top-14 right-0 min-w-[10rem] bg-dimBlack dark:shadow-custom-dark ${
+        className={`top-14 right-0 min-w-[10rem] bg-accent dark:shadow-custom-dark ${
           dropDown ? "max-h-96 p-1" : "max-h-0"
         }`}
       >

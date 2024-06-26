@@ -10,7 +10,7 @@ export const Product = () => {
   return (
     <div className="w-full p-4 rounded-md flex flex-col md:flex-row gap-12">
       <ProductPreviewImage images={record.images} name={record.name} />
-      <div className="w-full bg-dimBlack p-4  rounded-md">
+      <div className="w-full bg-accent p-4  rounded-md">
         <header>
           <h1 className="text-2xl font-bold">{record.name}</h1>
           <p>

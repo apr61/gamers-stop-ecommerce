@@ -28,7 +28,11 @@ const StoreProducts = () => {
     <div className="max-w-[100rem] w-full mx-auto grid grid-cols-1 lg:grid-cols-[22rem_auto] gap-8">
       <Filter isOpen={isOpen} close={close} />
       <div className="flex gap-4 flex-col">
-        <Button btnType="icon" onClick={open} className="block lg:hidden ml-auto">
+        <Button
+          btnType="icon"
+          onClick={open}
+          className="block lg:hidden ml-auto"
+        >
           <FilterOutlined className="text-2xl" />
         </Button>
         <ProductSort />
@@ -159,7 +163,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
             Add to cart
           </Button>
         ) : (
-          <Button className="w-full" disabled={true}>Out of stock</Button>
+          <Button className="w-full" disabled={true}>
+            Out of stock
+          </Button>
         )}
       </div>
     </article>
@@ -182,7 +188,11 @@ const ProductSort = () => {
     }
   };
   return (
-    <Select className="w-fit ml-auto hidden lg:block" onChange={handleChange} value={sort}>
+    <Select
+      className="w-fit ml-auto hidden lg:block"
+      onChange={handleChange}
+      value={sort}
+    >
       <Select.Option value="">Sort By</Select.Option>
       <Select.Option value="price_low_to_high">Price Low to High</Select.Option>
       <Select.Option value="price_high_to_low">Price High to Low</Select.Option>
