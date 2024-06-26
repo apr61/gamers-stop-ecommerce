@@ -14,7 +14,7 @@ const AccountLayout = () => {
 			</header>
 			<div className="grid grid-cols-1 lg:grid-cols-[.25fr_1fr]">
 				<SideNav />
-				<div className="p-4 min-h-[60vh]">
+				<div className="p-4">
 					<Outlet />
 				</div>
 			</div>
@@ -58,7 +58,7 @@ type NavItemProps = NavItem;
 const Item = ({ href, text, Icon }: NavItemProps) => {
 	const checkForEnd = ["Orders"].indexOf(text) === -1; // Condition for nested routes active link
 	return (
-		<li className="w-full border-b border-border w-full py-4 last-of-type:border-none">
+		<li className="w-full border-b border-border py-4 last-of-type:border-none">
 			<NavLink
 				to={href}
 				className={({ isActive }) =>

@@ -47,7 +47,7 @@ export default StoreProducts;
 const ProductListWrapper = () => {
   const [searchParams, _] = useSearchParams();
   const {
-    data: productData,
+    data: productData = [],
     status,
     error,
   } = useAppSelector(selectProductsSearch);
@@ -75,7 +75,7 @@ const ProductListWrapper = () => {
     const categoryId = filteredCate ? filteredCate.id : 0;
     const brands = brandData
       .filter((brand) => selectedBrands.indexOf(brand.brand_name) !== -1)
-      .map((brand) => brand.id);
+      .map((brand) => brand.id) || [];
 
     const query: ProductFilterType = {
       page: {
@@ -118,6 +118,7 @@ const ProductPagination = () => {
       return prev;
     });
   };
+  console.log(totalPages)
   return (
     <div className="flex justify-between mt-10">
       <p>

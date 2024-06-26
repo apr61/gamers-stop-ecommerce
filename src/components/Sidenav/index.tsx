@@ -9,7 +9,7 @@ import {
   TrademarkOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { selectSideNav, setSideNav } from "../../redux/slice/uiActionsSlice";
@@ -88,7 +88,7 @@ const Sidenav = () => {
         }`}
         ref={sideNavRef}
       >
-        <div className="flex items-center justify-between w-full bg-white dark:bg-accent">
+        <div className="flex items-center justify-between w-full bg-accent">
           <Link
             to="/dashboard"
             className={`text-2xl block p-4 w-full ${!sidenavOpen ? "shadow-custom-dark" : ""}`}

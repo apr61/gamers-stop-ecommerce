@@ -40,7 +40,7 @@ const Navbar = () => {
   }, [theme]);
   return (
     <nav
-      className={`sticky top-0 z-40 flex items-center w-full p-2 bg-white dark:bg-accent h-[4rem]`}
+      className={`sticky top-0 z-40 flex items-center w-full p-2 bg-accent h-[4rem]`}
     >
       <Button
         btnType="icon"

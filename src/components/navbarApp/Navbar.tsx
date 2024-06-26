@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   getTheme,
-  openSideNav,
-  selectSearchBarOpen,
   toggleTheme,
 } from "../../features/theme/themeSlice";
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useOnOutsideClick } from "@/hooks/useOnClickOutside";
 import BlankUserProfile from "@/assets/blank-profile-picture.webp";
@@ -25,20 +23,12 @@ import {
   ShoppingCartOutlined,
   SunOutlined,
   MenuOutlined,
-  UserOutlined,
-  ShoppingOutlined,
-  EnvironmentOutlined,
 } from "@ant-design/icons";
 import { getTotalItems } from "@/features/cart/cartSlice";
 import ProductSearch from "@/features/products/components/ProductSearch";
 import { MainSideNav } from "../Sidenav";
 import { useDisclosure } from "@/hooks/useDisclosure";
 
-type NavItemProps = {
-  children: ReactElement;
-  title: string;
-  className?: string;
-};
 
 function Navbar() {
   const dispatch = useAppDispatch();
