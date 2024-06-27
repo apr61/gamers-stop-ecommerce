@@ -5,25 +5,26 @@
 @layer base {
   :root {
     --clr-bg: 0 0% 100%;
-    --clr-foreground: 213 21% 17%;
+    --clr-foreground: 240 10% 3.9%;
     --clr-primary: 217 91% 60%;
-    --clr-accent: 220 16% 96%;
-
-    --clr-muted: 210 10% 92%;
-    --clr-dim-black: 0 0% 100%;
-    --clr-border-t: 0 0% 90%;
+    --clr-muted: 240 4.8% 95.9%;
+    --clr-ring: 240 5% 64.9%;
+    --clr-border: 240 5.9% 90%;
+    --clr-input: 240 5.9% 90%;
     --clr-pop-over: 0 0% 0%/0.3;
+    --clr-destructive: 0 72.22% 50.59%;
   }
 
   .dark {
-    --clr-bg: 222 22% 11%;
-    --clr-foreground: 220 14% 82%;
-    --clr-accent: 213 21% 17%;
-    --clr-muted: 0 0% 43%;
-
-    --clr-dim-black: 0 0% 12%;
-    --clr-border-t: 0 0% 35%;
+    --clr-bg: 240 10% 3.9%;
+    --clr-foreground: 0 0% 98%;
+    --clr-muted: 240 3.7% 15.9%;
+    --clr-muted-foreground: 240 5% 64.9%;
+    --clr-ring: 240 4.9% 83.9%;
+    --clr-input: 240 3.7% 15.9%;
+    --clr-border: 240 3.7% 15.9%;
     --clr-pop-over: 0 0% 0%/0.5;
+    --clr-destructive: 0 62.8% 30.6%;
   }
 }
 

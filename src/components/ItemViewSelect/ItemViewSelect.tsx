@@ -12,7 +12,7 @@ const ItemViewSelect = ({ itemsView, onClick }: ItemViewSelectProps) => {
 		<div className="flex rounded-lg border border-border bg-accent">
 			<Button
 				type="button"
-				btnType="icon"
+				btnType="ghost"
 				className={`text-lg py-2 px-4 w-12 hover:text-blue-500 focus:outline-blue-500 ${
 					itemsView === "LIST"
 						? "rounded-none border-2 border-blue-500 rounded-tl-lg rounded-bl-lg "
@@ -24,7 +24,7 @@ const ItemViewSelect = ({ itemsView, onClick }: ItemViewSelectProps) => {
 			</Button>
 			<Button
 				type="button"
-				btnType="icon"
+				btnType="ghost"
 				className={`text-lg py-2 px-4 w-12 hover:text-blue-500 focus:outline-blue-500 ${
 					itemsView === "GRID"
 						? "rounded-none border-2 border-blue-500 rounded-tr-lg rounded-br-lg"

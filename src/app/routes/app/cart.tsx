@@ -38,7 +38,7 @@ function Cart() {
             </div>
           </>
         ) : (
-          <div className="flex flex-col gap-4 bg-accent justify-center items-center min-h-[25rem] rounded-md">
+          <div className="max-w-2xl w-full mx-auto flex flex-col gap-4 border border-border justify-center items-center min-h-[25rem] rounded-md">
             <h3 className="text-xl font-medium">Your cart is empty</h3>
             <Button onClick={() => navigate("/store")}>Shop now</Button>
           </div>

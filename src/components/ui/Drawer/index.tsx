@@ -43,7 +43,7 @@ const Drawer = forwardRef<HTMLDivElement, DrawerProps>(({
       >
         <div className="flex justify-between items-center bg-accent p-4">
           <h2 className="text-lg">{title}</h2>
-          <Button className="text-lg" onClick={closeDrawer} btnType="icon">
+          <Button className="text-lg" onClick={closeDrawer} btnType="ghost">
             <CloseOutlined />
           </Button>
         </div>

@@ -43,7 +43,7 @@ const Navbar = () => {
       className={`sticky top-0 z-40 flex items-center w-full p-2 bg-accent h-[4rem]`}
     >
       <Button
-        btnType="icon"
+        btnType="ghost"
         onClick={() => dispatch(setSideNav(!sidenavOpen))}
         title={sidenavOpen ? "Close Side Menu" : "Open Side Menu"}
         className="block lg:hidden"
@@ -56,7 +56,7 @@ const Navbar = () => {
         <div>
           <Button
             type="button"
-            btnType="icon"
+            btnType="ghost"
             className="bg-accent rounded-full p-2"
             onClick={handleTheme}
           >
@@ -95,7 +95,7 @@ const UserProfile = () => {
   return (
     <div ref={dropDownRef} className="relative">
       <Button
-        btnType="icon"
+        btnType="ghost"
         className="w-10 h-10 overflow-hidden rounded-full p-0 focus:outline-gray-400"
         title={userData.full_name}
         onClick={() => setDropDown((prev) => !prev)}

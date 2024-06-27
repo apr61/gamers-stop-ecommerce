@@ -20,11 +20,11 @@ export const SingleProduct = () => {
   return (
     <div className="max-w-7xl mx-auto w-full p-4 rounded-md flex flex-col md:flex-row gap-12">
       <ProductPreviewImage images={product.images} name={product.name} />
-      <div className="w-full bg-accent p-4  rounded-md">
+      <div className="w-full p-4 rounded-md">
         <header>
           <h1 className="text-2xl font-bold">{product.name}</h1>
           <p>
-            <span className="text-gray-700 dark:text-slate-400 font-semibold">
+            <span className="text-muted-foreground font-semibold">
               Published :{" "}
             </span>
             {new Date(product.created_at).toLocaleDateString()}
@@ -34,13 +34,13 @@ export const SingleProduct = () => {
           {currencyFormatter(product.price)}
         </p>
         <section className="my-4">
-          <h3 className="text-lg font-semibold text-gray-700 dark:text-slate-400">
+          <h3 className="text-lg font-semibold text-muted-foreground">
             Description :
           </h3>
           <p>{product.description}</p>
         </section>
         <section className="my-4">
-          <h3 className="text-lg font-semibold text-gray-700 dark:text-slate-400">
+          <h3 className="text-lg font-semibold text-muted-foreground">
             Services :
           </h3>
           <ul>
@@ -49,7 +49,7 @@ export const SingleProduct = () => {
           </ul>
         </section>
         <section className="my-4 w-full">
-          <h3 className="text-lg font-semibold text-gray-700 dark:text-slate-400">
+          <h3 className="text-lg font-semibold text-muted-foreground">
             Specifications :
           </h3>
           <div className="border border-border rounded-sm p-4 my-2">

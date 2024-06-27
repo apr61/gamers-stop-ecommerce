@@ -38,7 +38,7 @@ function SingleCartItem({ cartItem }: CartItemProps) {
           <Button
             className="text-red-500 ml-auto"
             onClick={() => dispatch(removeFromCart(cartItem))}
-            btnType="icon"
+            btnType="ghost"
           >
             <DeleteIcon />
           </Button>

@@ -13,17 +13,19 @@ export default {
       colors: {
         background: "hsl(var(--clr-bg))",
         foreground: "hsl(var(--clr-foreground))",
-        border: "hsl(var(--clr-border-t))",
+        border: "hsl(var(--clr-border))",
         primary: "hsl(var(--clr-primary))",
-        dimBlack: "hsl(var(--clr-dim-black))",
-        accent: "hsl(var(--clr-accent))",
         muted: "hsl(var(--clr-muted))",
-        "pop-over": "hsl(var(--clr-pop-over))"
+        "muted-foreground": "hsl(var(--clr-muted-foreground))",
+        "pop-over": "hsl(var(--clr-pop-over))",
+        input: "hsl(var(--clr-input))",
+        ring: "hsl(var(--clr-ring))",
+        destructive: "hsl(var(--clr-destructive))",
       },
       boxShadow: {
-        'custom-light': '0 4px 6px rgba(0, 0, 0, 0.1)',
-        'custom-dark': '0 10px 15px -3px rgba(255, 255, 255, 0.01), 0 4px 6px -2px rgba(255, 255, 255, 0.05)',
-        
+        "custom-light": "0 4px 6px rgba(0, 0, 0, 0.1)",
+        "custom-dark":
+          "0 10px 15px -3px rgba(255, 255, 255, 0.01), 0 4px 6px -2px rgba(255, 255, 255, 0.05)",
       },
     },
   },

@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
 type ButtonProps = PropsWithChildren &
   ButtonHTMLAttributes<HTMLButtonElement> & {
-    btnType?: "primary" | "ghost" | "danger" | "icon";
+    btnType?: "primary" | "outline" | "danger" | "ghost";
     loading?: boolean;
   };
 
@@ -17,13 +17,12 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   let baseClass =
-    "hover:bg-opacity-90 rounded-md w-fit focus:outline-2 focus:outline-2 focus:outline-offset-2 disabled:opacity-75 disabled:cursor-not-allowed flex items-center justify-center gap-2";
+    "hover:bg-opacity-90 rounded-md w-fit focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1 disabled:opacity-75 disabled:cursor-not-allowed flex items-center justify-center gap-2";
   const styles = {
-    primary: "px-2 py-1 bg-primary text-white focus:outline-blue-400",
-    ghost:
-      "px-2 py-1 bg-transparent text-gray-500 border border-gray-500 hover:bg-gray-500 hover:text-white focus:outline-gray-400",
-    danger: "py-2 bg-red-500 text-white focus:outline-red-400",
-    icon: "p-1 text-md focus:outline-black",
+    primary: "px-2 py-1 bg-primary text-white hover:bg-primary/90",
+    outline: "p-2 bg-transparent border border-border hover:bg-muted",
+    danger: "py-2 bg-destructive text-white",
+    ghost: "p-2 hover:bg-muted",
   };
   return (
     <button
@@ -33,7 +32,7 @@ const Button = ({
       {...props}
     >
       {loading && (
-        <div className="border-2  border-transparent w-4 h-4 rounded-full border-t-white border-l-white border-r-white animate-spin"></div>
+        <div className="border-2 border-transparent w-4 h-4 rounded-full border-t-white border-l-white border-r-white animate-spin"></div>
       )}
       {children}
     </button>

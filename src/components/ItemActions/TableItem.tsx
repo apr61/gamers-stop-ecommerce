@@ -64,7 +64,7 @@ export const TableActions = <T,>({
 			{dropDownItems.map((item) => (
 				<Button
 					title={item.label}
-					btnType="icon"
+					btnType="ghost"
 					onClick={() => handleDropdownOnClick(item.key, record)}
 					key={item.label}
 				>

@@ -7,7 +7,8 @@ import {
 } from "react-hook-form";
 import { ProductFormValues } from "@/types/api";
 import FileInput from "@/components/ui/FileInput";
-import { ChangeEvent, useEffect, useState, memo } from "react";
+import TextArea from "@/components/ui/textarea/Textarea";
+import { ChangeEvent, useEffect, useState } from "react";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
@@ -18,8 +19,6 @@ import {
   selectCategories,
 } from "@/features/categories/categorySlice";
 import {
-  addProduct,
-  editProduct,
   selectProdcutsCurrentItem,
 } from "@/features/products/productSlice";
 import { fetchBrands, selectBrands } from "@/features/brands/brandsSlice";
@@ -29,17 +28,15 @@ import { createSlug } from "@/utils/utils";
 type ProductFormProps = {
   product?: ProductFormValues;
   images?: string[];
-  saveFn: (data: ProductFormValues) => Promise<void>
-  title: string
+  saveFn: (data: ProductFormValues) => Promise<void>;
+  title: string;
 };
 
 const ProductsForm = ({ product, images, saveFn, title }: ProductFormProps) => {
   const methods = useForm<ProductFormValues>({
     defaultValues: product ? product : undefined,
   });
-  const { action, error, status } = useAppSelector(
-    selectProdcutsCurrentItem,
-  );
+  const { action, error, status } = useAppSelector(selectProdcutsCurrentItem);
   const [imagePreviews, setImagePreviews] = useState<string[]>(
     images ? images : [],
   );
@@ -49,7 +46,7 @@ const ProductsForm = ({ product, images, saveFn, title }: ProductFormProps) => {
       ...data,
       slug_url: createSlug(data.name),
     };
-    await saveFn(formData)
+    await saveFn(formData);
     methods.reset();
     setImagePreviews([]);
   };
@@ -110,18 +107,20 @@ const CategorySelect = ({ currentCategoryId }: CategorySelectProps) => {
   const {
     register,
     formState: { errors },
+    watch
   } = useFormContext<ProductFormValues>();
+  const value = watch("category_id")
   return (
     <>
-      <div className="w-full flex gap-2 flex-col  shadow-md p-4 rounded-md bg-accent">
+      <div className="w-full flex gap-2 flex-col  shadow-md p-4 rounded-md border border-border">
         <label htmlFor="category" className="text-lg cursor-pointer">
           Category
         </label>
         <Select
           id="category"
-          className={`w-full p-4  border border-border rounded-md cursor-pointer bg-accent`}
+          className={`w-full p-4  border border-border rounded-md cursor-pointer`}
           {...register("category_id", { required: "Category is required" })}
-          value={currentCategoryId ? currentCategoryId : ""}
+          value={currentCategoryId ? currentCategoryId : value}
         >
           <Select.Option value="">Select category</Select.Option>
           {status === "pending" ? (
@@ -132,9 +131,7 @@ const CategorySelect = ({ currentCategoryId }: CategorySelectProps) => {
                 key={category.id}
                 value={category.id}
                 className={`${
-                  currentCategoryId === category.id
-                    ? "bg-primary text-white"
-                    : ""
+                  currentCategoryId === category.id ? "bg-muted text-white" : ""
                 }`}
               >
                 {category.category_name}
@@ -164,18 +161,20 @@ const BrandSelect = ({ currentBrandId }: BrandSelectProps) => {
   const {
     register,
     formState: { errors },
+    watch
   } = useFormContext<ProductFormValues>();
+  const value = watch("brand_id")
   return (
     <>
-      <div className="w-full flex gap-2 flex-col shadow-md p-4 rounded-md bg-accent">
+      <div className="w-full flex gap-2 flex-col shadow-md p-4 rounded-md border border-border">
         <label htmlFor="brand" className="text-lg cursor-pointer">
           Brand
         </label>
         <Select
           id="brand"
-          className={`w-full p-4  border border-border rounded-md cursor-pointer bg-accent`}
+          className={`w-full p-4  border border-border rounded-md cursor-pointer`}
           {...register("brand_id", { required: "Brand is required" })}
-          value={currentBrandId ? currentBrandId : ""}
+          value={currentBrandId ? currentBrandId : value}
         >
           <Select.Option value="">Select brand</Select.Option>
           {status === "pending" ? (
@@ -186,7 +185,7 @@ const BrandSelect = ({ currentBrandId }: BrandSelectProps) => {
                 key={brand.id}
                 value={brand.id}
                 className={`${
-                  currentBrandId === brand.id ? "bg-primary text-white" : ""
+                  currentBrandId === brand.id ? "bg-muted text-white" : ""
                 }`}
               >
                 {brand.brand_name}
@@ -209,7 +208,7 @@ const ProductMain = () => {
     formState: { errors },
   } = useFormContext<ProductFormValues>();
   return (
-    <div className="bg-accent shadow-md p-4 rounded-md flex flex-col gap-2">
+    <div className="border border-border shadow-md p-4 rounded-md flex flex-col gap-2">
       <Input
         placeholder="Product name"
         label="Name"
@@ -221,13 +220,12 @@ const ProductMain = () => {
         <label htmlFor="description" className="text-lg cursor-pointer">
           Description
         </label>
-        <textarea
+        <TextArea
           id="description"
           {...register("description", { required: "Description is required" })}
-          className="focus:outline focus:outline-2 focus:outline-blue-500 border border-border rounded-md p-2 resize-none bg-accent"
           placeholder="Product description"
           rows={10}
-        ></textarea>
+        />
       </div>
       {errors.description && (
         <p className="text-red-500">{errors.description.message}</p>
@@ -264,7 +262,7 @@ const ProductGallery = ({
     setValue("images", null);
   };
   return (
-    <div className="bg-accent shadow-md p-4 rounded-md flex flex-col gap-2">
+    <div className="border border-border shadow-md p-4 rounded-md flex flex-col gap-2">
       <h2 className="text-lg">Product Gallery</h2>
       <div className="min-h-[10rem]">
         <FileInput
@@ -305,12 +303,11 @@ const ProductSpecification = () => {
     }
   };
   return (
-    <div className="bg-accent w-full p-4 rounded-md">
+    <div className="border border-border w-full p-4 rounded-md">
       <div className="flex justify-between items-center">
         <h3 className="text-lg">Specifications</h3>
         <Button
-          btnType="icon"
-          className="border border-border p-1"
+          btnType="outline"
           onClick={() => append({ name: "", value: "" })}
         >
           <PlusOutlined />
@@ -334,11 +331,7 @@ const ProductSpecification = () => {
                 required: "Specification value is required",
               })}
             />
-            <Button
-              btnType="icon"
-              className="border border-border p-2"
-              onClick={() => handleRemove(index)}
-            >
+            <Button btnType="outline" onClick={() => handleRemove(index)}>
               <CloseOutlined />
             </Button>
           </div>
@@ -357,7 +350,7 @@ const ProductStock = () => {
     formState: { errors },
   } = useFormContext<ProductFormValues>();
   return (
-    <div className="bg-accent p-4 rounded-md shadow-md">
+    <div className="border border-border p-4 rounded-md shadow-md">
       <Input
         placeholder="Stock"
         label="Stock"
@@ -383,7 +376,7 @@ const ProductPrice = () => {
     formState: { errors },
   } = useFormContext<ProductFormValues>();
   return (
-    <div className="bg-accent p-4 rounded-md shadow-md">
+    <div className="border border-border p-4 rounded-md shadow-md">
       <Input
         placeholder="Price"
         label="Price"

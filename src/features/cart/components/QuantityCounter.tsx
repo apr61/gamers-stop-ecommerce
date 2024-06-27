@@ -15,7 +15,7 @@ function QuantityCounter({ cartItem }: QuantityCounterProps) {
 			<Button
 				className="border border-border cursor-pointer px-2 py-1 rounded font-medium"
 				onClick={() => dispatch(decrement(cartItem))}
-				btnType="icon"
+				btnType="ghost"
 			>
 				-
 			</Button>
@@ -23,7 +23,7 @@ function QuantityCounter({ cartItem }: QuantityCounterProps) {
 			<Button
 				className="border border-border cursor-pointer px-2 py-1 rounded font-medium"
 				onClick={() => dispatch(increment(cartItem))}
-				btnType="icon"
+				btnType="ghost"
 			>
 				+
 			</Button>

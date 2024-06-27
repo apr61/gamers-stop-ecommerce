@@ -31,7 +31,7 @@ const Pagination = ({ currentPage, totalPages, setPage }: PaginationProps) => {
       <Button
         onClick={handlePrev}
         disabled={isPrevBtnDisabled}
-        btnType="icon"
+        btnType="ghost"
         className={`p-3 rounded-md hover:bg-accent text-sm disabled:hover:bg-transparent`}
       >
         <LeftOutlined />
@@ -40,7 +40,7 @@ const Pagination = ({ currentPage, totalPages, setPage }: PaginationProps) => {
         <Button
           key={index}
           onClick={() => handlePage(index + 1)}
-          btnType="icon"
+          btnType="ghost"
           className={`px-4 py-2 rounded-md ${
             index + 1 === currentPage ? "bg-accent text-primary" : ""
           }`}
@@ -51,7 +51,7 @@ const Pagination = ({ currentPage, totalPages, setPage }: PaginationProps) => {
       <Button
         onClick={handleNext}
         disabled={isNextBtnDisabled}
-        btnType="icon"
+        btnType="ghost"
         className={`p-3 rounded-md hover:bg-accent text-sm disabled:hover:bg-transparent`}
       >
         <RightOutlined />

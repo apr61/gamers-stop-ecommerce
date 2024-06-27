@@ -5,7 +5,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 
 function Footer() {
     return (
-        <footer className="footer bg-accent">
+        <footer className="footer border-t border-border">
             <div className="footer__top">
                 <section className="footer__section">
                     <h2 className="footer__title footer__title--bg">
@@ -63,7 +63,7 @@ function Footer() {
                     </p>
                 </section>
             </div>
-            <div className="footer__bottom">
+            <div className="footer__bottom border-t border-border">
                 <div className="footer__section footer__section--bottom">
                     <div className="footer__copy-right">
                         &copy; 2023 - {new Date().getFullYear()} Gamers Stop

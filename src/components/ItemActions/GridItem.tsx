@@ -74,7 +74,7 @@ export const GridItemsAction = <T,>({
     <article className="border border-border bg-accent p-4 shadow-md  rounded-md">
       <div className="relative" ref={dropDownRef}>
         <Button
-          btnType="icon"
+          btnType="ghost"
           type="button"
           className="text-xl absolute -top-2 right-0 p-1 hover:bg-accent"
           onClick={() => setDropDown((prev) => !prev)}
@@ -89,7 +89,7 @@ export const GridItemsAction = <T,>({
               <DropDownItem className="px-1" key={item.key}>
                 <Button
                   className={`flex gap-2 w-full ${item.className}`}
-                  btnType="icon"
+                  btnType="ghost"
                   onClick={() => handleDropdownOnClick(item.key, record)}
                 >
                   {item.icon}

@@ -1,10 +1,7 @@
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  getTheme,
-  toggleTheme,
-} from "../../features/theme/themeSlice";
+import { getTheme, toggleTheme } from "../../features/theme/themeSlice";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useOnOutsideClick } from "@/hooks/useOnClickOutside";
@@ -29,7 +26,6 @@ import ProductSearch from "@/features/products/components/ProductSearch";
 import { MainSideNav } from "../Sidenav";
 import { useDisclosure } from "@/hooks/useDisclosure";
 
-
 function Navbar() {
   const dispatch = useAppDispatch();
   const { isOpen, close, open } = useDisclosure();
@@ -43,10 +39,10 @@ function Navbar() {
   };
 
   return (
-    <nav className="flex p-2 items-center w-full bg-accent border-b border-border h-[4rem]">
+    <nav className="flex p-2 items-center w-full border-b border-border h-[4rem]">
       <MainSideNav isOpen={isOpen} close={close} />
       <Button
-        btnType="icon"
+        btnType="ghost"
         className="block lg:hidden text-center mr-2"
         onClick={open}
       >
@@ -73,7 +69,7 @@ function Navbar() {
         )}
       </ul>
       <div className="mx-1 md:mx-2 lg:mx-4 flex items-center gap-2 lg:gap-4">
-        <Button type="button" btnType="icon" onClick={handleTheme}>
+        <Button type="button" btnType="ghost" onClick={handleTheme}>
           {theme === "dark" ? (
             <SunOutlined className="text-lg sm:text-xl" />
           ) : (
@@ -112,8 +108,8 @@ const UserProfile = () => {
   return (
     <div ref={dropDownRef} className="relative">
       <Button
-        btnType="icon"
-        className="w-8 h-8 overflow-hidden rounded-full p-0 focus:outline-gray-400"
+        btnType="ghost"
+        className="w-8 h-8 overflow-hidden rounded-full p-0"
         title={userData.full_name}
         onClick={() => setDropDown((prev) => !prev)}
       >
@@ -142,8 +138,8 @@ const UserProfileDropDown = ({ dropDown }: UserProfileDropDownProps) => {
 
   return (
     <DropDownMenu
-      className={`top-14 right-0 min-w-[10rem] bg-accent dark:shadow-custom-dark ${
-        dropDown ? "max-h-96 p-1" : "max-h-0"
+      className={`top-14 right-0 min-w-[10rem] bg-background ${
+        dropDown ? "max-h-96 p-1 border border-border" : "max-h-0"
       }`}
     >
       <DropDownList>

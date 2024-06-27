@@ -13,13 +13,13 @@ function Dashboard() {
 		<section className="w-full">
 			<div className="md:grid md:grid-cols-3 gap-4 flex flex-col">
 				<Link to="/account/profile">
-					<div className="border border-border hover:bg-accent p-4 rounded-md max-h-40 h-full">
+					<div className="border border-border hover:bg-muted p-4 rounded-md max-h-40 h-full">
 						<h3 className="text-xl">My Profile</h3>
 						<p className="text-sm font-medium">Edit login & name.</p>
 					</div>
 				</Link>
 				<Link to="/account/orders">
-					<div className="border border-border hover:bg-accent p-4 rounded-md max-h-40 h-full">
+					<div className="border border-border hover:bg-muted p-4 rounded-md max-h-40 h-full">
 						<h3 className="text-xl">My Orders</h3>
 						<p className="text-sm font-medium">
 							Track your orders, returns & cancelled orders.
@@ -27,7 +27,7 @@ function Dashboard() {
 					</div>
 				</Link>
 				<Link to="/account/addresses">
-					<div className="border border-border hover:bg-accent p-4 rounded-md max-h-40 h-full">
+					<div className="border border-border hover:bg-muted p-4 rounded-md max-h-40 h-full">
 						<h3 className="text-xl">My Addresses</h3>
 						<p className="text-sm font-medium">
 							Edit or add addresses for orders.

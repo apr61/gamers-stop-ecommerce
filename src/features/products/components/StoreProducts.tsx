@@ -29,7 +29,7 @@ const StoreProducts = () => {
       <Filter isOpen={isOpen} close={close} />
       <div className="flex gap-4 flex-col">
         <Button
-          btnType="icon"
+          btnType="ghost"
           onClick={open}
           className="block lg:hidden ml-auto"
         >
@@ -73,9 +73,10 @@ const ProductListWrapper = () => {
       (cate) => cate.category_name === categoryIn,
     );
     const categoryId = filteredCate ? filteredCate.id : 0;
-    const brands = brandData
-      .filter((brand) => selectedBrands.indexOf(brand.brand_name) !== -1)
-      .map((brand) => brand.id) || [];
+    const brands =
+      brandData
+        .filter((brand) => selectedBrands.indexOf(brand.brand_name) !== -1)
+        .map((brand) => brand.id) || [];
 
     const query: ProductFilterType = {
       page: {
@@ -118,7 +119,7 @@ const ProductPagination = () => {
       return prev;
     });
   };
-  console.log(totalPages)
+  console.log(totalPages);
   return (
     <div className="flex justify-between mt-10">
       <p>
@@ -153,21 +154,23 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <Link to={`./${product.slug_url}`} className="text-xl font-bold">
           {product.name}
         </Link>
-        <p className="text-lg font-semibold">
-          {currencyFormatter(product.price)}
-        </p>
-        {product.quantity > 0 ? (
-          <Button
-            className="w-full"
-            onClick={() => dispatch(increment({ ...product, qty: 1 }))}
-          >
-            Add to cart
-          </Button>
-        ) : (
-          <Button className="w-full" disabled={true}>
-            Out of stock
-          </Button>
-        )}
+        <div className="grid grid-cols-2">
+          <p className="text-lg font-semibold">
+            {currencyFormatter(product.price)}
+          </p>
+          {product.quantity > 0 ? (
+            <Button
+              className="w-full"
+              onClick={() => dispatch(increment({ ...product, qty: 1 }))}
+            >
+              Add to cart
+            </Button>
+          ) : (
+            <Button className="w-full" disabled={true}>
+              Out of stock
+            </Button>
+          )}
+        </div>
       </div>
     </article>
   );

@@ -41,7 +41,7 @@ function AddressCard({ addressData }: AddressCardProps) {
       </div>
       <div className="flex w-full py-3 border-t-2 border var(--clr-border) justify-around">
         <Button
-          btnType="icon"
+          btnType="ghost"
           className="w-full hover:text-primary"
           onClick={handleEdit}
         >
@@ -49,7 +49,7 @@ function AddressCard({ addressData }: AddressCardProps) {
         </Button>
         <span>|</span>
         <Button
-          btnType="icon"
+          btnType="ghost"
           className="w-full text-red-500"
           onClick={handleDelete}
         >

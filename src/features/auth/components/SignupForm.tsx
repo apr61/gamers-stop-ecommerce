@@ -30,14 +30,13 @@ const SignUpForm = () => {
 
   return (
     <form
-      className="flex flex-col gap-2 w-full  p-4 rounded-md bg-accent"
+      className="flex flex-col gap-2 w-full p-4 rounded-md border border-border"
       onSubmit={handleSubmit(onSubmit)}
     >
       <h2 className="text-center text-xl font-bold">Sign up</h2>
       <Input
         label="Name"
         placeholder="Your name"
-        className="bg-background"
         {...register("full_name", {
           required: "Name is required",
           minLength: {
@@ -53,7 +52,6 @@ const SignUpForm = () => {
       <Input
         label="Email"
         placeholder="you@example.com"
-        className="bg-background"
         type="email"
         {...register("email", {
           required: "Email is required",
@@ -67,7 +65,6 @@ const SignUpForm = () => {
       <Input
         label="Password"
         placeholder="Enter password"
-        className="bg-background"
         type="password"
         {...register("password", {
           required: "Password is required",
@@ -90,7 +87,7 @@ const SignUpForm = () => {
       </Button>
       <p>
         Already have an account ? Login{" "}
-        <Link to="/auth/login" className="hover:underline  text-blue-600">
+        <Link to="/auth/login" className="hover:underline text-primary">
           Here
         </Link>
       </p>

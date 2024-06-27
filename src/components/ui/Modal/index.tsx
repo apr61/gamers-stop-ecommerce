@@ -25,7 +25,7 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
         >
           <div className="flex items-center justify-between w-full mb-4">
             <h2 className="text-lg font-semibold">{title}</h2>
-            <Button onClick={handleClose} btnType="icon">
+            <Button onClick={handleClose} btnType="ghost">
               <CloseOutlined />
             </Button>
           </div>

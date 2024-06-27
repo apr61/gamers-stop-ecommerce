@@ -38,14 +38,14 @@ const Filter = ({ isOpen, close }: FilterProps) => {
         <header className="flex items-center p-2">
           <h3 className="text-lg font-semibold">Filters</h3>
           <Button
-            btnType="ghost"
+            btnType="outline"
             onClick={handleClear}
             className="ml-auto mr-2 md:mr-4 lg:mr-0"
           >
             Clear
           </Button>
           <Button
-            btnType="icon"
+            btnType="ghost"
             className={isOpen ? "text-xl block" : "hidden"}
             onClick={close}
           >

@@ -30,14 +30,13 @@ const LoginForm = () => {
 
   return (
     <form
-      className="flex flex-col gap-2 bg-accent p-4 rounded-md w-full"
+      className="flex flex-col gap-2 border border-border p-4 rounded-md w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
       <h2 className="text-center text-xl font-bold">Login</h2>
       <Input
         label="Email"
         placeholder="you@example.com"
-        className="bg-background"
         type="email"
         {...register("email", {
           required: "Email is required",
@@ -51,7 +50,6 @@ const LoginForm = () => {
       <Input
         label="Password"
         placeholder="Enter password"
-        className="bg-background"
         type="password"
         {...register("password", {
           required: "Password is required",
