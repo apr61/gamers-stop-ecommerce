@@ -1,32 +1,31 @@
-import "./accordion.css";
 import { ReactNode, useState } from "react";
 
-type AccoridonPropsType = {
+type AccordionPropsType = {
   children: ReactNode;
   title: string;
   modifiedStyles?: string;
   defaultOpen?: boolean;
 };
 
-function Accoridon({
+function Accordion({
   children,
   title,
   modifiedStyles,
   defaultOpen = false,
-}: AccoridonPropsType) {
+}: AccordionPropsType) {
   const [isExpanded, setIsExpanded] = useState(defaultOpen);
   return (
-    <div className="accordion">
+    <div className="p-2 border-b border-border last-of-type:border-none">
       <div
-        className="accordion__top"
+        className="flex justify-between cursor-pointer items-center"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <h4 className={modifiedStyles ?? "accordion__title"}>{title}</h4>
-        <span className="accordian__indicator">{isExpanded ? "-" : "+"}</span>
+        <h4 className={modifiedStyles ?? "font-semibold"}>{title}</h4>
+        <span className="text-xl">{isExpanded ? "-" : "+"}</span>
       </div>
-      {isExpanded && <div className="accordion__bottom">{children}</div>}
+      {isExpanded && <div className="pl-2">{children}</div>}
     </div>
   );
 }
 
-export default Accoridon;
+export default Accordion;

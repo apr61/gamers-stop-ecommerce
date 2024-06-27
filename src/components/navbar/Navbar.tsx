@@ -1,4 +1,3 @@
-import "./navbar.css";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getTheme, toggleTheme } from "../../features/theme/themeSlice";
@@ -39,7 +38,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="flex p-2 items-center w-full border-b border-border h-[4rem]">
+    <nav className="flex p-2 items-center w-full border-b border-border h-[4rem] sticky top-0 bg-background">
       <MainSideNav isOpen={isOpen} close={close} />
       <Button
         btnType="ghost"

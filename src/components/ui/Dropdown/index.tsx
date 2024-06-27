@@ -58,7 +58,7 @@ const DropDownSeparator = React.forwardRef<
   DropDownSeparatorProps
 >(({ className, children }, ref) => {
   return (
-    <li ref={ref} className={`${cn("border-t border-t-gray-400", className)}`}>
+    <li ref={ref} className={`${cn("border-t border-border", className)}`}>
       {children}
     </li>
   );

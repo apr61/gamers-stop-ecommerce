@@ -7,7 +7,6 @@ import {
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { currencyFormatter } from "@/utils/utils";
-import AddIcon from "@mui/icons-material/Add";
 import { OrderData, RazorpayPaymentResponse } from "@/types/api";
 import { Address } from "@/types/api";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -15,7 +14,7 @@ import {
   getAllCartItems,
   getTotalCost,
   getTotalItems,
-} from "@/features-app/cart/cartSlice";
+} from "@/features/cart/cartSlice";
 import {
   fetchAddressesByUser,
   selectAddresses,
@@ -23,6 +22,7 @@ import {
 import Button from "@/components/ui/Button";
 import { useAuth } from "@/hooks/useAuth";
 import PageLoader from "@/components/PageLoader";
+import { PlusOutlined } from "@ant-design/icons";
 
 type CheckoutState = {
   checkoutAddress: Address | null;
@@ -133,7 +133,7 @@ function CheckOutPage() {
               <Button disabled={!canPlaceOrder} onClick={handlePlaceOrder}>
                 Place Order & Pay
               </Button>
-              <Button onClick={() => navigate("/cart")} btnType="ghost">
+              <Button onClick={() => navigate("/cart")} btnType="outline">
                 Cancel & Go back
               </Button>
             </div>
@@ -191,7 +191,7 @@ const CheckoutAddress = () => {
             </div>
           ))}
           <Link className="checkout__link" to="/account/addresses/new">
-            <AddIcon /> Add new address
+          <PlusOutlined /> Add new address
           </Link>
         </div>
       )}

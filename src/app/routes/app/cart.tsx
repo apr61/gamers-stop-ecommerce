@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import SingleCartItem from "@/features/cart/components/SingleCartItem";
 import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/navbarApp/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 import BreadCrumbs from "@/components/ui/breadcrumbs/BreadCrumbs";
 import { currencyFormatter } from "@/utils/utils";
 import { useAppSelector } from "@/store/hooks";

@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import Navbar from "../../../components/navbarApp/Navbar";
-import { getOrderByIdService } from "../../../services/orders";
+import Navbar from "@/components/navbar/Navbar";
+import { getOrderByIdService } from "@/services/orders";
 import "./orderSuccessful.css";
-import VerifiedIcon from "@mui/icons-material/Verified";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { Order } from "../../../utils/types";
-import Loader from "../../../components/loader/Loader";
+import { Order } from "@/utils/types";
+import Loader from "@/components/PageLoader";
 
 function OrderSuccessful() {
   const { orderId } = useParams();
@@ -39,9 +38,6 @@ function OrderSuccessful() {
       <section className="ordersuccess main">
         <div className="ordersuccess__body">
           <h2 className="ordersuccess__title">
-            <>
-              <VerifiedIcon />
-            </>{" "}
             Order Placed, thank you.
           </h2>
           <p className="ordersuccess__desc">

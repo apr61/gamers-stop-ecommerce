@@ -83,20 +83,20 @@ const Sidenav = () => {
       }
     >
       <aside
-        className={`min-h-screen flex flex-col w-[16rem] top-0 bottom-0 fixed z-50 lg:sticky overflow-y-auto transition-all  ${
+        className={`min-h-screen flex flex-col w-[16rem] top-0 bottom-0 fixed z-50 lg:sticky overflow-y-auto transition-all ${
           !sidenavOpen ? "-ml-[18rem] " : ""
         }`}
         ref={sideNavRef}
       >
-        <div className="flex items-center justify-between w-full bg-accent">
+        <div className="flex items-center justify-between w-full bg-background">
           <Link
             to="/dashboard"
-            className={`text-2xl block p-4 w-full ${!sidenavOpen ? "shadow-custom-dark" : ""}`}
+            className={`text-2xl block p-4 w-full border-b border-border ${!sidenavOpen ? "shadow-custom-dark" : ""}`}
           >
             Gamers Stop
           </Link>
         </div>
-        <ul className="flex flex-col p-2 md:p-4 bg-accent flex-grow">
+        <ul className="flex flex-col p-2 md:p-4 bg-background flex-grow border-r border-border">
           {navItems.map((navItem) => (
             <NavItem
               key={navItem.href}
@@ -168,7 +168,7 @@ const CommonSideNav = ({
         )}
         ref={sideNavRef}
       >
-        <div className="flex items-center justify-between w-full bg-white dark:bg-accent">
+        <div className="flex items-center justify-between w-full bg-background">
           <Link
             to="/dashboard"
             className={`text-2xl block p-4 w-full ${!sidenavOpen ? "shadow-custom-dark" : ""}`}
@@ -176,7 +176,7 @@ const CommonSideNav = ({
             Gamers Stop
           </Link>
         </div>
-        <ul className="flex flex-col p-2 bg-accent flex-grow">
+        <ul className="flex flex-col p-2 bg-background flex-grow">
           {navItems.map((navItem) => (
             <NavItem
               key={navItem.href}

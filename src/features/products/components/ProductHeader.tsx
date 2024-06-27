@@ -55,7 +55,6 @@ const ProductHeader = () => {
             placeholder="search"
             value={search}
             onChange={(e) => handleChange(e)}
-            className="bg-accent border-border"
           />
           <ItemViewSelect
             itemsView={itemsView}

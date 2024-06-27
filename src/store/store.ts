@@ -1,9 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartSlice from "../features/cart/cartSlice";
 import themeSlice from "../features/theme/themeSlice";
-import authSlice from "../features-app/auth/authSlice";
-import orderSlice from "../features-app/orders/orderSlice";
-import productSlice from "../features-app/products/productSlice";
 import uiActionsSlice from "@/redux/slice/uiActionsSlice";
 import addressSlice from "@/features/addresses/addressSlice";
 import usersSlice from "@/features/users/usersSlice";
@@ -17,9 +14,6 @@ export const store = configureStore({
     cart: cartSlice,
     theme: themeSlice,
     address: addressSlice,
-    auth: authSlice,
-    order: orderSlice,
-    product: productSlice,
     uiActions: uiActionsSlice,
     users: usersSlice,
     categories: categorySlice,

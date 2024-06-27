@@ -1,4 +1,3 @@
-import DeleteIcon from "@mui/icons-material/Delete";
 import { currencyFormatter } from "@/utils/currencyFormatter";
 import QuantityCounter from "./QuantityCounter";
 import { Link } from "react-router-dom";
@@ -6,6 +5,7 @@ import { CartItem } from "@/types/api";
 import { useAppDispatch } from "@/store/hooks";
 import { removeFromCart } from "../cartSlice";
 import Button from "@/components/ui/Button";
+import { DeleteOutlined } from "@ant-design/icons";
 
 type CartItemProps = {
   cartItem: CartItem;
@@ -40,7 +40,7 @@ function SingleCartItem({ cartItem }: CartItemProps) {
             onClick={() => dispatch(removeFromCart(cartItem))}
             btnType="ghost"
           >
-            <DeleteIcon />
+            <DeleteOutlined />
           </Button>
         </div>
       </div>

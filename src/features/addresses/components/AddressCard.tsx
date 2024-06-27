@@ -42,15 +42,13 @@ function AddressCard({ addressData }: AddressCardProps) {
       <div className="flex w-full py-3 border-t-2 border var(--clr-border) justify-around">
         <Button
           btnType="ghost"
-          className="w-full hover:text-primary"
           onClick={handleEdit}
         >
           Edit
         </Button>
-        <span>|</span>
+        <div className="border-r-4 border-border flex-shrink-0"/>
         <Button
           btnType="ghost"
-          className="w-full text-red-500"
           onClick={handleDelete}
         >
           Delete

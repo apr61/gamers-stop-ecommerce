@@ -1,9 +1,8 @@
 import "./carousel.css";
 import { carouselImages } from "../../data/imagesLoader";
 import { useEffect, useState } from "react";
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link } from "react-router-dom";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
 function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -39,10 +38,10 @@ function Carousel() {
       </Link>
       <div className="carousel__btn__container">
         <button className="carousel__btn" onClick={() => prevSlide()}>
-          <ChevronLeftIcon fontSize="large" />
+          <LeftOutlined />
         </button>
         <button className="carousel__btn" onClick={() => nextSlide()}>
-          <ChevronRightIcon fontSize="large" />
+          <RightOutlined />
         </button>
       </div>
     </div>

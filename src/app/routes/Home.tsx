@@ -2,7 +2,7 @@
 import Carousel from "@/components/carousel/Carousel";
 import CategoryCard from "@/components/categoryCard/CategoryCard";
 import Footer from "@/components/footer/Footer.tsx";
-import Navbar from "@/components/navbarApp/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 
 //data
 import { categoryData } from "@/data/imagesLoader";

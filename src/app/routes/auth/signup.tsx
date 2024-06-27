@@ -1,5 +1,5 @@
 import SignUpForm from "@/features/auth/components/SignupForm";
-import Navbar from "@/components/navbarApp/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 
 const SignUp = () => {
   return (

@@ -32,7 +32,7 @@ const Pagination = ({ currentPage, totalPages, setPage }: PaginationProps) => {
         onClick={handlePrev}
         disabled={isPrevBtnDisabled}
         btnType="ghost"
-        className={`p-3 rounded-md hover:bg-accent text-sm disabled:hover:bg-transparent`}
+        className={`p-3 rounded-md bg-muted text-sm disabled:bg-transparent`}
       >
         <LeftOutlined />
       </Button>
@@ -42,7 +42,7 @@ const Pagination = ({ currentPage, totalPages, setPage }: PaginationProps) => {
           onClick={() => handlePage(index + 1)}
           btnType="ghost"
           className={`px-4 py-2 rounded-md ${
-            index + 1 === currentPage ? "bg-accent text-primary" : ""
+            index + 1 === currentPage ? "bg-muted text-primary" : ""
           }`}
         >
           {index + 1}
@@ -52,7 +52,7 @@ const Pagination = ({ currentPage, totalPages, setPage }: PaginationProps) => {
         onClick={handleNext}
         disabled={isNextBtnDisabled}
         btnType="ghost"
-        className={`p-3 rounded-md hover:bg-accent text-sm disabled:hover:bg-transparent`}
+        className={`p-3 rounded-md hover:bg-muted text-sm disabled:hover:bg-transparent`}
       >
         <RightOutlined />
       </Button>

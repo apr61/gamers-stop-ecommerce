@@ -22,7 +22,6 @@ const UsersHeader = () => {
 						placeholder="search"
 						value={search}
 						onChange={(e) => handleChange(e)}
-						className="bg-accent border-border"
 					/>
 				</div>
 			</div>

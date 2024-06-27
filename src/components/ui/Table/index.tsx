@@ -32,7 +32,7 @@ const Table = <T,>({ columns, data }: TableProps<T>) => {
   ) : (
     data.map((record, rowIndex) => (
       <tr
-        className="w-full border-b-[1px] border-b-border hover:bg-accent transition-all ease-in-out duration-150"
+        className="w-full border-b-[1px] border-b-border hover:bg-muted/50 transition-all ease-in-out duration-150"
         key={rowIndex}
       >
         {columns.map((column, colIndex) => (
@@ -48,9 +48,9 @@ const Table = <T,>({ columns, data }: TableProps<T>) => {
     ))
   );
   return (
-    <div className="overflow-x-auto bg-accent rounded-md">
+    <div className="overflow-x-auto bg-background rounded-md">
       <table className="w-full rounded-md border-collapse table-auto">
-        <thead className="text-black bg-accent text-foreground border-b-[1px] border-b-border">
+        <thead className="text-black bg-muted/50 text-muted-foreground border-b-[1px] border-b-border">
           {TableHeader}
         </thead>
         <tbody>{TableBody}</tbody>
