@@ -1,5 +1,5 @@
-import Sidenav from "@/components/Sidenav";
-import Navbar from "@/components/navbar/Navbar";
+import { AdminSideNav } from "@/components/Sidenav";
+import { AdminNavbar } from "@/components/navbar/Navbar";
 import LoadingProgress from "../LoadingProgress";
 
 type AdminLayoutProps = {
@@ -8,11 +8,11 @@ type AdminLayoutProps = {
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   return (
-    <div className="flex min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen">
       <LoadingProgress />
-      <Sidenav />
-      <div className="w-full flex flex-col relative h-full">
-        <Navbar />
+      <AdminNavbar />
+      <div className="w-full flex relative h-full">
+        <AdminSideNav />
         <main className="max-w-4xl xl:max-w-5xl 2xl:max-w-7xl mx-auto w-full px-4">
           <div className="w-full my-8">{children}</div>
         </main>

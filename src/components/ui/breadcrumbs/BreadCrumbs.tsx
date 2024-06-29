@@ -34,6 +34,10 @@ function BreadCrumbs() {
     </Link>
   );
 
+  if(crumbsUpdated.length === 0){
+    return
+  }
+
   const crumbs = [homeCrumb, ...crumbsUpdated];
   return <nav className="m-4 flex gap-2 items-center flex-wrap">{crumbs}</nav>;
 }

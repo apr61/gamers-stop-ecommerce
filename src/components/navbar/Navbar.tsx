@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getTheme, toggleTheme } from "../../features/theme/themeSlice";
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useOnOutsideClick } from "@/hooks/useOnClickOutside";
 import BlankUserProfile from "@/assets/blank-profile-picture.webp";
@@ -22,12 +22,32 @@ import {
 } from "@ant-design/icons";
 import { getTotalItems } from "@/features/cart/cartSlice";
 import ProductSearch from "@/features/products/components/ProductSearch";
-import { MainSideNav } from "../Sidenav";
-import { useDisclosure } from "@/hooks/useDisclosure";
+import Logo from "../Logo/logo";
+import { setSideNav, setUserSideNav } from "@/redux/slice/uiActionsSlice";
 
-function Navbar() {
+type CommonNavbarProps = PropsWithChildren & {
+  handleSideNavOpen: () => void;
+};
+
+const CommonNavbar = ({ children, handleSideNavOpen }: CommonNavbarProps) => {
+  return (
+    <nav className="flex p-2 items-center w-full border-b border-border h-[4rem] sticky top-0 bg-background/50 backdrop-blur-md z-50">
+      <Button
+        btnType="ghost"
+        className="block lg:hidden text-center mr-2"
+        onClick={handleSideNavOpen}
+      >
+        <MenuOutlined className="text-xl" />
+      </Button>
+      <Logo className="hidden lg:block" />
+      <ProductSearch />
+      {children}
+    </nav>
+  );
+};
+
+export function UserNavbar() {
   const dispatch = useAppDispatch();
-  const { isOpen, close, open } = useDisclosure();
   const { user } = useAuth();
   const totalItems = useAppSelector(getTotalItems);
   const theme = useAppSelector(getTheme);
@@ -37,20 +57,12 @@ function Navbar() {
     dispatch(toggleTheme(selectedTheme));
   };
 
+  const handleSideNavOpen = () => {
+    dispatch(setUserSideNav(true));
+  };
+
   return (
-    <nav className="flex p-2 items-center w-full border-b border-border h-[4rem] sticky top-0 bg-background">
-      <MainSideNav isOpen={isOpen} close={close} />
-      <Button
-        btnType="ghost"
-        className="block lg:hidden text-center mr-2"
-        onClick={open}
-      >
-        <MenuOutlined className="text-xl" />
-      </Button>
-      <Link to="/" className={`text-2xl hidden lg:block`}>
-        Gamers Stop
-      </Link>
-      <ProductSearch />
+    <CommonNavbar handleSideNavOpen={handleSideNavOpen}>
       <ul className="hidden lg:flex items-center gap-4 lg:gap-[2rem]">
         <li>
           <Link to="/store" className="flex items-center gap-2">
@@ -82,11 +94,46 @@ function Navbar() {
           <ShoppingCartOutlined className="text-lg sm:text-xl" />
         </Link>
       </div>
-    </nav>
+    </CommonNavbar>
   );
 }
 
-export default Navbar;
+export function AdminNavbar() {
+  const dispatch = useAppDispatch();
+  const { user } = useAuth();
+  const theme = useAppSelector(getTheme);
+
+  const handleTheme = () => {
+    const selectedTheme = theme === "dark" ? "light" : "dark";
+    dispatch(toggleTheme(selectedTheme));
+  };
+
+  const handleSideNavOpen = () => {
+    dispatch(setSideNav(true));
+  };
+
+  return (
+    <CommonNavbar handleSideNavOpen={handleSideNavOpen}>
+      <ul className="flex items-center gap-2 lg:gap-4 ml-2">
+        {user ? (
+          <UserProfile />
+        ) : (
+          <Link className="flex items-center gap-2" to={"/auth/login"}>
+            <LoginOutlined className="text-xl" />
+            Login
+          </Link>
+        )}
+        <Button type="button" btnType="ghost" onClick={handleTheme}>
+          {theme === "dark" ? (
+            <SunOutlined className="text-lg sm:text-xl" />
+          ) : (
+            <MoonOutlined className="text-lg sm:text-xl" />
+          )}
+        </Button>
+      </ul>
+    </CommonNavbar>
+  );
+}
 
 const UserProfile = () => {
   const { user } = useAuth();

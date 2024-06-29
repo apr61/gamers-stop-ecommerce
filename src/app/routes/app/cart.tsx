@@ -19,33 +19,28 @@ function Cart() {
   document.title = "Cart | Gamers Stop";
 
   return (
-    <>
-      <Navbar />
-      <BreadCrumbs />
-      <main className="min-h-[60vh] max-w-6xl mx-auto my-8 w-full px-2 md:px-4">
-        {cart.length > 0 ? (
-          <>
-            <h2 className="text-2xl font-semibold mb-8 text-center">
-              My Cart ({totalItems})
-            </h2>
-            <div className="flex flex-col lg:flex-row gap-4 w-full">
-              <ul className="flex-[4] flex flex-col gap-4">
-                {cart.map((cartItem) => (
-                  <SingleCartItem cartItem={cartItem} key={cartItem.id} />
-                ))}
-              </ul>
-              <CartSummary />
-            </div>
-          </>
-        ) : (
-          <div className="max-w-2xl w-full mx-auto flex flex-col gap-4 border border-border justify-center items-center min-h-[25rem] rounded-md">
-            <h3 className="text-xl font-medium">Your cart is empty</h3>
-            <Button onClick={() => navigate("/store")}>Shop now</Button>
+    <div className="min-h-[60vh] max-w-6xl mx-auto my-8 w-full px-2 md:px-4">
+      {cart.length > 0 ? (
+        <>
+          <h2 className="text-2xl font-semibold mb-8 text-center">
+            My Cart ({totalItems})
+          </h2>
+          <div className="flex flex-col lg:flex-row gap-4 w-full">
+            <ul className="flex-[4] flex flex-col gap-4">
+              {cart.map((cartItem) => (
+                <SingleCartItem cartItem={cartItem} key={cartItem.id} />
+              ))}
+            </ul>
+            <CartSummary />
           </div>
-        )}
-      </main>
-      <Footer />
-    </>
+        </>
+      ) : (
+        <div className="max-w-2xl w-full mx-auto flex flex-col gap-4 border border-border justify-center items-center min-h-[25rem] rounded-md">
+          <h3 className="text-xl font-medium">Your cart is empty</h3>
+          <Button onClick={() => navigate("/store")}>Shop now</Button>
+        </div>
+      )}
+    </div>
   );
 }
 

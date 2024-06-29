@@ -54,23 +54,19 @@ body {
 /* Page loader styles */
 
 .loader-dot:nth-child(1) {
-  animation: move 1s cubic-bezier(0.755, 0.05, 0.855, 0.06) alternate-reverse
-    infinite;
+  animation: move 1s cubic-bezier(0.755, 0.05, 0.855, 0.06) alternate-reverse infinite;
 }
 
 .loader-dot:nth-child(2) {
-  animation: move2 1s cubic-bezier(0.755, 0.05, 0.855, 0.06) alternate-reverse
-    infinite;
+  animation: move2 1s cubic-bezier(0.755, 0.05, 0.855, 0.06) alternate-reverse infinite;
 }
 
 .loader-dot:nth-child(3) {
-  animation: move3 1s cubic-bezier(0.755, 0.05, 0.855, 0.06) alternate-reverse
-    infinite;
+  animation: move3 1s cubic-bezier(0.755, 0.05, 0.855, 0.06) alternate-reverse infinite;
 }
 
 .loader-dot:nth-child(4) {
-  animation: move4 1s cubic-bezier(0.755, 0.05, 0.855, 0.06) alternate-reverse
-    infinite;
+  animation: move4 1s cubic-bezier(0.755, 0.05, 0.855, 0.06) alternate-reverse infinite;
 }
 
 @keyframes move {
@@ -134,32 +130,12 @@ img {
   height: 100%;
 }
 
-a {
-  text-decoration: none;
-  color: var(--clr-link);
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-}
-
 .main {
   width: 100%;
   margin: 0.5rem 0;
   margin-inline: auto;
   padding: 0 0.5rem;
   flex-grow: 1;
-}
-
-label {
-  cursor: pointer;
-}
-
-.form-errors {
-  color: var(--clr-danger);
-  font-size: 0.85rem;
 }
 
 @media (max-width: 50rem) {
@@ -205,6 +181,30 @@ label {
 
   .home__section {
     margin: 2rem 0;
+  }
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-areas: "navbar navbar"
+    "sidenav main";
+}
+
+.navbar {
+  grid-area: navbar;
+}
+
+.admin-main {
+  grid-area: main;
+}
+
+.admin-sidenav {
+  grid-area: sidenav;
+}
+
+@media (max-width: 1024px) {
+  .admin-layout {
+    display: block;
   }
 }
 

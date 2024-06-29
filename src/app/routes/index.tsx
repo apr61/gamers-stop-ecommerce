@@ -126,12 +126,12 @@ const adminRoutes: RouteObject[] = [
 
 const appRoutes: RouteObject[] = [
   {
-    path: "/",
-    element: <Home />,
-  },
-  {
     element: <MainLayout />,
     children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
       {
         path: "/store",
         element: <Store />,
@@ -142,6 +142,10 @@ const appRoutes: RouteObject[] = [
           const { SingleProduct } = await import("./app/store/SingleProduct");
           return { Component: SingleProduct };
         },
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
       {
         path: "/account",
@@ -187,10 +191,7 @@ const appRoutes: RouteObject[] = [
       },
     ],
   },
-  {
-    path: "/cart",
-    element: <Cart />,
-  },
+
   {
     path: "/checkout",
     element: (

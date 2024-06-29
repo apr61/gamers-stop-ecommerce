@@ -1,14 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../footer/Footer";
-import Navbar from "../navbar/Navbar";
+import { UserNavbar } from "../navbar/Navbar";
 import BreadCrumbs from "../ui/breadcrumbs/BreadCrumbs";
+import { MainSideNav } from "../Sidenav";
 
 function MainLayout() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
+    <div className="min-h-screen flex flex-col relative">
+      <UserNavbar />
       <BreadCrumbs />
-      <main className="flex-grow">
+      <MainSideNav />
+      <main className="flex-grow my-2">
         <Outlet />
       </main>
       <Footer />

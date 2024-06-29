@@ -5,12 +5,14 @@ type uiActions = {
   drawer: boolean;
   deleteModal: boolean;
   sideNavOpen: boolean;
+  userSideNav: boolean;
 };
 
 const initialState: uiActions = {
   drawer: false,
   deleteModal: false,
   sideNavOpen: true,
+  userSideNav: false,
 };
 
 const uiActions = createSlice({
@@ -35,6 +37,9 @@ const uiActions = createSlice({
     resetUiState: (state) => {
       (state.drawer = false), (state.deleteModal = false);
     },
+    setUserSideNav: (state, action) => {
+      state.userSideNav = action.payload;
+    },
   },
 });
 
@@ -42,6 +47,8 @@ export const selectDrawer = (state: RootState) => state.uiActions.drawer;
 export const selectSideNav = (state: RootState) => state.uiActions.sideNavOpen;
 export const selectDeleteModal = (state: RootState) =>
   state.uiActions.deleteModal;
+export const selectUserSideNav = (state: RootState) =>
+  state.uiActions.userSideNav;
 
 export const {
   openDrawer,
@@ -50,6 +57,7 @@ export const {
   openDeleteModal,
   resetUiState,
   setSideNav,
+  setUserSideNav,
 } = uiActions.actions;
 
 export default uiActions.reducer;

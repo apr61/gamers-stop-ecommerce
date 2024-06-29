@@ -1,5 +1,6 @@
 import {
   BookOutlined,
+  CloseOutlined,
   ClusterOutlined,
   DashboardOutlined,
   EnvironmentOutlined,
@@ -10,108 +11,25 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { ReactElement, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { selectSideNav, setSideNav } from "../../redux/slice/uiActionsSlice";
+import {
+  selectSideNav,
+  selectUserSideNav,
+  setSideNav,
+  setUserSideNav,
+} from "../../redux/slice/uiActionsSlice";
 import { useOnOutsideClick } from "../../hooks/useOnClickOutside";
 import useWindowSize from "../../hooks/useWindowSize";
 import { cn } from "@/utils/cn";
+import Logo from "../Logo/logo";
+import Button from "../ui/Button";
 
 export type NavItem = {
   href: string;
   text: string;
   Icon?: ReactElement;
 };
-
-const Sidenav = () => {
-  const dispatch = useAppDispatch();
-  const navItems: NavItem[] = [
-    {
-      href: "",
-      text: "Dashboard",
-      Icon: <DashboardOutlined />,
-    },
-    {
-      href: "./users",
-      text: "Users",
-      Icon: <UserOutlined />,
-    },
-    {
-      href: "./products",
-      text: "Products",
-      Icon: <ProductOutlined />,
-    },
-    {
-      href: "./categories",
-      text: "Categories",
-      Icon: <ClusterOutlined />,
-    },
-    {
-      href: "./orders",
-      text: "Orders",
-      Icon: <BookOutlined />,
-    },
-    {
-      href: "./brands",
-      text: "Brands",
-      Icon: <TrademarkOutlined />,
-    },
-  ];
-  const sidenavOpen = useAppSelector(selectSideNav);
-
-  const windowSize = useWindowSize();
-  const sideNavMobile = windowSize.width > 0 && windowSize.width < 1024;
-  const handleClickOutside = () => {
-    if (sideNavMobile) {
-      dispatch(setSideNav(false));
-    }
-  };
-
-  useEffect(() => {
-    if (windowSize.width >= 1024) {
-      dispatch(setSideNav(true));
-    }
-  }, [windowSize]);
-
-  const sideNavRef = useOnOutsideClick(handleClickOutside);
-  return (
-    <div
-      className={
-        sideNavMobile && sidenavOpen
-          ? `fixed top-0 bottom-0 left-0 right-0 opacity-100 bg-pop-over z-50`
-          : ""
-      }
-    >
-      <aside
-        className={`min-h-screen flex flex-col w-[16rem] top-0 bottom-0 fixed z-50 lg:sticky overflow-y-auto transition-all ${
-          !sidenavOpen ? "-ml-[18rem] " : ""
-        }`}
-        ref={sideNavRef}
-      >
-        <div className="flex items-center justify-between w-full bg-background">
-          <Link
-            to="/dashboard"
-            className={`text-2xl block p-4 w-full border-b border-border ${!sidenavOpen ? "shadow-custom-dark" : ""}`}
-          >
-            Gamers Stop
-          </Link>
-        </div>
-        <ul className="flex flex-col p-2 md:p-4 bg-background flex-grow border-r border-border">
-          {navItems.map((navItem) => (
-            <NavItem
-              key={navItem.href}
-              href={navItem.href}
-              text={navItem.text}
-              Icon={navItem.Icon}
-            />
-          ))}
-        </ul>
-      </aside>
-    </div>
-  );
-};
-
-export default Sidenav;
 
 type NavItemProps = NavItem;
 
@@ -153,30 +71,31 @@ const CommonSideNav = ({
   const sideNavMobile = windowSize.width > 0 && windowSize.width < 1024;
 
   const sideNavRef = useOnOutsideClick(handleClickOutside);
+
   return (
     <div
       className={cn(
-        `${sideNavMobile && sidenavOpen ? "fixed top-0 bottom-0 left-0 right-0 opacity-100 bg-pop-over z-50" : ""}`,
+        `${sideNavMobile && sidenavOpen ? "fixed top-0 bottom-0 left-0 right-0 bg-pop-over z-50" : ""}`,
       )}
     >
       <aside
         className={cn(
-          `min-h-screen flex flex-col w-[16rem] top-0 bottom-0 fixed z-50 lg:sticky overflow-y-auto transition-all ${
+          `min-h-[calc(100vh-4rem)] flex flex-col w-[16rem] top-0 bottom-0 fixed z-50 bg-background border-r border-border lg:sticky overflow-y-auto transition-all ${
             !sidenavOpen ? "-ml-[100%]" : ""
           }`,
           className,
         )}
         ref={sideNavRef}
       >
-        <div className="flex items-center justify-between w-full bg-background">
-          <Link
-            to="/dashboard"
-            className={`text-2xl block p-4 w-full ${!sidenavOpen ? "shadow-custom-dark" : ""}`}
-          >
-            Gamers Stop
-          </Link>
+        <div
+          className={`${sidenavOpen ? "lg:hidden flex items-center justify-between w-full p-4 bg-muted" : "hidden"}`}
+        >
+          <Logo to="/" className="w-full" />
+          <Button btnType="ghost" onClick={handleClickOutside}>
+            <CloseOutlined />
+          </Button>
         </div>
-        <ul className="flex flex-col p-2 bg-background flex-grow">
+        <ul className="flex flex-col p-2 flex-grow">
           {navItems.map((navItem) => (
             <NavItem
               key={navItem.href}
@@ -191,12 +110,9 @@ const CommonSideNav = ({
   );
 };
 
-type MainSideNavProps = {
-  isOpen: boolean;
-  close: () => void;
-};
-
-export const MainSideNav = ({ isOpen, close }: MainSideNavProps) => {
+export const MainSideNav = () => {
+  const dispatch = useAppDispatch();
+  const sideNavOpen = useAppSelector(selectUserSideNav);
   const navItems: NavItem[] = [
     {
       href: "/store",
@@ -220,12 +136,76 @@ export const MainSideNav = ({ isOpen, close }: MainSideNavProps) => {
     },
   ];
 
+  const handleClickOutside = () => {
+    dispatch(setUserSideNav(false));
+  };
+
   return (
     <CommonSideNav
       navItems={navItems}
-      sidenavOpen={isOpen}
-      handleClickOutside={close}
+      sidenavOpen={sideNavOpen}
+      handleClickOutside={handleClickOutside}
       className="lg:hidden"
+    />
+  );
+};
+
+export const AdminSideNav = () => {
+  const dispatch = useAppDispatch();
+  const navItems: NavItem[] = [
+    {
+      href: "",
+      text: "Dashboard",
+      Icon: <DashboardOutlined />,
+    },
+    {
+      href: "./users",
+      text: "Users",
+      Icon: <UserOutlined />,
+    },
+    {
+      href: "./products",
+      text: "Products",
+      Icon: <ProductOutlined />,
+    },
+    {
+      href: "./categories",
+      text: "Categories",
+      Icon: <ClusterOutlined />,
+    },
+    {
+      href: "./orders",
+      text: "Orders",
+      Icon: <BookOutlined />,
+    },
+    {
+      href: "./brands",
+      text: "Brands",
+      Icon: <TrademarkOutlined />,
+    },
+  ];
+  const sideNavOpen = useAppSelector(selectSideNav);
+
+  const windowSize = useWindowSize();
+  const sideNavMobile = windowSize.width > 0 && windowSize.width < 1024;
+
+  const handleClickOutside = () => {
+    if (sideNavMobile) {
+      dispatch(setSideNav(false));
+    }
+  };
+
+  useEffect(() => {
+    if (windowSize.width >= 1024) {
+      dispatch(setSideNav(true));
+    }
+  }, [windowSize]);
+
+  return (
+    <CommonSideNav
+      navItems={navItems}
+      sidenavOpen={sideNavOpen}
+      handleClickOutside={handleClickOutside}
     />
   );
 };

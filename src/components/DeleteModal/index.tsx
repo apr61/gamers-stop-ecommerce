@@ -25,7 +25,7 @@ function DeleteModal({
       handleClose={handleCancel}
       ref={modalRef}
       title="Delete Confirmation"
-      className="bg-accent"
+      className="bg-background"
     >
       <div className="flex w-full gap-2 flex-col">
         <p className="text-lg">Are you sure to delete the record?</p>
