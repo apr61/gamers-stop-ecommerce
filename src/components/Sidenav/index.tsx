@@ -68,7 +68,7 @@ const CommonSideNav = ({
   className,
 }: CommonSideNavProps) => {
   const windowSize = useWindowSize();
-  const sideNavMobile = windowSize.width > 0 && windowSize.width < 1024;
+  const sideNavMobile = (windowSize.width > 0 && windowSize.width < 1024)
 
   const sideNavRef = useOnOutsideClick(handleClickOutside);
 

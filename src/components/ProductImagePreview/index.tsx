@@ -28,7 +28,7 @@ const ProductPreviewImage = ({ images, name }: ProductPreviewImageProps) => {
 				{images.map((img, ind) => (
 					<div
 						key={`${img}-${ind}`}
-						className={`w-24 h-24 border rounded-md overflow-hidden cursor-pointer hover:brightness-[85%] transition-all ${image === ind ? "brightness-[85%]" : ""}`}
+						className={`w-24 h-24 border border-border rounded-md overflow-hidden cursor-pointer hover:brightness-[85%] transition-all ${image === ind ? "brightness-[85%]" : ""}`}
 					>
 						<img
 							key={img + ind}

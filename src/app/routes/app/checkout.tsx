@@ -6,7 +6,7 @@ import {
   Dispatch,
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { currencyFormatter } from "@/utils/utils";
+import { currencyFormatter } from "@/utils/currencyFormatter";
 import { OrderData, RazorpayPaymentResponse } from "@/types/api";
 import { Address } from "@/types/api";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -23,6 +23,7 @@ import Button from "@/components/ui/Button";
 import { useAuth } from "@/hooks/useAuth";
 import PageLoader from "@/components/PageLoader";
 import { PlusOutlined } from "@ant-design/icons";
+import { loadRazorPay } from "@/config/razorPay";
 
 type CheckoutState = {
   checkoutAddress: Address | null;
@@ -80,33 +81,44 @@ function CheckOutPage() {
     // TODO:: Implement order placing
   };
 
-  const RazorpayOptions = {
-    key: import.meta.env.VITE_APP_RAZORPAY_KEY_ID,
-    amount: Math.floor(grandTotal) * 100,
-    currency: "INR",
-    name: "Gamers Stop",
-    description: "Thank you for shopping with us.",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/gamers-stop-ecom-dev.appspot.com/o/favicon.ico?alt=media&token=26721467-df11-408f-bb40-31670d555e36",
-    handler: (response: RazorpayPaymentResponse) =>
-      handlePaymentSuccess(response),
-    prefill: {
-      name: user?.user_metadata.full_name,
-      email: user?.email,
-      contact: checkoutAddress?.phoneNumber,
-    },
-    notes: {
-      address: checkoutAddress,
-    },
-    theme: {
-      color: "#3399cc",
-    },
-  };
+  const displayRazorPay = async () => {
+    const res = await loadRazorPay()
+    if(!res) {
+      console.log("Razor can't be opened")
+      return
+    }
+
+    const RazorpayOptions = {
+      key: import.meta.env.VITE_APP_RAZORPAY_KEY_ID,
+      amount: Math.floor(grandTotal) * 100,
+      currency: "INR",
+      name: "Gamers Stop",
+      description: "Thank you for shopping with us.",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/gamers-stop-ecom-dev.appspot.com/o/favicon.ico?alt=media&token=26721467-df11-408f-bb40-31670d555e36",
+      handler: () => {},
+      prefill: {
+        name: user?.user_metadata.full_name,
+        email: user?.email,
+        contact: checkoutAddress?.phoneNumber,
+      },
+      notes: {
+        address: checkoutAddress,
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    const _window = window as any
+
+    const paymentObject = new _window.Razorpay(RazorpayOptions)
+    paymentObject.open()
+  }
 
   const handlePlaceOrder = () => {
     if (checkoutAddress) {
-      const razorpayInstance = new (window as any).Razorpay(RazorpayOptions);
-      razorpayInstance.open();
+      displayRazorPay()
     }
   };
 

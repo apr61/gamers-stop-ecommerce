@@ -4,22 +4,20 @@ import { searchProductsFn, selectProductsSearch } from "../productSlice";
 import { ChangeEvent, useEffect, useMemo } from "react";
 import PageLoader from "@/components/PageLoader";
 import {
-  Product,
   ProductFilterType,
   ProductSortType,
   ProductStock,
 } from "@/types/api";
-import { currencyFormatter } from "@/utils/currencyFormatter";
 import Button from "@/components/ui/Button";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Filter from "./Filter";
 import Select from "@/components/ui/Select";
 import Pagination from "@/components/ui/Pagination";
 import { selectBrands } from "@/features/brands/brandsSlice";
 import { selectCategories } from "@/features/categories/categorySlice";
-import { increment } from "@/features/cart/cartSlice";
 import { FilterOutlined } from "@ant-design/icons";
 import { useDisclosure } from "@/hooks/useDisclosure";
+import ProductCard from "./ProductCard";
 
 const StoreProducts = () => {
   const { isOpen, close, open } = useDisclosure();
@@ -119,7 +117,6 @@ const ProductPagination = () => {
       return prev;
     });
   };
-  console.log(totalPages);
   return (
     <div className="flex justify-between mt-10">
       <p>
@@ -131,48 +128,6 @@ const ProductPagination = () => {
         setPage={setPage}
       />
     </div>
-  );
-};
-
-type ProductCardProps = {
-  product: Product;
-};
-
-const ProductCard = ({ product }: ProductCardProps) => {
-  const dispatch = useAppDispatch();
-  return (
-    <article className="w-full p-2 border border-border shadow-md rounded-md">
-      <div className="h-[15rem] rounded-md overflow-hidden">
-        <img
-          src={product.images[0]}
-          alt={product.name}
-          loading="lazy"
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <div className="mt-2 flex flex-col gap-1">
-        <Link to={`./${product.slug_url}`} className="text-xl font-bold">
-          {product.name}
-        </Link>
-        <div className="grid grid-cols-2">
-          <p className="text-lg font-semibold">
-            {currencyFormatter(product.price)}
-          </p>
-          {product.quantity > 0 ? (
-            <Button
-              className="w-full"
-              onClick={() => dispatch(increment({ ...product, qty: 1 }))}
-            >
-              Add to cart
-            </Button>
-          ) : (
-            <Button className="w-full" disabled={true}>
-              Out of stock
-            </Button>
-          )}
-        </div>
-      </div>
-    </article>
   );
 };
 

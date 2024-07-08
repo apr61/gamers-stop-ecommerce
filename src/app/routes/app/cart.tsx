@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import SingleCartItem from "@/features/cart/components/SingleCartItem";
-import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/navbar/Navbar";
-import BreadCrumbs from "@/components/ui/breadcrumbs/BreadCrumbs";
 import { currencyFormatter } from "@/utils/utils";
 import { useAppSelector } from "@/store/hooks";
 import {
@@ -54,7 +51,7 @@ const CartSummary = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex-[1.5] border border-border p-4 rounded-lg md:max-w-sm w-full md:self-end">
+    <div className="flex-[1.5] border border-border p-4 rounded-lg md:max-w-sm w-full md:self-start">
       <h3 className="text-xl font-medium mb-8 text-center border-b border-border pb-2">
         Summary
       </h3>

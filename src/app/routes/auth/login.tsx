@@ -1,10 +1,10 @@
+import { UserNavbar } from "@/components/navbar/Navbar";
 import LoginForm from "@/features/auth/components/LoginForm";
-import Navbar from "@/components/navbar/Navbar";
 
 const Login = () => {
 	return (
 		<>
-			<Navbar />
+			<UserNavbar />
 			<main className="max-w-md mx-auto w-full min-h-screen flex flex-col items-center justify-center">
 				<LoginForm />
 			</main>
